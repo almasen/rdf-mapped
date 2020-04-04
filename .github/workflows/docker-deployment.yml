@@ -1,0 +1,45 @@
+name: Docker Deployment
+# Trigger on push or pull request
+on:
+  push: # run whenever something is merged into dev
+    branches:
+      - dev
+    paths:
+      - "server/**"
+      - "web/**"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish server image
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: teamteamkarma/server
+          tags: "latest"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          dockerfile: resources/docker/Dockerfile.server
+          context: server
+          snapshot: true
+      - name: Publish web image
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: teamteamkarma/web
+          tags: "latest"
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          dockerfile: resources/docker/Dockerfile.web
+          context: web
+          snapshot: true
+      - name: Deploy published images
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            docker-compose pull
+            docker-compose up -d

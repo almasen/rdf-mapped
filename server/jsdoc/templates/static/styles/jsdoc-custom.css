@@ -1,0 +1,36 @@
+.type-signature {
+    display: none;
+}
+
+.signature {
+    display: none;
+}
+
+.param-desc + dl {
+    display: none;
+}
+
+h3.subsection-title + h4.name {
+    margin-top: 75px;
+}
+
+h4.name {
+    margin-top: 150px;
+    font-size: 28px;
+}
+
+pre {
+    font-family: monospace;
+}
+
+.highlight {
+    color: crimson;
+}
+
+article {
+    margin-bottom: 50px;
+}
+
+p.introduction {
+    margin: 0 50px 0 20px;
+}
