@@ -13,7 +13,7 @@ const findAllByCourseId = (courseId) => {
 };
 
 const findAllByPhaseId = (phaseId) => {
-    const query = "SELECT * FROM course_phase WHERE phaseId=$1";
+    const query = "SELECT * FROM course_phase WHERE phase_id=$1";
     return db.query(query, [phaseId]);
 };
 

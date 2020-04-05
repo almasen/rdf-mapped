@@ -1,4 +1,4 @@
-const db = require("../../database");
+const db = require("../../database/connection");
 
 const insert = (phase) => {
     const query = "INSERT INTO phase(title) VALUES ($1) " +

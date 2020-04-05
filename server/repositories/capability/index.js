@@ -1,4 +1,4 @@
-const db = require("../../database");
+const db = require("../../database/connection");
 
 const insert = (capability) => {
     const query = "INSERT INTO capability(title) VALUES ($1) " +
