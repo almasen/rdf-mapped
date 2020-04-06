@@ -12,7 +12,7 @@ log4js.configure({
         },
         logFile: {
             type: 'file',
-            filename: 'log/karma.log',
+            filename: 'log/rdfmapped.log',
         },
     },
     categories: {
@@ -35,10 +35,6 @@ switch (process.env.NODE_ENV) {
 
 if (process.env.CI) {
     log.level = "off";
-}
-
-if (process.env.LOG_INFO == true) {
-    log.level = "info";
 }
 
 log.info("Logging at level: %s", log.level);

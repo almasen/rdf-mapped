@@ -13,7 +13,8 @@
     "docs": "jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes",
     "dev-start": "nodemon ./server",
     "prod-start": "env NODE_ENV=production nodemon ./server",
-    "check-all": "db-migrate reset; db-migrate up; npm i; jest -i; jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes; eslint ./ --fix"
+    "check-all": "db-migrate reset; db-migrate up; npm i; jest -i --detectOpenHandles; jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes; eslint ./ --fix",
+    "del-logs": "del-cli ./log/rdfmapped.log"
   },
   "author": "",
   "license": "ISC",
@@ -47,6 +48,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "del-cli": "^3.0.0",
     "eslint": "^6.8.0",
     "eslint-config-google": "^0.14.0",
     "jest": "^25.1.0",

@@ -24,9 +24,19 @@ const removeById = (id) => {
     return db.query(query, [id]);
 };
 
+const findByFilters = (filters) => {
+    const query = "SELECT * FROM course WHERE " +
+        "($1 = -1 OR capability_id = $1) AND " +
+        "($2 = -1 OR category_id = $2) AND " +
+        "($3 = -1 OR competency_id = $3)";
+    const params = [filters.capabilityId, filters.categoryId, filters.competencyId];
+    return db.query(query, params);
+};
+
 module.exports = {
     insert,
     findById,
     update,
     removeById,
+    findByFilters,
 };
