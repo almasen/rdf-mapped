@@ -40,7 +40,7 @@
     "passport-linkedin-oauth2": "^2.0.0",
     "passport-local": "^1.0.0",
     "passport-oauth2": "^1.5.0",
-    "pg": "^7.18.1",
+    "pg": "^8.0.2",
     "pg-camelcase": "0.0.3",
     "pg-types": "^3.0.0",
     "request": "^2.88.2"

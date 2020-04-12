@@ -20,8 +20,18 @@ const capability2 = {
     title: "Domain B: Personal effectiveness",
 };
 
+const capability3 = {
+    title: "Domain C",
+};
+
+const capability4 = {
+    title: "Domain D",
+};
+
 const getCapability1 = () => ({...capability1});
 const getCapability2 = () => ({...capability2});
+const getCapability3 = () => ({...capability3});
+const getCapability4 = () => ({...capability4});
 
 const category1 = {
     title: "A1 Knowledge base",
@@ -58,6 +68,24 @@ const phase2 = {
 };
 
 const getPhase2 = () => ({...phase2});
+
+const phase3 = {
+    title: "Phase 3",
+};
+
+const getPhase3 = () => ({...phase3});
+
+const phase4 = {
+    title: "Phase 4",
+};
+
+const getPhase4 = () => ({...phase4});
+
+const phase5 = {
+    title: "Phase 5",
+};
+
+const getPhase5 = () => ({...phase5});
 
 const course1 = {
     title: "Researcher Development and Doctoral Skills Development",
@@ -107,12 +135,18 @@ module.exports = {
     clearDatabase,
     getCapability1,
     getCapability2,
+    getCapability3,
+    getCapability4,
     getCategory1,
     getCategory2,
     getCompetency1,
     getCompetency2,
     getPhase1,
     getPhase2,
+    getPhase2,
+    getPhase3,
+    getPhase4,
+    getPhase5,
     getCourse1,
     getCourse2,
     getVideo1,
