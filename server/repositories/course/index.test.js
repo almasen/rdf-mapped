@@ -162,6 +162,57 @@ test('inserting and finding with optional filters works (includes phases)', asyn
     expect(findByFiltersResult4.rows.length).toBe(0);
 });
 
+test('inserting and searching by keywords works)', async () => {
+    const capInsertResult = await capabilityRepo.insert(capability1);
+    const catInsertResult = await categoryRepo.insert(category1);
+    const compInsertResult = await competencyRepo.insert(competency1);
+    const capInsertResult2 = await capabilityRepo.insert(capability2);
+    const catInsertResult2 = await categoryRepo.insert(category2);
+    const compInsertResult2 = await competencyRepo.insert(competency2);
+    const capInsertRecord = await capInsertResult.rows[0];
+    const catInsertRecord = await catInsertResult.rows[0];
+    const compInsertRecord = await compInsertResult.rows[0];
+    const capInsertRecord2 = await capInsertResult2.rows[0];
+    const catInsertRecord2 = await catInsertResult2.rows[0];
+    const compInsertRecord2 = await compInsertResult2.rows[0];
+
+    course1.capabilityId = capInsertRecord.id;
+    course1.categoryId = catInsertRecord.id;
+    course1.competencyId = compInsertRecord.id;
+    course2.capabilityId = capInsertRecord2.id;
+    course2.categoryId = catInsertRecord2.id;
+    course2.competencyId = compInsertRecord2.id;
+
+    const insertResult = await courseRepo.insert(course1);
+    const insertRecord = insertResult.rows[0];
+
+    const insertResult2 = await courseRepo.insert(course2);
+    const insertRecord2 = insertResult2.rows[0];
+
+    expect(insertRecord.title).toStrictEqual(course1.title);
+    expect(insertRecord.capabilityId).toStrictEqual(capInsertRecord.id);
+    expect(insertRecord.categoryId).toStrictEqual(catInsertRecord.id);
+    expect(insertRecord.competencyId).toStrictEqual(compInsertRecord.id);
+    expect(insertRecord2.title).toStrictEqual(course2.title);
+    expect(insertRecord2.capabilityId).toStrictEqual(capInsertRecord2.id);
+    expect(insertRecord2.categoryId).toStrictEqual(catInsertRecord2.id);
+    expect(insertRecord2.competencyId).toStrictEqual(compInsertRecord2.id);
+
+    const searchResult = await courseRepo.searchByKeyword("");
+    expect(searchResult.rows.length).toBe(2);
+    expect(searchResult.rows[0].title).toBe(course1.title);
+    expect(searchResult.rows[1].title).toBe(course2.title);
+
+    const searchResult2 = await courseRepo.searchByKeyword("Research");
+    expect(searchResult2.rows.length).toBe(2);
+    expect(searchResult2.rows[0].title).toBe(course1.title);
+    expect(searchResult2.rows[1].title).toBe(course2.title);
+
+    const searchResult3 = await courseRepo.searchByKeyword("Development");
+    expect(searchResult3.rows.length).toBe(1);
+    expect(searchResult3.rows[0].title).toBe(course1.title);
+});
+
 test('inserting and updating works', async () => {
     const capInsertResult = await capabilityRepo.insert(capability1);
     const catInsertResult = await categoryRepo.insert(category1);
