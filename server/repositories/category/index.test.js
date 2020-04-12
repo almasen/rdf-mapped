@@ -1,10 +1,12 @@
 const categoryRepo = require("./");
+const capabilityRepo = require("../capability");
 
 const testHelpers = require("../../test/helpers");
 
-let category1;
+let capability1, category1;
 
 beforeEach(() => {
+    capability1 = testHelpers.getCapability1();
     category1 = testHelpers.getCategory1();
     return testHelpers.clearDatabase();
 });
@@ -14,6 +16,9 @@ afterEach(() => {
 });
 
 test('inserting and finding works', async () => {
+    const insertCapResult = await capabilityRepo.insert(capability1);
+    const insertCapRecord = insertCapResult.rows[0];
+    category1.capabilityId = insertCapRecord.id;
     const insertResult = await categoryRepo.insert(category1);
     const insertRecord = insertResult.rows[0];
     expect(insertRecord.title).toStrictEqual(category1.title);
@@ -24,6 +29,9 @@ test('inserting and finding works', async () => {
 });
 
 test('inserting and updating works', async () => {
+    const insertCapResult = await capabilityRepo.insert(capability1);
+    const insertCapRecord = insertCapResult.rows[0];
+    category1.capabilityId = insertCapRecord.id;
     const insertResult = await categoryRepo.insert(category1);
     const insertRecord = insertResult.rows[0];
     expect(insertRecord.title).toStrictEqual(category1.title);
@@ -44,6 +52,9 @@ test('inserting and updating works', async () => {
 });
 
 test('inserting and deleting works', async () => {
+    const insertCapResult = await capabilityRepo.insert(capability1);
+    const insertCapRecord = insertCapResult.rows[0];
+    category1.capabilityId = insertCapRecord.id;
     const insertResult = await categoryRepo.insert(category1);
     const insertRecord = insertResult.rows[0];
     expect(insertRecord.title).toStrictEqual(category1.title);
@@ -58,4 +69,3 @@ test('inserting and deleting works', async () => {
     const findResult2 = await categoryRepo.findById(insertRecord.id);
     expect(findResult2.rows.length).toStrictEqual(0);
 });
-

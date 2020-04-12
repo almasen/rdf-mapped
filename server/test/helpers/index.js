@@ -6,10 +6,10 @@ const clearDatabase = async () => {
     await db.query("DELETE FROM video_phase");
     await db.query("DELETE FROM course");
     await db.query("DELETE FROM video");
-    await db.query("DELETE FROM capability");
-    await db.query("DELETE FROM category");
-    await db.query("DELETE FROM competency");
     await db.query("DELETE FROM phase");
+    await db.query("DELETE FROM competency");
+    await db.query("DELETE FROM category");
+    await db.query("DELETE FROM capability");
 };
 
 const capability1 = {
@@ -35,10 +35,12 @@ const getCapability4 = () => ({...capability4});
 
 const category1 = {
     title: "A1 Knowledge base",
+    capabilityId: -1,
 };
 
 const category2 = {
     title: "A2 Second category",
+    capabilityId: -1,
 };
 
 const getCategory1 = () => ({...category1});
@@ -47,10 +49,12 @@ const getCategory2 = () => ({...category2});
 
 const competency1 = {
     title: "1. Subject knowledge",
+    categoryId: -1,
 };
 
 const competency2 = {
     title: "2. Second competency",
+    categoryId: -1,
 };
 
 const getCompetency1 = () => ({...competency1});

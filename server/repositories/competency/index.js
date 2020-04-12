@@ -1,9 +1,9 @@
 const db = require("../../database/connection");
 
 const insert = (competency) => {
-    const query = "INSERT INTO competency(title) VALUES ($1) " +
+    const query = "INSERT INTO competency(title, category_id) VALUES ($1, $2) " +
         "RETURNING *"; // returns passed competency with it's id set to corresponding id in database
-    const params = [competency.title];
+    const params = [competency.title, competency.categoryId];
     return db.query(query, params);
 };
 

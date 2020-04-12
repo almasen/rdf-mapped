@@ -1,4 +1,10 @@
 -- -- foreign keys
+ALTER TABLE category
+    DROP CONSTRAINT category_capability;
+
+ALTER TABLE competency
+    DROP CONSTRAINT competency_category;
+
 ALTER TABLE course
     DROP CONSTRAINT course_capability;
 

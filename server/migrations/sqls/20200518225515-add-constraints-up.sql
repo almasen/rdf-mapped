@@ -1,5 +1,21 @@
 -- -- foreign keys
 
+-- Reference: category_capability (table: category)
+ALTER TABLE category ADD CONSTRAINT category_capability
+    FOREIGN KEY (capability_id)
+        REFERENCES capability (id)
+NOT DEFERRABLE
+            INITIALLY IMMEDIATE
+;
+
+-- Reference: competency_category (table: competency)
+ALTER TABLE competency ADD CONSTRAINT competency_category
+    FOREIGN KEY (category_id)
+        REFERENCES category (id)
+NOT DEFERRABLE
+            INITIALLY IMMEDIATE
+;
+
 -- Reference: course_capability (table: course)
 ALTER TABLE course ADD CONSTRAINT course_capability
     FOREIGN KEY (capability_id)

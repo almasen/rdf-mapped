@@ -1,10 +1,14 @@
 const competencyRepo = require("./");
+const categoryRepo = require("../category");
+const capabilityRepo = require("../capability");
 
 const testHelpers = require("../../test/helpers");
 
-let competency1;
+let capability1, category1, competency1;
 
 beforeEach(() => {
+    capability1 = testHelpers.getCapability1();
+    category1 = testHelpers.getCategory1();
     competency1 = testHelpers.getCompetency1();
     return testHelpers.clearDatabase();
 });
@@ -14,6 +18,13 @@ afterEach(() => {
 });
 
 test('inserting and finding works', async () => {
+    const insertCapResult = await capabilityRepo.insert(capability1);
+    const insertCapRecord = insertCapResult.rows[0];
+    category1.capabilityId = insertCapRecord.id;
+    const insertCatResult = await categoryRepo.insert(category1);
+    const insertCatRecord = insertCatResult.rows[0];
+    competency1.categoryId = insertCatRecord.id;
+
     const insertResult = await competencyRepo.insert(competency1);
     const insertRecord = insertResult.rows[0];
     expect(insertRecord.title).toStrictEqual(competency1.title);
@@ -24,6 +35,13 @@ test('inserting and finding works', async () => {
 });
 
 test('inserting and updating works', async () => {
+    const insertCapResult = await capabilityRepo.insert(capability1);
+    const insertCapRecord = insertCapResult.rows[0];
+    category1.capabilityId = insertCapRecord.id;
+    const insertCatResult = await categoryRepo.insert(category1);
+    const insertCatRecord = insertCatResult.rows[0];
+    competency1.categoryId = insertCatRecord.id;
+
     const insertResult = await competencyRepo.insert(competency1);
     const insertRecord = insertResult.rows[0];
     expect(insertRecord.title).toStrictEqual(competency1.title);
@@ -44,6 +62,13 @@ test('inserting and updating works', async () => {
 });
 
 test('inserting and deleting works', async () => {
+    const insertCapResult = await capabilityRepo.insert(capability1);
+    const insertCapRecord = insertCapResult.rows[0];
+    category1.capabilityId = insertCapRecord.id;
+    const insertCatResult = await categoryRepo.insert(category1);
+    const insertCatRecord = insertCatResult.rows[0];
+    competency1.categoryId = insertCatRecord.id;
+
     const insertResult = await competencyRepo.insert(competency1);
     const insertRecord = insertResult.rows[0];
     expect(insertRecord.title).toStrictEqual(competency1.title);

@@ -39,6 +39,18 @@ const searchByKeyword = (keyword) => {
     return db.query(query, [`%${keyword}%`]);
 };
 
+const findByFiltersAndKeyword = (search) => {
+    const query = "SELECT * FROM course LEFT JOIN course_phase ON course_id(course_phase) = id WHERE " +
+        "($1 = -1 OR capability_id = $1) AND " +
+        "($2 = -1 OR category_id = $2) AND " +
+        "($3 = -1 OR competency_id = $3) AND " +
+        "($4 = -1 OR phase_id = $4) AND " +
+        "title LIKE $5";
+    const params = [search.filters.capabilityId, search.filters.categoryId,
+        search.filters.competencyId, search.filters.phaseId, `%${search.keyword}%`];
+    return db.query(query, params);
+};
+
 module.exports = {
     insert,
     findById,
@@ -46,4 +58,5 @@ module.exports = {
     removeById,
     findByFilters,
     searchByKeyword,
+    findByFiltersAndKeyword,
 };

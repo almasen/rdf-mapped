@@ -12,6 +12,7 @@ CREATE TABLE category
 (
     id serial NOT NULL,
     title varchar(64) NOT NULL,
+    capability_id int NOT NULL,
     CONSTRAINT category_pk PRIMARY KEY (id)
 );
 
@@ -20,6 +21,7 @@ CREATE TABLE competency
 (
     id serial NOT NULL,
     title varchar(64) NOT NULL,
+    category_id int NOT NULL,
     CONSTRAINT competency_pk PRIMARY KEY (id)
 );
 

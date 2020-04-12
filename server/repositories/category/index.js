@@ -1,9 +1,9 @@
 const db = require("../../database/connection");
 
 const insert = (category) => {
-    const query = "INSERT INTO category(title) VALUES ($1) " +
+    const query = "INSERT INTO category(title, capability_id) VALUES ($1, $2) " +
         "RETURNING *"; // returns passed category with it's id set to corresponding id in database
-    const params = [category.title];
+    const params = [category.title, category.capabilityId];
     return db.query(query, params);
 };
 
