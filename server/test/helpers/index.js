@@ -71,8 +71,8 @@ const course1 = {
 const getCourse1 = () => ({...course1});
 
 const course2 = {
-    title: "Student Development and course 2",
-    hyperlink: "https://www.linkedin.com/learning/course2",
+    title: "Writing a Research Paper",
+    hyperlink: "https://www.linkedin.com/learning/writing-a-research-paper?u=104",
     capabilityId: -1,
     categoryId: -1,
     competencyId: -1,
@@ -92,6 +92,17 @@ const video1 = {
 
 const getVideo1 = () => ({...video1});
 
+const video2 = {
+    title: "Research ethics",
+    hyperlink: "https://www.linkedin.com/learning/academic-research-foundations-quantitative/research-ethics?collection=urn%3Ali%3AlearningCollection%3A6605689868850995200&u=104",
+    capabilityId: -1,
+    categoryId: -1,
+    competencyId: -1,
+    phases: [], // can be multiple IDs
+};
+
+const getVideo2 = () => ({...video2});
+
 module.exports = {
     clearDatabase,
     getCapability1,
@@ -105,4 +116,5 @@ module.exports = {
     getCourse1,
     getCourse2,
     getVideo1,
+    getVideo2,
 };
