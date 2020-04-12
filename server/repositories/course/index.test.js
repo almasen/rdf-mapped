@@ -2,10 +2,12 @@ const courseRepo = require("./");
 const capabilityRepo = require("../capability");
 const categoryRepo = require("../category");
 const competencyRepo = require("../competency");
+const phaseRepo = require("../phase");
+const coursePhaseRepo = require("./phase");
 
 const testHelpers = require("../../test/helpers");
 
-let course1, course2, capability1, capability2, category1, category2, competency1, competency2;
+let course1, course2, capability1, capability2, category1, category2, competency1, competency2, phase1, phase2;
 
 beforeEach(() => {
     course1 = testHelpers.getCourse1();
@@ -16,6 +18,8 @@ beforeEach(() => {
     category2 = testHelpers.getCategory2();
     competency1 = testHelpers.getCompetency1();
     competency2 = testHelpers.getCompetency2();
+    phase1 = testHelpers.getPhase1();
+    phase2 = testHelpers.getPhase2();
     return testHelpers.clearDatabase();
 });
 
@@ -50,7 +54,7 @@ test('inserting and finding works', async () => {
     expect(findRecord.title).toStrictEqual(course1.title);
 });
 
-test('inserting and finding with optional filters works', async () => {
+test('inserting and finding with optional filters works (includes phases)', async () => {
     const capInsertResult = await capabilityRepo.insert(capability1);
     const catInsertResult = await categoryRepo.insert(category1);
     const compInsertResult = await competencyRepo.insert(competency1);
@@ -63,6 +67,14 @@ test('inserting and finding with optional filters works', async () => {
     const capInsertRecord2 = await capInsertResult2.rows[0];
     const catInsertRecord2 = await catInsertResult2.rows[0];
     const compInsertRecord2 = await compInsertResult2.rows[0];
+
+    const phaseInsertResult1 = await phaseRepo.insert(phase1);
+    const phaseInsertResult2 = await phaseRepo.insert(phase2);
+    const phaseInsertRecord1 = await phaseInsertResult1.rows[0];
+    const phaseInsertRecord2 = await phaseInsertResult2.rows[0];
+
+    const phaseId1 = phaseInsertRecord1.id;
+    const phaseId2 = phaseInsertRecord2.id;
 
     course1.capabilityId = capInsertRecord.id;
     course1.categoryId = catInsertRecord.id;
@@ -86,6 +98,22 @@ test('inserting and finding with optional filters works', async () => {
     expect(insertRecord2.categoryId).toStrictEqual(catInsertRecord2.id);
     expect(insertRecord2.competencyId).toStrictEqual(compInsertRecord2.id);
 
+    const courseId = insertRecord.id;
+    const courseId2 = insertRecord2.id;
+    // insert course-phase links
+    const coursePhaseInsertResult1 = await coursePhaseRepo.insert({
+        courseId: courseId,
+        phaseId: phaseId1,
+    });
+    const coursePhaseInsertResult12 = await coursePhaseRepo.insert({
+        courseId: courseId,
+        phaseId: phaseId2,
+    });
+    const coursePhaseInsertResult2 = await coursePhaseRepo.insert({
+        courseId: courseId2,
+        phaseId: phaseId2,
+    });
+
 
     const findResult = await courseRepo.findById(insertRecord.id);
     const findRecord = findResult.rows[0];
@@ -97,19 +125,31 @@ test('inserting and finding with optional filters works', async () => {
         capabilityId: -1,
         categoryId: -1,
         competencyId: -1,
+        phaseId: -1,
     });
-    expect(findByFiltersResult1.rows.length).toBe(2);
+    expect(findByFiltersResult1.rows.length).toBe(3);
     const findByFiltersResult2 = await courseRepo.findByFilters({
         capabilityId: course1.capabilityId,
         categoryId: course1.categoryId,
         competencyId: -1,
+        phaseId: -1,
     });
-    expect(findByFiltersResult2.rows.length).toBe(1);
+    expect(findByFiltersResult2.rows.length).toBe(2);
     expect(findByFiltersResult2.rows[0].title).toBe(course1.title);
+    expect(findByFiltersResult2.rows[1].title).toBe(course1.title);
+    const findByFiltersResult22 = await courseRepo.findByFilters({
+        capabilityId: course1.capabilityId,
+        categoryId: course1.categoryId,
+        competencyId: -1,
+        phaseId: phaseId1,
+    });
+    expect(findByFiltersResult22.rows.length).toBe(1);
+    expect(findByFiltersResult22.rows[0].title).toBe(course1.title);
     const findByFiltersResult3 = await courseRepo.findByFilters({
         capabilityId: course2.capabilityId,
         categoryId: course2.categoryId,
         competencyId: course2.competencyId,
+        phaseId: phaseId2,
     });
     expect(findByFiltersResult3.rows.length).toBe(1);
     expect(findByFiltersResult3.rows[0].title).toBe(course2.title);
@@ -117,6 +157,7 @@ test('inserting and finding with optional filters works', async () => {
         capabilityId: course2.capabilityId,
         categoryId: course2.categoryId,
         competencyId: 0,
+        phaseId: -1,
     });
     expect(findByFiltersResult4.rows.length).toBe(0);
 });

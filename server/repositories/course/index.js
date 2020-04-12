@@ -25,11 +25,12 @@ const removeById = (id) => {
 };
 
 const findByFilters = (filters) => {
-    const query = "SELECT * FROM course WHERE " +
+    const query = "SELECT * FROM course LEFT JOIN course_phase ON course_id(course_phase) = id WHERE " +
         "($1 = -1 OR capability_id = $1) AND " +
         "($2 = -1 OR category_id = $2) AND " +
-        "($3 = -1 OR competency_id = $3)";
-    const params = [filters.capabilityId, filters.categoryId, filters.competencyId];
+        "($3 = -1 OR competency_id = $3) AND " +
+        "($4 = -1 OR phase_id = $4)";
+    const params = [filters.capabilityId, filters.categoryId, filters.competencyId, filters.phaseId];
     return db.query(query, params);
 };
 

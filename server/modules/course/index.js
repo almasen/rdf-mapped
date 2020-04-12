@@ -24,6 +24,7 @@ const phaseService = require("../phase");
  * @param {Object} course
  */
 const addCourse = async (course) => {
+    // TODO:
     await courseRepo.insert(course);
     for (let i = 0; i < course.phases.length; i++) {
         const coursePhase = course.phases[i];
