@@ -162,7 +162,7 @@ test('inserting and finding with optional filters works (includes phases)', asyn
     expect(findByFiltersResult4.rows.length).toBe(0);
 });
 
-test('inserting and searching by keywords works)', async () => {
+test('inserting and searching by substring works)', async () => {
     const capInsertResult = await capabilityRepo.insert(capability1);
     const catInsertResult = await categoryRepo.insert(category1);
     const compInsertResult = await competencyRepo.insert(competency1);

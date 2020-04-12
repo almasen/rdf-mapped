@@ -54,6 +54,57 @@ test('inserting and finding works', async () => {
     expect(findRecord.title).toStrictEqual(video1.title);
 });
 
+test('inserting and searching by substring works)', async () => {
+    const capInsertResult = await capabilityRepo.insert(capability1);
+    const catInsertResult = await categoryRepo.insert(category1);
+    const compInsertResult = await competencyRepo.insert(competency1);
+    const capInsertResult2 = await capabilityRepo.insert(capability2);
+    const catInsertResult2 = await categoryRepo.insert(category2);
+    const compInsertResult2 = await competencyRepo.insert(competency2);
+    const capInsertRecord = await capInsertResult.rows[0];
+    const catInsertRecord = await catInsertResult.rows[0];
+    const compInsertRecord = await compInsertResult.rows[0];
+    const capInsertRecord2 = await capInsertResult2.rows[0];
+    const catInsertRecord2 = await catInsertResult2.rows[0];
+    const compInsertRecord2 = await compInsertResult2.rows[0];
+
+    video1.capabilityId = capInsertRecord.id;
+    video1.categoryId = catInsertRecord.id;
+    video1.competencyId = compInsertRecord.id;
+    video2.capabilityId = capInsertRecord2.id;
+    video2.categoryId = catInsertRecord2.id;
+    video2.competencyId = compInsertRecord2.id;
+
+    const insertResult = await videoRepo.insert(video1);
+    const insertRecord = insertResult.rows[0];
+
+    const insertResult2 = await videoRepo.insert(video2);
+    const insertRecord2 = insertResult2.rows[0];
+
+    expect(insertRecord.title).toStrictEqual(video1.title);
+    expect(insertRecord.capabilityId).toStrictEqual(capInsertRecord.id);
+    expect(insertRecord.categoryId).toStrictEqual(catInsertRecord.id);
+    expect(insertRecord.competencyId).toStrictEqual(compInsertRecord.id);
+    expect(insertRecord2.title).toStrictEqual(video2.title);
+    expect(insertRecord2.capabilityId).toStrictEqual(capInsertRecord2.id);
+    expect(insertRecord2.categoryId).toStrictEqual(catInsertRecord2.id);
+    expect(insertRecord2.competencyId).toStrictEqual(compInsertRecord2.id);
+
+    const searchResult = await videoRepo.searchByKeyword("");
+    expect(searchResult.rows.length).toBe(2);
+    expect(searchResult.rows[0].title).toBe(video1.title);
+    expect(searchResult.rows[1].title).toBe(video2.title);
+
+    const searchResult2 = await videoRepo.searchByKeyword("Research");
+    expect(searchResult2.rows.length).toBe(2);
+    expect(searchResult2.rows[0].title).toBe(video1.title);
+    expect(searchResult2.rows[1].title).toBe(video2.title);
+
+    const searchResult3 = await videoRepo.searchByKeyword("Development");
+    expect(searchResult3.rows.length).toBe(1);
+    expect(searchResult3.rows[0].title).toBe(video1.title);
+});
+
 test('inserting and updating works', async () => {
     const capInsertResult = await capabilityRepo.insert(capability1);
     const catInsertResult = await categoryRepo.insert(category1);
