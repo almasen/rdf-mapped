@@ -12,6 +12,11 @@ const findById = (id) => {
     return db.query(query, [id]);
 };
 
+const findAllByParent = (categoryId) => {
+    const query = "SELECT * FROM competency WHERE category_id=$1";
+    return db.query(query, [categoryId]);
+};
+
 const update = (competency) => {
     const query = "UPDATE competency SET title = $2 WHERE id = $1" +
         "RETURNING *"; // returns passed competency with it's id set to corresponding id in database
@@ -27,6 +32,7 @@ const removeById = (id) => {
 module.exports = {
     insert,
     findById,
+    findAllByParent,
     update,
     removeById,
 };
