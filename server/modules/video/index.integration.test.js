@@ -93,8 +93,6 @@ test('getting a video object works', async () => {
 
     const getVideoResult = await videoService.getVideo(videoId);
 
-    console.log(getVideoResult);
-
     expect(getVideoResult.title).toStrictEqual(video1.title);
     expect(getVideoResult.hyperlink).toStrictEqual(video1.hyperlink);
     expect(getVideoResult.capability).toStrictEqual(capability1.title);
