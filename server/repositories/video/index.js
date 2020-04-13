@@ -34,7 +34,7 @@ const findByFilters = (filters) => {
     return db.query(query, params);
 };
 
-const searchByKeyword = (keyword) => {
+const findByKeyword = (keyword) => {
     const query = "SELECT * FROM video WHERE title LIKE $1";
     return db.query(query, [`%${keyword}%`]);
 };
@@ -57,6 +57,6 @@ module.exports = {
     update,
     removeById,
     findByFilters,
-    searchByKeyword,
+    findByKeyword,
     findByFiltersAndKeyword,
 };

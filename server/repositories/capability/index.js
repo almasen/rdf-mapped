@@ -24,9 +24,15 @@ const removeById = (id) => {
     return db.query(query, [id]);
 };
 
+const findByKeyword = (keyword) => {
+    const query = "SELECT * FROM course WHERE title LIKE $1";
+    return db.query(query, [`%${keyword}%`]);
+};
+
 module.exports = {
     insert,
     findById,
+    findByKeyword,
     update,
     removeById,
 };

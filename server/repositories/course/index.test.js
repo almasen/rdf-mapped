@@ -210,17 +210,17 @@ test('inserting and searching by substring works)', async () => {
     expect(insertRecord2.categoryId).toStrictEqual(catInsertRecord2.id);
     expect(insertRecord2.competencyId).toStrictEqual(compInsertRecord2.id);
 
-    const searchResult = await courseRepo.searchByKeyword("");
+    const searchResult = await courseRepo.findByKeyword("");
     expect(searchResult.rows.length).toBe(2);
     expect(searchResult.rows[0].title).toBe(course1.title);
     expect(searchResult.rows[1].title).toBe(course2.title);
 
-    const searchResult2 = await courseRepo.searchByKeyword("Research");
+    const searchResult2 = await courseRepo.findByKeyword("Research");
     expect(searchResult2.rows.length).toBe(2);
     expect(searchResult2.rows[0].title).toBe(course1.title);
     expect(searchResult2.rows[1].title).toBe(course2.title);
 
-    const searchResult3 = await courseRepo.searchByKeyword("Development");
+    const searchResult3 = await courseRepo.findByKeyword("Development");
     expect(searchResult3.rows.length).toBe(1);
     expect(searchResult3.rows[0].title).toBe(course1.title);
 });
