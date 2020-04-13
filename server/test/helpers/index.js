@@ -10,6 +10,7 @@ const clearDatabase = async () => {
     await db.query("DELETE FROM competency");
     await db.query("DELETE FROM category");
     await db.query("DELETE FROM capability");
+    await db.query("DELETE FROM information");
 };
 
 const capability1 = {
@@ -111,7 +112,7 @@ const course2 = {
     phases: [], // can be multiple IDs
 };
 
-const getCourse2 = () => ({ ...course2 });
+const getCourse2 = () => ({...course2});
 
 const video1 = {
     title: "Research & Development",
@@ -135,6 +136,23 @@ const video2 = {
 
 const getVideo2 = () => ({...video2});
 
+
+const information = {
+    type: "privacyPolicy",
+    content: "We don't sell your data.",
+};
+
+const getInformation = () => ({...information});
+
+const bugReport = {
+    data: {
+        email: "test@gmail.com",
+        report: "I have an error with a course.",
+    },
+};
+
+const getBugReport = () => ({...bugReport});
+
 module.exports = {
     clearDatabase,
     getCapability1,
@@ -155,4 +173,6 @@ module.exports = {
     getCourse2,
     getVideo1,
     getVideo2,
+    getInformation,
+    getBugReport,
 };

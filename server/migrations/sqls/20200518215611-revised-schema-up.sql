@@ -75,6 +75,14 @@ CREATE TABLE video_phase
     CONSTRAINT video_phase_pk PRIMARY KEY (video_id,phase_id)
 );
 
+-- Table: information
+CREATE TABLE information
+(
+    type varchar(64) NOT NULL,
+    content text NOT NULL,
+    CONSTRAINT information_pk PRIMARY KEY (type)
+);
+
 -- -- Table: course_competency
 -- CREATE TABLE course_competency
 -- (

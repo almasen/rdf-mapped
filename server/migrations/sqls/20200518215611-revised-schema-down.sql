@@ -14,7 +14,7 @@ DROP TABLE video_phase;
 -- DROP TABLE video_competency;
 -- DROP TABLE video_category;
 -- DROP TABLE video_capability;
-
+DROP TABLE information;
 -- DROP TABLE address;
 
 -- DROP TABLE authentication;

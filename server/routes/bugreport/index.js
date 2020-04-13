@@ -6,7 +6,6 @@ const express = require("express");
 const router = express.Router();
 const mailSender = require("../../modules/mail/index");
 const httpUtil = require("../../util/http");
-const authService = require("../../modules/authentication/");
 
 /**
  * Attempt send a bug report to admin email account.
@@ -23,8 +22,8 @@ const authService = require("../../modules/authentication/");
 <pre><code>
     &#123;
         "data": &#123;
-            "email": "icantlogin@gmail.com",
-            "report": "I can't sign-in to the app and don't receive a token. Help pls!",
+            "email": "iseeanerror@gmail.com",
+            "report": "I see an error with a course...",
         &#125;
     &#125;
 </code></pre>
@@ -34,7 +33,7 @@ const authService = require("../../modules/authentication/");
  * @name Send bug report
  * @function
  */
-router.post("/", authService.acceptAnyAuthentication, async (req, res) => {
+router.post("/", async (req, res) => {
     try {
         log.info("%s (user id '%d'): Sending bug report", req.body.data.email, req.body.userId);
         const result = await mailSender.sendBugReport(req.body.data.email, req.body.data.report);

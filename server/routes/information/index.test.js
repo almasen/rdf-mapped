@@ -1,12 +1,9 @@
 const request = require("supertest");
 const app = require("../../app");
 const testHelpers = require("../../test/helpers");
-const validation = require("../../modules/validation");
 const informationService = require("../../modules/information");
 
 jest.mock("../../modules/information");
-jest.mock("../../modules/validation");
-validation.validateInformation.mockReturnValue({errors: ""});
 
 let information;
 
