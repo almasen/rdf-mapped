@@ -27,13 +27,13 @@ switch (process.env.NODE_ENV) {
         log.level = "debug";
         break;
     case "development":
-        log.level = "debug";
+        log.level = "info";
         break;
     default:
         log.level = "info";
 }
 
-if (process.env.CI) {
+if (process.env.NO_LOG == "True") {
     log.level = "off";
 }
 

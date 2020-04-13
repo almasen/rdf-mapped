@@ -4,14 +4,13 @@
   "description": "RDF-Mapped server",
   "main": "server.js",
   "scripts": {
-    "test": "env CI=true jest -i --detectOpenHandles",
-    "test-nologs": "jest -i --detectOpenHandles",
-    "test-infologs": "env LOG_INFO=1 jest -i --detectOpenHandles",
+    "test": "jest -i --detectOpenHandles",
+    "test-nologs": "env NO_LOG=True jest -i --detectOpenHandles",
+    "test-infologs": "jest -i --detectOpenHandles",
     "start": "node server.js",
-    "dev": "env NODE_ENV=development nodemon server.js",
     "db-migrate": "db-migrate",
     "docs": "jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes",
-    "dev-start": "nodemon ./server",
+    "dev-start": "env NODE_ENV=development nodemon ./server",
     "prod-start": "env NODE_ENV=production nodemon ./server",
     "check-all": "db-migrate reset; db-migrate up; npm i; jest -i --detectOpenHandles; jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes; eslint ./ --fix",
     "rem-logs": "del-cli ./log/rdfmapped.log"
