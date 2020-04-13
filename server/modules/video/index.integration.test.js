@@ -26,13 +26,16 @@ afterEach(() => {
 
 test('getting a video object works', async () => {
     const capInsertResult = await capabilityRepo.insert(capability1);
+    const capInsertRecord = await capInsertResult.rows[0];
+    category1.capabilityId = capInsertRecord.id;
     const catInsertResult = await categoryRepo.insert(category1);
+    const catInsertRecord = await catInsertResult.rows[0];
+    competency1.categoryId = catInsertRecord.id;
     const compInsertResult = await competencyRepo.insert(competency1);
+    const compInsertRecord = await compInsertResult.rows[0];
+
     const phaseInsertResult1 = await phaseRepo.insert(phase1);
     const phaseInsertResult2 = await phaseRepo.insert(phase2);
-    const capInsertRecord = await capInsertResult.rows[0];
-    const catInsertRecord = await catInsertResult.rows[0];
-    const compInsertRecord = await compInsertResult.rows[0];
     const phaseInsertRecord1 = await phaseInsertResult1.rows[0];
     const phaseInsertRecord2 = await phaseInsertResult2.rows[0];
 
