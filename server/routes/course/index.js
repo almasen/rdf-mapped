@@ -11,7 +11,7 @@ router.get('/:id', async (req, res) => {
             course,
         });
     } catch (error) {
-        log.error("Video id '%d': Failed fetching video data, err: " + error.message, req.params.id);
+        log.error("Course id '%d': Failed fetching course data, err: " + error.message, req.params.id);
     }
 });
 
