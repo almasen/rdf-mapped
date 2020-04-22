@@ -9,6 +9,7 @@ router.get('/:id', async (req, res) => {
         const video = await videoService.getVideo(req.params.id);
         res.render('video.ejs', {
             video,
+            baseurl: req.baseUrl, // TODO:
         });
     } catch (error) {
         log.error("Video id '%d': Failed fetching video data, err: " + error.message, req.params.id);

@@ -4,13 +4,15 @@
                 class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item" role="presentation"><a class="nav-link" href="/">Home</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="features.ejs">Features</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link active" href="faq.ejs">FAQ</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="contact-us.ejs">Contact Us</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="login.ejs">Login</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link" href="registration.ejs">Register</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link<% if (baseurl === '/') { %> active <% } %>" href="/">Home</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link<% if (baseurl === '/features') { %> active <% } %>" href="/features">Features</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link<% if (baseurl === '/faq') { %> active <% } %>" href="/faq">FAQ</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link<% if (baseurl === '/contact') { %> active <% } %>" href="/contact">Contact Us</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link<% if (baseurl === '/login') { %> active <% } %>" href="/login">Login</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link<% if (baseurl === '/registration') { %> active <% } %>" href="/registration">Register</a></li>
             </ul>
         </div>
     </div>
 </nav>
+
+

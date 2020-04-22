@@ -6,9 +6,11 @@ const session = require('express-session');
 const app = express();
 const helmet = require("helmet");
 const methodOverride = require('method-override');
+const path = require('path');
 
 // -- MIDDLEWARE -- //
 app.set('view-engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'assets')));
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -31,6 +33,12 @@ app.use("/", require("./routes/root"));
 
 app.use("/course", require("./routes/course"));
 app.use("/video", require("./routes/video"));
+
+app.use("/features", require("./routes/features"));
+app.use("/faq", require("./routes/faq"));
+app.use("/contact", require("./routes/contact"));
+app.use("/login", require("./routes/login"));
+app.use("/registration", require("./routes/registration"));
 
 app.use("/error", require("./routes/error"));
 app.use("/bugreport", require("./routes/bugreport"));
