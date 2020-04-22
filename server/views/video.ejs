@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta property="og:type" content="">
+    <meta name="description" content="Vitae Researcher Development Frameword Mapped to Linkedin Learning">
+    <!-- //TODO: -->
+
+    <%- include('./components/stylesheets'); -%>
 
     <% if (video) { %>
         <title>Video: <%= video.title _%></title>
@@ -12,7 +17,7 @@
 
 </head>
 <body>
-    <%- include('header'); -%>
+    <%- include('./components/header'); -%>
 
     <% if (video) { %>
         <h1>Title: <%= video.title %></h1>
@@ -23,6 +28,8 @@
         <h2>Watch video <a href="<%= video.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></h2>
     <% } %>
 
-    <%- include('footer'); -%>
+    <%- include('./components/footer'); -%>
+
+    <%- include('./components/scripts'); -%>
 </body>
 </html>

@@ -13,6 +13,9 @@ router.get('/:id', async (req, res) => {
         });
     } catch (error) {
         log.error("Video id '%d': Failed fetching video data, err: " + error.message, req.params.id);
+        res.render('404.ejs', {
+            baseurl: "",
+        });
     }
 });
 

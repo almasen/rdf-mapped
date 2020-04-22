@@ -7,21 +7,12 @@
     <title>Register - RDF Mapped</title>
     <meta property="og:type" content="">
     <meta name="description" content="Vitae Researcher Development Frameword Mapped to Linkedin Learning">
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
-    <link rel="stylesheet" href="/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="/fonts/simple-line-icons.min.css">
-    <link rel="stylesheet" href="/css/Data-Table-with-Search-Sort-Filter-and-Zoom-using-TableSorter.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/css/theme.bootstrap_4.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-    <link rel="stylesheet" href="/css/Navigation-with-Search.css">
-    <link rel="stylesheet" href="/css/Search-Input-responsive.css">
-    <link rel="stylesheet" href="/css/smoothproducts.css">
+
+    <%- include('./components/stylesheets'); -%>
 </head>
 
 <body>
-    <%- include('header'); -%>
+    <%- include('./components/header'); -%>
 
     <main class="page registration-page">
         <section class="clean-block clean-form dark">
@@ -38,20 +29,9 @@
         </section>
     </main>
 
-    <%- include('footer'); -%>
+    <%- include('./components/footer'); -%>
 
-    <script src="/js/jquery.min.js"></script>
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
-    <script src="/js/smoothproducts.min.js"></script>
-    <script src="/js/theme.js"></script>
-    <script src="/js/Data-Table-with-Search-Sort-Filter-and-Zoom-using-TableSorter.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-filter.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-storage.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <%- include('./components/scripts'); -%>
 </body>
 
 </html>

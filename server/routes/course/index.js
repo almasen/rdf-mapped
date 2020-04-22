@@ -13,6 +13,9 @@ router.get('/:id', async (req, res) => {
         });
     } catch (error) {
         log.error("Course id '%d': Failed fetching course data, err: " + error.message, req.params.id);
+        res.render('404.ejs', {
+            baseurl: "",
+        });
     }
 });
 

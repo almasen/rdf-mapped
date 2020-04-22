@@ -7,21 +7,12 @@
     <title>Home - RDF Mapped</title>
     <meta property="og:type" content="">
     <meta name="description" content="Vitae Researcher Development Frameword Mapped to Linkedin Learning">
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
-    <link rel="stylesheet" href="/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="/fonts/simple-line-icons.min.css">
-    <link rel="stylesheet" href="/css/Data-Table-with-Search-Sort-Filter-and-Zoom-using-TableSorter.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/css/theme.bootstrap_4.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-    <link rel="stylesheet" href="/css/Navigation-with-Search.css">
-    <link rel="stylesheet" href="/css/Search-Input-responsive.css">
-    <link rel="stylesheet" href="/css/smoothproducts.css">
+
+    <%- include('./components/stylesheets'); -%>
 </head>
 
 <body>
-    <%- include('header'); -%>
+    <%- include('./components/header'); -%>
 
     <main class="page landing-page">
         <section class="clean-block clean-hero" style="background-image:url(&quot;/img/tech/image4.jpg&quot;);color:rgba(9, 162, 255, 0.85);">
@@ -93,59 +84,11 @@
                 </div>
             </div>
         </section>
-        <section class="clean-block about-us">
-            <div class="container">
-                <div class="block-heading">
-                    <h2 class="text-info">About Us</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="card clean-card text-center"><img class="card-img-top w-100 d-block" src="/img/avatars/avatar1.jpg">
-                            <div class="card-body info">
-                                <h4 class="card-title">John Smith</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <div class="icons"><a href="#"><i class="icon-social-facebook"></i></a><a href="#"><i class="icon-social-instagram"></i></a><a href="#"><i class="icon-social-twitter"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="card clean-card text-center"><img class="card-img-top w-100 d-block" src="/img/avatars/avatar2.jpg">
-                            <div class="card-body info">
-                                <h4 class="card-title">Robert Downturn</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <div class="icons"><a href="#"><i class="icon-social-facebook"></i></a><a href="#"><i class="icon-social-instagram"></i></a><a href="#"><i class="icon-social-twitter"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="card clean-card text-center"><img class="card-img-top w-100 d-block" src="/img/avatars/avatar3.jpg">
-                            <div class="card-body info">
-                                <h4 class="card-title">Ally Sanders</h4>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                                <div class="icons"><a href="#"><i class="icon-social-facebook"></i></a><a href="#"><i class="icon-social-instagram"></i></a><a href="#"><i class="icon-social-twitter"></i></a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <%- include('footer'); -%>
+    <%- include('./components/footer'); -%>
 
-    <script src="/js/jquery.min.js"></script>
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
-    <script src="/js/smoothproducts.min.js"></script>
-    <script src="/js/theme.js"></script>
-    <script src="/js/Data-Table-with-Search-Sort-Filter-and-Zoom-using-TableSorter.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/jquery.tablesorter.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-filter.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/js/widgets/widget-storage.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+    <%- include('./components/scripts'); -%>
 </body>
 
 </html>

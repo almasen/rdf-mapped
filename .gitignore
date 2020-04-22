@@ -118,3 +118,7 @@ server/routes/verify/temp/
 *.DS_Store
 
 out
+
+server/bootstrap_design/
+
+*.bsdesign
