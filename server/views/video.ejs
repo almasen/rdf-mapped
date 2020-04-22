@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <% if (video) { %>
+        <title>Video: <%= video.title _%></title>
+    <% } else { %>
+        <title>Video</title>
+    <% } %>
+
+</head>
+<body>
+    <%- include('header'); -%>
+
+    <% if (video) { %>
+        <h1>Title: <%= video.title %></h1>
+        <h2>Capability: <%= video.capability %></h2>
+        <h2>Category: <%= video.category %></h2>
+        <h2>Competency: <%= video.competency %></h2>
+        <h2>Levels: <%= video.phases.join(", ") %></h2>
+        <h2>Watch video <a href="<%= video.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></h2>
+    <% } %>
+
+    <%- include('footer'); -%>
+</body>
+</html>

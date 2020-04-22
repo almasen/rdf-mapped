@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <% if (course) { %>
+        <title>Video: <%= course.title _%></title>
+    <% } else { %>
+        <title>Course</title>
+    <% } %>
+
+</head>
+<body>
+    <%- include('header'); -%>
+
+    <% if (course) { %>
+    <h1>Title: <%= course.title %></h1>
+    <h2>Capability: <%= course.capability %></h2>
+    <h2>Category: <%= course.category %></h2>
+    <h2>Competency: <%= course.competency %></h2>
+    <h2>Levels: <%= course.phases.join(", ") %></h2>
+    <h2>Watch course <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></h2>
+    <% } %>
+
+    <%- include('footer'); -%>
+</body>
+</html>

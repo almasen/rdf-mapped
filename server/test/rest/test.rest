@@ -1,0 +1,9 @@
+POST http://localhost:8000/bugReport
+content-type: application/json
+
+{
+    "data": {
+        "email": "threbitsch@gmail.com",
+        "report": "this sucks!"
+    }
+}

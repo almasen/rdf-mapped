@@ -11,8 +11,12 @@ const phaseService = require("../phase");
  * @param {Number} videoId
  */
 const getVideo = async (videoId) => {
-    log.info("Getting log by id %s", videoId);
+    log.info("Getting video by id %s", videoId);
     const videoResult = await videoRepo.findById(videoId);
+    if (videoResult.rows.length < 1) {
+        throw new Error(`No video found by id '${videoId}'`);
+    }
+
     const videoRecord = videoResult.rows[0];
     const videoPhaseResult = await videoPhaseRepo.findAllByVideoId(videoId);
     const videoPhaseRecords = videoPhaseResult.rows;

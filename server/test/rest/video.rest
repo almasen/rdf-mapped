@@ -1,0 +1,10 @@
+GET http://localhost:8000/video
+content-type: application/json
+
+{
+    "name": "abc",
+    "data": {
+        "email": "threbitsch@gmail.com",
+        "report": "this sucks!"
+    }
+}

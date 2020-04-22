@@ -37,8 +37,12 @@ const addCourse = async (course) => {
  * @param {Number} courseId
  */
 const getCourse = async (courseId) => {
-    log.info("Getting log by id %s", courseId);
+    log.info("Getting course by id %s", courseId);
     const courseResult = await courseRepo.findById(courseId);
+    if (courseResult.rows.length < 1) {
+        throw new Error(`No course found by id '${courseId}'`);
+    }
+
     const courseRecord = courseResult.rows[0];
     const coursePhaseResult = await coursePhaseRepo.findAllByCourseId(courseId);
     const coursePhaseRecords = coursePhaseResult.rows;
