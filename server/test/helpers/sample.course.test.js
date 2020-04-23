@@ -4,9 +4,9 @@ const capabilityRepo = require("../../repositories/capability");
 const categoryRepo = require("../../repositories/category");
 const competencyRepo = require("../../repositories/competency");
 const phaseRepo = require("../../repositories/phase");
-const courseService = require("./");
+const courseService = require("../../modules/course");
 
-const testHelpers = require("../../test/helpers");
+const testHelpers = require("./");
 
 let course1, course2, course3, capability1, category1, competency1, capability2, category2, competency2, phase1, phase2;
 
@@ -22,10 +22,6 @@ beforeEach(() => {
     competency2 = testHelpers.getCompetency2();
     phase1 = testHelpers.getPhase1();
     phase2 = testHelpers.getPhase2();
-    return testHelpers.clearDatabase();
-});
-
-afterEach(() => {
     return testHelpers.clearDatabase();
 });
 
@@ -193,4 +189,6 @@ test('getting a course object and finding similar work', async () => {
     const fetchSimilarResult3 = await courseService.fetchSimilarCourseRecordsById(courseId3);
     const fetchSimilarRecords3 = fetchSimilarResult3;
     expect(fetchSimilarRecords3.length).toStrictEqual(0);
+
+    console.log("Sample course ids: " + courseId + ", " + courseId2 + ", " + courseId3);
 });

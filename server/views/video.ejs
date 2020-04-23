@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -10,12 +11,13 @@
     <%- include('./components/stylesheets'); -%>
 
     <% if (video) { %>
-        <title>Video: <%= video.title _%></title>
+    <title>Video: <%= video.title _%></title>
     <% } else { %>
-        <title>Video</title>
+    <title>Video</title>
     <% } %>
 
 </head>
+
 <body>
     <%- include('./components/header'); -%>
 
@@ -35,8 +37,9 @@
                 <div class="row" style="margin: 26.5;">
                     <div class="col-xl-8">
                         <h2 class="text-info">Video details:</h2>
+                        <p></p>
                         <p>Video level(s): <%= video.phases.join(", ") %></p>
-                        <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p>
+                        <!-- <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p> -->
                         <p>Watch this video <a href="<%= video.hyperlink %>" target="_blank"
                                 rel="noopener noreferrer">here</a></p>
                         <i class="fab fa-font-awesome-flag"
@@ -46,19 +49,49 @@
                         <h2 class="text-info">Similar videos</h2>
                         <p>You might also be interested in these:</p>
                         <ul class="list-group">
-                            <li class="list-group-item"><span>List Group Item 1</span></li>
-                            <li class="list-group-item"><span>List Group Item 2</span></li>
-                            <li class="list-group-item"><span>List Group Item 3</span></li>
+                            <!-- <ul class="list-group list-group-flush"> // TODO: -->
+                            <% if (similarVideoRecords.length > 0) { %>
+                            <% similarVideoRecords.forEach(e => { %>
+                            <a href="<%= '/video/' + e.id %>"
+                                class="list-group-item list-group-item-action"><%= e.title %></a>
+                            <!-- <li class="list-group-item"><span></span></li> -->
+                            <% }); %>
+                            <% } else { %>
+                            <button type="button" id="missingRecommendationsContainer" class="list-group-item active">
+                                <div onclick="submitMissingRecommendation();">
+                                    <form action="/bugreport" method="POST" id="missingRecommendations"
+                                        target="dummyframe">
+                                        <span id="missingRecommendationsText">We could not find similar videos. <i
+                                                class="material-icons"> sentiment_very_dissatisfied </i> Please consider
+                                            flagging this simply by clicking on this field. </span>
+                                        <input id="email" name="email" value="missing-recommendations" hidden>
+                                        <input id="report" name="report"
+                                            value="Missing recommendations for video <%= video.title %>" hidden>
+                                    </form>
+                                </div>
+                            </button>
+                            <% } %>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
-
+        <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
     </main>
 
     <%- include('./components/footer'); -%>
 
     <%- include('./components/scripts'); -%>
+
+    <script>
+        const submitMissingRecommendation = () => {
+            document.getElementById("missingRecommendations").submit();
+            // alert("We have been notified that recommendations are missing from this page. \nThank you very much for you help!");
+            document.getElementById("missingRecommendationsContainer").classList.remove("active");
+            document.getElementById("missingRecommendationsContainer").classList.add("disabled");
+            document.getElementById("missingRecommendationsText").innerText = "No similar videos. \nThank you for letting us know about this issue.";
+        };
+    </script>
 </body>
+
 </html>

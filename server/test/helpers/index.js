@@ -167,10 +167,8 @@ const information = {
 const getInformation = () => ({...information});
 
 const bugReport = {
-    data: {
-        email: "test@gmail.com",
-        report: "I have an error with a course.",
-    },
+    email: "test@gmail.com",
+    report: "I have an error with a course.",
 };
 
 const getBugReport = () => ({...bugReport});

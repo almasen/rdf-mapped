@@ -33,8 +33,9 @@
                 <div class="row" style="margin: 26.5;">
                     <div class="col-xl-8">
                         <h2 class="text-info">Course details:</h2>
+                        <p></p>
                         <p>Course level(s): <%= course.phases.join(", ") %></p>
-                        <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p>
+                        <!-- <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p> -->
                         <p>Watch this course <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></p>
                         <i class="fab fa-font-awesome-flag" style="color: rgb(215,21,33);width: 20;height: 20;font-size: 32px;"></i>
                     </div>
@@ -42,19 +43,43 @@
                         <h2 class="text-info">Similar courses</h2>
                         <p>You might also be interested in these:</p>
                         <ul class="list-group">
-                            <li class="list-group-item"><span>List Group Item 1</span></li>
-                            <li class="list-group-item"><span>List Group Item 2</span></li>
-                            <li class="list-group-item"><span>List Group Item 3</span></li>
+                        <!-- <ul class="list-group list-group-flush"> // TODO: -->
+                            <% if (similarCourseRecords.length > 0) { %>
+                                <% similarCourseRecords.forEach(e => { %>
+                                <a href="<%= '/course/' + e.id %>" class="list-group-item list-group-item-action"><%= e.title %></a>
+                                <!-- <li class="list-group-item"><span></span></li> -->
+                                <% }); %>
+                            <% } else { %>
+                                <button type="button" id="missingRecommendationsContainer" class="list-group-item active">
+                                    <div onclick="submitMissingRecommendation();">
+                                        <form action="/bugreport" method="POST" id="missingRecommendations" target="dummyframe">
+                                            <span id="missingRecommendationsText">We could not find similar courses. <i class="material-icons"> sentiment_very_dissatisfied </i> Please consider flagging this simply by clicking on this field. </span>
+                                            <input id="email" name="email" value="missing-recommendations" hidden>
+                                            <input id="report" name="report" value="Missing recommendations for course <%= course.title %>" hidden>
+                                        </form>
+                                    </div>
+                                </button>
+                            <% } %>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
-
+        <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
     </main>
 
     <%- include('./components/footer'); -%>
 
     <%- include('./components/scripts'); -%>
+
+    <script>
+        const submitMissingRecommendation = () => {
+            document.getElementById("missingRecommendations").submit();
+            // alert("We have been notified that recommendations are missing from this page. \nThank you very much for you help!");
+            document.getElementById("missingRecommendationsContainer").classList.remove("active");
+            document.getElementById("missingRecommendationsContainer").classList.add("disabled");
+            document.getElementById("missingRecommendationsText").innerText = "No similar courses. \nThank you for letting us know about this issue.";
+        };
+    </script>
 </body>
 </html>

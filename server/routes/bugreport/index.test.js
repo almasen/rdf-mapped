@@ -24,7 +24,7 @@ test('bug report sending works', async () => {
         result = {
             status: 200,
             info: "info",
-            message: `Email sent to ${bugReport.data.email}`,
+            message: `Email sent to ${bugReport.email}`,
         },
     );
     const response = await request(app)
@@ -33,7 +33,7 @@ test('bug report sending works', async () => {
         .send(bugReport);
 
     expect(mailSender.sendBugReport).toHaveBeenCalledTimes(1);
-    expect(response.body.message).toBe("Email sent to " + bugReport.data.email);
+    expect(response.body.message).toBe("Email sent to " + bugReport.email);
     expect(response.status).toBe(200);
 });
 
@@ -42,7 +42,7 @@ test('bug report endpoint gives correct response if mail-sending fails', async (
         result = {
             status: 500,
             info: "info",
-            message: `Email sending failed to ${bugReport.data.email}`,
+            message: `Email sending failed to ${bugReport.email}`,
         },
     );
     const response = await request(app)
@@ -51,7 +51,7 @@ test('bug report endpoint gives correct response if mail-sending fails', async (
         .send(bugReport);
 
     expect(mailSender.sendBugReport).toHaveBeenCalledTimes(1);
-    expect(response.body.message).toBe("Email sending failed to " + bugReport.data.email);
+    expect(response.body.message).toBe("Email sending failed to " + bugReport.email);
     expect(response.status).toBe(500);
 });
 
