@@ -91,7 +91,7 @@ test('getting a course object works', async () => {
     expect(findResultByPairIds.rows.length).toStrictEqual(1);
 
 
-    const getCourseResult = await courseService.getCourse(courseId);
+    const getCourseResult = await courseService.fetchAndResolveCourse(courseId);
 
     expect(getCourseResult.title).toStrictEqual(course1.title);
     expect(getCourseResult.hyperlink).toStrictEqual(course1.hyperlink);

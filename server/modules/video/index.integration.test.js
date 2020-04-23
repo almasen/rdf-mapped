@@ -91,7 +91,7 @@ test('getting a video object works', async () => {
     expect(findResultByPairIds.rows.length).toStrictEqual(1);
 
 
-    const getVideoResult = await videoService.getVideo(videoId);
+    const getVideoResult = await videoService.fetchAndResolveVideo(videoId);
 
     expect(getVideoResult.title).toStrictEqual(video1.title);
     expect(getVideoResult.hyperlink).toStrictEqual(video1.hyperlink);

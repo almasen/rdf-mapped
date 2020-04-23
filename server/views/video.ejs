@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta property="og:type" content="">
-    <meta name="description" content="Vitae Researcher Development Frameword Mapped to Linkedin Learning">
+    <meta name="description" content="Vitae Researcher Development Framework Mapped to Linkedin Learning">
     <!-- //TODO: -->
 
     <%- include('./components/stylesheets'); -%>
@@ -19,14 +19,43 @@
 <body>
     <%- include('./components/header'); -%>
 
-    <% if (video) { %>
-        <h1>Title: <%= video.title %></h1>
-        <h2>Capability: <%= video.capability %></h2>
-        <h2>Category: <%= video.category %></h2>
-        <h2>Competency: <%= video.competency %></h2>
-        <h2>Levels: <%= video.phases.join(", ") %></h2>
-        <h2>Watch video <a href="<%= video.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></h2>
-    <% } %>
+    <main class="page">
+        <section class="clean-block features">
+            <div class="container">
+                <div class="block-heading">
+                    <a href="<%= video.hyperlink %>" target="_blank" rel="noopener noreferrer">
+                        <h2 class="text-info"><%= video.title %></h2>
+                    </a>
+                    <ol class="breadcrumb" style="background-color: rgb(228,241,255);opacity: 1;">
+                        <li class="breadcrumb-item"><a href="#"><span><%= video.capability %></span></a></li>
+                        <li class="breadcrumb-item"><a href="#"><span><%= video.category %></span></a></li>
+                        <li class="breadcrumb-item"><a href="#"><span><%= video.competency %></span></a></li>
+                    </ol>
+                </div>
+                <div class="row" style="margin: 26.5;">
+                    <div class="col-xl-8">
+                        <h2 class="text-info">Video details:</h2>
+                        <p>Video level(s): <%= video.phases.join(", ") %></p>
+                        <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p>
+                        <p>Watch this video <a href="<%= video.hyperlink %>" target="_blank"
+                                rel="noopener noreferrer">here</a></p>
+                        <i class="fab fa-font-awesome-flag"
+                            style="color: rgb(215,21,33);width: 20;height: 20;font-size: 32px;"></i>
+                    </div>
+                    <div class="col">
+                        <h2 class="text-info">Similar videos</h2>
+                        <p>You might also be interested in these:</p>
+                        <ul class="list-group">
+                            <li class="list-group-item"><span>List Group Item 1</span></li>
+                            <li class="list-group-item"><span>List Group Item 2</span></li>
+                            <li class="list-group-item"><span>List Group Item 3</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
     <%- include('./components/footer'); -%>
 

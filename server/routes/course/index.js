@@ -7,6 +7,7 @@ router.get('/:id', async (req, res) => {
     log.info("Course id '%d': Fetching course data", req.params.id);
     try {
         const course = await courseService.getCourse(req.params.id);
+        console.log(course);
         res.render('course.ejs', {
             course,
             baseurl: req.baseUrl, // TODO:
