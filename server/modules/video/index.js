@@ -70,7 +70,9 @@ const resolveVideoObject = async (videoRecord, videoPhaseRecords) => {
     video.category = (await categoryRepo.findById(videoRecord.categoryId)).rows[0].title;
     video.competency = (await competencyRepo.findById(videoRecord.competencyId)).rows[0].title;
     video.phases = await phaseService.getPhaseArray(videoPhaseRecords);
-    log.info("Video object found with title: %s", video.title);
+
+    log.info("Video %s: Object resolved, title: %s", videoRecord.id, video.title);
+
     return video;
 };
 
@@ -91,7 +93,7 @@ const fetchSimilarVideoRecords = async (videoRecord, videoPhaseRecords, size) =>
         categoryId: videoRecord.categoryId,
         competencyId: videoRecord.competencyId,
         // if a video has multiple phases, one of them is picked for search
-        phaseId: videoPhaseRecords[0].id,
+        phaseId: videoPhaseRecords[0].phaseId,
     });
     const findRecords = findWithPhaseResult.rows;
 
@@ -105,13 +107,24 @@ const fetchSimilarVideoRecords = async (videoRecord, videoPhaseRecords, size) =>
     //     findRecords.concat(findWithAnyPhaseResult.rows);
     // }
 
+    const filteredRecords = findRecords.filter(e => e.id !== videoRecord.id);
+
+    log.info("Video %s: Found %s similar video(s), returning %s",
+        videoRecord.id, filteredRecords.length,
+        ((filteredRecords.length > 5) ? (size ? size : 5) : filteredRecords.length));
+
     // return maximum 5 by default
-    return findRecords.slice(0, (size ? size : 5));
+    return filteredRecords.slice(0, (size ? size : 5));
 };
 
 const fetchAndResolveVideo = async (videoId) => {
     const records = await fetchVideoAndPhaseRecords(videoId);
     return resolveVideoObject(records.videoRecord, records.videoPhaseRecords);
+};
+
+const fetchSimilarVideoRecordsById = async (videoId) => {
+    const records = await fetchVideoAndPhaseRecords(videoId);
+    return fetchSimilarVideoRecords(records.videoRecord, records.videoPhaseRecords);
 };
 
 module.exports = {
@@ -121,4 +134,5 @@ module.exports = {
     resolveVideoObject,
     fetchSimilarVideoRecords,
     fetchAndResolveVideo,
+    fetchSimilarVideoRecordsById,
 };

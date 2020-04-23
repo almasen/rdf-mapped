@@ -37,6 +37,10 @@ if (process.env.NO_LOG == "True") {
     log.level = "off";
 }
 
+if (process.env.INFO_LOG == "True") {
+    log.level = "info";
+}
+
 log.info("Logging at level: %s", log.level);
 
 module.exports = log;

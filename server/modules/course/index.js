@@ -70,7 +70,9 @@ const resolveCourseObject = async (courseRecord, coursePhaseRecords) => {
     course.category = (await categoryRepo.findById(courseRecord.categoryId)).rows[0].title;
     course.competency = (await competencyRepo.findById(courseRecord.competencyId)).rows[0].title;
     course.phases = await phaseService.getPhaseArray(coursePhaseRecords);
-    log.info("Course object found with title: %s", course.title);
+
+    log.info("Course %s: Object resolved, title: %s", courseRecord.id, course.title);
+
     return course;
 };
 
@@ -91,7 +93,7 @@ const fetchSimilarCourseRecords = async (courseRecord, coursePhaseRecords, size)
         categoryId: courseRecord.categoryId,
         competencyId: courseRecord.competencyId,
         // if a course has multiple phases, one of them is picked for search
-        phaseId: coursePhaseRecords[0].id,
+        phaseId: coursePhaseRecords[0].phaseId,
     });
     const findRecords = findWithPhaseResult.rows;
 
@@ -105,13 +107,24 @@ const fetchSimilarCourseRecords = async (courseRecord, coursePhaseRecords, size)
     //     findRecords.concat(findWithAnyPhaseResult.rows);
     // }
 
+    const filteredRecords = findRecords.filter(e => e.id !== courseRecord.id);
+
+    log.info("Course %s: Found %s similar course(s), returning %s",
+        courseRecord.id, filteredRecords.length,
+        ((filteredRecords.length > 5) ? (size ? size : 5) : filteredRecords.length));
+
     // return maximum 5 by default
-    return findRecords.slice(0, (size ? size : 5));
+    return filteredRecords.slice(0, (size ? size : 5));
 };
 
 const fetchAndResolveCourse = async (courseId) => {
     const records = await fetchCourseAndPhaseRecords(courseId);
     return resolveCourseObject(records.courseRecord, records.coursePhaseRecords);
+};
+
+const fetchSimilarCourseRecordsById = async (courseId) => {
+    const records = await fetchCourseAndPhaseRecords(courseId);
+    return fetchSimilarCourseRecords(records.courseRecord, records.coursePhaseRecords);
 };
 
 module.exports = {
@@ -121,4 +134,5 @@ module.exports = {
     resolveCourseObject,
     fetchSimilarCourseRecords,
     fetchAndResolveCourse,
+    fetchSimilarCourseRecordsById,
 };

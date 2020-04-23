@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest -i --detectOpenHandles",
     "test-nologs": "env NO_LOG=True jest -i --detectOpenHandles",
-    "test-infologs": "jest -i --detectOpenHandles",
+    "test-infologs": "env INFO_LOG=True jest -i --detectOpenHandles",
     "start": "node server.js",
     "db-migrate": "db-migrate",
     "docs": "jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes",

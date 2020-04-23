@@ -114,6 +114,17 @@ const course2 = {
 
 const getCourse2 = () => ({...course2});
 
+const course3 = {
+    title: "SPSS for Academic Research",
+    hyperlink: "https://www.linkedin.com/learning/spss-for-academic-research?u=104",
+    capabilityId: -1,
+    categoryId: -1,
+    competencyId: -1,
+    phases: [], // can be multiple IDs
+};
+
+const getCourse3 = () => ({...course3});
+
 const video1 = {
     title: "Research & Development",
     hyperlink: "https://www.linkedin.com/learning/writing-a-research-paper/researching-the-topic?collection=urn%3Ali%3AlearningCollection%3A6605689868850995200&u=104",
@@ -135,6 +146,17 @@ const video2 = {
 };
 
 const getVideo2 = () => ({...video2});
+
+const video3 = {
+    title: "Researching the topic",
+    hyperlink: "https://www.linkedin.com/learning/writing-a-research-paper/researching-the-topic?collection=urn%3Ali%3AlearningCollection%3A6605689868850995200&u=104",
+    capabilityId: -1,
+    categoryId: -1,
+    competencyId: -1,
+    phases: [], // can be multiple IDs
+};
+
+const getVideo3 = () => ({...video3});
 
 
 const information = {
@@ -171,8 +193,10 @@ module.exports = {
     getPhase5,
     getCourse1,
     getCourse2,
+    getCourse3,
     getVideo1,
     getVideo2,
+    getVideo3,
     getInformation,
     getBugReport,
 };
