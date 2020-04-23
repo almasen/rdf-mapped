@@ -84,6 +84,7 @@ const resolveCourseObject = async (courseRecord, coursePhaseRecords) => {
  * @param {Object} courseRecord
  * @param {Array} coursePhaseRecords
  * @param {Number} [size=5] default is 5
+ * @return {Array} similar course records
  */
 const fetchSimilarCourseRecords = async (courseRecord, coursePhaseRecords, size) => {
     log.info("Course %s: Fetching similar courses", courseRecord.id);
@@ -117,14 +118,30 @@ const fetchSimilarCourseRecords = async (courseRecord, coursePhaseRecords, size)
     return filteredRecords.slice(0, (size ? size : 5));
 };
 
+/**
+ * Fetches all info related to course and resolves
+ * all identifiers to values in the database.
+ * Returns resolved course object.
+ * @param {Number} courseId
+ * @return {Object} course
+ */
 const fetchAndResolveCourse = async (courseId) => {
     const records = await fetchCourseAndPhaseRecords(courseId);
     return resolveCourseObject(records.courseRecord, records.coursePhaseRecords);
 };
 
-const fetchSimilarCourseRecordsById = async (courseId) => {
+/**
+ * Fetch similar course records by provided course id.
+ * If the provided course has multiple phases, one is picked
+ * to avoid duplicate results.
+ * Returns an array of course records with a default maximum size of 5.
+ * @param {Number} courseId
+ * @param {Number} [size=5] default is 5
+ * @return {Array} similar course records
+ */
+const fetchSimilarCourseRecordsById = async (courseId, size) => {
     const records = await fetchCourseAndPhaseRecords(courseId);
-    return fetchSimilarCourseRecords(records.courseRecord, records.coursePhaseRecords);
+    return fetchSimilarCourseRecords(records.courseRecord, records.coursePhaseRecords, size);
 };
 
 module.exports = {

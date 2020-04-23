@@ -28,7 +28,7 @@ const sendEmail = (email, subject, text) => {
             text: text,
         };
         if (process.env.SKIP_MAIL_SENDING_FOR_TESTING == true) {
-            log.debug("'%s': Skipping email sending", email);
+            log.info("'%s': Skipping email sending", email);
             const result = {
                 status: 200,
                 info: "testing",
