@@ -1,11 +1,11 @@
-const spreadSheet = SpreadsheetApp.openById("1366wGzD-r1OHfIgonw957oiMugzyihBpZKa7QHrUkW4");
-const sheet = spreadSheet.getSheetByName("Copy of Copy of Sheet1");
+const spreadSheet = SpreadsheetApp.openById("1zKH_wD99Va0GqTpuUaChEjAaD36LZrnQf3K0E12ooi0");
+const sheet = spreadSheet.getSheetByName("a");
 
-const fillRows = () => {
+const fillPhaseRows = () => {
     const startRow = 4;
     const numRows = 9999;
 
-    const dataRange = sheet.getRange(startRow, 1, numRows, 4);
+    const dataRange = sheet.getRange(startRow, 1, numRows, 6);
 
     const data = dataRange.getValues();
 
@@ -17,22 +17,107 @@ const fillRows = () => {
         const category = row[1];
         const competency = row[2];
         const phases = row[3];
+        const course = row[4];
+        const video = row[5];
 
-        if (i >= 4130) {
+        if (i >= 4134) {
             break;
         }
 
-        if (capability === "") { // Prevents sending
+        if (phases !== "") {
 
-            // const prevRow = data[i-1];
-            // const prevCapability = prevRow[0];
+            latestValue = "[";
 
-            sheet.getRange(startRow + i, 1).setValue(latestValue);
+            if (phases.includes("1")) {
+                latestValue = latestValue + "1,";
+            }
 
-            // Make sure the cell is updated right away in case the script is interrupted
-            SpreadsheetApp.flush();
-        } else {
-            latestValue = capability;
+            if (phases.includes("2")) {
+                latestValue = latestValue + "2,";
+            }
+
+            if (phases.includes("3")) {
+                latestValue = latestValue + "3,";
+            }
+
+            if (phases.includes("4")) {
+                latestValue = latestValue + "4,";
+            }
+
+            if (phases.includes("5")) {
+                latestValue = latestValue + "5,";
+            }
+
+            latestValue = latestValue.slice(0, -1);
+
+            latestValue = latestValue + "]";
+        }
+
+        sheet.getRange(startRow + i, 4).setValue(latestValue);
+    }
+}
+
+const fillRows = () => {
+    const startRow = 4;
+    const numRows = 9999;
+
+    const dataRange = sheet.getRange(startRow, 1, numRows, 6);
+
+    const data = dataRange.getValues();
+
+    let latestValue = "";
+
+    for (var i = 0; i < data.length; ++i) {
+        const row = data[i];
+        const capability = row[0];
+        const category = row[1];
+        const competency = row[2];
+        const phases = row[3];
+        const course = row[4];
+        const video = row[5];
+
+        if (i >= 4134) {
+            break;
+        }
+
+        if (course !== "") {
+
+            sheet.getRange(startRow + i, 7).setValue(course.toString().trim());
+
+            //SpreadsheetApp.flush();
+        }
+
+        if (video !== "") {
+
+            sheet.getRange(startRow + i, 9).setValue(video.toString().trim());
+
+            //SpreadsheetApp.flush();
         }
     }
+}
+
+const extractHyperlinks = () => {
+
+    let latestIdx = 4;
+
+    const res = Sheets.Spreadsheets.get("1zKH_wD99Va0GqTpuUaChEjAaD36LZrnQf3K0E12ooi0", {ranges: "a!F4:F4139", fields: "sheets/data/rowData/values/hyperlink"});
+    var sheets = res.sheets;
+for (var i = 0; i < sheets.length; i++) {
+  var data = sheets[i].data;
+  for (var j = 0; j < data.length; j++) {
+    var rowData = data[j].rowData;
+    for (var k = 0; k < rowData.length; k++) {
+      var values = rowData[k].values;
+      sheet.getRange(latestIdx, 8).setValue(values);
+      ++latestIdx;
+
+      //for (var l = 0; l < values.length; l++) {
+        //sheet.getRange(latestIdx, 7).setValue("S");
+        //sheet.getRange(latestIdx, 7).setValue(values[l].hyperlink);
+      //}
+    }
+  }
+}
+
+
 }
