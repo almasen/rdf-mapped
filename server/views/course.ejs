@@ -24,6 +24,7 @@
             <div class="container">
                 <div class="block-heading">
                     <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer"><h2 class="text-info"><%= course.title %></h2></a>
+                    <p>&nbsp;</p>
                     <ol class="breadcrumb" style="background-color: rgb(228,241,255);opacity: 1;">
                         <li class="breadcrumb-item"><a href="#"><span><%= course.capability %></span></a></li>
                         <li class="breadcrumb-item"><a href="#"><span><%= course.category %></span></a></li>
@@ -34,11 +35,16 @@
                     <div class="col-xl-8">
                         <h2 class="text-info">Course details:</h2>
                         <p></p>
+                        <p>Title: <%= course.title%></p>
+                        <p>Capability: <%= course.capability %></p>
+                        <p>Category: <%= course.category %></p>
+                        <p>Competency: <%= course.competency %></p>
                         <p>Course level(s): <%= course.phases.join(", ") %></p>
                         <!-- <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p> -->
-                        <p>Watch this course <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></p>
-                        <i class="fab fa-font-awesome-flag" style="color: rgb(215,21,33);width: 20;height: 20;font-size: 32px;"></i>
+                        <h5>Watch this course <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></h5>
+                        <p style="text-align: right; font-size: small;">Flag any inappropriate info: <a href="#reportContentModal" data-toggle="modal"><i class="material-icons" style="color: rgb(215,21,33);">flag</i></a></p>
                     </div>
+                    <%- include('./components/report-content'); -%>
                     <div class="col">
                         <h2 class="text-info">Similar courses</h2>
                         <p>You might also be interested in these:</p>
