@@ -9,6 +9,17 @@
     <!-- //TODO: -->
 
     <%- include('./components/stylesheets'); -%>
+    <%- include('./components/scripts'); -%>
+
+    <script>
+        const submitMissingRecommendation = () => {
+            document.getElementById("missingRecommendations").submit();
+            // alert("We have been notified that recommendations are missing from this page. \nThank you very much for you help!");
+            document.getElementById("missingRecommendationsContainer").classList.remove("active");
+            document.getElementById("missingRecommendationsContainer").classList.add("disabled");
+            document.getElementById("missingRecommendationsText").innerText = "No similar videos. \nThank you for letting us know about this issue.";
+        };
+    </script>
 
     <% if (video) { %>
     <title>Video: <%= video.title _%></title>
@@ -87,18 +98,6 @@
     </main>
 
     <%- include('./components/footer'); -%>
-
-    <%- include('./components/scripts'); -%>
-
-    <script>
-        const submitMissingRecommendation = () => {
-            document.getElementById("missingRecommendations").submit();
-            // alert("We have been notified that recommendations are missing from this page. \nThank you very much for you help!");
-            document.getElementById("missingRecommendationsContainer").classList.remove("active");
-            document.getElementById("missingRecommendationsContainer").classList.add("disabled");
-            document.getElementById("missingRecommendationsText").innerText = "No similar videos. \nThank you for letting us know about this issue.";
-        };
-    </script>
 </body>
 
 </html>

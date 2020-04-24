@@ -22,7 +22,7 @@
     "body-parser": "^1.19.0",
     "crypto": "^1.0.1",
     "date-and-time": "^0.12.0",
-    "db-migrate": "^0.11.6",
+    "db-migrate": "^0.11.10",
     "db-migrate-pg": "^1.0.0",
     "deep-equal": "^2.0.1",
     "dotenv": "^8.2.0",

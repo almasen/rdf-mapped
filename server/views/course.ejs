@@ -9,6 +9,18 @@
 
     <%- include('./components/stylesheets'); -%>
 
+    <%- include('./components/scripts'); -%>
+
+    <script>
+        const submitMissingRecommendation = () => {
+            document.getElementById("missingRecommendations").submit();
+            // alert("We have been notified that recommendations are missing from this page. \nThank you very much for you help!");
+            document.getElementById("missingRecommendationsContainer").classList.remove("active");
+            document.getElementById("missingRecommendationsContainer").classList.add("disabled");
+            document.getElementById("missingRecommendationsText").innerText = "No similar courses. \nThank you for letting us know about this issue.";
+        };
+    </script>
+
     <% if (course) { %>
         <title>Course: <%= course.title _%></title>
     <% } else { %>
@@ -75,17 +87,5 @@
     </main>
 
     <%- include('./components/footer'); -%>
-
-    <%- include('./components/scripts'); -%>
-
-    <script>
-        const submitMissingRecommendation = () => {
-            document.getElementById("missingRecommendations").submit();
-            // alert("We have been notified that recommendations are missing from this page. \nThank you very much for you help!");
-            document.getElementById("missingRecommendationsContainer").classList.remove("active");
-            document.getElementById("missingRecommendationsContainer").classList.add("disabled");
-            document.getElementById("missingRecommendationsText").innerText = "No similar courses. \nThank you for letting us know about this issue.";
-        };
-    </script>
 </body>
 </html>

@@ -9,6 +9,15 @@
     <meta name="description" content="Vitae Researcher Development Framework Mapped to Linkedin Learning">
 
     <%- include('./components/stylesheets'); -%>
+    <%- include('./components/scripts'); -%>
+
+    <script>
+        const contactSubmit = () => {
+            const form = document.getElementById("contactUsForm");
+            document.getElementById("form-inner").hidden = true;
+            document.getElementById("form-after").hidden = false;
+        };
+    </script>
 </head>
 
 <body>
@@ -40,16 +49,6 @@
     </main>
 
     <%- include('./components/footer'); -%>
-
-    <%- include('./components/scripts'); -%>
-
-    <script>
-        const contactSubmit = () => {
-            const form = document.getElementById("contactUsForm");
-            document.getElementById("form-inner").hidden = true;
-            document.getElementById("form-after").hidden = false;
-        };
-    </script>
 </body>
 
 </html>
