@@ -14,7 +14,7 @@ const findById = (id) => {
 
 const findByIdJoint = (id) => {
     const query = "SELECT " +
-        "title(course) AS title, id(course) AS id, " +
+        "title(course) AS title, hyperlink(course) AS hyperlink, id(course) AS id, " +
         "title(capability) AS capability_title, id(capability) AS capability_id, " +
         "title(category) AS category_title, id(category) AS category_id, " +
         "title(competency) AS competency_title, id(competency) AS competency_id " +
@@ -29,7 +29,7 @@ const findByIdJoint = (id) => {
 const findByIdWithFullInfo = (id) => {
     const query = "SELECT " +
         "ARRAY(SELECT phase_id(course_phase) FROM course_phase WHERE course_id(course_phase) = id(course)) AS phases, " +
-        "title(course) AS title, id(course) AS id, " +
+        "title(course) AS title, hyperlink(course) AS hyperlink, id(course) AS id, " +
         "title(capability) AS capability_title, id(capability) AS capability_id, " +
         "title(category) AS category_title, id(category) AS category_id, " +
         "title(competency) AS competency_title, id(competency) AS competency_id " +
@@ -74,7 +74,31 @@ const findByFiltersAndKeyword = (search) => {
         "($2 = -1 OR category_id = $2) AND " +
         "($3 = -1 OR competency_id = $3) AND " +
         "($4 = -1 OR phase_id = $4) AND " +
-        "UPPER(title) LIKE UPPER($5)";
+        "($5 = '%%' OR (UPPER(title) LIKE UPPER($5)))";
+    const params = [search.filters.capabilityId, search.filters.categoryId,
+        search.filters.competencyId, search.filters.phaseId, `%${search.keyword}%`];
+    return db.query(query, params);
+};
+
+const findByFiltersAndKeywordJoint = (search) => {
+    const query = "SELECT DISTINCT ON (id(course)) " +
+        "ARRAY(SELECT phase_id(course_phase) FROM course_phase WHERE course_id(course_phase) = id(course)) AS phases, " +
+        "title(course) AS title, hyperlink(course) AS hyperlink, id(course) AS id, " +
+        "title(capability) AS capability_title, id(capability) AS capability_id, " +
+        "title(category) AS category_title, id(category) AS category_id, " +
+        "title(competency) AS competency_title, id(competency) AS competency_id " +
+        "FROM course " +
+        "LEFT JOIN capability ON id(capability) = capability_id " +
+        "LEFT JOIN category ON id(category) = category_id " +
+        "LEFT JOIN competency ON id(competency) = competency_id " +
+        "LEFT JOIN course_phase ON course_id(course_phase) = id(course) " +
+        "WHERE " +
+        "($1 = -1 OR capability_id(course) = $1) AND " +
+        "($2 = -1 OR category_id(course) = $2) AND " +
+        "($3 = -1 OR competency_id(course) = $3) AND " +
+        "($4 = -1 OR phase_id(course_phase) = $4) AND " +
+        "($5 = '%%' OR (UPPER(title(course)) LIKE UPPER($5))) " +
+        "ORDER BY id(course)";
     const params = [search.filters.capabilityId, search.filters.categoryId,
         search.filters.competencyId, search.filters.phaseId, `%${search.keyword}%`];
     return db.query(query, params);
@@ -90,4 +114,5 @@ module.exports = {
     findByKeyword,
     findByFiltersAndKeyword,
     findByIdWithFullInfo,
+    findByFiltersAndKeywordJoint,
 };

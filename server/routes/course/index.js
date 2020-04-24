@@ -7,10 +7,11 @@ const pagination = require("../../modules/pagination");
 router.get('/:id', async (req, res) => {
     log.info("Course %s: Fetching course data", req.params.id);
     try {
-        const courseRecord = await courseService.fetchCourseRecord(req.params.id);
-        const coursePhaseRecords = await courseService.fetchCoursePhaseRecords(req.params.id);
-        const course = await courseService.resolveCourseObject(courseRecord, coursePhaseRecords);
-        const similarCourseRecords = await courseService.fetchSimilarCourseRecords(courseRecord, coursePhaseRecords, 5);
+        // const courseRecord = await courseService.fetchCourseRecord(req.params.id);
+        // const coursePhaseRecords = await courseService.fetchCoursePhaseRecords(req.params.id);
+        const course = await courseService.fetchAndResolveCourse(req.params.id);
+        const similarCourseRecords = await courseService.fetchSimilarCourseRecords(course, 5);
+        log.info("Course %s: Rendering page %s recommendations ", req.params.id, similarCourseRecords.count);
         res.render('course.ejs', {
             course,
             similarCourseRecords,
@@ -28,7 +29,7 @@ router.get('/', async (req, res) => {
     log.info("Fetching courses with %s filters", req.query);
     try {
         const filters = req.query;
-        const fetchResult = await courseService.fetchAndResolveByFilters(filters); // TODO: only resolve paginated data
+        const fetchResult = await courseService.fetchByFilters(filters);
         const pageData = pagination.getPageData(req.query.currentPage, req.query.pageSize, fetchResult);
         log.info("Fetched & resolved %s courses, returning page %s of %s",
             fetchResult.length, pageData.meta.currentPage, pageData.meta.pageCount);
