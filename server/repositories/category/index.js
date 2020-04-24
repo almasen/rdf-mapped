@@ -22,6 +22,11 @@ const findAllByParent = (capabilityId) => {
     return db.query(query, [capabilityId]);
 };
 
+const findAllByParentJoint = (capabilityId) => {
+    const query = "SELECT * FROM category LEFT JOIN capability ON id(capability) = capability_id WHERE capability_id=$1";
+    return db.query(query, [capabilityId]);
+};
+
 const update = (category) => {
     const query = "UPDATE category SET title = $2 WHERE id = $1" +
         "RETURNING *"; // returns passed category with it's id set to corresponding id in database
@@ -44,6 +49,7 @@ module.exports = {
     findById,
     findAll,
     findAllByParent,
+    findAllByParentJoint,
     findByKeyword,
     update,
     removeById,

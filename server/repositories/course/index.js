@@ -12,6 +12,35 @@ const findById = (id) => {
     return db.query(query, [id]);
 };
 
+const findByIdJoint = (id) => {
+    const query = "SELECT " +
+        "title(course) AS title, id(course) AS id, " +
+        "title(capability) AS capability_title, id(capability) AS capability_id, " +
+        "title(category) AS category_title, id(category) AS category_id, " +
+        "title(competency) AS competency_title, id(competency) AS competency_id " +
+        "FROM course " +
+        "LEFT JOIN capability ON id(capability) = capability_id " +
+        "LEFT JOIN category ON id(category) = category_id " +
+        "LEFT JOIN competency ON id(competency) = competency_id " +
+        "WHERE id(course)=$1";
+    return db.query(query, [id]);
+};
+
+const findByIdWithFullInfo = (id) => {
+    const query = "SELECT " +
+        "ARRAY(SELECT phase_id(course_phase) FROM course_phase WHERE course_id(course_phase) = id(course)) AS phases, " +
+        "title(course) AS title, id(course) AS id, " +
+        "title(capability) AS capability_title, id(capability) AS capability_id, " +
+        "title(category) AS category_title, id(category) AS category_id, " +
+        "title(competency) AS competency_title, id(competency) AS competency_id " +
+        "FROM course " +
+        "LEFT JOIN capability ON id(capability) = capability_id " +
+        "LEFT JOIN category ON id(category) = category_id " +
+        "LEFT JOIN competency ON id(competency) = competency_id " +
+        "WHERE id(course)=$1";
+    return db.query(query, [id]);
+};
+
 const update = (course) => {
     const query = "UPDATE course SET title = $2, hyperlink = $3, capability_id = $4, category_id = $5, competency_id = $6 WHERE id = $1" +
         "RETURNING *"; // returns passed course with it's id set to corresponding id in database
@@ -54,9 +83,11 @@ const findByFiltersAndKeyword = (search) => {
 module.exports = {
     insert,
     findById,
+    findByIdJoint,
     update,
     removeById,
     findByFilters,
     findByKeyword,
     findByFiltersAndKeyword,
+    findByIdWithFullInfo,
 };

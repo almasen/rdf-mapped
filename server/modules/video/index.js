@@ -3,6 +3,7 @@ const videoPhaseRepo = require("../../repositories/video/phase");
 const capabilityRepo = require("../../repositories/capability");
 const categoryRepo = require("../../repositories/category");
 const competencyRepo = require("../../repositories/competency");
+const phaseRepo = require("../../repositories/phase");
 const log = require("../../util/log");
 const phaseService = require("../phase");
 
@@ -59,19 +60,37 @@ const fetchVideoPhaseRecords = async (videoId) => {
  * @return {Object} video
  */
 const resolveVideoObject = async (videoRecord, videoPhaseRecords) => {
-    log.info("Video %s: Resolving video details", videoRecord.id);
+    log.debug("Video %s: Resolving video details", videoRecord.id);
 
-    const video = {
-        title: videoRecord.title,
-        hyperlink: videoRecord.hyperlink,
-    };
+    const video = {...videoRecord};
 
     video.capability = (await capabilityRepo.findById(videoRecord.capabilityId)).rows[0].title;
     video.category = (await categoryRepo.findById(videoRecord.categoryId)).rows[0].title;
     video.competency = (await competencyRepo.findById(videoRecord.competencyId)).rows[0].title;
     video.phases = await phaseService.getPhaseArray(videoPhaseRecords);
 
-    log.info("Video %s: Object resolved, title: %s", videoRecord.id, video.title);
+    log.debug("Video %s: Object resolved, title: %s", videoRecord.id, video.title);
+
+    return video;
+};
+
+/**
+ * Resolve a video object by given
+ * video record records.
+ * @param {Object} videoRecord with phaseId
+ * @return {Object} video
+ */
+const resolveVideoObjectWithIncludedPhase = async (videoRecord) => {
+    log.debug("Video %s: Resolving video details", videoRecord.id);
+
+    const video = {...videoRecord};
+
+    video.capability = (await capabilityRepo.findById(videoRecord.capabilityId)).rows[0].title;
+    video.category = (await categoryRepo.findById(videoRecord.categoryId)).rows[0].title;
+    video.competency = (await competencyRepo.findById(videoRecord.competencyId)).rows[0].title;
+    video.phase = (await phaseRepo.findById(videoRecord.phaseId)).rows[0].title;
+
+    log.debug("Video %s: Object resolved, title: %s", videoRecord.id, video.title);
 
     return video;
 };
@@ -84,6 +103,7 @@ const resolveVideoObject = async (videoRecord, videoPhaseRecords) => {
  * @param {Object} videoRecord
  * @param {Array} videoPhaseRecords
  * @param {Number} [size=5] default is 5
+ * @return {Array} similar video records
  */
 const fetchSimilarVideoRecords = async (videoRecord, videoPhaseRecords, size) => {
     log.info("Video %s: Fetching similar videos", videoRecord.id);
@@ -117,14 +137,30 @@ const fetchSimilarVideoRecords = async (videoRecord, videoPhaseRecords, size) =>
     return filteredRecords.slice(0, (size ? size : 5));
 };
 
+/**
+ * Fetches all info related to video and resolves
+ * all identifiers to values in the database.
+ * Returns resolved video object.
+ * @param {Number} videoId
+ * @return {Object} video
+ */
 const fetchAndResolveVideo = async (videoId) => {
     const records = await fetchVideoAndPhaseRecords(videoId);
     return resolveVideoObject(records.videoRecord, records.videoPhaseRecords);
 };
 
-const fetchSimilarVideoRecordsById = async (videoId) => {
+/**
+ * Fetch similar video records by provided video id.
+ * If the provided video has multiple phases, one is picked
+ * to avoid duplicate results.
+ * Returns an array of video records with a default maximum size of 5.
+ * @param {Number} videoId
+ * @param {Number} [size=5] default is 5
+ * @return {Array} similar video records
+ */
+const fetchSimilarVideoRecordsById = async (videoId, size) => {
     const records = await fetchVideoAndPhaseRecords(videoId);
-    return fetchSimilarVideoRecords(records.videoRecord, records.videoPhaseRecords);
+    return fetchSimilarVideoRecords(records.videoRecord, records.videoPhaseRecords, size);
 };
 
 const fetchByFilters = async (filters) => {
@@ -141,14 +177,25 @@ const fetchByFilters = async (filters) => {
     return findResult.rows;
 };
 
+const fetchAndResolveByFilters = async (filters) => {
+    const fetchResult = await fetchByFilters(filters);
+    const videos = [];
+    for await (const videoRecord of fetchResult) {
+        const video = await resolveVideoObjectWithIncludedPhase(videoRecord);
+        videos.push(video);
+    }
+    return videos;
+};
 
 module.exports = {
     fetchVideoAndPhaseRecords,
     fetchVideoRecord,
     fetchVideoPhaseRecords,
     resolveVideoObject,
+    resolveVideoObjectWithIncludedPhase,
     fetchSimilarVideoRecords,
     fetchAndResolveVideo,
     fetchSimilarVideoRecordsById,
     fetchByFilters,
+    fetchAndResolveByFilters,
 };

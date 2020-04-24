@@ -28,8 +28,10 @@ router.get('/', async (req, res) => {
     log.info("Fetching courses with %s filters", req.query);
     try {
         const filters = req.query;
-        const fetchResult = await courseService.fetchAndResolveByFilters(filters);
+        const fetchResult = await courseService.fetchAndResolveByFilters(filters); // TODO: only resolve paginated data
         const pageData = pagination.getPageData(req.query.currentPage, req.query.pageSize, fetchResult);
+        log.info("Fetched & resolved %s courses, returning page %s of %s",
+            fetchResult.length, pageData.meta.currentPage, pageData.meta.pageCount);
         res.status(200).send({
             pageData,
         });

@@ -1,0 +1,10 @@
+# GET http://localhost:8000/video
+# GET http://localhost:8000/video?keyword=research
+GET http://localhost:8000/video?keyword=research&pageSize=10&currentPage=2
+# GET http://localhost:8000/video?capability=1&category=1&competency=1&phase=1
+# GET http://localhost:8000/video?keyword=research&capability=1&category=1&competency=1&phase=1
+content-type: application/json
+
+{
+    "title": "Epic Course"
+}
