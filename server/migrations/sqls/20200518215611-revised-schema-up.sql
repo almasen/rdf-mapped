@@ -37,7 +37,7 @@ CREATE TABLE phase
 CREATE TABLE course
 (
     id serial NOT NULL,
-    title varchar(64) NOT NULL,
+    title varchar(128) NOT NULL,
     hyperlink varchar(256) NOT NULL,
     capability_id int NOT NULL,
     category_id int NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE course
 CREATE TABLE video
 (
     id serial NOT NULL,
-    title varchar(64) NOT NULL,
+    title varchar(128) NOT NULL,
     hyperlink varchar(256) NOT NULL,
     capability_id int NOT NULL,
     category_id int NOT NULL,

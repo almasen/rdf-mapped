@@ -25,7 +25,7 @@ beforeEach(() => {
     return testHelpers.clearDatabase();
 });
 
-test('getting a course object and finding similar work', async () => {
+test.skip('getting a course object and finding similar work', async () => {
     const capInsertResult = await capabilityRepo.insert(capability1);
     const capInsertRecord = await capInsertResult.rows[0];
     category1.capabilityId = capInsertRecord.id;

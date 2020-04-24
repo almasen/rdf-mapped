@@ -1,0 +1,2 @@
+#!/bin/bash
+psql -U postgres rdfdatabase < sample.sql

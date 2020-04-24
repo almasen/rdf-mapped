@@ -1,6 +1,43 @@
 const spreadSheet = SpreadsheetApp.openById("1zKH_wD99Va0GqTpuUaChEjAaD36LZrnQf3K0E12ooi0");
 const sheet = spreadSheet.getSheetByName("a");
 
+const replaceCompetenciesWithIndices = () => {
+    const startRow = 4;
+    const numRows = 9999;
+
+    const dataRange = sheet.getRange(startRow, 1, numRows, 6);
+
+    const data = dataRange.getValues();
+
+    let latestValue = "";
+    let index = 0;
+
+    for (var i = 0; i < data.length; ++i) {
+        const row = data[i];
+        const capability = row[0];
+        const category = row[1];
+        const competency = row[2];
+        const phases = row[3];
+        const course = row[4];
+        const video = row[5];
+
+        if (i >= 4134) {
+            break;
+        }
+
+        if (competency !== latestValue) {
+
+            latestValue = competency;
+            ++latestValue;
+        }
+
+        sheet.getRange(startRow + i, 3).setValue(index);
+
+        SpreadsheetApp.flush();
+    }
+}
+
+
 const fillPhaseRows = () => {
     const startRow = 4;
     const numRows = 9999;
