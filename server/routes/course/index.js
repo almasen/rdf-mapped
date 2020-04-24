@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const log = require("../../util/log");
 const courseService = require("../../modules/course");
+const pagination = require("../../modules/pagination");
 
 router.get('/:id', async (req, res) => {
     log.info("Course %s: Fetching course data", req.params.id);
@@ -17,6 +18,23 @@ router.get('/:id', async (req, res) => {
         });
     } catch (error) {
         log.error("Course %s: Failed fetching course data, err: " + error.message, req.params.id);
+        res.render('404.ejs', {
+            baseurl: "",
+        });
+    }
+});
+
+router.get('/', async (req, res) => {
+    log.info("Fetching courses with %s filters", req.query);
+    try {
+        const filters = req.query;
+        const fetchResult = await courseService.fetchAndResolveByFilters(filters);
+        const pageData = pagination.getPageData(req.query.currentPage, req.query.pageSize, fetchResult);
+        res.status(200).send({
+            pageData,
+        });
+    } catch (error) {
+        log.error("Failed fetching courses with %s filters, err: " + error.message, req.query);
         res.render('404.ejs', {
             baseurl: "",
         });

@@ -127,6 +127,21 @@ const fetchSimilarVideoRecordsById = async (videoId) => {
     return fetchSimilarVideoRecords(records.videoRecord, records.videoPhaseRecords);
 };
 
+const fetchByFilters = async (filters) => {
+    const findResult = await videoRepo.findByFiltersAndKeyword({
+        filters: {
+            capabilityId: filters.capability ? parseInt(filters.capability) : -1,
+            categoryId: filters.category ? parseInt(filters.category) : -1,
+            competencyId: filters.competency ? parseInt(filters.competency) : -1,
+            phaseId: filters.phase ? parseInt(filters.phase) : -1,
+        },
+        keyword: filters.keyword ? filters.keyword : "",
+    });
+    log.info("Fetched %s videos with %s filters", findResult.rows.length, filters);
+    return findResult.rows;
+};
+
+
 module.exports = {
     fetchVideoAndPhaseRecords,
     fetchVideoRecord,
@@ -135,4 +150,5 @@ module.exports = {
     fetchSimilarVideoRecords,
     fetchAndResolveVideo,
     fetchSimilarVideoRecordsById,
+    fetchByFilters,
 };

@@ -1,4 +1,4 @@
-GET http://localhost:8000/capability?keyword=D&currentPage=1&pageSize=8
+GET http://localhost:8000/capability?keyword=D&currentPage=2&pageSize=2
 content-type: application/json
 
 {

@@ -1,2 +1,2 @@
 #!/bin/bash
-psql -U postgres rdfdatabase < sample.sql
+sudo -i -u postgres -- psql -U postgres rdfdatabase < sample.sql

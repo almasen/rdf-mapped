@@ -30,7 +30,7 @@ const removeById = (id) => {
 };
 
 const findByKeyword = (keyword) => {
-    const query = "SELECT * FROM capability WHERE title LIKE $1";
+    const query = "SELECT * FROM capability WHERE UPPER(title) LIKE UPPER($1)";
     return db.query(query, [`%${keyword}%`]);
 };
 

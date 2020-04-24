@@ -35,7 +35,7 @@ const findByFilters = (filters) => {
 };
 
 const findByKeyword = (keyword) => {
-    const query = "SELECT * FROM course WHERE title LIKE $1";
+    const query = "SELECT * FROM course WHERE UPPER(title) LIKE UPPER($1)";
     return db.query(query, [`%${keyword}%`]);
 };
 
@@ -45,7 +45,7 @@ const findByFiltersAndKeyword = (search) => {
         "($2 = -1 OR category_id = $2) AND " +
         "($3 = -1 OR competency_id = $3) AND " +
         "($4 = -1 OR phase_id = $4) AND " +
-        "title LIKE $5";
+        "UPPER(title) LIKE UPPER($5)";
     const params = [search.filters.capabilityId, search.filters.categoryId,
         search.filters.competencyId, search.filters.phaseId, `%${search.keyword}%`];
     return db.query(query, params);

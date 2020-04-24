@@ -3,6 +3,7 @@ const coursePhaseRepo = require("../../repositories/course/phase");
 const capabilityRepo = require("../../repositories/capability");
 const categoryRepo = require("../../repositories/category");
 const competencyRepo = require("../../repositories/competency");
+const phaseRepo = require("../../repositories/phase");
 const log = require("../../util/log");
 const phaseService = require("../phase");
 
@@ -59,19 +60,37 @@ const fetchCoursePhaseRecords = async (courseId) => {
  * @return {Object} course
  */
 const resolveCourseObject = async (courseRecord, coursePhaseRecords) => {
-    log.info("Course %s: Resolving course details", courseRecord.id);
+    log.debug("Course %s: Resolving course details", courseRecord.id);
 
-    const course = {
-        title: courseRecord.title,
-        hyperlink: courseRecord.hyperlink,
-    };
+    const course = {...courseRecord};
 
     course.capability = (await capabilityRepo.findById(courseRecord.capabilityId)).rows[0].title;
     course.category = (await categoryRepo.findById(courseRecord.categoryId)).rows[0].title;
     course.competency = (await competencyRepo.findById(courseRecord.competencyId)).rows[0].title;
     course.phases = await phaseService.getPhaseArray(coursePhaseRecords);
 
-    log.info("Course %s: Object resolved, title: %s", courseRecord.id, course.title);
+    log.debug("Course %s: Object resolved, title: %s", courseRecord.id, course.title);
+
+    return course;
+};
+
+/**
+ * Resolve a course object by given
+ * course record records.
+ * @param {Object} courseRecord with phaseId
+ * @return {Object} course
+ */
+const resolveCourseObjectWithIncludedPhase = async (courseRecord) => {
+    log.debug("Course %s: Resolving course details", courseRecord.id);
+
+    const course = {...courseRecord};
+
+    course.capability = (await capabilityRepo.findById(courseRecord.capabilityId)).rows[0].title;
+    course.category = (await categoryRepo.findById(courseRecord.categoryId)).rows[0].title;
+    course.competency = (await competencyRepo.findById(courseRecord.competencyId)).rows[0].title;
+    course.phase = (await phaseRepo.findById(courseRecord.phaseId)).rows[0].title;
+
+    log.debug("Course %s: Object resolved, title: %s", courseRecord.id, course.title);
 
     return course;
 };
@@ -144,12 +163,39 @@ const fetchSimilarCourseRecordsById = async (courseId, size) => {
     return fetchSimilarCourseRecords(records.courseRecord, records.coursePhaseRecords, size);
 };
 
+const fetchByFilters = async (filters) => {
+    const findResult = await courseRepo.findByFiltersAndKeyword({
+        filters: {
+            capabilityId: filters.capability ? parseInt(filters.capability) : -1,
+            categoryId: filters.category ? parseInt(filters.category) : -1,
+            competencyId: filters.competency ? parseInt(filters.competency) : -1,
+            phaseId: filters.phase ? parseInt(filters.phase) : -1,
+        },
+        keyword: filters.keyword ? filters.keyword : "",
+    });
+    log.info("Fetched %s courses with %s filters", findResult.rows.length, filters);
+    return findResult.rows;
+};
+
+const fetchAndResolveByFilters = async (filters) => {
+    const fetchResult = await fetchByFilters(filters);
+    const courses = [];
+    for await (const courseRecord of fetchResult) {
+        const course = await resolveCourseObjectWithIncludedPhase(courseRecord);
+        courses.push(course);
+    }
+    return courses;
+};
+
 module.exports = {
     fetchCourseAndPhaseRecords,
     fetchCourseRecord,
     fetchCoursePhaseRecords,
     resolveCourseObject,
+    resolveCourseObjectWithIncludedPhase,
     fetchSimilarCourseRecords,
     fetchAndResolveCourse,
     fetchSimilarCourseRecordsById,
+    fetchByFilters,
+    fetchAndResolveByFilters,
 };
