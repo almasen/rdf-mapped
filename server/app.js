@@ -44,6 +44,8 @@ app.use("/error", require("./routes/error"));
 app.use("/bugreport", require("./routes/bugreport"));
 app.use("/information", require("./routes/information"));
 
+app.use("/capability", require("./routes/capability"));
+
 // // wildcard-protect
 // app.all("*", authService.requireAuthentication);
 

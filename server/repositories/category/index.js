@@ -12,6 +12,11 @@ const findById = (id) => {
     return db.query(query, [id]);
 };
 
+const findAll = () => {
+    const query = "SELECT * FROM category";
+    return db.query(query);
+};
+
 const findAllByParent = (capabilityId) => {
     const query = "SELECT * FROM category WHERE capability_id=$1";
     return db.query(query, [capabilityId]);
@@ -30,13 +35,14 @@ const removeById = (id) => {
 };
 
 const findByKeyword = (keyword) => {
-    const query = "SELECT * FROM course WHERE title LIKE $1";
+    const query = "SELECT * FROM category WHERE title LIKE $1";
     return db.query(query, [`%${keyword}%`]);
 };
 
 module.exports = {
     insert,
     findById,
+    findAll,
     findAllByParent,
     findByKeyword,
     update,

@@ -1,0 +1,6 @@
+GET http://localhost:8000/capability?keyword=D&currentPage=1&pageSize=8
+content-type: application/json
+
+{
+    "title": "Epic Course"
+}

@@ -12,6 +12,11 @@ const findById = (id) => {
     return db.query(query, [id]);
 };
 
+const findAll = () => {
+    const query = "SELECT * FROM capability";
+    return db.query(query);
+};
+
 const update = (capability) => {
     const query = "UPDATE capability SET title = $2 WHERE id = $1" +
         "RETURNING *"; // returns passed capability with it's id set to corresponding id in database
@@ -25,13 +30,14 @@ const removeById = (id) => {
 };
 
 const findByKeyword = (keyword) => {
-    const query = "SELECT * FROM course WHERE title LIKE $1";
+    const query = "SELECT * FROM capability WHERE title LIKE $1";
     return db.query(query, [`%${keyword}%`]);
 };
 
 module.exports = {
     insert,
     findById,
+    findAll,
     findByKeyword,
     update,
     removeById,

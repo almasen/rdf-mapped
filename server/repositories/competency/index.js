@@ -12,6 +12,11 @@ const findById = (id) => {
     return db.query(query, [id]);
 };
 
+const findAll = () => {
+    const query = "SELECT * FROM competency";
+    return db.query(query);
+};
+
 const findAllByParent = (categoryId) => {
     const query = "SELECT * FROM competency WHERE category_id=$1";
     return db.query(query, [categoryId]);
@@ -37,6 +42,7 @@ const findByKeyword = (keyword) => {
 module.exports = {
     insert,
     findById,
+    findAll,
     findAllByParent,
     findByKeyword,
     update,
