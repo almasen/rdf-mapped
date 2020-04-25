@@ -42,7 +42,8 @@
     "pg": "^8.0.2",
     "pg-camelcase": "0.0.3",
     "pg-types": "^3.0.0",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "select2-theme-bootstrap4": "^0.2.0-beta.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -12,6 +12,11 @@ const findById = (id) => {
     return db.query(query, [id]);
 };
 
+const findAll = () => {
+    const query = "SELECT * FROM phase";
+    return db.query(query);
+};
+
 const update = (phase) => {
     const query = "UPDATE phase SET title = $2 WHERE id = $1" +
         "RETURNING *"; // returns passed phase with it's id set to corresponding id in database
@@ -27,6 +32,7 @@ const removeById = (id) => {
 module.exports = {
     insert,
     findById,
+    findAll,
     update,
     removeById,
 };

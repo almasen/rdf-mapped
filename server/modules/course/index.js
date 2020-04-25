@@ -173,6 +173,10 @@ const fetchByFilters = async (filters) => {
     return findResult.rows;
 };
 
+const fetchAll = async () => {
+    return (await fetchByFilters({}));
+};
+
 // const fetchAndResolveByFilters = async (filters) => {
 //     const fetchResult = await fetchByFilters(filters);
 //     const courses = [];
@@ -193,5 +197,6 @@ module.exports = {
     fetchAndResolveCourse,
     // fetchSimilarCourseRecordsById,
     fetchByFilters,
+    fetchAll,
     // fetchAndResolveByFilters,
 };

@@ -9,6 +9,12 @@ const getPhaseArray = async (phaseRecords) => {
     return phaseArray;
 };
 
+const fetchAll = async () => {
+    const findResult = await phaseRepo.findAll();
+    return findResult.rows;
+};
+
 module.exports = {
     getPhaseArray,
+    fetchAll,
 };

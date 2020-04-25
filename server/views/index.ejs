@@ -15,6 +15,23 @@
 
     <%- include('./components/stylesheets'); -%>
     <%- include('./components/scripts'); -%>
+
+    <script>
+        $(document).ready(function () {
+            $('#selectCapability').select2({
+                theme: "bootstrap"
+            });
+            $('#selectCategory').select2({
+                theme: "bootstrap"
+            });
+            $('#selectCompetency').select2({
+                theme: "bootstrap"
+            });
+            $('#selectPhase').select2({
+                theme: "bootstrap"
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -33,21 +50,85 @@
                     <h2 class="text-info">Courses & Videos Search</h2>
                     <p>Use the following filters to search for a course or video matching one of the Researcher Development Framework's pathways.</p>
                 </div>
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <select class="custom-select">
-                            <option selected>Capability</option>
-                            <option value="1">Domain A: Knowledge base</option>
-                            <option value="2">Domain B: Cheeseburger</option>
-                            <option value="3">Domain C: Hamburger</option>
-                            <option value="4">Domain D:</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <h3>Lorem impsum dolor sit amet</h3>
-                        <div class="getting-started-info">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        </div><button class="btn btn-outline-primary btn-lg" type="button">Join Now</button></div>
+                <div class="row">
+                    <form>
+                        <div class="form-row">
+                            <div class="col">
+                                <select class="custom-select" name="selectCapability" id="selectCapability">
+                                    <option value="-1" selected>Capability</option>
+                                    <% if (capabilities.length > 0) { %>
+                                        <% capabilities.forEach(e => { %>
+                                            <option value="<%= e.id %>"><%= e.title %></option>
+                                        <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select class="custom-select" name="selectCategory" id="selectCategory">
+                                    <option value="-1" selected>Category</option>
+                                    <% if (categories.length > 0) { %>
+                                        <% categories.forEach(e => { %>
+                                            <option value="<%= e.id %>"><%= e.title %></option>
+                                        <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select class="custom-select" name="selectCompetency" id="selectCompetency">
+                                    <option value="-1" selected>Competency</option>
+                                    <% if (competencies.length > 0) { %>
+                                        <% competencies.forEach(e => { %>
+                                            <option value="<%= e.id %>"><%= e.title %></option>
+                                        <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <select class="custom-select" name="selectPhase" id="selectPhase">
+                                    <option value="-1" selected>Level</option>
+                                    <% if (phases.length > 0) { %>
+                                        <% phases.forEach(e => { %>
+                                            <option value="<%= e.id %>"><%= e.title %></option>
+                                        <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <span class="material-icons">search</span>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control" id="keywordSearch" placeholder="Keyword">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-5">
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <span class="material-icons">search</span>
+                                        </div>
+                                    </div>
+                                    <input list="courses" type="text" class="form-control" id="keywordSearchCourses" placeholder="Keyword" onselect="location = this.value;">
+                                </div>
+                                <datalist id="courses">
+                                    <% if (courses.length > 0) { %>
+                                        <% courses.forEach(e => { %>
+                                            <option value="/course/<%= e.id %>"><%= e.title %></option>
+                                        <% }); %>
+                                    <% } %>
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-5">
+                                <button type="submit" class="btn btn-primary mb-2">Search for Content</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
