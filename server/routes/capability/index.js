@@ -5,10 +5,6 @@ const pagination = require("../../modules/pagination");
 const log = require("../../util/log");
 
 router.get('/', async (req, res) => {
-    // res.render("faq.ejs", {
-    //     baseurl: req.baseUrl,
-    // });
-    // log.info("Course %s: Fetching course data", req.params.id);
     try {
         const fetchResult = await capabilityService.fetchByKeyword(req.query.keyword);
         const pageData = pagination.getPageData(req.query.currentPage, req.query.pageSize, fetchResult);

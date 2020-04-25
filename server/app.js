@@ -38,8 +38,8 @@ app.use("/video", require("./routes/video"));
 app.use("/features", require("./routes/features"));
 app.use("/faq", require("./routes/faq"));
 app.use("/contact", require("./routes/contact"));
-app.use("/login", require("./routes/login"));
-app.use("/registration", require("./routes/registration"));
+// app.use("/login", require("./routes/login")); // TODO: TBD
+// app.use("/registration", require("./routes/registration")); // TODO: TBD
 
 app.use("/error", require("./routes/error"));
 app.use("/bugreport", require("./routes/bugreport"));
@@ -48,7 +48,11 @@ app.use("/information", require("./routes/information"));
 app.use("/capability", require("./routes/capability"));
 
 // // wildcard-protect
-// app.all("*", authService.requireAuthentication);
+app.all("*", function(req, res, next) {
+    res.render('404.ejs', {
+        baseurl: "",
+    });
+});
 
 log.info(`App started successfully in ${process.env.NODE_ENV} environment...`);
 

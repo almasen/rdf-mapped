@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Courses Search</title>
+    <title>Courses - RDF Mapped</title>
     <meta property="og:type" content="">
     <meta name="description" content="Vitae Researcher Development Framework Mapped to Linkedin Learning">
 
@@ -19,8 +19,12 @@
         <section class="clean-block clean-faq dark">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">Search Result: Courses</h2>
-                    <p>These are the courses matching your search parameters.</p>
+                    <h2 class="text-info">Courses</h2>
+                    <% if (pageData.data.length > 0) { %>
+                        <p>Simply click on a row to open up a course's page.</p>
+                    <% } else { %>
+                        <p>We couldn't find any courses with these search parameters. <i class="material-icons icon">sentiment_dissatisfied</i><br>Please consider adjusting the filters.</p>
+                    <% } %>
                 </div>
                 <%- include('./components/table'); -%>
             </div>

@@ -38,9 +38,9 @@
                     <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer"><h2 class="text-info"><%= course.title %></h2></a>
                     <p>&nbsp;</p>
                     <ol class="breadcrumb" style="background-color: rgb(228,241,255);opacity: 1;">
-                        <li class="breadcrumb-item"><a href="#"><span><%= course.capabilityTitle %></span></a></li>
-                        <li class="breadcrumb-item"><a href="#"><span><%= course.categoryTitle %></span></a></li>
-                        <li class="breadcrumb-item"><a href="#"><span><%= course.competencyTitle %></span></a></li>
+                        <li class="breadcrumb-item"><a href="/course?capability=<%= course.capabilityId %>"><span><%= course.capabilityTitle %></span></a></li>
+                        <li class="breadcrumb-item"><a href="/course?category=<%= course.categoryId %>"><span><%= course.categoryTitle %></span></a></li>
+                        <li class="breadcrumb-item"><a href="/course?competency=<%= course.competencyId %>"><span><%= course.competencyTitle %></span></a></li>
                     </ol>
                 </div>
                 <div class="row" style="margin: 26.5;">

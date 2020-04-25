@@ -11,11 +11,15 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     log.info("%s: Sending us contact-us message..", req.body.email);
-    mail.sendEmail(
-        process.env.EMAIL_ADDRESS,
-        req.body.subject,
-        `${req.body.email} - ${req.body.name}: ${req.body.message}`,
-    );
+    try {
+        mail.sendEmail(
+            process.env.EMAIL_ADDRESS,
+            req.body.subject,
+            `Contact request from ${req.body.email} - ${req.body.name}: ${req.body.message}`,
+        );
+    } catch (error) {
+        log.error("%s: Contact-us failed, err: " + error.message, req.body.email);
+    }
 });
 
 module.exports = router;
