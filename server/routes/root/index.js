@@ -6,6 +6,7 @@ const categoryService = require("../../modules/category");
 const competencyService = require("../../modules/competency");
 const phaseService = require("../../modules/phase");
 const courseService = require("../../modules/course");
+const videoService = require("../../modules/video");
 
 router.get('/', async (req, res) => {
     log.info("Launching home page, fetching all info..");
@@ -14,7 +15,7 @@ router.get('/', async (req, res) => {
     const competencies = await competencyService.fetchAll();
     const phases = await phaseService.fetchAll();
     const courses = await courseService.fetchAllWithUniqueTitles();
-    // const videos = await videoService.fetchAll();
+    const videos = await videoService.fetchAllWithUniqueTitles();
     log.info("Fetched all info, rendering home page..");
     res.render("index.ejs", {
         baseurl: req.path,
@@ -23,7 +24,7 @@ router.get('/', async (req, res) => {
         competencies,
         phases,
         courses,
-        videos: [],
+        videos,
     });
 });
 

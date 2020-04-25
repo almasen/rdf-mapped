@@ -4,11 +4,11 @@
             <tr>
                 <th scope="col">#</th>
                 <!-- <th scope="col">Type</th> -->
+                <th scope="col">Title</th>
                 <th scope="col">Capability</th>
                 <th scope="col">Category</th>
                 <th scope="col">Competency</th>
                 <th scope="col">Level</th>
-                <th scope="col">Title</th>
             </tr>
         </thead>
         <tbody>
@@ -16,16 +16,16 @@
                 <% var idx = 0; pageData.data.forEach(e => { ++idx; %>
                     <tr style="transform: rotate(0);">
                         <th scope="row">
-                            <a href="/course/<%= e.id %>" class="stretched-link">
+                            <a href="<%= baseurl %>/<%= e.id %>" class="stretched-link">
                                 <%= idx %>
                             </a>
                         </th>
                         <!-- <td>Course</td> -->
+                        <td><%= e.title %></td>
                         <td><%= e.capabilityTitle %></td>
                         <td><%= e.categoryTitle %></td>
                         <td><%= e.competencyTitle %></td>
                         <td><%= e.phases.join("/") %></td>
-                        <td><%= e.title %></td>
                     </tr>
                 <% }); %>
             <% } %>

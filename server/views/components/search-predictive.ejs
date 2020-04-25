@@ -1,0 +1,48 @@
+<div class="block-heading">
+    <p>&nbsp;</p>
+    <h2 class="text-info">Predictive Keyword Search</h2>
+</div>
+<div class="row">
+    <div style="padding-bottom: 1rem;">
+        <p style="text-align: justify;">Start typing in the title of a course or video you might be interested in and we
+            will predict what the relevant learning material. Simply choose one of the offered entries and you will be
+            redirected to the relevant content page. The predictive keyword search is <b>not</b> case sensitive so no
+            need to worry about capitalising.</p>
+    </div>
+</div>
+<form>
+    <div class="row">
+        <div class="col">
+            <!-- <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="predictiveSelectCourse">Courses</label>
+                                </div> -->
+            <select class="custom-select" name="selectCourse" id="predictiveSelectCourse"
+                onchange="location = this.value;">
+                <option value="-1" selected disabled>Courses</option>
+                <% if (courses.length > 0) { %>
+                <% courses.forEach(e => { %>
+                <option value="/course/<%= e.id %>"><%= e.title %></option>
+                <% }); %>
+                <% } %>
+            </select>
+            <!-- </div> -->
+        </div>
+        <div class="col">
+            <!-- <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="predictiveSelectVideo">Videos</label>
+                                </div> -->
+            <select class="custom-select" name="selectVideo" id="predictiveSelectVideo"
+                onchange="location = this.value;">
+                <option value="-1" selected disabled>Videos</option>
+                <% if (videos.length > 0) { %>
+                <% videos.forEach(e => { %>
+                <option value="/video/<%= e.id %>"><%= e.title %></option>
+                <% }); %>
+                <% } %>
+            </select>
+            <!-- </div> -->
+        </div>
+    </div>
+</form>

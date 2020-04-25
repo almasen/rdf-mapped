@@ -1,0 +1,68 @@
+<div class="block-heading">
+    <p>&nbsp;</p>
+    <h2 class="text-info">Step-by-step Search</h2>
+</div>
+<div class="row">
+    <div style="padding-bottom: 1rem;">
+        <p style="text-align: justify;">Start using the filters from left to right narrowing down the type of courses &
+            videos to reach the online learning material matching your development path. All of the filters are optional
+            so you may stop at any point and see the offered results. Setting more filters will result in a shorter but
+            more precise list of content.</p>
+    </div>
+</div>
+<form action="/course" method="GET">
+    <div class="form-row">
+        <div class="col">
+            <select class="custom-select" name="capability" id="stepByStepSelectCapability">
+                <option value="-1" selected>Capability</option>
+                <% if (capabilities.length > 0) { %>
+                <% capabilities.forEach(e => { %>
+                <option value="<%= e.id %>"><%= e.title %></option>
+                <% }); %>
+                <% } %>
+            </select>
+        </div>
+        <div class="col-auto" style="padding-left: 0; padding-right: 0;">
+            <span class="material-icons icon" style="color: rgba(14, 150, 235, 0.85);">navigate_next</span>
+        </div>
+        <div class="col">
+            <select class="custom-select" name="category" id="stepByStepSelectCategory">
+                <option value="-1" selected>Category</option>
+                <% if (categories.length > 0) { %>
+                <% categories.forEach(e => { %>
+                <option value="<%= e.id %>"><%= e.title %></option>
+                <% }); %>
+                <% } %>
+            </select>
+        </div>
+        <div class="col-auto" style="padding-left: 0; padding-right: 0;">
+            <span class="material-icons icon" style="color: rgba(14, 150, 235, 0.85);">navigate_next</span>
+        </div>
+        <div class="col">
+            <select class="custom-select" name="competency" id="stepByStepSelectCompetency">
+                <option value="-1" selected>Competency</option>
+                <% if (competencies.length > 0) { %>
+                <% competencies.forEach(e => { %>
+                <option value="<%= e.id %>"><%= e.title %></option>
+                <% }); %>
+                <% } %>
+            </select>
+        </div>
+        <div class="col-auto" style="padding-left: 0; padding-right: 0;">
+            <span class="material-icons icon" style="color: rgba(14, 150, 235, 0.85);">navigate_next</span>
+        </div>
+        <div class="col">
+            <select class="custom-select" name="phase" id="stepByStepSelectPhase">
+                <option value="-1" selected>Level</option>
+                <% if (phases.length > 0) { %>
+                <% phases.forEach(e => { %>
+                <option value="<%= e.id %>"><%= e.title %></option>
+                <% }); %>
+                <% } %>
+            </select>
+        </div>
+        <div class="col" style="padding-left: 1rem;">
+            <button type="submit" class="btn btn-primary mb-2">Search</button>
+        </div>
+    </div>
+</form>
