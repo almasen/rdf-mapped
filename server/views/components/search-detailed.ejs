@@ -10,7 +10,7 @@
             keyword is <b>not</b> case sensitive, so do not worry about capitalising.</p>
     </div>
 </div>
-<form action="/course" method="GET">
+<form action="/course" method="GET" name="detailedSelectForm" id="detailedSelectForm">
     <div class="form-row">
         <div class="col">
             <select class="custom-select" name="capability" id="detailedSelectCapability">
@@ -62,6 +62,21 @@
                 <input type="text" class="form-control" name="keyword" id="keywordSearch" placeholder="Keyword">
             </div>
         </div>
+        <div class="col-auto" style="padding-left:20px; padding-right: 18px;">
+            <div class="row">
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="courseVideoRadio21" name="detailedSearchCourseVideo" value="course" class="custom-control-input"
+                        checked>
+                    <label class="custom-control-label" for="courseVideoRadio21">Course</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="courseVideoRadio22" name="detailedSearchCourseVideo" value="video" class="custom-control-input">
+                    <label class="custom-control-label" for="courseVideoRadio22">Video</label>
+                </div>
+            </div>
+        </div>
         <div class="col">
             <button type="submit" class="btn btn-primary mb-2">Search</button>
         </div>
@@ -75,4 +90,9 @@
         $('#detailedSelectPhase').select2();
     });
     $.fn.select2.defaults.set("theme", "bootstrap");
+    document.forms.detailedSelectForm.detailedSearchCourseVideo.forEach(radio => {
+        radio.addEventListener('change', () => {
+            document.detailedSelectForm.action = ("/" + document.forms.detailedSelectForm.detailedSearchCourseVideo.value);
+        })
+    });
 </script>

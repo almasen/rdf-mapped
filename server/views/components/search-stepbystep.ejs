@@ -64,13 +64,13 @@
         <div class="col-auto" style="padding-left:20px; padding-right: 18px;">
             <div class="row">
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="courseVideoRadio11" name="courseVideo" value="course" class="custom-control-input" checked>
+                    <input type="radio" id="courseVideoRadio11" name="stepByStepCourseVideo" value="course" class="custom-control-input" checked>
                     <label class="custom-control-label" for="courseVideoRadio11">Course</label>
                 </div>
             </div>
             <div class="row">
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="courseVideoRadio12" name="courseVideo" value="video" class="custom-control-input">
+                    <input type="radio" id="courseVideoRadio12" name="stepByStepCourseVideo" value="video" class="custom-control-input">
                     <label class="custom-control-label" for="courseVideoRadio12">Video</label>
                 </div>
             </div>
@@ -88,9 +88,9 @@
         $('#stepByStepSelectPhase').select2();
     });
     $.fn.select2.defaults.set("theme", "bootstrap");
-    document.forms.stepByStepSelectForm.courseVideo.forEach(radio => {
+    document.forms.stepByStepSelectForm.stepByStepCourseVideo.forEach(radio => {
         radio.addEventListener('change', () => {
-            document.stepByStepSelectForm.action = ("/" + document.forms.stepByStepSelectForm.courseVideo.value);
+            document.stepByStepSelectForm.action = ("/" + document.forms.stepByStepSelectForm.stepByStepCourseVideo.value);
         })
     });
 </script>
