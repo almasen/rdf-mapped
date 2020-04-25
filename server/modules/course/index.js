@@ -6,7 +6,7 @@ const competencyRepo = require("../../repositories/competency");
 const phaseRepo = require("../../repositories/phase");
 const log = require("../../util/log");
 const phaseService = require("../phase");
-
+const filtering = require("../filtering");
 // /**
 //  * Fetch the course record and relevant course
 //  * phase records from the database and return
@@ -169,8 +169,10 @@ const fetchByFilters = async (filters) => {
         },
         keyword: filters.keyword ? filters.keyword : '',
     });
-    log.info("Fetched %s courses with %s filters", findResult.rows.length, filters);
-    return findResult.rows;
+    log.info("Fetched %s courses with %s filters", findResult.rows.length, JSON.stringify(filters));
+    const filteredAndSorted = filtering.filterAndSortByTitle(findResult.rows);
+    log.info("Removed %s duplicate titles, returning %s", findResult.rows.length - filteredAndSorted.length, filteredAndSorted.length);
+    return filteredAndSorted;
 };
 
 const fetchAll = async () => {
@@ -179,11 +181,7 @@ const fetchAll = async () => {
 
 const fetchAllWithUniqueTitles = async () => {
     const allCourses = await fetchByFilters({});
-    const uniqueCourses = new Map();
-    allCourses.forEach(e => {
-        uniqueCourses.set(e.title, e);
-    });
-    return [...uniqueCourses.values()].sort((a, b) => a.title.localeCompare(b.title));
+    return filtering.filterAndSortByTitle(allCourses);
 };
 
 // const fetchAndResolveByFilters = async (filters) => {

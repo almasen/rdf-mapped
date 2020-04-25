@@ -7,15 +7,13 @@ const pagination = require("../../modules/pagination");
 router.get('/:id', async (req, res) => {
     log.info("Course %s: Fetching course data", req.params.id);
     try {
-        // const courseRecord = await courseService.fetchCourseRecord(req.params.id);
-        // const coursePhaseRecords = await courseService.fetchCoursePhaseRecords(req.params.id);
         const course = await courseService.fetchAndResolveCourse(req.params.id);
         const similarCourseRecords = await courseService.fetchSimilarCourseRecords(course, 5);
         log.info("Course %s: Rendering page %s recommendations ", req.params.id, similarCourseRecords.count);
         res.render('course.ejs', {
             course,
             similarCourseRecords,
-            baseurl: req.baseUrl, // TODO:
+            baseurl: req.baseUrl, // TODO: ?
         });
     } catch (error) {
         log.error("Course %s: Failed fetching course data, err: " + error.message, req.params.id);
@@ -26,7 +24,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-    log.info("Fetching courses with %s filters", req.query);
+    log.info("Fetching courses with %s filters", JSON.stringify(req.query));
     try {
         const filters = req.query;
         const fetchResult = await courseService.fetchByFilters(filters);
@@ -36,7 +34,7 @@ router.get('/', async (req, res) => {
         res.render('courses.ejs', {
             courses: fetchResult,
             pageData,
-            baseurl: req.baseUrl, // TODO:
+            baseurl: req.baseUrl, // TODO: ?
         });
     } catch (error) {
         log.error("Failed fetching courses with %s filters, err: " + error.message, req.query);
