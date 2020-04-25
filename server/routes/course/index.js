@@ -33,8 +33,10 @@ router.get('/', async (req, res) => {
         const pageData = pagination.getPageData(req.query.currentPage, req.query.pageSize, fetchResult);
         log.info("Fetched & resolved %s courses, returning page %s of %s",
             fetchResult.length, pageData.meta.currentPage, pageData.meta.pageCount);
-        res.status(200).send({
+        res.render('courses.ejs', {
+            courses: fetchResult,
             pageData,
+            baseurl: req.baseUrl, // TODO:
         });
     } catch (error) {
         log.error("Failed fetching courses with %s filters, err: " + error.message, req.query);

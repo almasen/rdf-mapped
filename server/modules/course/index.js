@@ -177,6 +177,15 @@ const fetchAll = async () => {
     return (await fetchByFilters({}));
 };
 
+const fetchAllWithUniqueTitles = async () => {
+    const allCourses = await fetchByFilters({});
+    const uniqueCourses = new Map();
+    allCourses.forEach(e => {
+        uniqueCourses.set(e.title, e);
+    });
+    return [...uniqueCourses.values()].sort((a, b) => a.title.localeCompare(b.title));
+};
+
 // const fetchAndResolveByFilters = async (filters) => {
 //     const fetchResult = await fetchByFilters(filters);
 //     const courses = [];
@@ -198,5 +207,6 @@ module.exports = {
     // fetchSimilarCourseRecordsById,
     fetchByFilters,
     fetchAll,
+    fetchAllWithUniqueTitles,
     // fetchAndResolveByFilters,
 };

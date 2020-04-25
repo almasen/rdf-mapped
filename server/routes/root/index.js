@@ -13,7 +13,8 @@ router.get('/', async (req, res) => {
     const categories = await categoryService.fetchAll();
     const competencies = await competencyService.fetchAll();
     const phases = await phaseService.fetchAll();
-    const courses = await courseService.fetchAll();
+    const courses = await courseService.fetchAllWithUniqueTitles();
+    // const videos = await videoService.fetchAll();
     log.info("Fetched all info, rendering home page..");
     res.render("index.ejs", {
         baseurl: req.path,
@@ -22,6 +23,7 @@ router.get('/', async (req, res) => {
         competencies,
         phases,
         courses,
+        videos: [],
     });
 });
 

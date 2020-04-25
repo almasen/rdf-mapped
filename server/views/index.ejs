@@ -13,19 +13,18 @@
 
     <script>
         $(document).ready(function () {
-            $('#selectCapability').select2({
-                theme: "bootstrap"
-            });
-            $('#selectCategory').select2({
-                theme: "bootstrap"
-            });
-            $('#selectCompetency').select2({
-                theme: "bootstrap"
-            });
-            $('#selectPhase').select2({
-                theme: "bootstrap"
-            });
+            $('#stepByStepSelectCapability').select2();
+            $('#stepByStepSelectCategory').select2();
+            $('#stepByStepSelectCompetency').select2();
+            $('#stepByStepSelectPhase').select2();
+            $('#detailedSelectCapability').select2();
+            $('#detailedSelectCategory').select2();
+            $('#detailedSelectCompetency').select2();
+            $('#detailedSelectPhase').select2();
+            $('#predictiveSelectCourse').select2();
+            $('#predictiveSelectVideo').select2();
         });
+        $.fn.select2.defaults.set("theme", "bootstrap");
     </script>
 </head>
 
@@ -39,18 +38,77 @@
                 <p>This website allows you to search for online learning material mapped to the Vita Researcher Development Framework's structure.</p><button onClick="document.getElementById('searchOptionsSection').scrollIntoView();" class="btn btn-outline-light btn-lg" type="button">Start Learning Now</button></div>
         </section>
         <section class="clean-block dark" id="searchOptionsSection">
+            <p>&nbsp;</p>
             <%- include('./components/search-options'); -%>
         </section>
         <section class="clean-block" id="stepByStepSearchSection">
             <div class="container">
                 <div class="block-heading">
                     <p>&nbsp;</p>
-                    <h2 class="text-info">Courses & Videos Search</h2>
-                    <p>Use the following filters to search for a course or video matching one of the Researcher Development
-                        Framework's pathways.</p>
+                    <h2 class="text-info">Step-by-step Search</h2>
                 </div>
                 <div class="row">
-                    <form>
+                    <div style="padding-bottom: 1rem;">
+                        <p style="text-align: justify;">Start using the filters from left to right narrowing down the type of courses & videos to reach the online learning material matching your development path. All of the filters are optional so you may stop at any point and see the offered results. Setting more filters will result in a shorter but more precise list of content.</p>
+                    </div>
+                </div>
+                <form>
+                        <div class="form-row">
+                            <div class="col">
+                                <select class="custom-select" name="selectCapability" id="stepByStepSelectCapability">
+                                    <option value="-1" selected>Capability</option>
+                                    <% if (capabilities.length > 0) { %>
+                                    <% capabilities.forEach(e => { %>
+                                    <option value="<%= e.id %>"><%= e.title %></option>
+                                    <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="col-auto" style="padding-left: 0; padding-right: 0;">
+                                <span class="material-icons icon" style="color: rgba(14, 150, 235, 0.85);">navigate_next</span>
+                            </div>
+                            <div class="col">
+                                <select class="custom-select" name="selectCategory" id="stepByStepSelectCategory">
+                                    <option value="-1" selected>Category</option>
+                                    <% if (categories.length > 0) { %>
+                                    <% categories.forEach(e => { %>
+                                    <option value="<%= e.id %>"><%= e.title %></option>
+                                    <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="col-auto" style="padding-left: 0; padding-right: 0;">
+                                <span class="material-icons icon" style="color: rgba(14, 150, 235, 0.85);">navigate_next</span>
+                            </div>
+                            <div class="col">
+                                <select class="custom-select" name="selectCompetency" id="stepByStepSelectCompetency">
+                                    <option value="-1" selected>Competency</option>
+                                    <% if (competencies.length > 0) { %>
+                                    <% competencies.forEach(e => { %>
+                                    <option value="<%= e.id %>"><%= e.title %></option>
+                                    <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="col-auto" style="padding-left: 0; padding-right: 0;">
+                                <span class="material-icons icon" style="color: rgba(14, 150, 235, 0.85);">navigate_next</span>
+                            </div>
+                            <div class="col">
+                                <select class="custom-select" name="selectPhase" id="stepByStepSelectPhase">
+                                    <option value="-1" selected>Level</option>
+                                    <% if (phases.length > 0) { %>
+                                    <% phases.forEach(e => { %>
+                                    <option value="<%= e.id %>"><%= e.title %></option>
+                                    <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
+                            <div class="col" style="padding-left: 1rem;">
+                                <button type="submit" class="btn btn-primary mb-2">Search</button>
+                            </div>
+                        </div>
+                </form>
+                <!-- <form>
                         <div class="form-row">
                             <div class="col">
                                 <select class="custom-select" name="selectCapability" id="selectCapability">
@@ -128,58 +186,143 @@
                                 <button type="submit" class="btn btn-primary mb-2">Search for Content</button>
                             </div>
                         </div>
-                    </form>
-                </div>
+                </form> -->
             </div>
         </section>
         <section class="clean-block dark" id="detailedSearchSection">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">Slider</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+                    <p>&nbsp;</p>
+                    <h2 class="text-info">Detailed Search</h2>
                 </div>
-                <div class="carousel slide" data-ride="carousel" id="carousel-1">
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active"><img class="w-100 d-block" src="/img/scenery/image1.jpg" alt="Slide Image"></div>
-                        <div class="carousel-item"><img class="w-100 d-block" src="/img/scenery/image4.jpg" alt="Slide Image"></div>
-                        <div class="carousel-item"><img class="w-100 d-block" src="/img/scenery/image6.jpg" alt="Slide Image"></div>
+                <div class="row">
+                    <div style="padding-bottom: 1rem;">
+                        <p style="text-align: justify;">Use the filters below in any order and optionally provide a keyword to search by. The filters do not automatically update each other, therefore you might combine filters that yield no results. In such cases, simply click your browser's back button to jump back here and refine the search. The keyword is <b>not</b> case sensitive, so do not worry about capitalising.</p>
                     </div>
-                    <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-slide="prev"><span class="carousel-control-prev-icon"></span><span class="sr-only">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button"
-                            data-slide="next"><span class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a></div>
-                    <ol class="carousel-indicators">
-                        <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-1" data-slide-to="1"></li>
-                        <li data-target="#carousel-1" data-slide-to="2"></li>
-                    </ol>
                 </div>
+                <form>
+                    <div class="form-row">
+                        <div class="col">
+                            <select class="custom-select" name="selectCapability" id="detailedSelectCapability">
+                                <option value="-1" selected>Capability</option>
+                                <% if (capabilities.length > 0) { %>
+                                <% capabilities.forEach(e => { %>
+                                <option value="<%= e.id %>"><%= e.title %></option>
+                                <% }); %>
+                                <% } %>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select class="custom-select" name="selectCategory" id="detailedSelectCategory">
+                                <option value="-1" selected>Category</option>
+                                <% if (categories.length > 0) { %>
+                                <% categories.forEach(e => { %>
+                                <option value="<%= e.id %>"><%= e.title %></option>
+                                <% }); %>
+                                <% } %>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select class="custom-select" name="selectCompetency" id="detailedSelectCompetency">
+                                <option value="-1" selected>Competency</option>
+                                <% if (competencies.length > 0) { %>
+                                <% competencies.forEach(e => { %>
+                                <option value="<%= e.id %>"><%= e.title %></option>
+                                <% }); %>
+                                <% } %>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select class="custom-select" name="selectPhase" id="detailedSelectPhase">
+                                <option value="-1" selected>Level</option>
+                                <% if (phases.length > 0) { %>
+                                <% phases.forEach(e => { %>
+                                <option value="<%= e.id %>"><%= e.title %></option>
+                                <% }); %>
+                                <% } %>
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <span class="material-icons">search</span>
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control" id="keywordSearch" placeholder="Keyword">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary mb-2">Search</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </section>
         <section class="clean-block" id="keywordSearchSection">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">Slider</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis
-                        vitae leo.</p>
+                    <p>&nbsp;</p>
+                    <h2 class="text-info">Predictive Keyword Search</h2>
                 </div>
-                <div class="carousel slide" data-ride="carousel" id="carousel-1">
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active"><img class="w-100 d-block" src="/img/scenery/image1.jpg"
-                                alt="Slide Image"></div>
-                        <div class="carousel-item"><img class="w-100 d-block" src="/img/scenery/image4.jpg" alt="Slide Image">
+                <div class="row">
+                    <div style="padding-bottom: 1rem;">
+                        <p style="text-align: justify;">Start typing in the title of a course or video you might be interested in and we will predict what the relevant learning material. Simply choose one of the offered entries and you will be redirected to the relevant content page. The predictive keyword search is <b>not</b> case sensitive so no need to worry about capitalising.</p>
+                    </div>
+                </div>
+                <form>
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="predictiveSelectCourse">Courses</label>
+                                </div>
+                                <select class="custom-select" name="selectCourse" id="predictiveSelectCourse" onchange="location = this.value;">
+                                    <option value="-1" selected disabled>Start typing in a course title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                    <% if (courses.length > 0) { %>
+                                        <% courses.forEach(e => { %>
+                                            <option value="/course/<%= e.id %>"><%= e.title %></option>
+                                        <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
                         </div>
-                        <div class="carousel-item"><img class="w-100 d-block" src="/img/scenery/image6.jpg" alt="Slide Image">
+                        <div class="col">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="predictiveSelectVideo">Videos</label>
+                                </div>
+                                <select class="custom-select" name="selectVideo" id="predictiveSelectVideo" onchange="location = this.value;">
+                                    <option value="-1" selected disabled>Start typing in a video title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+                                    <% if (videos.length > 0) { %>
+                                        <% videos.forEach(e => { %>
+                                            <option value="/video/<%= e.id %>"><%= e.title %></option>
+                                        <% }); %>
+                                    <% } %>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-slide="prev"><span
-                                class="carousel-control-prev-icon"></span><span class="sr-only">Previous</span></a><a
-                            class="carousel-control-next" href="#carousel-1" role="button" data-slide="next"><span
-                                class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a></div>
-                    <ol class="carousel-indicators">
-                        <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-1" data-slide-to="1"></li>
-                        <li data-target="#carousel-1" data-slide-to="2"></li>
-                    </ol>
+                </form>
+            </div>
+        </section>
+        <section class="clean-block dark" id="listSearchSection">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Full List of Courses & Videos</h2>
                 </div>
+                <div class="row">
+                    <div style="padding-bottom: 1rem;">
+                        <p style="text-align: justify;">Use the filters below in any order and optionally provide a keyword to
+                            search
+                            by. The filters do not automatically update each other, therefore you might combine filters that
+                            yield no
+                            results. In such cases, simply click your browser's back button to jump back here and refine the
+                            search. The
+                            keyword is <b>not</b> case sensitive, so do not worry about capitalising.</p>
+                    </div>
+                </div>
+                <%- include('./components/courses-table'); -%>
             </div>
         </section>
     </main>
