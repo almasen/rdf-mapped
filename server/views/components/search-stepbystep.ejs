@@ -7,7 +7,7 @@
         <p style="text-align: justify;">Start using the filters from left to right narrowing down the type of courses &
             videos to reach the online learning material matching your development path. All of the filters are optional
             so you may stop at any point and see the offered results. Setting more filters will result in a shorter but
-            more precise list of content.</p>
+            more precise list of content. The Level/Phase filter does not effect the other two, but we recommend setting it last.</p>
     </div>
 </div>
 <form action="/course" method="GET" name="stepByStepSelectForm" id="stepByStepSelectForm">
@@ -53,7 +53,7 @@
             <span class="material-icons icon" style="color: rgba(14, 150, 235, 0.85);">navigate_next</span>
         </div>
         <div class="col">
-            <select class="custom-select" name="phase" id="stepByStepSelectPhase" disabled>
+            <select class="custom-select" name="phase" id="stepByStepSelectPhase">
                 <option value="-1" selected>Level</option>
                 <% if (phases.length > 0) { %>
                 <% phases.forEach(e => { %>
@@ -128,6 +128,12 @@
             document.getElementById("stepByStepSelectCompetency").disabled = true;
             return;
         } else {
+            $('#stepByStepSelectCompetency')
+                .find('option')
+                .remove()
+                .end()
+                .append(optPlaceholder2);
+            document.getElementById("stepByStepSelectCompetency").disabled = true;
             const categoriesByParents = JSON.parse(decodeHtml(localStorage.getItem("categoriesByParents")));
             const matchingCategories = categoriesByParents[val];
             $('#stepByStepSelectCategory').removeAttr("disabled");
@@ -145,43 +151,34 @@
         }
     });
     const categoryChange = ((obj) => {
-    //         const val = obj.value;
-    //         const optPlaceholder = document.createElement('option');
-    //         optPlaceholder.value = "-1";
-    //         optPlaceholder.innerHTML = "Competency";
-    //         optPlaceholder.selected = true;
-    //         if (val === "-1") {
-    //             $('#stepByStepSelectCompetency')
-    //                 .find('option')
-    //                 .remove()
-    //                 .end()
-    //                 .append(optPlaceholder);
-    //             document.getElementById("stepByStepSelectCompetency").disabled = true;
-    //             return;
-    //         } else {
-    //             const competenciesByParents = JSON.parse(decodeHtml(localStorage.getItem("competenciesByParents")));
-    //             console.log(competenciesByParents);
-    //             const matchingCompetencies = competenciesByParents[val];
-    //             $('#stepByStepSelectCompetency').removeAttr("disabled");
-    //             $('#stepByStepSelectCompetency')
-    //                 .find('option')
-    //                 .remove()
-    //                 .end()
-    //                 .append(optPlaceholder);
-    //             matchingCompetencies.forEach(e => {
-    //                 const opt = document.createElement('option');
-    //                 opt.value = e.id.toString();
-    //                 opt.innerHTML = e.title;
-    //                 $('#stepByStepSelectCompetency').append(opt);
-    //             });
-    //         }
-    //     });
-    // document.forms.stepByStepSelectForm.capability.addEventListener('change', () => {
-    //     const val = $('#stepByStepSelectCapability').value;
-    //     alert(val);
-    //     if (val !== "-1") {
-    //         $('#stepByStepSelectCategory').disabled = false;
-    //     }
-    //     // document.stepByStepSelectForm.action = ("/" + document.forms.stepByStepSelectForm.stepByStepCourseVideo.value);
+    const val = obj.value;
+        const optPlaceholder = document.createElement('option');
+        optPlaceholder.value = "-1";
+        optPlaceholder.innerHTML = "Competency";
+        optPlaceholder.selected = true;
+        if (val === "-1") {
+            $('#stepByStepSelectCompetency')
+                .find('option')
+                .remove()
+                .end()
+                .append(optPlaceholder);
+            document.getElementById("stepByStepSelectCompetency").disabled = true;
+            return;
+        } else {
+            const categoriesByParents = JSON.parse(decodeHtml(localStorage.getItem("competenciesByParents")));
+            const matchingCategories = categoriesByParents[val];
+            $('#stepByStepSelectCompetency').removeAttr("disabled");
+            $('#stepByStepSelectCompetency')
+                .find('option')
+                .remove()
+                .end()
+                .append(optPlaceholder);
+            matchingCategories.forEach(e => {
+                const opt = document.createElement('option');
+                opt.value = e.id.toString();
+                opt.innerHTML = e.title;
+                $('#stepByStepSelectCompetency').append(opt);
+            });
+        }
     });
 </script>

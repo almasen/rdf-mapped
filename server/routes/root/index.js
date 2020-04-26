@@ -14,9 +14,9 @@ router.get('/', async (req, res) => {
     try {
         const capabilities = await capabilityService.fetchAll();
         const categories = await categoryService.fetchAll();
-        const categoriesByParents = filtering.groupByParent(categories);
+        const categoriesByParents = filtering.groupByParent(categories, "capabilityId");
         const competencies = await competencyService.fetchAll();
-        const competenciesByParents = filtering.groupByParent(competencies);
+        const competenciesByParents = filtering.groupByParent(competencies, "categoryId");
         const phases = await phaseService.fetchAll();
         const courses = await courseService.fetchAllWithUniqueTitles();
         const videos = await videoService.fetchAllWithUniqueTitles();

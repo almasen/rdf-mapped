@@ -13,7 +13,7 @@
         </thead>
         <tbody>
             <% if (pageData.data.length > 0) { %>
-                <% var idx = 0; pageData.data.forEach(e => { ++idx; %>
+                <% var idx = (pageData.meta.currentPage - 1) * pageData.meta.pageSize; pageData.data.forEach(e => { ++idx; %>
                     <tr style="transform: rotate(0);">
                         <th scope="row">
                             <a href="<%= baseurl %>/<%= e.id %>" class="stretched-link">
@@ -33,7 +33,17 @@
     </table>
 </div>
 <nav aria-label="Page navigation example">
-    <ul class="pagination">
+    <ul class="pagination justify-content-end">
+
+        <!-- <li class="dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item active" href="#">10</a>
+                <a class="dropdown-item" href="#">25</a>
+                <a class="dropdown-item" href="#">50</a>
+                <a class="dropdown-item" href="#">100</a>
+            </div>
+        </li> -->
 
         <!-- navigation  -->
         <li class="page-item <% if (pageData.meta.currentPage === 1) { %> disabled <% } %>">
@@ -120,3 +130,6 @@
         </li>
     </ul>
 </nav>
+<script>
+    $('.dropdown-toggle').dropdown()
+</script>

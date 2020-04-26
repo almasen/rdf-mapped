@@ -50,54 +50,54 @@ jobs:
           path: server/out
 
 
-  test:
-    needs: build
-    services:
-      postgres:
-        image: postgres:12.1
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: asd123
-          POSTGRES_DB: rdfdatabase
-        ports:
-          - 5432:5432
-        # needed because the postgres container does not provide a health check
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-    env:
-      CI: true
-      DB_USER: postgres
-      DB_PASS: asd123
-      SESSION_SECRET: GIT_CI
-      SKIP_MAIL_SENDING_FOR_TESTING: 1
-      DB_HOST: localhost
-      DB_DATABASE: rdfdatabase
-      SKIP_GEOCODING: 1
-      REACT_APP_API_URL: http://localhost:8000
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout Github repository
-        uses: actions/checkout@v2
+  # test:
+  #   needs: build
+  #   services:
+  #     postgres:
+  #       image: postgres:12.1
+  #       env:
+  #         POSTGRES_USER: postgres
+  #         POSTGRES_PASSWORD: asd123
+  #         POSTGRES_DB: rdfdatabase
+  #       ports:
+  #         - 5432:5432
+  #       # needed because the postgres container does not provide a health check
+  #       options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+  #   env:
+  #     CI: true
+  #     DB_USER: postgres
+  #     DB_PASS: asd123
+  #     SESSION_SECRET: GIT_CI
+  #     SKIP_MAIL_SENDING_FOR_TESTING: 1
+  #     DB_HOST: localhost
+  #     DB_DATABASE: rdfdatabase
+  #     SKIP_GEOCODING: 1
+  #     REACT_APP_API_URL: http://localhost:8000
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: checkout Github repository
+  #       uses: actions/checkout@v2
 
-      - name: set up Node.js 12.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
+  #     - name: set up Node.js 12.x
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: '12.x'
 
-      - name: npm install
-        working-directory: ./server
-        run: npm ci
-      - name: run database migrations
-        working-directory: ./server
-        run: npm run db-migrate up
-      - name: npm test
-        run: npm test
-        working-directory: ./server
-      - name: Create test coverage artifact
-        if: github.ref == 'refs/heads/dev'
-        uses: actions/upload-artifact@v1
-        with:
-          name: coverage
-          path: server/coverage
+  #     - name: npm install
+  #       working-directory: ./server
+  #       run: npm ci
+  #     - name: run database migrations
+  #       working-directory: ./server
+  #       run: npm run db-migrate up
+  #     - name: npm test
+  #       run: npm test
+  #       working-directory: ./server
+  #     - name: Create test coverage artifact
+  #       if: github.ref == 'refs/heads/dev'
+  #       uses: actions/upload-artifact@v1
+  #       with:
+  #         name: coverage
+  #         path: server/coverage
 
   # publish:
   #   if: github.ref == 'refs/heads/dev'

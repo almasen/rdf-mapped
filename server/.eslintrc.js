@@ -22,6 +22,6 @@ module.exports = {
     "arrow-parens": 0,
     "max-len": ["error", {"code": 140}],
   },
-  "ignorePatterns": ["migrations/", "*.test.js", "out/", "jsdoc/"],
+  "ignorePatterns": ["migrations/", "*.test.js", "out/", "jsdoc/", "assets/"],
 
 };

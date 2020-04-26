@@ -6,19 +6,19 @@ const filterAndSortByTitle = (courses) => {
     return [...uniqueCourses.values()].sort((a, b) => a.title.localeCompare(b.title));
 };
 
-const groupByParent = (records) => {
+const groupByParent = (records, parentIdName) => {
     const recordsMap = new Map();
     const sortedObject = {};
     records.forEach(e => {
-        const capabilityId = e.capabilityId;
+        const parentId = e[parentIdName];
         let record = [];
-        if (!recordsMap.has(capabilityId)) {
+        if (!recordsMap.has(parentId)) {
             record = [];
         } else {
-            record = recordsMap.get(capabilityId);
+            record = recordsMap.get(parentId);
         }
         record.push(e);
-        recordsMap.set(capabilityId, record);
+        recordsMap.set(parentId, record);
     });
     for (const [key, value] of recordsMap) {
         sortedObject[key] = value;
