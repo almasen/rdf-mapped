@@ -1,0 +1,136 @@
+name: Backend
+
+# Trigger on push or pull request
+on:
+  push:
+    branches: # == run tests only on push to following branches: ==
+      - master # master (rerun tests after merging a PR)
+      - dev
+    paths:
+      - "server/**" # limit workflow tests only to changes in backend folder
+  pull_request:
+    branches: # == run tests only on pull request opens/updates to: ==
+      - master
+      - dev # dev
+    paths:
+      - "server/**"
+
+jobs:
+  # build and run tests
+  build:
+    runs-on: ubuntu-latest
+    # setup node, build, and run tests
+    steps:
+      - name: checkout GitHub repository
+        uses: actions/checkout@v2
+
+      - name: set up Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: npm install
+        working-directory: ./server
+        run: npm ci
+
+      - name: run ESLint
+        working-directory: ./server
+        run: npx eslint ./
+
+      - name: Generate API documentation
+        if: github.ref == 'refs/heads/dev'
+        run: npm run docs
+        working-directory: ./server
+
+      - name: Create API documentation artifact
+        if: github.ref == 'refs/heads/dev'
+        uses: actions/upload-artifact@v1
+        with:
+          name: docs
+          path: server/out
+
+
+  # test:
+  #   needs: build
+  #   services:
+  #     postgres:
+  #       image: postgres:12.1
+  #       env:
+  #         POSTGRES_USER: postgres
+  #         POSTGRES_PASSWORD: asd123
+  #         POSTGRES_DB: rdfdatabase
+  #       ports:
+  #         - 5432:5432
+  #       # needed because the postgres container does not provide a health check
+  #       options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+  #   env:
+  #     CI: true
+  #     DB_USER: postgres
+  #     DB_PASS: asd123
+  #     SESSION_SECRET: GIT_CI
+  #     SKIP_MAIL_SENDING_FOR_TESTING: 1
+  #     DB_HOST: localhost
+  #     DB_DATABASE: rdfdatabase
+  #     SKIP_GEOCODING: 1
+  #     REACT_APP_API_URL: http://localhost:8000
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: checkout Github repository
+  #       uses: actions/checkout@v2
+
+  #     - name: set up Node.js 12.x
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: '12.x'
+
+  #     - name: npm install
+  #       working-directory: ./server
+  #       run: npm ci
+  #     - name: run database migrations
+  #       working-directory: ./server
+  #       run: npm run db-migrate up
+  #     - name: npm test
+  #       run: npm test
+  #       working-directory: ./server
+  #     - name: Create test coverage artifact
+  #       if: github.ref == 'refs/heads/dev'
+  #       uses: actions/upload-artifact@v1
+  #       with:
+  #         name: coverage
+  #         path: server/coverage
+
+  # publish:
+  #   if: github.ref == 'refs/heads/dev'
+  #   needs: [build, test]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Download docs artifact
+  #     uses: actions/download-artifact@v1
+  #     with:
+  #       name: docs
+  #   - name: Deploy docs
+  #     uses: appleboy/scp-action@master
+  #     with:
+  #       host: ${{ secrets.SSH_HOST }}
+  #       username: ${{ secrets.SSH_USER }}
+  #       key: ${{ secrets.SSH_KEY }}
+  #       port: ${{ secrets.SSH_PORT }}
+  #       source: "docs/**"
+  #       target: "web-data"
+  #   - name: Download coverage artifact
+  #     uses: actions/download-artifact@v1
+  #     with:
+  #       name: coverage
+  #   - name: Deploy coverage
+  #     uses: appleboy/scp-action@master
+  #     with:
+  #       host: ${{ secrets.SSH_HOST }}
+  #       username: ${{ secrets.SSH_USER }}
+  #       key: ${{ secrets.SSH_KEY }}
+  #       port: ${{ secrets.SSH_PORT }}
+  #       source: "coverage/**"
+  #       target: "web-data"
+
+# For help, see:
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#on
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet

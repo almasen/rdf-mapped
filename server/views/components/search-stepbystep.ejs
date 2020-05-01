@@ -1,0 +1,184 @@
+<div class="block-heading">
+    <p>&nbsp;</p>
+    <h2 class="text-info">Step-by-step Search</h2>
+</div>
+<div class="row">
+    <div style="padding-bottom: 1rem;">
+        <p style="text-align: justify;">Start using the filters from left to right narrowing down the type of courses &
+            videos to reach the online learning material matching your development path. All of the filters are optional
+            so you may stop at any point and see the offered results. Setting more filters will result in a shorter but
+            more precise list of content. The Level/Phase filter does not effect the other two, but we recommend setting it last.</p>
+    </div>
+</div>
+<form action="/course" method="GET" name="stepByStepSelectForm" id="stepByStepSelectForm">
+    <div class="form-row">
+        <div class="col">
+            <select class="custom-select" name="capability" id="stepByStepSelectCapability"
+                onchange="capabilityChange(this)">
+                <option value="-1" selected>Capability</option>
+                <% if (capabilities.length > 0) { %>
+                <% capabilities.forEach(e => { %>
+                <option value="<%= e.id %>"><%= e.title %></option>
+                <% }); %>
+                <% } %>
+            </select>
+        </div>
+        <div class="col-auto" style="padding-left: 0; padding-right: 0;">
+            <span class="material-icons icon" style="color: rgba(14, 150, 235, 0.85);">navigate_next</span>
+        </div>
+        <div class="col">
+            <select class="custom-select" name="category" id="stepByStepSelectCategory"  onchange="categoryChange(this)" disabled>
+                <option value="-1" selected>Category</option>
+                <% if (categories.length > 0) { %>
+                <% categories.forEach(e => { %>
+                <option value="<%= e.id %>"><%= e.title %></option>
+                <% }); %>
+                <% } %>
+            </select>
+        </div>
+        <div class="col-auto" style="padding-left: 0; padding-right: 0;">
+            <span class="material-icons icon" style="color: rgba(14, 150, 235, 0.85);">navigate_next</span>
+        </div>
+        <div class="col">
+            <select class="custom-select" name="competency" id="stepByStepSelectCompetency" disabled>
+                <option value="-1" selected>Competency</option>
+                <% if (competencies.length > 0) { %>
+                <% competencies.forEach(e => { %>
+                <option value="<%= e.id %>"><%= e.title %></option>
+                <% }); %>
+                <% } %>
+            </select>
+        </div>
+        <div class="col-auto" style="padding-left: 0; padding-right: 0;">
+            <span class="material-icons icon" style="color: rgba(14, 150, 235, 0.85);">navigate_next</span>
+        </div>
+        <div class="col">
+            <select class="custom-select" name="phase" id="stepByStepSelectPhase">
+                <option value="-1" selected>Level</option>
+                <% if (phases.length > 0) { %>
+                <% phases.forEach(e => { %>
+                <option value="<%= e.id %>"><%= e.title %></option>
+                <% }); %>
+                <% } %>
+            </select>
+        </div>
+        <div class="col-auto" style="padding-left:20px; padding-right: 18px;">
+            <div class="row">
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="courseVideoRadio11" name="stepByStepCourseVideo" value="course"
+                        class="custom-control-input" checked>
+                    <label class="custom-control-label" for="courseVideoRadio11">Course</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="courseVideoRadio12" name="stepByStepCourseVideo" value="video"
+                        class="custom-control-input">
+                    <label class="custom-control-label" for="courseVideoRadio12">Video</label>
+                </div>
+            </div>
+        </div>
+        <div class="col" style="padding-left: 1rem;">
+            <button type="submit" class="btn btn-primary mb-2">Search</button>
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(() => {
+        $('#stepByStepSelectCapability').select2();
+        $('#stepByStepSelectCategory').select2();
+        $('#stepByStepSelectCompetency').select2();
+        $('#stepByStepSelectPhase').select2();
+    });
+    $.fn.select2.defaults.set("theme", "bootstrap");
+    document.forms.stepByStepSelectForm.stepByStepCourseVideo.forEach(radio => {
+        radio.addEventListener('change', () => {
+            document.stepByStepSelectForm.action = ("/" + document.forms.stepByStepSelectForm.stepByStepCourseVideo.value);
+        })
+    });
+    localStorage.setItem("categoriesByParents", "<%= JSON.stringify(categoriesByParents) %>");
+    localStorage.setItem("competenciesByParents", "<%= JSON.stringify(competenciesByParents) %>");
+    function decodeHtml(html) {
+        var txt = document.createElement("textarea");
+        txt.innerHTML = html;
+        return txt.value;
+    }
+    const capabilityChange = ((obj) => {
+        const val = obj.value;
+        const optPlaceholder = document.createElement('option');
+        optPlaceholder.value = "-1";
+        optPlaceholder.innerHTML = "Category";
+        optPlaceholder.selected = true;
+        const optPlaceholder2 = document.createElement('option');
+        optPlaceholder2.value = "-1";
+        optPlaceholder2.innerHTML = "Competency";
+        optPlaceholder2.selected = true;
+        if (val === "-1") {
+            $('#stepByStepSelectCategory')
+                .find('option')
+                .remove()
+                .end()
+                .append(optPlaceholder);
+            document.getElementById("stepByStepSelectCategory").disabled = true;
+            $('#stepByStepSelectCompetency')
+                .find('option')
+                .remove()
+                .end()
+                .append(optPlaceholder2);
+            document.getElementById("stepByStepSelectCompetency").disabled = true;
+            return;
+        } else {
+            $('#stepByStepSelectCompetency')
+                .find('option')
+                .remove()
+                .end()
+                .append(optPlaceholder2);
+            document.getElementById("stepByStepSelectCompetency").disabled = true;
+            const categoriesByParents = JSON.parse(decodeHtml(localStorage.getItem("categoriesByParents")));
+            const matchingCategories = categoriesByParents[val];
+            $('#stepByStepSelectCategory').removeAttr("disabled");
+            $('#stepByStepSelectCategory')
+                .find('option')
+                .remove()
+                .end()
+                .append(optPlaceholder);
+            matchingCategories.forEach(e => {
+                const opt = document.createElement('option');
+                opt.value = e.id.toString();
+                opt.innerHTML = e.title;
+                $('#stepByStepSelectCategory').append(opt);
+            });
+        }
+    });
+    const categoryChange = ((obj) => {
+    const val = obj.value;
+        const optPlaceholder = document.createElement('option');
+        optPlaceholder.value = "-1";
+        optPlaceholder.innerHTML = "Competency";
+        optPlaceholder.selected = true;
+        if (val === "-1") {
+            $('#stepByStepSelectCompetency')
+                .find('option')
+                .remove()
+                .end()
+                .append(optPlaceholder);
+            document.getElementById("stepByStepSelectCompetency").disabled = true;
+            return;
+        } else {
+            const categoriesByParents = JSON.parse(decodeHtml(localStorage.getItem("competenciesByParents")));
+            const matchingCategories = categoriesByParents[val];
+            $('#stepByStepSelectCompetency').removeAttr("disabled");
+            $('#stepByStepSelectCompetency')
+                .find('option')
+                .remove()
+                .end()
+                .append(optPlaceholder);
+            matchingCategories.forEach(e => {
+                const opt = document.createElement('option');
+                opt.value = e.id.toString();
+                opt.innerHTML = e.title;
+                $('#stepByStepSelectCompetency').append(opt);
+            });
+        }
+    });
+</script>

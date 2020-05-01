@@ -1,0 +1,56 @@
+<!-- Modal -->
+<div class="modal fade" id="reportContentModal" tabindex="-1" role="dialog" aria-labelledby="reportContentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reportContentModalLabel">Flag content</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/bugreport" method="POST" id="reportContentForm" target="dummyframe2" onsubmit="dismissModal();">
+                    <div class="form-group">
+                        <label for="email">Optionally provide a follow-up email address:</label>
+                        <input class="form-control" id="email" name="email" type="email" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">This email is only stored until the report is processed.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="report">Please let us know what's wrong:</label>
+                        <textarea class="form-control" id="report" name="report" rows="3">Something is missing..</textarea>
+                    </div>
+                </form>
+            </div>
+            <iframe name="dummyframe2" id="dummyframe2" style="display: none;"></iframe>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" form="reportContentForm">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="thankYouModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thank you for flagging this!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Thank you very much for letting us know about this issue.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const dismissModal = () => {
+        $('#reportContentModal').modal('hide');
+        $('#thankYouModal').modal('show');
+    };
+</script>

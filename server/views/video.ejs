@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta property="og:type" content="">
+    <meta name="description" content="Vitae Researcher Development Framework Mapped to Linkedin Learning">
+    <!-- //TODO: -->
+
+    <%- include('./components/stylesheets'); -%>
+
+    <%- include('./components/scripts'); -%>
+
+    <script>
+        const submitMissingRecommendation = () => {
+            document.getElementById("missingRecommendations").submit();
+            // alert("We have been notified that recommendations are missing from this page. \nThank you very much for you help!");
+            document.getElementById("missingRecommendationsContainer").classList.remove("active");
+            document.getElementById("missingRecommendationsContainer").classList.add("disabled");
+            document.getElementById("missingRecommendationsText").innerText = "No similar videos. \nThank you for letting us know about this issue.";
+        };
+    </script>
+
+    <% if (video) { %>
+    <title>Video: <%= video.title _%></title>
+    <% } else { %>
+    <title>Video</title>
+    <% } %>
+
+</head>
+
+<body>
+    <%- include('./components/header'); -%>
+
+    <main class="page">
+        <section class="clean-block features">
+            <div class="container">
+                <div class="block-heading">
+                    <a href="<%= video.hyperlink %>" target="_blank" rel="noopener noreferrer">
+                        <h2 class="text-info"><%= video.title %></h2>
+                    </a>
+                    <p>&nbsp;</p>
+                    <ol class="breadcrumb" style="background-color: rgb(228,241,255);opacity: 1;">
+                        <li class="breadcrumb-item"><a href="/video?capability=<%= video.capabilityId %>"><span><%= video.capabilityTitle %></span></a></li>
+                        <li class="breadcrumb-item"><a href="/video?category=<%= video.categoryId %>"><span><%= video.categoryTitle %></span></a></li>
+                        <li class="breadcrumb-item"><a href="/video?competency=<%= video.competencyId %>"><span><%= video.competencyTitle %></span></a></li>
+                    </ol>
+                </div>
+                <div class="row" style="margin: 26.5;">
+                    <div class="col-xl-8">
+                        <h2 class="text-info">Video details:</h2>
+                        <p></p>
+                        <p>Title: <%= video.title %></p>
+                        <p>Capability: <%= video.capabilityTitle %></p>
+                        <p>Category: <%= video.categoryTitle %></p>
+                        <p>Competency: <%= video.competencyTitle %></p>
+                        <p>Video level(s): Phase <%= video.phases.join("/") %></p>
+                        <!-- <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p> -->
+                        <h5>Watch this video <a href="<%= video.hyperlink %>" target="_blank"
+                                rel="noopener noreferrer">here</a></h5>
+                        <p style="text-align: right; font-size: small;">Flag any inappropriate info: <a
+                                href="#reportContentModal" data-toggle="modal"><i class="material-icons"
+                                    style="color: rgb(215,21,33);">flag</i></a></p>
+                    </div>
+                    <%- include('./components/report-content'); -%>
+                    <div class="col">
+                        <h2 class="text-info">Similar videos</h2>
+                        <p>You might also be interested in these:</p>
+                        <ul class="list-group">
+                            <!-- <ul class="list-group list-group-flush"> // TODO: -->
+                            <% if (similarVideoRecords.length > 0) { %>
+                            <% similarVideoRecords.forEach(e => { %>
+                            <a href="<%= '/video/' + e.id %>"
+                                class="list-group-item list-group-item-action"><%= e.title %></a>
+                            <!-- <li class="list-group-item"><span></span></li> -->
+                            <% }); %>
+                            <% } else { %>
+                            <button type="button" id="missingRecommendationsContainer" class="list-group-item active">
+                                <div onclick="submitMissingRecommendation();">
+                                    <form action="/bugreport" method="POST" id="missingRecommendations"
+                                        target="dummyframe">
+                                        <span id="missingRecommendationsText">We could not find similar videos. <i
+                                                class="material-icons"> sentiment_very_dissatisfied </i> Please consider
+                                            flagging this simply by clicking on this field. </span>
+                                        <input id="email" name="email" value="missing-recommendations" hidden>
+                                        <input id="report" name="report"
+                                            value="Missing recommendations for video 'id:<%= video.id %>'" hidden>
+                                    </form>
+                                </div>
+                            </button>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+    </main>
+
+    <%- include('./components/footer'); -%>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "RDF-Mapped server",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest -i --detectOpenHandles",
+    "test-nologs": "env NO_LOG=True jest -i --detectOpenHandles",
+    "test-infologs": "env INFO_LOG=True jest -i --detectOpenHandles",
+    "start": "node server.js",
+    "db-migrate": "db-migrate",
+    "docs": "jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes",
+    "dev-start": "env NODE_ENV=development nodemon ./server",
+    "prod-start": "env NODE_ENV=production nodemon ./server",
+    "check-all": "db-migrate reset; db-migrate up; npm i; jest -i --detectOpenHandles; jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes; eslint ./ --fix",
+    "rem-logs": "del-cli ./log/rdfmapped.log",
+    "insert-samples": "env NO_LOG=True jest -i /test/helpers/sample"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "crypto": "^1.0.1",
+    "date-and-time": "^0.12.0",
+    "db-migrate": "^0.11.10",
+    "db-migrate-pg": "^1.0.0",
+    "deep-equal": "^2.0.1",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.2",
+    "ejs-lint": "^1.1.0",
+    "express": "^4.17.1",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.1",
+    "helmet": "^3.21.2",
+    "jquery-ui": "^1.12.1",
+    "js-base64": "^2.5.2",
+    "jsonschema": "^1.2.5",
+    "log4js": "^6.1.2",
+    "material-design-icons": "^3.0.1",
+    "method-override": "^3.0.0",
+    "nodemailer": "^6.4.6",
+    "paginate-info": "^1.0.4",
+    "pg": "^8.0.2",
+    "pg-camelcase": "0.0.3",
+    "pg-types": "^3.0.0",
+    "request": "^2.88.2",
+    "select2": "^4.0.13",
+    "select2-theme-bootstrap4": "^0.2.0-beta.6"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "del-cli": "^3.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0",
+    "jest": "^25.1.0",
+    "jsdoc": "^3.6.3",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "html"
+    ],
+    "setupFilesAfterEnv": [
+      "./test/setup"
+    ]
+  }
+}
