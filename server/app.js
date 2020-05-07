@@ -36,6 +36,7 @@ app.use("/course", require("./routes/course"));
 app.use("/video", require("./routes/video"));
 
 app.use("/features", require("./routes/features"));
+app.use("/about", require("./routes/about"));
 app.use("/faq", require("./routes/faq"));
 app.use("/contact", require("./routes/contact"));
 // app.use("/login", require("./routes/login")); // TODO: TBD
