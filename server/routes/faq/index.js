@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const informationService = require("../../modules/information");
+const faqService = require("../../modules/faq");
 
 router.get('/', async (req, res) => {
     try {
-        const informationData = await informationService.getInformationData("faq");
+        const faqs = await faqService.fetchAll();
+        console.log(faqs);
         res.render("faq.ejs", {
             baseurl: req.baseUrl,
-            faqs: informationData.data, // TODO:
+            faqs,
         });
     } catch (error) {
         res.render('404.ejs', {
