@@ -23,28 +23,16 @@
                     <p>Frequently Asked Questions</p>
                 </div>
                 <div class="block-content">
-                    <div class="faq-item">
-                        <h4 class="question">What does RDF Mapped stand for?</h4>
-                        <div class="answer">
-                            <p>RDF stands for the Vita Researcher Development Framework.</p>
-                            <p>RDF Mapped we refer to online learning material, such as Linkedin learning courses, mapped to the structure of the
-                            Development Framework.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <h4 class="question">Where did this data come from? How much learning material is mapped?</h4>
-                        <div class="answer">
-                            <p>Initially, a spreadsheet of over 5000 records were created where courses and videos got linked to the appropriate RDF
-                                capabilities, categories and levels <b>thanks to JOHN DOE</b>.</p>
-                            <p>We aim to take further this idea by providing an efficient way of searching this content and algorithmically suggest further relevant learning material. The range of mapped content is constantly expanding and we appreciate anyone's suggestions and contribution.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <h4 class="question">Why might I see a course offered with different Categories/Competencies?</h4>
-                        <div class="answer">
-                            <p>A course might align with the learning outcomes of multiple RDF pathways and our algorithm is set up in a way that it ensures learning material can be found by any matching parameter.</p>
-                        </div>
-                    </div>
+                    <% if (faqs.length > 0) { %>
+                        <% faqs.forEach(e => { %>
+                            <div class="faq-item">
+                                <h4 class="question"><%- e.question %></h4>
+                                <div class="answer">
+                                    <p><%- e.answer %></p>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } %>
                 </div>
             </div>
         </section>

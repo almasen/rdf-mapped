@@ -19,8 +19,8 @@ INSERT INTO "faq"
     (question,
     answer)
 VALUES
-    ('What does RDF Mapped stand for?', 'RDF stands for the Vita Researcher Development Framework. By RDF Mapped we refer to online learning material, such as Linkedin learning courses, mapped to the structure of the Development Framework.'),
-    ('Where did this data come from? How much learning material is mapped?', 'Initially, a spreadsheet of over 5000 records were created where courses and videos got linked to the appropriate RDF capabilities, categories and levels thanks to JOHN DOE. We aim to take further this idea by providing an efficient way of searching this content and algorithmically suggest further relevant learning material. The range of mapped content is constantly expanding and we appreciate anyone''s suggestions and contribution.'),
+    ('What does RDF Mapped stand for?', 'RDF stands for the Vita Researcher Development Framework.<br><br>By RDF Mapped we refer to online learning material, such as Linkedin learning courses, mapped to the structure of the Development Framework.'),
+    ('Where did this data come from? How much learning material is mapped?', 'Initially, a spreadsheet of over 5000 records were created where courses and videos got linked to the appropriate RDF capabilities, categories and levels thanks to <b>JOHN DOE</b>.<br><br>We aim to take further this idea by providing an efficient way of searching this content and algorithmically suggest further relevant learning material. The range of mapped content is constantly expanding and we appreciate anyone''s suggestions and contribution.'),
     ('Why might I see a course offered with different Categories/Competencies?', 'A course might align with the learning outcomes of multiple RDF pathways and our algorithm is set up in a way that it ensures learning material can be found by any matching parameter.');
 
 -- Information --
