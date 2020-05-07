@@ -5,7 +5,6 @@ const faqService = require("../../modules/faq");
 router.get('/', async (req, res) => {
     try {
         const faqs = await faqService.fetchAll();
-        console.log(faqs);
         res.render("faq.ejs", {
             baseurl: req.baseUrl,
             faqs,

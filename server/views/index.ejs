@@ -20,30 +20,28 @@
         <section class="clean-block clean-hero" style="background-image:url(&quot;/img/tech/20.jpeg&quot;);color:rgba(9, 162, 255, 0.85);">
             <div class="text">
                 <h2>Vitae RDF Mapped</h2>
-                <p>This website allows you to search for online learning material mapped to the Vitae Researcher Development Framework's structure.</p><button onClick="document.getElementById('searchOptionsSection').scrollIntoView();" class="btn btn-outline-light btn-lg" type="button">Start Learning Now</button></div>
+                <p>This website allows you to search for online learning material mapped to the Vitae Researcher Development Framework's structure.</p><button onClick="document.getElementById('keywordSearchSection').scrollIntoView();" class="btn btn-outline-light btn-lg" type="button">Start Learning Now</button></div>
         </section>
-        <section class="clean-block dark" id="searchOptionsSection">
-            <p>&nbsp;</p>
-            <%- include('./components/search-options'); -%>
-        </section>
-        <section class="clean-block" id="stepByStepSearchSection">
+        <section class="clean-block dark" id="keywordSearchSection">
             <div class="container">
-                <%- include('./components/search-stepbystep'); -%>
-            </div>
-        </section>
-        <section class="clean-block dark" id="detailedSearchSection">
-            <div class="container">
-                <%- include('./components/search-detailed'); -%>
-            </div>
-        </section>
-        <section class="clean-block" id="keywordSearchSection">
-            <div class="container">
+                <p>&nbsp;</p>
                 <%- include('./components/search-predictive'); -%>
             </div>
         </section>
-        <section class="clean-block dark" id="listSearchSection">
+        <section class="clean-block" id="searchOptionsSection">
             <div class="container">
-                <%- include('./components/search-listall'); -%>
+                <div class="block-heading">
+                    <h2 class="text-info">More search options</h2>
+                </div>
+                <div class="row">
+                    <div class="col" style="max-width: 15%;"></div>
+                    <div class="col" style="align-items: center;">
+                        <p style="text-align: center;"><a class="btn btn-primary" href="/search" role="button">
+                            Advanced Search Options
+                        </a></p>
+                    </div>
+                    <div class="col" style="max-width: 15%;"></div>
+                </div>
             </div>
         </section>
     </main>

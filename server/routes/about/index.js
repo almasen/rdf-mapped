@@ -5,7 +5,6 @@ const informationService = require("../../modules/information");
 router.get('/', async (req, res) => {
     try {
         const aboutInfo = await informationService.getInformationData("about");
-        console.log(aboutInfo);
         res.render("about.ejs", {
             baseurl: req.baseUrl,
             aboutInfo,

@@ -3,16 +3,17 @@
     <h2 class="text-info">Predictive Keyword Search</h2>
 </div>
 <div class="row">
-    <div style="padding-bottom: 1rem;">
+    <div style="padding-bottom: 1rem; padding-left: 15px; padding-right: 15px;">
         <p style="text-align: justify;">Start typing in the title of a course or video you might be interested in and we
             will predict what the relevant learning material. Simply choose one of the offered entries and you will be
             redirected to the relevant content page. The predictive keyword search is <b>not</b> case sensitive so no
             need to worry about capitalising.</p>
     </div>
 </div>
-<form>
-    <div class="row">
-        <div class="col">
+<div class="row">
+    <div class="col" style="max-width: 15%;"></div>
+    <div class="col" style="min-width: 438px;">
+        <div class="row" style="padding-bottom: 16px;">
             <!-- <div class="input-group">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="predictiveSelectCourse">Courses</label>
@@ -28,7 +29,7 @@
             </select>
             <!-- </div> -->
         </div>
-        <div class="col">
+        <div class="row" style="padding-bottom: 16px;">
             <!-- <div class="input-group">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="predictiveSelectVideo">Videos</label>
@@ -45,7 +46,8 @@
             <!-- </div> -->
         </div>
     </div>
-</form>
+    <div class="col" style="max-width: 15%;"></div>
+</div>
 <script>
     $(document).ready(() => {
         $('#predictiveSelectCourse').select2();
