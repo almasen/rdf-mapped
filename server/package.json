@@ -32,6 +32,7 @@
     "express-flash": "0.0.2",
     "express-session": "^1.17.1",
     "helmet": "^3.21.2",
+    "infinite-scroll": "^3.0.6",
     "jquery-ui": "^1.12.1",
     "js-base64": "^2.5.2",
     "jsonschema": "^1.2.5",

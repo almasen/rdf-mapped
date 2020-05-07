@@ -26,7 +26,13 @@
                         <p>We couldn't find any courses with these search parameters. <i class="material-icons icon">sentiment_dissatisfied</i><br>Please consider adjusting the filters.</p>
                     <% } %>
                 </div>
-                <%- include('./components/table'); -%>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col" style="min-width: 438px">
+                        <%- include('./components/results-list'); -%>
+                    </div>
+                    <div class="col"></div>
+                </div>
             </div>
         </section>
     </main>
