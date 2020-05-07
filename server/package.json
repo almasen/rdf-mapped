@@ -13,7 +13,7 @@
     "dev-start": "env NODE_ENV=development nodemon ./server",
     "prod-start": "env NODE_ENV=production nodemon ./server",
     "check-all": "db-migrate reset; db-migrate up; npm i; jest -i --detectOpenHandles; jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes; eslint ./ --fix",
-    "rem-logs": "del-cli ./log/rdfmapped.log",
+    "rem-logs": "del-cli ./log/*.log",
     "insert-samples": "env NO_LOG=True jest -i /test/helpers/sample"
   },
   "author": "",
