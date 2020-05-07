@@ -15,7 +15,7 @@
         <div class="col">
             <select class="custom-select" name="capability" id="stepByStepSelectCapability"
                 onchange="capabilityChange(this)">
-                <option value="-1" selected>Capability</option>
+                <option value="-1" selected>Domain</option>
                 <% if (capabilities.length > 0) { %>
                 <% capabilities.forEach(e => { %>
                 <option value="<%= e.id %>"><%= e.title %></option>
@@ -28,7 +28,7 @@
         </div>
         <div class="col">
             <select class="custom-select" name="category" id="stepByStepSelectCategory"  onchange="categoryChange(this)" disabled>
-                <option value="-1" selected>Category</option>
+                <option value="-1" selected>Subdomain</option>
                 <% if (categories.length > 0) { %>
                 <% categories.forEach(e => { %>
                 <option value="<%= e.id %>"><%= e.title %></option>
@@ -54,10 +54,10 @@
         </div>
         <div class="col">
             <select class="custom-select" name="phase" id="stepByStepSelectPhase">
-                <option value="-1" selected>Level</option>
+                <option value="-1" selected>Phase</option>
                 <% if (phases.length > 0) { %>
                 <% phases.forEach(e => { %>
-                <option value="<%= e.id %>"><%= e.title %></option>
+                <option value="<%= e.id %>"><%= e.id %></option>
                 <% }); %>
                 <% } %>
             </select>
@@ -107,7 +107,7 @@
         const val = obj.value;
         const optPlaceholder = document.createElement('option');
         optPlaceholder.value = "-1";
-        optPlaceholder.innerHTML = "Category";
+        optPlaceholder.innerHTML = "Subdomain";
         optPlaceholder.selected = true;
         const optPlaceholder2 = document.createElement('option');
         optPlaceholder2.value = "-1";

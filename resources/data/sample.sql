@@ -9,10 +9,21 @@ DELETE FROM competency;
 DELETE FROM category;
 DELETE FROM capability;
 DELETE FROM information;
+DELETE FROM faq;
+
+-- Faq --
+
+ALTER SEQUENCE faq_id_seq RESTART WITH 1;
+
+INSERT INTO "faq"
+    (question,
+    answer)
+VALUES
+    ('What does RDF Mapped stand for?', 'RDF stands for the Vita Researcher Development Framework. By RDF Mapped we refer to online learning material, such as Linkedin learning courses, mapped to the structure of the Development Framework.'),
+    ('Where did this data come from? How much learning material is mapped?', 'Initially, a spreadsheet of over 5000 records were created where courses and videos got linked to the appropriate RDF capabilities, categories and levels thanks to JOHN DOE. We aim to take further this idea by providing an efficient way of searching this content and algorithmically suggest further relevant learning material. The range of mapped content is constantly expanding and we appreciate anyone''s suggestions and contribution.'),
+    ('Why might I see a course offered with different Categories/Competencies?', 'A course might align with the learning outcomes of multiple RDF pathways and our algorithm is set up in a way that it ensures learning material can be found by any matching parameter.');
 
 -- Information --
-
--- ALTER SEQUENCE information_id_seq RESTART WITH 1;
 
 INSERT INTO "information"
     (type,
@@ -24,40 +35,40 @@ VALUES
 
 -- Capability --
 
--- ALTER SEQUENCE capability_id_seq RESTART WITH 1;
+ALTER SEQUENCE capability_id_seq RESTART WITH 1;
 
 INSERT INTO "capability"
     (title)
 VALUES
-    ('Domain A: Knowledge and intellectual abilities'),
-    ('Domain B: Personal effectiveness'),
-    ('Domain C'),
-    ('Domain D');
+    ('A: Knowledge and intellectual abilities'),
+    ('B: Personal effectiveness'),
+    ('C: Research governance and organisation'),
+    ('D: Engagement, influence and impact');
 
 -- Category --
 
--- ALTER SEQUENCE category_id_seq RESTART WITH 1;
+ALTER SEQUENCE category_id_seq RESTART WITH 1;
 
 INSERT INTO "category"
     (title,
     capability_id)
 VALUES
-    ('A1 Knowledge base', 1),
-    ('A2 Cognitive abilities', 1),
-    ('A3 Creativity', 1),
-    ('B1 Personal qualities', 2),
-    ('B2 Self-management', 2),
-    ('B3 Professional and career development', 2),
-    ('Professional conduct', 3),
-    ('Research management', 3),
-    ('Finance, funding and resources', 3),
-    ('Working with others', 4),
-    ('Communication and dissemination', 4),
-    ('Engagement and impact', 4);
+    ('A1: Knowledge base', 1),
+    ('A2: Cognitive abilities', 1),
+    ('A3: Creativity', 1),
+    ('B1: Personal qualities', 2),
+    ('B2: Self-management', 2),
+    ('B3: Professional and career development', 2),
+    ('C1: Professional conduct', 3),
+    ('C2: Research management', 3),
+    ('C3: Finance, funding and resources', 3),
+    ('D1: Working with others', 4),
+    ('D2: Communication and dissemination', 4),
+    ('D3: Engagement and impact', 4);
 
 -- Competency --
 
--- ALTER SEQUENCE competency_id_seq RESTART WITH 1;
+ALTER SEQUENCE competency_id_seq RESTART WITH 1;
 
 INSERT INTO "competency"
     (title,
@@ -129,7 +140,7 @@ VALUES
 
 -- Phase --
 
--- ALTER SEQUENCE phase_id_seq RESTART WITH 1;
+ALTER SEQUENCE phase_id_seq RESTART WITH 1;
 
 INSERT INTO "phase"
     (title)
@@ -5292,7 +5303,7 @@ VALUES
     ('Building your professional network', 'https://www.linkedin.com/learning/freelancing-foundations/building-your-professional-network', 4, 12, 59),
     ('Build a network', 'https://www.linkedin.com/learning/florent-groberg-on-finding-your-purpose-after-active-duty/build-a-network', 4, 12, 59),
     ('Building your network', 'https://www.linkedin.com/learning/managing-in-a-matrixed-organization/building-your-network', 4, 12, 59),
-    ('#6: Build and tend your network', 'https://www.linkedin.com/learning/the-new-rules-of-work/6-build-and-tend-your-network', 4, 12, 59),
+    ('Build and tend your network', 'https://www.linkedin.com/learning/the-new-rules-of-work/6-build-and-tend-your-network', 4, 12, 59),
     ('Professional networks made easy', 'https://www.linkedin.com/learning/managing-your-career-early-career/professional-networks-made-easy', 4, 12, 59),
     ('Engaging employees with company culture', 'https://www.linkedin.com/learning/human-resources-running-company-onboarding/engaging-employees-with-company-culture', 4, 12, 59),
     ('Assessing employee engagement', 'https://www.linkedin.com/learning/motivating-and-engaging-employees-2013/assessing-employee-engagement', 4, 12, 59),
