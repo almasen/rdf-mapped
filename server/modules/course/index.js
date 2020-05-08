@@ -1,6 +1,10 @@
 const courseRepo = require("../../repositories/course");
 const log = require("../../util/log");
 const filtering = require("../filtering");
+const NodeCache = require("node-cache");
+const myCache = new NodeCache();
+// TODO: clear cache if changes to table
+
 /**
  * Fetch similar course records by provided course and course-phase
  * records. If the provided course has multiple phases, one is picked
@@ -11,16 +15,33 @@ const filtering = require("../filtering");
  * @return {Array} similar course records
  */
 const fetchSimilarCourseRecords = async (course, maximum) => {
-    log.info("Course %s: Fetching similar courses", course.id);
-
-    const findWithPhaseResult = await courseRepo.findByFilters({
-        capabilityId: course.capabilityId,
-        categoryId: course.categoryId,
-        competencyId: course.competencyId,
-        // if a course has multiple phases, one of them is picked for search
-        phaseId: course.phases[0],
-    });
-    const findRecords = findWithPhaseResult.rows;
+    let findRecords = [];
+    const cachedVal = myCache.get("courses");
+    if (cachedVal) {
+        log.info("Course %s: Fetching similar courses from cache", course.id);
+        const matching = [];
+        cachedVal.forEach(e => {
+            if (
+                (e.capabilityId === course.capabilityId) &&
+                (e.categoryId === course.categoryId) &&
+                (e.competencyId === course.competencyId) &&
+                (e.phases[0] === course.phases[0])
+            ) {
+                matching.push(e);
+            }
+        });
+        findRecords = matching;
+    } else {
+        log.info("Course %s: Fetching similar courses from DB", course.id);
+        const findWithPhaseResult = await courseRepo.findByFilters({
+            capabilityId: course.capabilityId,
+            categoryId: course.categoryId,
+            competencyId: course.competencyId,
+            // if a course has multiple phases, one of them is picked for search
+            phaseId: course.phases[0],
+        });
+        findRecords = findWithPhaseResult.rows;
+    }
 
     // TODO: fetch more
 
@@ -43,36 +64,87 @@ const fetchSimilarCourseRecords = async (course, maximum) => {
  */
 const fetchAndResolveCourse = async (courseId) => {
     log.debug("Course %s: Fetching all info", courseId);
-    const findResult = await courseRepo.findByIdWithFullInfo(courseId);
-    if (findResult.rows.length < 1) {
-        throw new Error(`No course found by id '${courseId}'`);
+    const cachedVal = myCache.get(courseId);
+    if (cachedVal) {
+        log.info("Course %s: Fetched all info from cache", courseId);
+        return cachedVal;
+    } else {
+        const findResult = await courseRepo.findByIdWithFullInfo(courseId);
+        if (findResult.rows.length < 1) {
+            throw new Error(`No course found by id '${courseId}'`);
+        }
+        log.info("Course %s: Fetched all info from DB", courseId);
+        return findResult.rows[0];
     }
-    log.info("Course %s: Fetched all info", courseId);
-    return findResult.rows[0];
 };
 
 const fetchByFilters = async (filters) => {
-    const findResult = await courseRepo.findByFiltersAndKeywordJoint({
-        filters: {
-            capabilityId: filters.capability ? parseInt(filters.capability) : -1,
-            categoryId: filters.category ? parseInt(filters.category) : -1,
-            competencyId: filters.competency ? parseInt(filters.competency) : -1,
-            phaseId: filters.phase ? parseInt(filters.phase) : -1,
-        },
-        keyword: filters.keyword ? filters.keyword : '',
-    });
-    log.info("Fetched %s courses with %s filters", findResult.rows.length, JSON.stringify(filters));
-    const filteredAndSorted = filtering.filterAndSortByTitle(findResult.rows);
-    log.info("Removed %s duplicate titles, returning %s", findResult.rows.length - filteredAndSorted.length, filteredAndSorted.length);
-    return filteredAndSorted;
+    const cachedVal = myCache.get("courses");
+    if (cachedVal) {
+        const matching = [];
+        const regex = RegExp(filters.keyword ? filters.keyword : '', 'i');
+        cachedVal.forEach(e => {
+            if (
+                (
+                    !filters.capability ||
+                    parseInt(filters.capability) === -1 ||
+                    e.capabilityId === parseInt(filters.capability)
+                ) &&
+                (
+                    !filters.category ||
+                    parseInt(filters.category) === -1 ||
+                    e.categoryId === parseInt(filters.category)
+                ) &&
+                (
+                    !filters.competency ||
+                    parseInt(filters.competency) === -1 ||
+                    e.competencyId === parseInt(filters.competency)
+                ) &&
+                (
+                    !filters.phase ||
+                    parseInt(filters.phase) === -1 ||
+                    e.phases.includes(parseInt(filters.phase))
+                ) &&
+                (
+                    regex.test(e.title)
+                )
+            ) {
+                matching.push(e);
+            }
+        });
+        log.info("Fetched %s courses with %s filters from cache", matching.length, JSON.stringify(filters));
+        return matching;
+    } else {
+        const findResult = await courseRepo.findByFiltersAndKeywordJoint({
+            filters: {
+                capabilityId: filters.capability ? parseInt(filters.capability) : -1,
+                categoryId: filters.category ? parseInt(filters.category) : -1,
+                competencyId: filters.competency ? parseInt(filters.competency) : -1,
+                phaseId: filters.phase ? parseInt(filters.phase) : -1,
+            },
+            keyword: filters.keyword ? filters.keyword : '',
+        });
+        log.info("Fetched %s courses with %s filters from DB", findResult.rows.length, JSON.stringify(filters));
+        return findResult.rows;
+    }
 };
 
 const fetchAll = async () => {
-    return (await fetchByFilters({}));
+    const cachedVal = myCache.get("courses");
+    if (cachedVal) {
+        return cachedVal;
+    } else {
+        const courses = await fetchByFilters({});
+        myCache.set("courses", courses);
+        courses.forEach(e => {
+            myCache.set(e.id, e);
+        });
+        return (courses);
+    }
 };
 
 const fetchAllWithUniqueTitles = async () => {
-    const allCourses = await fetchByFilters({});
+    const allCourses = await fetchAll();
     return filtering.filterAndSortByTitle(allCourses);
 };
 
