@@ -122,3 +122,5 @@ out
 server/bootstrap_design/
 
 *.bsdesign
+
+server/exports/
