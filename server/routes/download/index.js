@@ -4,6 +4,13 @@ const log = require("../../util/log");
 const downloadService = require("../../modules/download");
 
 router.get('/', async (req, res) => {
+    if (!req.query.content) {
+        res.render('download.ejs', {
+            baseurl: "",
+        });
+        return;
+    }
+
     log.info("%s: Downloading '%s' export with filetype '%s'",
         req.baseUrl, req.query.content, req.query.type);
     try {

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Download - RDF Mapped</title>
+    <meta property="og:type" content="">
+    <meta name="description" content="Vitae Researcher Development Framework Mapped to Linkedin Learning">
+
+    <%- include('./components/stylesheets'); -%>
+    <%- include('./components/scripts'); -%>
+
+    <script>
+        const contactSubmit = () => {
+            const form = document.getElementById("downloadForm");
+            document.getElementById("form-inner").hidden = true;
+            document.getElementById("form-after").hidden = false;
+        };
+    </script>
+</head>
+
+<body>
+    <%- include('./components/header'); -%>
+
+    <main class="page contact-us-page">
+        <section class="clean-block clean-form dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Download</h2>
+                    <p>Here you can download all courses & videos featured on the RDF Mapped website.</p>
+                </div>
+                <form action="/download" method="GET" target="dummyIFrame" onsubmit="contactSubmit();" id="downloadForm">
+                    <div id="form-inner">
+                        <fieldset class="form-group" style="padding-bottom: 10px;">
+                            <h5 style="padding-bottom: 6px;">Content to download</h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="content" id="inlineRadio1" value="courses" required>
+                                <label class="form-check-label" for="inlineRadio1">Courses</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="content" id="inlineRadio2" value="videos" required>
+                                <label class="form-check-label" for="inlineRadio2">Videos</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="content" id="inlineRadio3" value="combined" required>
+                                <label class="form-check-label" for="inlineRadio3">Combined</label>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <h5 style="padding-bottom: 6px;">File type</h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="type" id="inlineRadio11" value="csv" required>
+                                <label class="form-check-label" for="inlineRadio11">CSV</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="type" id="inlineRadio12" value="json" required>
+                                <label class="form-check-label" for="inlineRadio12">JSON</label>
+                            </div>
+                            <small id="emailHelp" class="form-text text-muted">CSV can easily be imported into Excel or other spreadsheet applications</small>
+                        </fieldset>
+                        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Send</button></div>
+                    </div>
+                    <div id="form-after" hidden>
+                        <label>Your download should start in a few seconds..</label>
+                        <label>If your download failed to start, please <a href="/contact/">let us know</a>.</label>
+                    </div>
+                </form>
+            </div>
+            <%- include('./components/dummy-iframe'); -%>
+        </section>
+    </main>
+
+    <%- include('./components/footer'); -%>
+</body>
+
+</html>
