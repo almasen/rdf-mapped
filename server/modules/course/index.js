@@ -2,9 +2,8 @@ const courseRepo = require("../../repositories/course");
 const coursePhaseRepo = require("../../repositories/course/phase");
 const log = require("../../util/log");
 const filtering = require("../filtering");
-const NodeCache = require("node-cache");
-const myCache = new NodeCache();
-// TODO: clear cache if changes to table
+const cache = require("../cache");
+const downloadService = require("../download");
 
 /**
  * Fetch similar course records by provided course and course-phase
@@ -17,9 +16,9 @@ const myCache = new NodeCache();
  */
 const fetchSimilarCourseRecords = async (course, maximum) => {
     let findRecords = [];
-    const cachedVal = myCache.get("courses");
-    if (cachedVal) {
-        log.info("Course %s: Fetching similar courses from cache", course.id);
+    if (cache.has("courses")) {
+        const cachedVal = cache.get("courses");
+        log.info("Course %s: Fetching similar courses from CACHE", course.id);
         const matching = [];
         cachedVal.forEach(e => {
             if (
@@ -65,10 +64,9 @@ const fetchSimilarCourseRecords = async (course, maximum) => {
  */
 const fetchAndResolveCourse = async (courseId) => {
     log.debug("Course %s: Fetching all info", courseId);
-    const cachedVal = myCache.get(courseId);
-    if (cachedVal) {
-        log.info("Course %s: Fetched all info from cache", courseId);
-        return cachedVal;
+    if (cache.has(`course-${courseId}`)) {
+        log.info("Course %s: Fetched all info from CACHE", courseId);
+        return cache.get(`course-${courseId}`);
     } else {
         const findResult = await courseRepo.findByIdWithFullInfo(courseId);
         if (findResult.rows.length < 1) {
@@ -80,8 +78,8 @@ const fetchAndResolveCourse = async (courseId) => {
 };
 
 const fetchByFilters = async (filters) => {
-    const cachedVal = myCache.get("courses");
-    if (cachedVal) {
+    if (cache.has("courses")) {
+        const cachedVal = cache.get("courses");
         const matching = [];
         const regex = RegExp(filters.keyword ? filters.keyword : '', 'i');
         cachedVal.forEach(e => {
@@ -113,7 +111,7 @@ const fetchByFilters = async (filters) => {
                 matching.push(e);
             }
         });
-        log.info("Fetched %s courses with %s filters from cache", matching.length, JSON.stringify(filters));
+        log.info("Fetched %s courses with %s filters from CACHE", matching.length, JSON.stringify(filters));
         return matching;
     } else {
         const findResult = await courseRepo.findByFiltersAndKeywordJoint({
@@ -131,14 +129,13 @@ const fetchByFilters = async (filters) => {
 };
 
 const fetchAll = async () => {
-    const cachedVal = myCache.get("courses");
-    if (cachedVal) {
-        return cachedVal;
+    if (cache.has("courses")) {
+        return cache.get("courses");
     } else {
         const courses = await fetchByFilters({});
-        myCache.set("courses", courses);
+        cache.set("courses", courses);
         courses.forEach(e => {
-            myCache.set(e.id, e);
+            cache.set(`course-${e.id}`, e);
         });
         return (courses);
     }
@@ -169,6 +166,8 @@ const addNewCourse = async (course) => {
         });
     }
     log.info("Course %d: Successfully inserted to database", courseId);
+    cache.flush();
+    downloadService.deleteExportFiles();
 };
 
 module.exports = {

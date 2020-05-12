@@ -1,7 +1,5 @@
 const phaseRepo = require("../../repositories/phase");
-const NodeCache = require("node-cache");
-const myCache = new NodeCache();
-// TODO: clear cache if changes to table
+const cache = require("../cache");
 
 const getPhaseArray = async (phaseRecords) => {
     const phaseArray = [];
@@ -13,12 +11,11 @@ const getPhaseArray = async (phaseRecords) => {
 };
 
 const fetchAll = async () => {
-    const cachedVal = myCache.get("phases");
-    if (cachedVal) {
-        return cachedVal;
+    if (cache.has("phases")) {
+        return cache.get("phases");
     } else {
         const findResult = await phaseRepo.findAll();
-        myCache.set("phases", findResult.rows);
+        cache.set("phases", findResult.rows);
         return findResult.rows;
     }
 };

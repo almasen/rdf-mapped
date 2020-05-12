@@ -4,6 +4,7 @@ const fs = require("fs");
 const log = require("../../util/log");
 const {Parser} = require('json2csv');
 const AdmZip = require('adm-zip');
+const rimraf = require('rimraf');
 
 const fields = ['id', 'title', 'hyperlink', 'capabilityTitle', 'capabilityId',
     'categoryTitle', 'categoryId', 'competencyTitle', 'competencyId', 'phases'];
@@ -61,6 +62,13 @@ const generateExportFiles = async () => {
     }
 };
 
+const deleteExportFiles = () => {
+    rimraf("./exports/*", (result) => {
+        log.info("Cleared exports folder");
+    });
+};
+
 module.exports = {
     generateExportFiles,
+    deleteExportFiles,
 };

@@ -1,22 +1,19 @@
 const competencyRepo = require("../../repositories/competency");
-const NodeCache = require("node-cache");
-const myCache = new NodeCache();
-// TODO: clear cache if changes to table
+const cache = require("../cache");
 
 const fetchAll = async () => {
-    const cachedVal = myCache.get("competencies");
-    if (cachedVal) {
-        return cachedVal;
+    if (cache.has("competencies")) {
+        return cachedVal = cache.get("competencies");
     } else {
         const findResult = await competencyRepo.findAll();
-        myCache.set("competencies", findResult.rows);
+        cache.set("competencies", findResult.rows);
         return findResult.rows;
     }
 };
 
 const fetchByKeyword = async (keyword) => {
-    const cachedVal = myCache.get("competencies");
-    if (cachedVal) {
+    if (cache.has("competencies")) {
+        const cachedVal = cache.get("competencies");
         const regex = RegExp(keyword ? keyword : '', 'i');
         const matching = [];
         cachedVal.forEach(e => {
@@ -31,8 +28,8 @@ const fetchByKeyword = async (keyword) => {
 };
 
 const fetchAllByParent = async (parentId) => {
-    const cachedVal = myCache.get("competencies");
-    if (cachedVal) {
+    if (cache.has("competencies")) {
+        const cachedVal = cache.get("competencies");
         const matching = [];
         cachedVal.forEach(e => {
             if (e.parentId === parentId) {

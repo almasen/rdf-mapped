@@ -2,9 +2,7 @@ const videoRepo = require("../../repositories/video");
 const videoPhaseRepo = require("../../repositories/video/phase");
 const log = require("../../util/log");
 const filtering = require("../filtering");
-const NodeCache = require("node-cache");
-const myCache = new NodeCache();
-// TODO: clear cache if changes to table
+const cache = require("../cache");
 
 /**
  * Fetch similar video records by provided video and video-phase
@@ -17,9 +15,9 @@ const myCache = new NodeCache();
  */
 const fetchSimilarVideoRecords = async (video, maximum) => {
     let findRecords = [];
-    const cachedVal = myCache.get("videos");
-    if (cachedVal) {
-        log.info("Video %s: Fetching similar videos from cache", video.id);
+    if (cache.has("videos")) {
+        const cachedVal = cache.get("videos");
+        log.info("Video %s: Fetching similar videos from CACHE", video.id);
         const matching = [];
         cachedVal.forEach(e => {
             if (
@@ -65,10 +63,9 @@ const fetchSimilarVideoRecords = async (video, maximum) => {
  */
 const fetchAndResolveVideo = async (videoId) => {
     log.debug("Video %s: Fetching all info", videoId);
-    const cachedVal = myCache.get(videoId);
-    if (cachedVal) {
-        log.info("Video %s: Fetched all info from cache", videoId);
-        return cachedVal;
+    if (cache.has(`video-${videoId}`)) {
+        log.info("Video %s: Fetched all info from CACHE", videoId);
+        return cache.get(`video-${videoId}`);
     } else {
         const findResult = await videoRepo.findByIdWithFullInfo(videoId);
         if (findResult.rows.length < 1) {
@@ -80,8 +77,8 @@ const fetchAndResolveVideo = async (videoId) => {
 };
 
 const fetchByFilters = async (filters) => {
-    const cachedVal = myCache.get("videos");
-    if (cachedVal) {
+    if (cache.has("videos")) {
+        const cachedVal = cache.get("videos");
         const matching = [];
         const regex = RegExp(filters.keyword ? filters.keyword : '', 'i');
         cachedVal.forEach(e => {
@@ -113,7 +110,7 @@ const fetchByFilters = async (filters) => {
                 matching.push(e);
             }
         });
-        log.info("Fetched %s videos with %s filters from cache", matching.length, JSON.stringify(filters));
+        log.info("Fetched %s videos with %s filters from CACHE", matching.length, JSON.stringify(filters));
         return matching;
     } else {
         const findResult = await videoRepo.findByFiltersAndKeywordJoint({
@@ -131,14 +128,13 @@ const fetchByFilters = async (filters) => {
 };
 
 const fetchAll = async () => {
-    const cachedVal = myCache.get("videos");
-    if (cachedVal) {
-        return cachedVal;
+    if (cache.has("videos")) {
+        return cache.get("videos");
     } else {
         const videos = await fetchByFilters({});
-        myCache.set("videos", videos);
+        cache.set("videos", videos);
         videos.forEach(e => {
-            myCache.set(e.id, e);
+            cache.set(`video-${e.id}`, e);
         });
         return (videos);
     }
@@ -169,6 +165,8 @@ const addNewVideo = async (video) => {
         });
     }
     log.info("Video %d: Successfully inserted to database", videoId);
+    cache.flush();
+    downloadService.deleteExportFiles();
 };
 
 module.exports = {

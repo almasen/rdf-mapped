@@ -1,22 +1,19 @@
 const faqRepo = require("../../repositories/faq");
-const NodeCache = require("node-cache");
-const myCache = new NodeCache();
-// TODO: clear cache if changes to table
+const cache = require("../cache");
 
 const fetchAll = async () => {
-    const cachedVal = myCache.get("faqs");
-    if (cachedVal) {
-        return cachedVal;
+    if (cache.has("faqs")) {
+        return cache.get("faqs");
     } else {
         const findResult = await faqRepo.findAll();
-        myCache.set("faqs", findResult.rows);
+        cache.set("faqs", findResult.rows);
         return findResult.rows;
     }
 };
 
 const fetchByKeyword = async (keyword) => {
-    const cachedVal = myCache.get("faqs");
-    if (cachedVal) {
+    if (cache.has("faqs")) {
+        const cachedVal = cache.get("faqs");
         const regex = RegExp(keyword ? keyword : '', 'i');
         const matching = [];
         cachedVal.forEach(e => {

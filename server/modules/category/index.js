@@ -1,22 +1,19 @@
 const categoryRepo = require("../../repositories/category");
-const NodeCache = require("node-cache");
-const myCache = new NodeCache();
-// TODO: clear cache if changes to table
+const cache = require("../cache");
 
 const fetchAll = async () => {
-    const cachedVal = myCache.get("categories");
-    if (cachedVal) {
-        return cachedVal;
+    if (cache.has("categories")) {
+        return cache.get("categories");
     } else {
         const findResult = await categoryRepo.findAll();
-        myCache.set("categories", findResult.rows);
+        cache.set("categories", findResult.rows);
         return findResult.rows;
     }
 };
 
 const fetchByKeyword = async (keyword) => {
-    const cachedVal = myCache.get("categories");
-    if (cachedVal) {
+    if (cache.has("categories")) {
+        const cachedVal = cache.get("categories");
         const regex = RegExp(keyword ? keyword : '', 'i');
         const matching = [];
         cachedVal.forEach(e => {
@@ -31,8 +28,8 @@ const fetchByKeyword = async (keyword) => {
 };
 
 const fetchAllByParent = async (parentId) => {
-    const cachedVal = myCache.get("categories");
-    if (cachedVal) {
+    if (cache.has("categories")) {
+        const cachedVal = cache.get("categories");
         const matching = [];
         cachedVal.forEach(e => {
             if (e.parentId === parentId) {
