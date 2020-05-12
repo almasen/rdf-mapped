@@ -1,4 +1,5 @@
 const courseRepo = require("../../repositories/course");
+const coursePhaseRepo = require("../../repositories/course/phase");
 const log = require("../../util/log");
 const filtering = require("../filtering");
 const NodeCache = require("node-cache");
@@ -148,10 +149,33 @@ const fetchAllWithUniqueTitles = async () => {
     return filtering.filterAndSortByTitle(allCourses);
 };
 
+/**
+ * Add a new course
+ * @param {Object} course
+ */
+const addNewCourse = async (course) => {
+    const insertionResult = await courseRepo.insert({
+        title: course.title,
+        hyperlink: course.hyperlink,
+        capabilityId: parseInt(course.capabilityId),
+        categoryId: parseInt(course.categoryId),
+        competencyId: parseInt(course.competencyId),
+    });
+    const courseId = insertionResult.rows[0].id;
+    for await (const phase of course.phases) {
+        await coursePhaseRepo.insert({
+            courseId,
+            phaseId: parseInt(phase),
+        });
+    }
+    log.info("Course %d: Successfully inserted to database", courseId);
+};
+
 module.exports = {
     fetchSimilarCourseRecords,
     fetchAndResolveCourse,
     fetchByFilters,
     fetchAll,
     fetchAllWithUniqueTitles,
+    addNewCourse,
 };

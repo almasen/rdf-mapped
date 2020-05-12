@@ -10,7 +10,7 @@ const path = require('path');
 
 // -- MIDDLEWARE -- //
 app.set('view-engine', 'ejs');
-// app.set("view cache", true);
+// app.set("view cache", true); // TODO: enable view cache
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(helmet());
@@ -50,6 +50,9 @@ app.use("/bugreport", require("./routes/bugreport"));
 app.use("/information", require("./routes/information"));
 
 app.use("/capability", require("./routes/capability"));
+
+app.use("/submit/course", require("./routes/submit/course"));
+app.use("/submit/video", require("./routes/submit/video"));
 
 // // wildcard-protect
 app.all("*", function(req, res, next) {

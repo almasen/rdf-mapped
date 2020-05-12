@@ -1,0 +1,14 @@
+POST http://localhost:8000/submit/video
+content-type: application/json
+
+{
+    "password": "password",
+    "video": {
+        "title": "NEW video POG",
+        "hyperlink": "NEW video LINK",
+        "capabilityId": 1,
+        "categoryId": 1,
+        "competencyId": 1,
+        "phases": ["2","3"]
+    }
+}

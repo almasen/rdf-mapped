@@ -1,4 +1,5 @@
 const videoRepo = require("../../repositories/video");
+const videoPhaseRepo = require("../../repositories/video/phase");
 const log = require("../../util/log");
 const filtering = require("../filtering");
 const NodeCache = require("node-cache");
@@ -148,10 +149,33 @@ const fetchAllWithUniqueTitles = async () => {
     return filtering.filterAndSortByTitle(allVideos);
 };
 
+/**
+ * Add a new video
+ * @param {Object} video
+ */
+const addNewVideo = async (video) => {
+    const insertionResult = await videoRepo.insert({
+        title: video.title,
+        hyperlink: video.hyperlink,
+        capabilityId: parseInt(video.capabilityId),
+        categoryId: parseInt(video.categoryId),
+        competencyId: parseInt(video.competencyId),
+    });
+    const videoId = insertionResult.rows[0].id;
+    for await (const phase of video.phases) {
+        await videoPhaseRepo.insert({
+            videoId,
+            phaseId: parseInt(phase),
+        });
+    }
+    log.info("Video %d: Successfully inserted to database", videoId);
+};
+
 module.exports = {
     fetchSimilarVideoRecords,
     fetchAndResolveVideo,
     fetchByFilters,
     fetchAll,
     fetchAllWithUniqueTitles,
+    addNewVideo,
 };
