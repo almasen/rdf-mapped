@@ -1,0 +1,19 @@
+<style>
+    @media (min-width: 800px) {
+        #stickyBack {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 150px;
+            z-index: 1;
+        }
+    }
+
+    @media (max-width: 800px) {
+        #stickyBack {
+            padding-top: 20px !important;
+        }
+    }
+</style>
+<div style="padding: 0" id="stickyBack">
+    <a class="btn btn-outline-primary" role="button" href="javascript:history.back();">← Back</a>
+</div>

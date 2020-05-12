@@ -18,7 +18,8 @@
     <main class="page faq-page">
         <section class="clean-block clean-faq dark">
             <div class="container">
-                <div class="block-heading">
+                <%- include('./components/floating-back-button'); -%>
+                <div class="block-heading" style="padding-top: 25px;">
                     <h2 class="text-info">Courses</h2>
                     <% if (pageData.data.length > 0) { %>
                         <p>Simply click on a row to open up a course's page.</p>
