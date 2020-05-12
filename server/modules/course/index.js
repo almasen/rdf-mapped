@@ -3,7 +3,6 @@ const coursePhaseRepo = require("../../repositories/course/phase");
 const log = require("../../util/log");
 const filtering = require("../filtering");
 const cache = require("../cache");
-const downloadService = require("../download");
 
 /**
  * Fetch similar course records by provided course and course-phase
@@ -154,20 +153,26 @@ const addNewCourse = async (course) => {
     const insertionResult = await courseRepo.insert({
         title: course.title,
         hyperlink: course.hyperlink,
-        capabilityId: parseInt(course.capabilityId),
-        categoryId: parseInt(course.categoryId),
-        competencyId: parseInt(course.competencyId),
+        capabilityId: parseInt(course.capability),
+        categoryId: parseInt(course.category),
+        competencyId: parseInt(course.competency),
     });
     const courseId = insertionResult.rows[0].id;
-    for await (const phase of course.phases) {
+    if (Array.isArray(course.phases)) {
+        for await (const phase of course.phases) {
+            await coursePhaseRepo.insert({
+                courseId,
+                phaseId: parseInt(phase),
+            });
+        }
+    } else {
         await coursePhaseRepo.insert({
             courseId,
-            phaseId: parseInt(phase),
+            phaseId: parseInt(course.phases),
         });
     }
     log.info("Course %d: Successfully inserted to database", courseId);
     cache.flush();
-    downloadService.deleteExportFiles();
 };
 
 module.exports = {

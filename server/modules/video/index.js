@@ -153,20 +153,26 @@ const addNewVideo = async (video) => {
     const insertionResult = await videoRepo.insert({
         title: video.title,
         hyperlink: video.hyperlink,
-        capabilityId: parseInt(video.capabilityId),
-        categoryId: parseInt(video.categoryId),
-        competencyId: parseInt(video.competencyId),
+        capabilityId: parseInt(video.capability),
+        categoryId: parseInt(video.category),
+        competencyId: parseInt(video.competency),
     });
     const videoId = insertionResult.rows[0].id;
-    for await (const phase of video.phases) {
+    if (Array.isArray(video.phases)) {
+        for await (const phase of video.phases) {
+            await videoPhaseRepo.insert({
+                videoId,
+                phaseId: parseInt(phase),
+            });
+        }
+    } else {
         await videoPhaseRepo.insert({
             videoId,
-            phaseId: parseInt(phase),
+            phaseId: parseInt(video.phases),
         });
     }
     log.info("Video %d: Successfully inserted to database", videoId);
     cache.flush();
-    downloadService.deleteExportFiles();
 };
 
 module.exports = {

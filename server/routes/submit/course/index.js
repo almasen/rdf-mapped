@@ -4,6 +4,7 @@ const log = require("../../../util/log");
 const courseService = require("../../../modules/course");
 const httpUtil = require("../../../util/http");
 const digest = require("../../../modules/digest");
+const downloadService = require("../../../modules/download");
 
 router.post('/', async (req, res) => {
     log.info("Submitting a new course..");
@@ -15,9 +16,10 @@ router.post('/', async (req, res) => {
                     message: "Invalid operation",
                 }, res);
         }
-        await courseService.addNewCourse(req.body.course);
+        await courseService.addNewCourse(req.body);
         log.info("Successfully added new course with title %s",
-            req.body.course.title);
+            req.body.title);
+        downloadService.deleteExportFiles();
         return httpUtil.sendResult({
             status: 200,
             message: "Successfully added new course",

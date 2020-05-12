@@ -51,6 +51,7 @@ app.use("/information", require("./routes/information"));
 
 app.use("/capability", require("./routes/capability"));
 
+app.use("/submit/", require("./routes/submit/"));
 app.use("/submit/course", require("./routes/submit/course"));
 app.use("/submit/video", require("./routes/submit/video"));
 
