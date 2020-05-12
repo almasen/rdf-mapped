@@ -38,13 +38,14 @@
             </div>
             <div class="row" style="padding-bottom: 16px;">
                 <select class="custom-select" name="competency" id="stepByStepSelectCompetency" disabled>
-                    <option value="-1" selected>Competency</option>
+                    <option value="-1" selected>Descriptor</option>
                     <% if (competencies.length > 0) { %>
                     <% competencies.forEach(e => { %>
                     <option value="<%= e.id %>"><%= e.title %></option>
                     <% }); %>
                     <% } %>
                 </select>
+                <small id="descriptorHelp" class="form-text text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio omnis maiores ad accusantium!</small>
             </div>
             <div class="row" style="padding-bottom: 16px;">
                 <select class="custom-select" name="phase" id="stepByStepSelectPhase">

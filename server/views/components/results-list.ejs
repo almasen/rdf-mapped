@@ -6,10 +6,13 @@
             <a href="<%= baseurl %>/<%= e.id %>" class="list-group-item list-group-item-action">
                 <p>
                     <h4><%= e.title %></h4>
-                    <%= e.capabilityTitle %><br>
-                    <%= e.categoryTitle %><br>
-                    <%= e.competencyTitle %><br>
-                    Phase: <%= e.phases.join("/") %>
+                    RDF Information:<br>
+                    <div style="color: #757070;">
+                        <%= e.capabilityTitle %><br>
+                        <%= e.categoryTitle %><br>
+                        <%= e.competencyTitle %><br>
+                        Phase: <%= e.phases.join("/") %>
+                    </div>
                 </p>
             </a>
         <% }); %>

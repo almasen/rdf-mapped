@@ -48,10 +48,10 @@
                         <h2 class="text-info">Course details:</h2>
                         <p></p>
                         <p>Title: <%= course.title %></p>
-                        <p>Capability: <%= course.capabilityTitle %></p>
-                        <p>Category: <%= course.categoryTitle %></p>
-                        <p>Competency: <%= course.competencyTitle %></p>
-                        <p>Course level(s): Phase <%= course.phases.join("/") %></p>
+                        <p>Domain: <%= course.capabilityTitle %></p>
+                        <p>Subdomain: <%= course.categoryTitle %></p>
+                        <p>Descriptor: <%= course.competencyTitle %></p>
+                        <p>Phase: <%= course.phases.join("/") %></p>
                         <!-- <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p> -->
                         <h5>Watch this course <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></h5>
                         <p style="text-align: right; font-size: small;">Flag any inappropriate info: <a href="#reportContentModal" data-toggle="modal"><i class="material-icons" style="color: rgb(215,21,33);">flag</i></a></p>
