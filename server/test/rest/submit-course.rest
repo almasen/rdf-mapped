@@ -1,0 +1,14 @@
+POST http://localhost:8000/submit/course
+content-type: application/json
+
+{
+    "password": "password",
+    "course": {
+        "title": "NEW COURSE POG",
+        "hyperlink": "NEW COURSE LINK",
+        "capabilityId": 1,
+        "categoryId": 1,
+        "competencyId": 1,
+        "phases": [1]
+    }
+}

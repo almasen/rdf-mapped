@@ -18,6 +18,7 @@
     <main class="page faq-page">
         <section class="clean-block clean-faq dark">
             <div class="container">
+                <%- include('./components/floating-back-button'); -%>
                 <div class="block-heading">
                     <h2 class="text-info">Videos</h2>
                     <% if (pageData.data.length > 0) { %>
@@ -27,7 +28,13 @@
                             class="material-icons icon">sentiment_dissatisfied</i><br>Please consider adjusting the filters.</p>
                     <% } %>
                 </div>
-                <%- include('./components/table'); -%>
+                <div class="row">
+                    <div class="col" style="max-width: 25%;"></div>
+                    <div class="col" style="min-width: 438px;">
+                        <%- include('./components/results-list'); -%>
+                    </div>
+                    <div class="col" style="max-width: 25%;"></div>
+                </div>
             </div>
         </section>
     </main>

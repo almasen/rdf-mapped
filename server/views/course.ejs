@@ -34,7 +34,10 @@
     <main class="page">
         <section class="clean-block features">
             <div class="container">
-                <div class="block-heading">
+                <div style="padding-top: 20px">
+                    <a class="btn btn-outline-primary" role="button" href="javascript:history.back();">← Back</a>
+                </div>
+                <div class="block-heading" style="padding-top: 25px;">
                     <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer"><h2 class="text-info"><%= course.title %></h2></a>
                     <p>&nbsp;</p>
                     <ol class="breadcrumb" style="background-color: rgb(228,241,255);opacity: 1;">
@@ -48,10 +51,10 @@
                         <h2 class="text-info">Course details:</h2>
                         <p></p>
                         <p>Title: <%= course.title %></p>
-                        <p>Capability: <%= course.capabilityTitle %></p>
-                        <p>Category: <%= course.categoryTitle %></p>
-                        <p>Competency: <%= course.competencyTitle %></p>
-                        <p>Course level(s): Phase <%= course.phases.join("/") %></p>
+                        <p>Domain: <%= course.capabilityTitle %></p>
+                        <p>Subdomain: <%= course.categoryTitle %></p>
+                        <p>Descriptor: <%= course.competencyTitle %></p>
+                        <p>Phase: <%= course.phases.join("/") %></p>
                         <!-- <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p> -->
                         <h5>Watch this course <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></h5>
                         <p style="text-align: right; font-size: small;">Flag any inappropriate info: <a href="#reportContentModal" data-toggle="modal"><i class="material-icons" style="color: rgb(215,21,33);">flag</i></a></p>

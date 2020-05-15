@@ -11,6 +11,7 @@ const clearDatabase = async () => {
     await db.query("DELETE FROM category");
     await db.query("DELETE FROM capability");
     await db.query("DELETE FROM information");
+    await db.query("DELETE FROM faq");
 };
 
 const capability1 = {

@@ -1,6 +1,9 @@
 const courseRepo = require("../../repositories/course");
+const coursePhaseRepo = require("../../repositories/course/phase");
 const log = require("../../util/log");
 const filtering = require("../filtering");
+const cache = require("../cache");
+
 /**
  * Fetch similar course records by provided course and course-phase
  * records. If the provided course has multiple phases, one is picked
@@ -11,16 +14,33 @@ const filtering = require("../filtering");
  * @return {Array} similar course records
  */
 const fetchSimilarCourseRecords = async (course, maximum) => {
-    log.info("Course %s: Fetching similar courses", course.id);
-
-    const findWithPhaseResult = await courseRepo.findByFilters({
-        capabilityId: course.capabilityId,
-        categoryId: course.categoryId,
-        competencyId: course.competencyId,
-        // if a course has multiple phases, one of them is picked for search
-        phaseId: course.phases[0],
-    });
-    const findRecords = findWithPhaseResult.rows;
+    let findRecords = [];
+    if (cache.has("courses")) {
+        const cachedVal = cache.get("courses");
+        log.info("Course %s: Fetching similar courses from CACHE", course.id);
+        const matching = [];
+        cachedVal.forEach(e => {
+            if (
+                (e.capabilityId === course.capabilityId) &&
+                (e.categoryId === course.categoryId) &&
+                (e.competencyId === course.competencyId) &&
+                (e.phases[0] === course.phases[0])
+            ) {
+                matching.push(e);
+            }
+        });
+        findRecords = matching;
+    } else {
+        log.info("Course %s: Fetching similar courses from DB", course.id);
+        const findWithPhaseResult = await courseRepo.findByFilters({
+            capabilityId: course.capabilityId,
+            categoryId: course.categoryId,
+            competencyId: course.competencyId,
+            // if a course has multiple phases, one of them is picked for search
+            phaseId: course.phases[0],
+        });
+        findRecords = findWithPhaseResult.rows;
+    }
 
     // TODO: fetch more
 
@@ -43,37 +63,116 @@ const fetchSimilarCourseRecords = async (course, maximum) => {
  */
 const fetchAndResolveCourse = async (courseId) => {
     log.debug("Course %s: Fetching all info", courseId);
-    const findResult = await courseRepo.findByIdWithFullInfo(courseId);
-    if (findResult.rows.length < 1) {
-        throw new Error(`No course found by id '${courseId}'`);
+    if (cache.has(`course-${courseId}`)) {
+        log.info("Course %s: Fetched all info from CACHE", courseId);
+        return cache.get(`course-${courseId}`);
+    } else {
+        const findResult = await courseRepo.findByIdWithFullInfo(courseId);
+        if (findResult.rows.length < 1) {
+            throw new Error(`No course found by id '${courseId}'`);
+        }
+        log.info("Course %s: Fetched all info from DB", courseId);
+        return findResult.rows[0];
     }
-    log.info("Course %s: Fetched all info", courseId);
-    return findResult.rows[0];
 };
 
 const fetchByFilters = async (filters) => {
-    const findResult = await courseRepo.findByFiltersAndKeywordJoint({
-        filters: {
-            capabilityId: filters.capability ? parseInt(filters.capability) : -1,
-            categoryId: filters.category ? parseInt(filters.category) : -1,
-            competencyId: filters.competency ? parseInt(filters.competency) : -1,
-            phaseId: filters.phase ? parseInt(filters.phase) : -1,
-        },
-        keyword: filters.keyword ? filters.keyword : '',
-    });
-    log.info("Fetched %s courses with %s filters", findResult.rows.length, JSON.stringify(filters));
-    const filteredAndSorted = filtering.filterAndSortByTitle(findResult.rows);
-    log.info("Removed %s duplicate titles, returning %s", findResult.rows.length - filteredAndSorted.length, filteredAndSorted.length);
-    return filteredAndSorted;
+    if (cache.has("courses")) {
+        const cachedVal = cache.get("courses");
+        const matching = [];
+        const regex = RegExp(filters.keyword ? filters.keyword : '', 'i');
+        cachedVal.forEach(e => {
+            if (
+                (
+                    !filters.capability ||
+                    parseInt(filters.capability) === -1 ||
+                    e.capabilityId === parseInt(filters.capability)
+                ) &&
+                (
+                    !filters.category ||
+                    parseInt(filters.category) === -1 ||
+                    e.categoryId === parseInt(filters.category)
+                ) &&
+                (
+                    !filters.competency ||
+                    parseInt(filters.competency) === -1 ||
+                    e.competencyId === parseInt(filters.competency)
+                ) &&
+                (
+                    !filters.phase ||
+                    parseInt(filters.phase) === -1 ||
+                    e.phases.includes(parseInt(filters.phase))
+                ) &&
+                (
+                    regex.test(e.title)
+                )
+            ) {
+                matching.push(e);
+            }
+        });
+        log.info("Fetched %s courses with %s filters from CACHE", matching.length, JSON.stringify(filters));
+        return matching;
+    } else {
+        const findResult = await courseRepo.findByFiltersAndKeywordJoint({
+            filters: {
+                capabilityId: filters.capability ? parseInt(filters.capability) : -1,
+                categoryId: filters.category ? parseInt(filters.category) : -1,
+                competencyId: filters.competency ? parseInt(filters.competency) : -1,
+                phaseId: filters.phase ? parseInt(filters.phase) : -1,
+            },
+            keyword: filters.keyword ? filters.keyword : '',
+        });
+        log.info("Fetched %s courses with %s filters from DB", findResult.rows.length, JSON.stringify(filters));
+        return findResult.rows;
+    }
 };
 
 const fetchAll = async () => {
-    return (await fetchByFilters({}));
+    if (cache.has("courses")) {
+        return cache.get("courses");
+    } else {
+        const courses = await fetchByFilters({});
+        cache.set("courses", courses);
+        courses.forEach(e => {
+            cache.set(`course-${e.id}`, e);
+        });
+        return (courses);
+    }
 };
 
 const fetchAllWithUniqueTitles = async () => {
-    const allCourses = await fetchByFilters({});
+    const allCourses = await fetchAll();
     return filtering.filterAndSortByTitle(allCourses);
+};
+
+/**
+ * Add a new course
+ * @param {Object} course
+ */
+const addNewCourse = async (course) => {
+    const insertionResult = await courseRepo.insert({
+        title: course.title,
+        hyperlink: course.hyperlink,
+        capabilityId: parseInt(course.capability),
+        categoryId: parseInt(course.category),
+        competencyId: parseInt(course.competency),
+    });
+    const courseId = insertionResult.rows[0].id;
+    if (Array.isArray(course.phases)) {
+        for await (const phase of course.phases) {
+            await coursePhaseRepo.insert({
+                courseId,
+                phaseId: parseInt(phase),
+            });
+        }
+    } else {
+        await coursePhaseRepo.insert({
+            courseId,
+            phaseId: parseInt(course.phases),
+        });
+    }
+    log.info("Course %d: Successfully inserted to database", courseId);
+    cache.flush();
 };
 
 module.exports = {
@@ -82,4 +181,5 @@ module.exports = {
     fetchByFilters,
     fetchAll,
     fetchAllWithUniqueTitles,
+    addNewCourse,
 };

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Search - RDF Mapped</title>
+    <meta property="og:type" content="">
+    <meta name="description" content="Vitae Researcher Development Framework Mapped to Linkedin Learning">
+
+    <%- include('./components/stylesheets'); -%>
+    <%- include('./components/scripts'); -%>
+
+</head>
+
+<body>
+    <%- include('./components/header'); -%>
+
+    <main class="page landing-page">
+        <section class="clean-block dark" id="searchInfoSection" style="padding-bottom: 15px;">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Advanced Search</h2>
+                    <p>Advanced search options Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at nunc lorem.</p>
+                </div>
+            </div>
+        </section>
+        <section class="clean-block" id="keywordSearchSection">
+            <div class="container">
+                <%- include('./components/search-predictive'); -%>
+            </div>
+        </section>
+        <section class="clean-block dark" id="stepByStepSearchSection">
+            <div class="container">
+                <%- include('./components/search-stepbystep'); -%>
+            </div>
+        </section>
+    </main>
+
+    <%- include('./components/footer'); -%>
+</body>
+
+</html>

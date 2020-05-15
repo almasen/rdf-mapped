@@ -3,86 +3,81 @@
     <h2 class="text-info">Step-by-step Search</h2>
 </div>
 <div class="row">
-    <div style="padding-bottom: 1rem;">
+    <div style="padding-bottom: 1rem; padding-left: 15px; padding-right: 15px;">
         <p style="text-align: justify;">Start using the filters from left to right narrowing down the type of courses &
             videos to reach the online learning material matching your development path. All of the filters are optional
             so you may stop at any point and see the offered results. Setting more filters will result in a shorter but
             more precise list of content. The Level/Phase filter does not effect the other two, but we recommend setting it last.</p>
     </div>
 </div>
-<form action="/course" method="GET" name="stepByStepSelectForm" id="stepByStepSelectForm">
-    <div class="form-row">
-        <div class="col">
-            <select class="custom-select" name="capability" id="stepByStepSelectCapability"
-                onchange="capabilityChange(this)">
-                <option value="-1" selected>Capability</option>
-                <% if (capabilities.length > 0) { %>
-                <% capabilities.forEach(e => { %>
-                <option value="<%= e.id %>"><%= e.title %></option>
-                <% }); %>
-                <% } %>
-            </select>
-        </div>
-        <div class="col-auto" style="padding-left: 0; padding-right: 0;">
-            <span class="material-icons icon" style="color: rgba(14, 150, 235, 0.85);">navigate_next</span>
-        </div>
-        <div class="col">
-            <select class="custom-select" name="category" id="stepByStepSelectCategory"  onchange="categoryChange(this)" disabled>
-                <option value="-1" selected>Category</option>
-                <% if (categories.length > 0) { %>
-                <% categories.forEach(e => { %>
-                <option value="<%= e.id %>"><%= e.title %></option>
-                <% }); %>
-                <% } %>
-            </select>
-        </div>
-        <div class="col-auto" style="padding-left: 0; padding-right: 0;">
-            <span class="material-icons icon" style="color: rgba(14, 150, 235, 0.85);">navigate_next</span>
-        </div>
-        <div class="col">
-            <select class="custom-select" name="competency" id="stepByStepSelectCompetency" disabled>
-                <option value="-1" selected>Competency</option>
-                <% if (competencies.length > 0) { %>
-                <% competencies.forEach(e => { %>
-                <option value="<%= e.id %>"><%= e.title %></option>
-                <% }); %>
-                <% } %>
-            </select>
-        </div>
-        <div class="col-auto" style="padding-left: 0; padding-right: 0;">
-            <span class="material-icons icon" style="color: rgba(14, 150, 235, 0.85);">navigate_next</span>
-        </div>
-        <div class="col">
-            <select class="custom-select" name="phase" id="stepByStepSelectPhase">
-                <option value="-1" selected>Level</option>
-                <% if (phases.length > 0) { %>
-                <% phases.forEach(e => { %>
-                <option value="<%= e.id %>"><%= e.title %></option>
-                <% }); %>
-                <% } %>
-            </select>
-        </div>
-        <div class="col-auto" style="padding-left:20px; padding-right: 18px;">
-            <div class="row">
+<div class="row">
+    <div class="col" style="max-width: 15%;"></div>
+    <div class="col" style="min-width: 438px;">
+        <form action="/course" method="GET" name="stepByStepSelectForm" id="stepByStepSelectForm">
+            <div class="row" style="padding-bottom: 16px;">
+                <select class="custom-select" name="capability" id="stepByStepSelectCapability"
+                    onchange="capabilityChange(this)">
+                    <option value="-1" selected>Domain</option>
+                    <% if (capabilities.length > 0) { %>
+                    <% capabilities.forEach(e => { %>
+                    <option value="<%= e.id %>"><%= e.title %></option>
+                    <% }); %>
+                    <% } %>
+                </select>
+            </div>
+            <div class="row" style="padding-bottom: 16px;">
+                <select class="custom-select" name="category" id="stepByStepSelectCategory" onchange="categoryChange(this)"
+                    disabled>
+                    <option value="-1" selected>Subdomain</option>
+                    <% if (categories.length > 0) { %>
+                    <% categories.forEach(e => { %>
+                    <option value="<%= e.id %>"><%= e.title %></option>
+                    <% }); %>
+                    <% } %>
+                </select>
+            </div>
+            <div class="row" style="padding-bottom: 16px;">
+                <select class="custom-select" name="competency" id="stepByStepSelectCompetency" disabled>
+                    <option value="-1" selected>Descriptor</option>
+                    <% if (competencies.length > 0) { %>
+                    <% competencies.forEach(e => { %>
+                    <option value="<%= e.id %>"><%= e.title %></option>
+                    <% }); %>
+                    <% } %>
+                </select>
+                <small id="descriptorHelp" class="form-text text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio omnis maiores ad accusantium!</small>
+            </div>
+            <div class="row" style="padding-bottom: 16px;">
+                <select class="custom-select" name="phase" id="stepByStepSelectPhase">
+                    <option value="-1" selected>Phase</option>
+                    <% if (phases.length > 0) { %>
+                    <% phases.forEach(e => { %>
+                    <option value="<%= e.id %>"><%= e.id %></option>
+                    <% }); %>
+                    <% } %>
+                </select>
+            </div>
+            <div class="row" style="padding-bottom: 0px;">
                 <div class="custom-control custom-radio">
                     <input type="radio" id="courseVideoRadio11" name="stepByStepCourseVideo" value="course"
                         class="custom-control-input" checked>
                     <label class="custom-control-label" for="courseVideoRadio11">Course</label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="padding-bottom: 16px;">
                 <div class="custom-control custom-radio">
                     <input type="radio" id="courseVideoRadio12" name="stepByStepCourseVideo" value="video"
                         class="custom-control-input">
                     <label class="custom-control-label" for="courseVideoRadio12">Video</label>
                 </div>
             </div>
-        </div>
-        <div class="col" style="padding-left: 1rem;">
-            <button type="submit" class="btn btn-primary mb-2">Search</button>
-        </div>
+            <div class="row" style="padding-bottom: 16px;">
+                <button type="submit" class="btn btn-primary mb-2">Search</button>
+            </div>
+        </form>
     </div>
-</form>
+    <div class="col" style="max-width: 15%;"></div>
+</div>
 <script>
     $(document).ready(() => {
         $('#stepByStepSelectCapability').select2();
@@ -107,7 +102,7 @@
         const val = obj.value;
         const optPlaceholder = document.createElement('option');
         optPlaceholder.value = "-1";
-        optPlaceholder.innerHTML = "Category";
+        optPlaceholder.innerHTML = "Subdomain";
         optPlaceholder.selected = true;
         const optPlaceholder2 = document.createElement('option');
         optPlaceholder2.value = "-1";

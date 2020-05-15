@@ -18,7 +18,8 @@
     <main class="page faq-page">
         <section class="clean-block clean-faq dark">
             <div class="container">
-                <div class="block-heading">
+                <%- include('./components/floating-back-button'); -%>
+                <div class="block-heading" style="padding-top: 25px;">
                     <h2 class="text-info">Courses</h2>
                     <% if (pageData.data.length > 0) { %>
                         <p>Simply click on a row to open up a course's page.</p>
@@ -26,7 +27,13 @@
                         <p>We couldn't find any courses with these search parameters. <i class="material-icons icon">sentiment_dissatisfied</i><br>Please consider adjusting the filters.</p>
                     <% } %>
                 </div>
-                <%- include('./components/table'); -%>
+                <div class="row">
+                    <div class="col" style="max-width: 25%;"></div>
+                    <div class="col" style="min-width: 438px;">
+                        <%- include('./components/results-list'); -%>
+                    </div>
+                    <div class="col" style="max-width: 25%;"></div>
+                </div>
             </div>
         </section>
     </main>

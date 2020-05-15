@@ -1,12 +1,29 @@
 const capabilityRepo = require("../../repositories/capability");
+const cache = require("../cache");
 
 const fetchAll = async () => {
-    const findResult = await capabilityRepo.findAll();
-    return findResult.rows;
+    if (cache.has("capabilities")) {
+        return cache.get("capabilities");
+    } else {
+        const findResult = await capabilityRepo.findAll();
+        cache.set("capabilities", findResult.rows);
+        return findResult.rows;
+    }
 };
 
 const fetchByKeyword = async (keyword) => {
-    const findResult = await capabilityRepo.findByKeyword(keyword);
+    if (cache.has("capabilities")) {
+        const cachedVal = cache.get("capabilities");
+        const regex = RegExp(keyword ? keyword : '', 'i');
+        const matching = [];
+        cachedVal.forEach(e => {
+            if (regex.test(e.title)) {
+                matching.push(e);
+            }
+        });
+        return matching;
+    }
+    const findResult = await capabilityRepo.findByKeyword(keyword ? keyword : '');
     return findResult.rows;
 };
 

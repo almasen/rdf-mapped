@@ -36,7 +36,10 @@
     <main class="page">
         <section class="clean-block features">
             <div class="container">
-                <div class="block-heading">
+                <div style="padding-top: 20px;">
+                    <a class="btn btn-outline-primary" role="button" href="javascript:history.back();">← Back</a>
+                </div>
+                <div class="block-heading" style="padding-top: 25px;">
                     <a href="<%= video.hyperlink %>" target="_blank" rel="noopener noreferrer">
                         <h2 class="text-info"><%= video.title %></h2>
                     </a>
@@ -52,10 +55,10 @@
                         <h2 class="text-info">Video details:</h2>
                         <p></p>
                         <p>Title: <%= video.title %></p>
-                        <p>Capability: <%= video.capabilityTitle %></p>
-                        <p>Category: <%= video.categoryTitle %></p>
-                        <p>Competency: <%= video.competencyTitle %></p>
-                        <p>Video level(s): Phase <%= video.phases.join("/") %></p>
+                        <p>Domain: <%= video.capabilityTitle %></p>
+                        <p>Subdomain: <%= video.categoryTitle %></p>
+                        <p>Descriptor: <%= video.competencyTitle %></p>
+                        <p>Phase: <%= video.phases.join("/") %></p>
                         <!-- <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p> -->
                         <h5>Watch this video <a href="<%= video.hyperlink %>" target="_blank"
                                 rel="noopener noreferrer">here</a></h5>

@@ -9,10 +9,21 @@ DELETE FROM competency;
 DELETE FROM category;
 DELETE FROM capability;
 DELETE FROM information;
+DELETE FROM faq;
+
+-- Faq --
+
+ALTER SEQUENCE faq_id_seq RESTART WITH 1;
+
+INSERT INTO "faq"
+    (question,
+    answer)
+VALUES
+    ('What does RDF Mapped stand for?', 'RDF stands for the Vita Researcher Development Framework.<br><br>By RDF Mapped we refer to online learning material, such as Linkedin learning courses, mapped to the structure of the Development Framework.'),
+    ('Where did this data come from? How much learning material is mapped?', 'Initially, a spreadsheet of over 5000 records were created where courses and videos got linked to the appropriate RDF capabilities, categories and levels thanks to <b>JOHN DOE</b>.<br><br>We aim to take further this idea by providing an efficient way of searching this content and algorithmically suggest further relevant learning material. The range of mapped content is constantly expanding and we appreciate anyone''s suggestions and contribution.'),
+    ('Why might I see a course offered with different Categories/Competencies?', 'A course might align with the learning outcomes of multiple RDF pathways and our algorithm is set up in a way that it ensures learning material can be found by any matching parameter.');
 
 -- Information --
-
--- ALTER SEQUENCE information_id_seq RESTART WITH 1;
 
 INSERT INTO "information"
     (type,
@@ -24,40 +35,40 @@ VALUES
 
 -- Capability --
 
--- ALTER SEQUENCE capability_id_seq RESTART WITH 1;
+ALTER SEQUENCE capability_id_seq RESTART WITH 1;
 
 INSERT INTO "capability"
     (title)
 VALUES
-    ('Domain A: Knowledge and intellectual abilities'),
-    ('Domain B: Personal effectiveness'),
-    ('Domain C'),
-    ('Domain D');
+    ('A: Knowledge and intellectual abilities'),
+    ('B: Personal effectiveness'),
+    ('C: Research governance and organisation'),
+    ('D: Engagement, influence and impact');
 
 -- Category --
 
--- ALTER SEQUENCE category_id_seq RESTART WITH 1;
+ALTER SEQUENCE category_id_seq RESTART WITH 1;
 
 INSERT INTO "category"
     (title,
     capability_id)
 VALUES
-    ('A1 Knowledge base', 1),
-    ('A2 Cognitive abilities', 1),
-    ('A3 Creativity', 1),
-    ('B1 Personal qualities', 2),
-    ('B2 Self-management', 2),
-    ('B3 Professional and career development', 2),
-    ('Professional conduct', 3),
-    ('Research management', 3),
-    ('Finance, funding and resources', 3),
-    ('Working with others', 4),
-    ('Communication and dissemination', 4),
-    ('Engagement and impact', 4);
+    ('A1: Knowledge base', 1),
+    ('A2: Cognitive abilities', 1),
+    ('A3: Creativity', 1),
+    ('B1: Personal qualities', 2),
+    ('B2: Self-management', 2),
+    ('B3: Professional and career development', 2),
+    ('C1: Professional conduct', 3),
+    ('C2: Research management', 3),
+    ('C3: Finance, funding and resources', 3),
+    ('D1: Working with others', 4),
+    ('D2: Communication and dissemination', 4),
+    ('D3: Engagement and impact', 4);
 
 -- Competency --
 
--- ALTER SEQUENCE competency_id_seq RESTART WITH 1;
+ALTER SEQUENCE competency_id_seq RESTART WITH 1;
 
 INSERT INTO "competency"
     (title,
@@ -129,7 +140,7 @@ VALUES
 
 -- Phase --
 
--- ALTER SEQUENCE phase_id_seq RESTART WITH 1;
+ALTER SEQUENCE phase_id_seq RESTART WITH 1;
 
 INSERT INTO "phase"
     (title)
@@ -212,7 +223,7 @@ VALUES
     ('Learning Information Governance', 'https://www.linkedin.com/learning/learning-information-governance?u=104', 1, 1, 5),
     ('Creating Your IT Strategy', 'https://www.linkedin.com/learning/creating-your-it-strategy?u=104', 1, 1, 5),
     ('Word 2016: Advanced Tips and Tricks', 'https://www.linkedin.com/learning/word-2016-advanced-tips-and-tricks?u=104', 1, 1, 5),
-    ('Word 2019 Essential Training', 'https://www.linkedin.com/learning/word-2019-essential-training?u=104', 1, 1, 5),
+    ('Word 2019: Essential Training', 'https://www.linkedin.com/learning/word-2019-essential-training?u=104', 1, 1, 5),
     ('Learning Information Governance', 'https://www.linkedin.com/learning/learning-information-governance', 1, 1, 5),
     ('Learning Data Governance', 'https://www.linkedin.com/learning/learning-data-governance', 1, 1, 5),
     ('Learning Document Retention and Data Management', 'https://www.linkedin.com/learning/learning-document-retention-and-data-management', 1, 1, 5),
@@ -316,11 +327,11 @@ VALUES
     ('Project Management: Solving Common Project Problems', 'https://www.linkedin.com/learning/project-management-solving-common-project-problems', 1, 2, 10),
     ('Problem Solving Techniques', 'https://www.linkedin.com/learning/problem-solving-techniques', 1, 2, 10),
     ('Take a More Creative Approach to Problem-Solving', 'https://www.linkedin.com/learning/take-a-more-creative-approach-to-problem-solving', 1, 2, 10),
-    ('A3 Problem Solving for Continuous Improvement', 'https://www.linkedin.com/learning/a3-problem-solving-for-continuous-improvement', 1, 2, 10),
+    ('Problem Solving for Continuous Improvement', 'https://www.linkedin.com/learning/a3-problem-solving-for-continuous-improvement', 1, 2, 10),
     ('Strategic Thinking', 'https://www.linkedin.com/learning/strategic-thinking', 1, 2, 10),
     ('Critical Thinking for Better Judgment and Decision-Making', 'https://www.linkedin.com/learning/critical-thinking-for-better-judgment-and-decision-making?u=104', 1, 2, 10),
     ('Improving Your Judgment', 'https://www.linkedin.com/learning/improving-your-judgment/the-confirmation-bias', 1, 2, 10),
-    ('A3 Problem Solving for Continuous Improvement', 'https://www.linkedin.com/learning/a3-problem-solving-for-continuous-improvement', 1, 2, 10),
+    ('Problem Solving for Continuous Improvement', 'https://www.linkedin.com/learning/a3-problem-solving-for-continuous-improvement', 1, 2, 10),
     ('Project Management: Solving Common Project Problems', 'https://www.linkedin.com/learning/project-management-solving-common-project-problems', 1, 2, 10),
     ('Crafting Problem and Solution Statements', 'https://www.linkedin.com/learning/crafting-problem-and-solution-statements?u=104', 1, 2, 10),
     ('Making Decisions', 'https://www.linkedin.com/learning/making-decisions', 1, 2, 10),
@@ -353,7 +364,7 @@ VALUES
     ('Problem Solving Techniques', 'https://www.linkedin.com/learning/problem-solving-techniques', 1, 2, 12),
     ('Problem Solving Techniques', 'https://www.linkedin.com/learning/problem-solving-techniques', 1, 2, 12),
     ('Take a More Creative Approach to Problem-Solving', 'https://www.linkedin.com/learning/take-a-more-creative-approach-to-problem-solving', 1, 2, 12),
-    ('A3 Problem Solving for Continuous Improvement', 'https://www.linkedin.com/learning/a3-problem-solving-for-continuous-improvement', 1, 2, 12),
+    ('Problem Solving for Continuous Improvement', 'https://www.linkedin.com/learning/a3-problem-solving-for-continuous-improvement', 1, 2, 12),
     ('Crafting Problem and Solution Statements', 'https://www.linkedin.com/learning/crafting-problem-and-solution-statements?u=104', 1, 2, 12),
     ('Organization Communication', 'https://www.linkedin.com/learning/organization-communication/communication-purpose?u=104', 1, 2, 12),
     ('Time-Tested Methods for Making Complex Decisions', 'https://www.linkedin.com/learning/time-tested-methods-for-making-complex-decisions/tim-geithner-on-making-choices-to-manage-risk?u=104', 1, 2, 12),
@@ -840,7 +851,7 @@ VALUES
     ('The Top 10 Project Management Mistakes—and How to Avoid Them', 'https://www.linkedin.com/learning/the-top-10-project-management-mistakes-and-how-to-avoid-them', 3, 8, 42),
     ('Problem Solving Techniques', 'https://www.linkedin.com/learning/problem-solving-techniques', 3, 8, 42),
     ('Project Management: Solving Common Project Problems', 'https://www.linkedin.com/learning/project-management-solving-common-project-problems', 3, 8, 42),
-    ('A3 Problem Solving for Continuous Improvement', 'https://www.linkedin.com/learning/a3-problem-solving-for-continuous-improvement', 3, 8, 42),
+    ('Problem Solving for Continuous Improvement', 'https://www.linkedin.com/learning/a3-problem-solving-for-continuous-improvement', 3, 8, 42),
     ('Solving Business Problems', 'https://www.linkedin.com/learning/solving-business-problems', 3, 8, 42),
     ('Crafting Problem and Solution Statements', 'https://www.linkedin.com/learning/crafting-problem-and-solution-statements', 3, 8, 42),
     ('Take a More Creative Approach to Problem-Solving', 'https://www.linkedin.com/learning/take-a-more-creative-approach-to-problem-solving', 3, 8, 42),
@@ -2007,8 +2018,8 @@ VALUES
     ('Challenges to managing high performers', 'https://www.linkedin.com/learning/managing-high-performers/challenges-to-managing-high-performers', 1, 3, 13),
     ('Four biggest challenges in managing your former peers', 'https://www.linkedin.com/learning/transitioning-from-individual-contributor-to-manager/four-biggest-challenges-in-managing-your-former-peers', 1, 3, 13),
     ('Challengers, executors, and enablers', 'https://www.linkedin.com/learning/enhancing-team-innovation/challengers-executors-and-enablers', 1, 3, 13),
-    ('5. Invitation to Inquiry', 'https://www.linkedin.com/learning/content/830353?u=104', 1, 3, 13),
-    ('5. Invitation to Inquiry', 'https://www.linkedin.com/learning/content/830353?u=104', 1, 3, 13),
+    ('Invitation to Inquiry', 'https://www.linkedin.com/learning/content/830353?u=104', 1, 3, 13),
+    ('Invitation to Inquiry', 'https://www.linkedin.com/learning/content/830353?u=104', 1, 3, 13),
     ('Ask powerful questions', 'https://www.linkedin.com/learning/facilitation-skills-for-managers-and-leaders/ask-powerful-questions', 1, 3, 13),
     ('Add value by asking questions', 'https://www.linkedin.com/learning/listening-to-customers/add-value-by-asking-questions', 1, 3, 13),
     ('Ask the right questions', 'https://www.linkedin.com/learning/human-resources-leadership-and-strategic-impact/ask-the-right-questions', 1, 3, 13),
@@ -2205,7 +2216,7 @@ VALUES
     ('Market research', 'https://www.linkedin.com/learning/pricing-strategy-explained/market-research?u=104', 2, 4, 20),
     ('Document discipline', 'https://www.linkedin.com/learning/consulting-professional-weekly-tips/document-discipline?u=104', 2, 4, 20),
     ('Get the guidance you need', 'https://www.linkedin.com/learning/interpersonal-communication/get-the-guidance-you-need?u=104', 2, 4, 20),
-    ('4. Integrity', 'https://www.linkedin.com/learning/content/832325?u=104', 2, 4, 20),
+    ('Integrity', 'https://www.linkedin.com/learning/content/832325?u=104', 2, 4, 20),
     ('Trust and integrity', 'https://www.linkedin.com/learning/understanding-and-prioritizing-data-privacy/trust-and-integrity-2?u=104', 2, 4, 20),
     ('Shannon Brayton on managing one''s career by being open, honest and constructive and acting with integrity', 'https://www.linkedin.com/learning/content/1032043?u=104', 2, 4, 20),
     ('Honesty is the best policy', 'https://www.linkedin.com/learning/the-hard-thing-about-hard-things-building-a-business-when-there-are-no-easy-answers-blinkist/honesty-is-the-best-policy?u=104', 2, 4, 20),
@@ -5292,7 +5303,7 @@ VALUES
     ('Building your professional network', 'https://www.linkedin.com/learning/freelancing-foundations/building-your-professional-network', 4, 12, 59),
     ('Build a network', 'https://www.linkedin.com/learning/florent-groberg-on-finding-your-purpose-after-active-duty/build-a-network', 4, 12, 59),
     ('Building your network', 'https://www.linkedin.com/learning/managing-in-a-matrixed-organization/building-your-network', 4, 12, 59),
-    ('#6: Build and tend your network', 'https://www.linkedin.com/learning/the-new-rules-of-work/6-build-and-tend-your-network', 4, 12, 59),
+    ('Build and tend your network', 'https://www.linkedin.com/learning/the-new-rules-of-work/6-build-and-tend-your-network', 4, 12, 59),
     ('Professional networks made easy', 'https://www.linkedin.com/learning/managing-your-career-early-career/professional-networks-made-easy', 4, 12, 59),
     ('Engaging employees with company culture', 'https://www.linkedin.com/learning/human-resources-running-company-onboarding/engaging-employees-with-company-culture', 4, 12, 59),
     ('Assessing employee engagement', 'https://www.linkedin.com/learning/motivating-and-engaging-employees-2013/assessing-employee-engagement', 4, 12, 59),

@@ -1,0 +1,49 @@
+<div class="article-feed" id="articleFeed">
+    <div class="list-group">
+    <!-- .articles will be added to .article-feed -->
+    <% if (pageData.data.length > 0) { %>
+        <% pageData.data.forEach(e => { %>
+            <a href="<%= baseurl %>/<%= e.id %>" class="list-group-item list-group-item-action">
+                <p>
+                    <h4><%= e.title %></h4>
+                    RDF Information:<br>
+                    <div style="color: #757070;">
+                        <%= e.capabilityTitle %><br>
+                        <%= e.categoryTitle %><br>
+                        <%= e.competencyTitle %><br>
+                        Phase: <%= e.phases.join("/") %>
+                    </div>
+                </p>
+            </a>
+        <% }); %>
+    <% } %>
+    </div>
+</div>
+
+<!-- status elements -->
+<div class="scroller-status">
+    <% if(pageData.meta.currentPage !== pageData.meta.pageCount) { %>
+    <div class="infinite-scroll-request loader-ellips">
+        Loading ...
+    </div>
+    <% } %>
+    <p style="padding-top: 25px; padding-left: 12px;" class="infinite-scroll-last">End of content</p>
+    <p class="infinite-scroll-error" style="padding-left: 12px; padding-bottom: 0;"></p>
+</div>
+
+<!-- pagination has path -->
+<p class="pagination">
+    <% if(pageData.meta.currentPage !== pageData.meta.pageCount) { %>
+        <a class="pagination__next" href="<%= (searchUrl + (pageData.meta.currentPage + 1).toString()) %>">Next page</a>
+    <% } %>
+</p>
+<script>
+    // init Infinite Scroll
+    $('.article-feed').infiniteScroll({
+        path: '.pagination__next',
+        append: '.list-group-item',
+        status: '.scroller-status',
+        hideNav: '.pagination',
+        checkLastPage: true,
+    });
+</script>

@@ -1,4 +1,5 @@
 const phaseRepo = require("../../repositories/phase");
+const cache = require("../cache");
 
 const getPhaseArray = async (phaseRecords) => {
     const phaseArray = [];
@@ -10,8 +11,13 @@ const getPhaseArray = async (phaseRecords) => {
 };
 
 const fetchAll = async () => {
-    const findResult = await phaseRepo.findAll();
-    return findResult.rows;
+    if (cache.has("phases")) {
+        return cache.get("phases");
+    } else {
+        const findResult = await phaseRepo.findAll();
+        cache.set("phases", findResult.rows);
+        return findResult.rows;
+    }
 };
 
 module.exports = {

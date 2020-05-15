@@ -10,6 +10,7 @@ const path = require('path');
 
 // -- MIDDLEWARE -- //
 app.set('view-engine', 'ejs');
+// app.set("view cache", true); // TODO: enable view cache
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(helmet());
@@ -35,7 +36,10 @@ app.use("/", require("./routes/root"));
 app.use("/course", require("./routes/course"));
 app.use("/video", require("./routes/video"));
 
+app.use("/search", require("./routes/search"));
+app.use("/download", require("./routes/download"));
 app.use("/features", require("./routes/features"));
+app.use("/about", require("./routes/about"));
 app.use("/faq", require("./routes/faq"));
 app.use("/contact", require("./routes/contact"));
 // app.use("/login", require("./routes/login")); // TODO: TBD
@@ -47,6 +51,10 @@ app.use("/information", require("./routes/information"));
 
 app.use("/capability", require("./routes/capability"));
 
+app.use("/submit/", require("./routes/submit/"));
+app.use("/submit/course", require("./routes/submit/course"));
+app.use("/submit/video", require("./routes/submit/video"));
+
 // // wildcard-protect
 app.all("*", function(req, res, next) {
     res.render('404.ejs', {
@@ -55,5 +63,6 @@ app.all("*", function(req, res, next) {
 });
 
 log.info(`App started successfully in ${process.env.NODE_ENV} environment...`);
+log.info(`View cache is ${app.get("view cache") ? "enabled" : "disabled"}`);
 
 module.exports = app;
