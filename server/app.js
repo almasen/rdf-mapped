@@ -40,7 +40,7 @@ app.use("/search", require("./routes/search"));
 app.use("/download", require("./routes/download"));
 app.use("/features", require("./routes/features"));
 app.use("/about", require("./routes/about"));
-app.use("/faq", require("./routes/faq"));
+app.use("/support", require("./routes/support"));
 app.use("/contact", require("./routes/contact"));
 // app.use("/login", require("./routes/login")); // TODO: TBD
 // app.use("/registration", require("./routes/registration")); // TODO: TBD
