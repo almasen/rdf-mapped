@@ -42,14 +42,12 @@ app.use("/features", require("./routes/features"));
 app.use("/about", require("./routes/about"));
 app.use("/support", require("./routes/support"));
 app.use("/contact", require("./routes/contact"));
-// app.use("/login", require("./routes/login")); // TODO: TBD
-// app.use("/registration", require("./routes/registration")); // TODO: TBD
 
 app.use("/error", require("./routes/error"));
-app.use("/bugreport", require("./routes/bugreport"));
-app.use("/information", require("./routes/information"));
+// app.use("/bugreport", require("./routes/bugreport"));
+// app.use("/information", require("./routes/information"));
 
-app.use("/capability", require("./routes/capability"));
+// app.use("/capability", require("./routes/capability"));
 
 app.use("/submit/", require("./routes/submit/"));
 app.use("/submit/course", require("./routes/submit/course"));
