@@ -66,4 +66,16 @@ app.all("*", function(req, res, next) {
 log.info(`App started successfully in ${process.env.NODE_ENV} environment...`);
 log.info(`View cache is ${app.get("view cache") ? "enabled" : "disabled"}`);
 
+const asd = require("./modules/course");
+const cache = require("./modules/cache");
+
+(async () => {
+    try {
+        await asd.fetchAll();
+        await cache.updateFromAPI();
+    } catch (error) {
+        console.log(error.message);
+    }
+})();
+
 module.exports = app;

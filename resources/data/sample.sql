@@ -154,7 +154,6 @@ VALUES
     ('Phase 4'),
     ('Phase 5');
 
-
 -- Course --
 
 ALTER SEQUENCE course_id_seq RESTART WITH 1;
