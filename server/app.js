@@ -7,6 +7,7 @@ const app = express();
 const helmet = require("helmet");
 const methodOverride = require('method-override');
 const path = require('path');
+const downloadService = require("./modules/download");
 
 // -- MIDDLEWARE -- //
 app.set('view-engine', 'ejs');
@@ -29,6 +30,8 @@ app.use(methodOverride('_method'));
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 // });
+
+downloadService.deleteExportFiles();
 
 // // -- ROUTES -- //
 app.use("/", require("./routes/root"));

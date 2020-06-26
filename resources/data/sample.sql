@@ -3918,7 +3918,6 @@ VALUES
     ('Talent sourcing vs. recruiting', 'https://www.linkedin.com/learning/talent-sourcing/talent-sourcing-vs-recruiting', 4, 10, 48),
     ('Recruiting', 'https://www.linkedin.com/learning/strategic-human-resources/recruiting', 4, 10, 48),
     ('Common recruiting mistakes', 'https://www.linkedin.com/learning/', 4, 10, 48),
-    -- // TODO: --
     ('Recruitment and selection', 'https://www.linkedin.com/learning/diversity-and-inclusion-in-a-global-enterprise/recruitment-and-selection', 4, 10, 48),
     ('Improve your recruitment process', 'https://www.linkedin.com/learning/human-resources-diversity-recruiting/improve-your-recruitment-process', 4, 10, 48),
     ('How to use LinkedIn Recruiter to source talent', 'https://www.linkedin.com/learning/talent-sourcing/how-to-use-linkedin-recruiter-to-source-talent', 4, 10, 48),
