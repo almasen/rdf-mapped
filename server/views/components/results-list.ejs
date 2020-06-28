@@ -23,9 +23,12 @@
 <!-- status elements -->
 <div class="scroller-status">
     <% if(pageData.meta.currentPage !== pageData.meta.pageCount) { %>
-    <div class="infinite-scroll-request loader-ellips">
-        Loading ...
-    </div>
+        <!-- <div class="infinite-scroll-request loader-ellips">
+            Loading ...
+        </div> -->
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading ...</span>
+        </div>
     <% } %>
     <p style="padding-top: 25px; padding-left: 12px;" class="infinite-scroll-last">End of content</p>
     <p class="infinite-scroll-error" style="padding-left: 12px; padding-bottom: 0;"></p>
