@@ -182,7 +182,7 @@
                             </select>
                         </div>
                         <fieldset class="form-group">
-                            Phases<br>
+                            Phase(s)<br>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox" name="phases" id="phases1" value="1">
                                 <label class="form-check-label" for="phases1">1</label>
@@ -203,10 +203,12 @@
                                 <input class="form-check-input" type="checkbox" name="phases" id="phases5" value="5">
                                 <label class="form-check-label" for="phases5">5</label>
                             </div>
+                            <small id="phasesHelp" class="form-text text-muted">Please only select more than one if the learning material covers topics that match multiple RDF phases</small>
                         </fieldset>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             Title
                             <input type="text" class="form-control" id="contentTitle" name="title" required>
+                            <small id="titleHelp" class="form-text text-muted">This must match the course/video title on Linkedin Learning</small>
                         </div>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             Hyperlink / URL

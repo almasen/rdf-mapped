@@ -68,19 +68,21 @@
                             <img src="<%= video.picture %>" alt="<%= video.title %> - picture"
                                 style="object-fit:cover; max-height: 400px;">
                             <% } else { %>
-                                <p>Failed to load cover image <span class="material-icons"> sentiment_very_dissatisfied </span></p>
+                            <p>Failed to load cover image <span class="material-icons"> sentiment_very_dissatisfied
+                                </span></p>
                             <% } %>
                             <div class="card-body">
-                                <h4 class="card-title"><%= video.title %>
+                                <h4 class="card-title"><%= video.title %></h4>
+                                <p class="card-text" style="font-size: larger;">
                                     <a href="/video?phase=<%= video.phases[0] %>">
                                         <span class="badge badge-primary badge-pill">RDF phase
                                             <%= video.phases.join("/") %></span>
                                     </a>
-                                </h4>
+                                </p>
                                 <p class="card-text" style="text-align: justify;"><%- video.longDescription %></p>
                                 <!-- <p class="card-text">RDF phase: <%= video.phases.join("/") %></p> -->
                                 <% if (video.length) { %>
-                                    <p class="card-text">Approx. length: <%= video.length %> hours</p>
+                                <p class="card-text">Approx. length: <%= video.length %> hours</p>
                                 <% } %>
                                 <a href="<%= video.hyperlink %>" target="_blank" rel="noopener noreferrer"
                                     class="btn btn-primary">Watch this video Linkedin Learning</a>

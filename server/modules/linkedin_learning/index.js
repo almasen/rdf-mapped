@@ -31,6 +31,11 @@ const renewAccessToken = async () => {
     }
 };
 
+/**
+ *
+ * @param {String} urn
+ * @return {Object} learningObject or undefined
+ */
 const fetchLearningObject = async (urn) => {
     log.info("Linkedin-L API: Attempting to fetch learning obj(%s)..", urn);
 
@@ -90,6 +95,44 @@ const fetchLearningObject = async (urn) => {
     }
 };
 
+/**
+ * Attempt to fetch matching URN to given learningObject.
+ * @param {Object} learningObject must have title & hyperlink
+ * @param {String} type one L.Learning obj type COURSE / VIDEO / LEARNING_PATH
+ * @return {String} URN or undefined
+ */
+const fetchURNByContent = async (learningObject, type) => {
+    log.info("Linkedin-L API: Attempting to find matching URN for %s (%s)", type, learningObject.title);
+    try {
+        const response = await got("https://api.linkedin.com/v2/learningAssets", {
+            responseType: "json",
+            headers: {
+                Authorization: getOAuthToken(),
+            },
+            searchParams: {
+                "q": "criteria",
+                "start": 0,
+                "count": 10,
+                "assetRetrievalCriteria.includeRetired": false,
+                "assetRetrievalCriteria.expandDepth": 1,
+                "assetFilteringCriteria.keyword": learningObject.title,
+                "assetFilteringCriteria.assetTypes[0]": type,
+                "fields": "urn,details:(urls:(webLaunch))",
+            },
+        });
+        const elements = response.body.elements;
+        for (const e of elements) {
+            if (e.details.urls.webLaunch === learningObject.hyperlink) {
+                log.info("Linkedin-L API: Found matching URN for %s (%s) - (%s)", type, learningObject.title, e.urn);
+                return e.urn;
+            }
+        }
+        log.error("Linkedin-L API: No matching URN found for %s (%s)", type, learningObject.title);
+    } catch (error) {
+        log.error("Linkedin-L API: Failed to GET learning assets endpoint, err: " + error.message);
+    }
+};
+
 const getOAuthToken = () => {
     return `Bearer ${process.env.LINKEDIN_LEARNING_TOKEN}`;
 };
@@ -97,4 +140,5 @@ const getOAuthToken = () => {
 module.exports = {
     renewAccessToken,
     fetchLearningObject,
+    fetchURNByContent,
 };

@@ -62,11 +62,12 @@
                                 <p>Failed to load cover image <span class="material-icons"> sentiment_very_dissatisfied </span></p>
                             <% } %>
                             <div class="card-body">
-                                <h4 class="card-title"><%= course.title %>
+                                <h4 class="card-title"><%= course.title %></h4>
+                                <p class="card-text" style="font-size: larger;">
                                     <a href="/course?phase=<%= course.phases[0] %>">
                                         <span class="badge badge-primary badge-pill">RDF phase <%= course.phases.join("/") %></span>
                                     </a>
-                                </h4>
+                                </p>
                                 <p class="card-text" style="text-align: justify;"><%- course.longDescription %></p>
                                 <!-- <p class="card-text">RDF phase: <%= course.phases.join("/") %></p> -->
                                 <% if (course.length) { %>
