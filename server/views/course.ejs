@@ -41,7 +41,13 @@
                     <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer"><h2 class="text-info"><%= course.title %></h2></a>
                     <p>&nbsp;</p>
                     <ol class="breadcrumb" style="background-color: #ebfbfd;opacity: 1;">
-                        <li class="breadcrumb-item"><a href="/course?capability=<%= course.capabilityId %>"><span><%= course.capabilityTitle %></span></a></li>
+                        <li class="breadcrumb-item">
+                            <a href="/course?capability=<%= course.capabilityId %>">
+                                <span>
+                                    Domain <%= course.capabilityTitle %>
+                                </span>
+                            </a>
+                        </li>
                         <li class="breadcrumb-item"><a href="/course?category=<%= course.categoryId %>"><span><%= course.categoryTitle %></span></a></li>
                         <li class="breadcrumb-item"><a href="/course?competency=<%= course.competencyId %>"><span><%= course.competencyTitle %></span></a></li>
                     </ol>
@@ -57,7 +63,7 @@
                         <p>Phase: <%= course.phases.join("/") %></p>
                         <!-- <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p> -->
                         <h5>Watch this course <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></h5>
-                        <p style="text-align: right; font-size: small;">Flag any inappropriate info: <a href="#reportContentModal" data-toggle="modal"><i class="material-icons" style="color: rgb(215,21,33);">flag</i></a></p>
+                        <p style="text-align: right; font-size: small;">Flag any errors: <a href="#reportContentModal" data-toggle="modal"><i class="material-icons" style="color: rgb(215,21,33);">flag</i></a></p>
                     </div>
                     <%- include('./components/report-content'); -%>
                     <div class="col">
