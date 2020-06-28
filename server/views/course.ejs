@@ -54,27 +54,52 @@
                 </div>
                 <div class="row" style="margin: 26.5;">
                     <div class="col-xl-8">
-                        <h2 class="text-info">Course details:</h2>
-                        <p></p>
-                        <p>Title: <%= course.title %></p>
-                        <p>Domain: <%= course.capabilityTitle %></p>
+                        <!-- <h2 class="text-info">Course details:</h2> -->
+                        <div class="card mb-3 shadow-sm bg-white rounded">
+                            <% if (course.picture) { %>
+                                <img src="<%= course.picture %>" alt="<%= course.title %> - picture" style="object-fit:cover; max-height: 400px;">
+                            <% } else { %>
+                                <p>Failed to load cover image <span class="material-icons"> sentiment_very_dissatisfied </span></p>
+                            <% } %>
+                            <div class="card-body">
+                                <h4 class="card-title"><%= course.title %>
+                                    <a href="/course?phase=<%= course.phases[0] %>">
+                                        <span class="badge badge-primary badge-pill">RDF phase <%= course.phases.join("/") %></span>
+                                    </a>
+                                </h4>
+                                <p class="card-text" style="text-align: justify;"><%- course.longDescription %></p>
+                                <!-- <p class="card-text">RDF phase: <%= course.phases.join("/") %></p> -->
+                                <% if (course.length) { %>
+                                    <p class="card-text">Approx. length: <%= course.length %> hours</p>
+                                <% } %>
+                                <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Watch this course Linkedin Learning</a>
+                                <p class="card-text" style="text-align: end;">
+                                    <small class="text-muted">Flag any errors on this page: <a href="#reportContentModal" data-toggle="modal"><i class="material-icons" style="color: rgb(215,21,33);">flag</i></a>
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- <img src="<%= course.picture %>" alt="<%= course.title %> - picture" style="max-width: inherit;"> -->
+                        <!-- <p></p> -->
+                        <!-- <p>Title: <%= course.title %></p> -->
+                        <!-- <p>Domain: <%= course.capabilityTitle %></p>
                         <p>Subdomain: <%= course.categoryTitle %></p>
                         <p>Descriptor: <%= course.competencyTitle %></p>
-                        <p>Phase: <%= course.phases.join("/") %></p>
+                        <p>Phase: <%= course.phases.join("/") %></p> -->
                         <!-- <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p> -->
-                        <h5>Watch this course <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></h5>
-                        <p style="text-align: right; font-size: small;">Flag any errors: <a href="#reportContentModal" data-toggle="modal"><i class="material-icons" style="color: rgb(215,21,33);">flag</i></a></p>
+                        <!-- <h5>Watch this course <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></h5> -->
+                        <!-- <p style="text-align: right; font-size: small;">Flag any errors: <a href="#reportContentModal" data-toggle="modal"><i class="material-icons" style="color: rgb(215,21,33);">flag</i></a></p> -->
                     </div>
                     <%- include('./components/report-content'); -%>
                     <div class="col">
                         <h2 class="text-info">Similar courses</h2>
                         <p>You might also be interested in these:</p>
                         <ul class="list-group">
-                        <!-- <ul class="list-group list-group-flush"> // TODO: -->
+                        <!-- <ul class="list-group list-group-flush"> -->
                             <% if (similarCourseRecords.length > 0) { %>
                                 <% similarCourseRecords.forEach(e => { %>
-                                <a href="<%= '/course/' + e.id %>" class="list-group-item list-group-item-action"><%= e.title %></a>
-                                <!-- <li class="list-group-item"><span></span></li> -->
+                                    <a href="<%= '/course/' + e.id %>" class="list-group-item list-group-item-action"><%= e.title %></a>
+                                    <!-- <li class="list-group-item"><span></span></li> -->
                                 <% }); %>
                             <% } else { %>
                                 <button type="button" id="missingRecommendationsContainer" class="list-group-item active">
