@@ -147,6 +147,7 @@ const fetchAllWithUniqueTitles = async () => {
 
 /**
  * Add a new video
+ * TODO: ADD URN resolving
  * @param {Object} video
  */
 const addNewVideo = async (video) => {
@@ -156,6 +157,7 @@ const addNewVideo = async (video) => {
         capabilityId: parseInt(video.capability),
         categoryId: parseInt(video.category),
         competencyId: parseInt(video.competency),
+        urn: 'null',
     });
     const videoId = insertionResult.rows[0].id;
     if (Array.isArray(video.phases)) {

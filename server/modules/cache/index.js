@@ -64,6 +64,7 @@ const updateFromAPI = async () => {
     errorCount === 0 ?
         log.info("CACHE update from Linkedin-L API finished without errors: %s objects fetched successfully", successCount) :
         log.warn("CACHE update from Linkedin-L API had at least one error: %s succeeded, %s failed", successCount, errorCount);
+    logStats();
 };
 
 module.exports = {

@@ -147,6 +147,7 @@ const fetchAllWithUniqueTitles = async () => {
 
 /**
  * Add a new course
+ * TODO: ADD URN resolving
  * @param {Object} course
  */
 const addNewCourse = async (course) => {
@@ -156,6 +157,7 @@ const addNewCourse = async (course) => {
         capabilityId: parseInt(course.capability),
         categoryId: parseInt(course.category),
         competencyId: parseInt(course.competency),
+        urn: 'null',
     });
     const courseId = insertionResult.rows[0].id;
     if (Array.isArray(course.phases)) {
