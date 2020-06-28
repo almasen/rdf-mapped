@@ -1,9 +1,9 @@
 const db = require("../../database/connection");
 
 const insert = (video) => {
-    const query = "INSERT INTO video(title, hyperlink, capability_id, category_id, competency_id) VALUES ($1, $2, $3, $4, $5) " +
+    const query = "INSERT INTO video(title, hyperlink, capability_id, category_id, competency_id, urn) VALUES ($1, $2, $3, $4, $5, $6) " +
         "RETURNING *"; // returns passed video with it's id set to corresponding id in database
-    const params = [video.title, video.hyperlink, video.capabilityId, video.categoryId, video.competencyId];
+    const params = [video.title, video.hyperlink, video.capabilityId, video.categoryId, video.competencyId, video.urn];
     return db.query(query, params);
 };
 
@@ -14,7 +14,7 @@ const findById = (id) => {
 
 const findByIdJoint = (id) => {
     const query = "SELECT " +
-        "title(video) AS title, hyperlink(video) AS hyperlink, id(video) AS id, " +
+        "title(video) AS title, hyperlink(video) AS hyperlink, id(video) AS id, urn(video) AS urn, " +
         "title(capability) AS capability_title, id(capability) AS capability_id, " +
         "title(category) AS category_title, id(category) AS category_id, " +
         "title(competency) AS competency_title, id(competency) AS competency_id " +
@@ -29,7 +29,7 @@ const findByIdJoint = (id) => {
 const findByIdWithFullInfo = (id) => {
     const query = "SELECT " +
         "ARRAY(SELECT phase_id(video_phase) FROM video_phase WHERE video_id(video_phase) = id(video)) AS phases, " +
-        "title(video) AS title, hyperlink(video) AS hyperlink, id(video) AS id, " +
+        "title(video) AS title, hyperlink(video) AS hyperlink, id(video) AS id, urn(video) AS urn, " +
         "title(capability) AS capability_title, id(capability) AS capability_id, " +
         "title(category) AS category_title, id(category) AS category_id, " +
         "title(competency) AS competency_title, id(competency) AS competency_id " +
@@ -42,9 +42,10 @@ const findByIdWithFullInfo = (id) => {
 };
 
 const update = (video) => {
-    const query = "UPDATE video SET title = $2, hyperlink = $3, capability_id = $4, category_id = $5, competency_id = $6 WHERE id = $1" +
+    const query = "UPDATE video SET title = $2, hyperlink = $3, capability_id = $4, category_id = $5, " +
+        "competency_id = $6, urn = $7 WHERE id = $1" +
         "RETURNING *"; // returns passed video with it's id set to corresponding id in database
-    const params = [video.id, video.title, video.hyperlink, video.capabilityId, video.categoryId, video.competencyId];
+    const params = [video.id, video.title, video.hyperlink, video.capabilityId, video.categoryId, video.competencyId, video.urn];
     return db.query(query, params);
 };
 
@@ -83,7 +84,7 @@ const findByFiltersAndKeyword = (search) => {
 const findByFiltersAndKeywordJoint = (search) => {
     const query = "SELECT DISTINCT ON (id(video)) " +
         "ARRAY(SELECT phase_id(video_phase) FROM video_phase WHERE video_id(video_phase) = id(video)) AS phases, " +
-        "title(video) AS title, hyperlink(video) AS hyperlink, id(video) AS id, " +
+        "title(video) AS title, hyperlink(video) AS hyperlink, id(video) AS id, urn(video) AS urn, " +
         "title(capability) AS capability_title, id(capability) AS capability_id, " +
         "title(category) AS category_title, id(category) AS category_id, " +
         "title(competency) AS competency_title, id(competency) AS competency_id " +
