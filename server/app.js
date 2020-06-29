@@ -9,6 +9,10 @@ const methodOverride = require('method-override');
 const path = require('path');
 const downloadService = require("./modules/download");
 
+const redis = require('redis');
+const RedisStore = require('connect-redis')(session);
+const redisClient = redis.createClient();
+
 // -- MIDDLEWARE -- //
 app.set('view-engine', 'ejs');
 // app.set("view cache", true); // TODO: enable view cache
@@ -23,6 +27,9 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: new RedisStore({
+        client: redisClient,
+    }),
 }));
 app.use(methodOverride('_method'));
 // app.use(function(req, res, next) {
