@@ -1,6 +1,7 @@
 const NodeCache = require("node-cache");
 const log = require("../../util/log");
 const linkedinApi = require("../linkedin_learning");
+const fs = require('fs');
 
 const modulesCache = new NodeCache({
     checkperiod: 0,
@@ -35,6 +36,10 @@ const updateFromAPI = async () => {
     const videos = [];
     let successCount = 0;
     let errorCount = 0;
+    const objectsWithoutURN = {
+        courses: [],
+        videos: [],
+    };
     for await (const key of modulesCache.keys()) {
         // check if object has an Linkedin Learning API ID
         const val = modulesCache.get(key);
@@ -54,17 +59,32 @@ const updateFromAPI = async () => {
             } else {
                 ++errorCount;
             }
-        }
-        if (/^course-/.test(key)) {
-            courses.push(modulesCache.get(key));
-        } else if (/^video-/.test(key)) {
-            videos.push(modulesCache.get(key));
+            // add object to collections despite update
+            if (/^course-/.test(key)) {
+                courses.push(modulesCache.get(key));
+            } else if (/^video-/.test(key)) {
+                videos.push(modulesCache.get(key));
+            }
+        } else {
+            // log discarded object for not having a URN
+            if (/^course-/.test(key)) {
+                objectsWithoutURN.courses.push(val);
+            } else if (/^video-/.test(key)) {
+                objectsWithoutURN.videos.push(val);
+            }
+            modulesCache.del(key);
         }
     }
+    // update collections
+    modulesCache.set("courses", courses);
+    modulesCache.set("videos", videos);
     errorCount === 0 ?
         log.info("CACHE update from Linkedin-L API finished without errors: %s objects fetched successfully", successCount) :
         log.warn("CACHE update from Linkedin-L API had at least one error: %s succeeded, %s failed", successCount, errorCount);
     logStats();
+
+
+    fs.writeFileSync(`./log/objects_without_urn_${(new Date()).toUTCString()}`, JSON.stringify(objectsWithoutURN));
 };
 
 module.exports = {
