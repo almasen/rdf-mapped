@@ -58,8 +58,6 @@
                         <div class="card mb-3 shadow-sm bg-white rounded">
                             <% if (course.picture) { %>
                                 <img src="<%= course.picture %>" alt="<%= course.title %> - picture" style="object-fit:cover; max-height: 400px;">
-                            <% } else { %>
-                                <p>Failed to load cover image <span class="material-icons"> sentiment_very_dissatisfied </span></p>
                             <% } %>
                             <div class="card-body">
                                 <h4 class="card-title"><%= course.title %></h4>
@@ -68,12 +66,20 @@
                                         <span class="badge badge-primary badge-pill">RDF phase <%= course.phases.join("/") %></span>
                                     </a>
                                 </p>
-                                <p class="card-text" style="text-align: justify;"><%- course.longDescription %></p>
+                                <% if (course.longDescription) { %>
+                                        <p class="card-text" style="text-align: justify;"><%- course.longDescription %></p>
+                                    <% } else if (course.shortDescription) { %>
+                                        <p class="card-text" style="text-align: justify;"><%- course.shortDescription %></p>
+                                <% } %>
                                 <!-- <p class="card-text">RDF phase: <%= course.phases.join("/") %></p> -->
                                 <% if (course.length) { %>
-                                    <p class="card-text">Approx. length: <%= course.length %> hours</p>
+                                    <% if (course.length > 3600 ) { %>
+                                        <p class="card-text">Approx. length: <%= Math.ceil(course.length / 3600) %> hours</p>
+                                    <% } else { %>
+                                        <p class="card-text">Approx. length: <%= Math.ceil(course.length / 60) %> minutes</p>
+                                    <% } %>
                                 <% } %>
-                                <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Watch this course Linkedin Learning</a>
+                                <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Watch this course on Linkedin Learning</a>
                                 <p class="card-text" style="text-align: end;">
                                     <small class="text-muted">Flag any errors on this page: <a href="#reportContentModal" data-toggle="modal"><i class="material-icons" style="color: rgb(215,21,33);">flag</i></a>
                                     </small>

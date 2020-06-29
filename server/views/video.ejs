@@ -65,11 +65,7 @@
                         <!-- <h2 class="text-info">Video details:</h2> -->
                         <div class="card mb-3 shadow-sm bg-white rounded">
                             <% if (video.picture) { %>
-                            <img src="<%= video.picture %>" alt="<%= video.title %> - picture"
-                                style="object-fit:cover; max-height: 400px;">
-                            <% } else { %>
-                            <p>Failed to load cover image <span class="material-icons"> sentiment_very_dissatisfied
-                                </span></p>
+                                <img src="<%= video.picture %>" alt="<%= video.title %> - picture" style="object-fit:cover; max-height: 400px;">
                             <% } %>
                             <div class="card-body">
                                 <h4 class="card-title"><%= video.title %></h4>
@@ -79,13 +75,21 @@
                                             <%= video.phases.join("/") %></span>
                                     </a>
                                 </p>
-                                <p class="card-text" style="text-align: justify;"><%- video.longDescription %></p>
+                                <% if (video.longDescription) { %>
+                                    <p class="card-text" style="text-align: justify;"><%- video.longDescription %></p>
+                                <% } else if (video.shortDescription) { %>
+                                    <p class="card-text" style="text-align: justify;"><%- video.shortDescription %></p>
+                                <% } %>
                                 <!-- <p class="card-text">RDF phase: <%= video.phases.join("/") %></p> -->
                                 <% if (video.length) { %>
-                                <p class="card-text">Approx. length: <%= video.length %> hours</p>
+                                    <% if (video.length > 3600 ) { %>
+                                        <p class="card-text">Approx. length: <%= Math.ceil(video.length / 3600) %> hours</p>
+                                    <% } else { %>
+                                        <p class="card-text">Approx. length: <%= Math.ceil(video.length / 60) %> minutes</p>
+                                    <% } %>
                                 <% } %>
                                 <a href="<%= video.hyperlink %>" target="_blank" rel="noopener noreferrer"
-                                    class="btn btn-primary">Watch this video Linkedin Learning</a>
+                                    class="btn btn-primary">Watch this video on Linkedin Learning</a>
                                 <p class="card-text" style="text-align: end;">
                                     <small class="text-muted">Flag any errors on this page: <a
                                             href="#reportContentModal" data-toggle="modal"><i class="material-icons"

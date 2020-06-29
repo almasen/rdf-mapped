@@ -4,9 +4,17 @@
     <% if (pageData.data.length > 0) { %>
         <% pageData.data.forEach(e => { %>
             <a href="<%= baseurl %>/<%= e.id %>" class="list-group-item list-group-item-action">
-                <p>
                     <h4><%= e.title %></h4>
-                    <%= e.shortDescription %>
+                <p>
+                    <% if (e.shortDescription) { %>
+                       <%- e.shortDescription %>
+                    <% } else if (e.longDescription) { %>
+                        <% if (e.longDescription.length <= 120) { %>
+                            <%- e.longDescription %>
+                        <% } else { %>
+                            <%- e.longDescription.substring(0, 120) + '...' %>
+                        <% } %>
+                    <% } %>
                 </p>
                 <p>
                     RDF Information:
@@ -24,12 +32,12 @@
 </div>
 
 <!-- status elements -->
-<div class="scroller-status">
+<div class="scroller-status" style="text-align: center; padding-top: 10px;">
     <% if(pageData.meta.currentPage !== pageData.meta.pageCount) { %>
         <!-- <div class="infinite-scroll-request loader-ellips">
             Loading ...
         </div> -->
-        <div class="spinner-grow text-primary" role="status">
+        <div class="spinner-grow text-primary infinite-scroll-request" role="status">
             <span class="sr-only">Loading ...</span>
         </div>
     <% } %>
