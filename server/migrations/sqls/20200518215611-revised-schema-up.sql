@@ -95,5 +95,16 @@ CREATE TABLE faq
     CONSTRAINT faq_pk PRIMARY KEY (id)
 );
 
+-- Table: submission
+CREATE TABLE submission
+(
+    id varchar(64) NOT NULL,
+    status varchar(32) NOT NULL,
+    submitter varchar(32) DEFAULT 'anonymous',
+    authentication_status INT DEFAULT 0 NOT NULL,
+    data jsonb,
+    CONSTRAINT submission_pk PRIMARY KEY (id)
+);
+
 
 -- END OF FILE
