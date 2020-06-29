@@ -147,7 +147,6 @@ const fetchAllWithUniqueTitles = async () => {
 
 /**
  * Add a new video
- * TODO: ADD URN resolving
  * @param {Object} video
  */
 const addNewVideo = async (video) => {
@@ -157,7 +156,7 @@ const addNewVideo = async (video) => {
         capabilityId: parseInt(video.capability),
         categoryId: parseInt(video.category),
         competencyId: parseInt(video.competency),
-        urn: 'null',
+        urn: video.urn,
     });
     const videoId = insertionResult.rows[0].id;
     if (Array.isArray(video.phases)) {
@@ -173,8 +172,16 @@ const addNewVideo = async (video) => {
             phaseId: parseInt(video.phases),
         });
     }
-    log.info("Video %d: Successfully inserted to database", videoId);
-    cache.flush();
+    log.info("Video %d: Successfully inserted new record to database", videoId);
+    log.info("Video %d: Caching new video...", videoId);
+    const findResult = await videoRepo.findByIdWithFullInfo(videoId);
+    const temp = findResult.rows[0];
+    const videosArray = cache.get("videos");
+    videosArray.push(temp);
+    cache.set(`video-${videoId}`, temp);
+    cache.set("videos", videosArray);
+    cache.updateFromAPI(`video-${videoId}`);
+    log.info("Video %d: Cache updated with new video.", videoId);
 };
 
 module.exports = {

@@ -10,6 +10,7 @@ DELETE FROM category;
 DELETE FROM capability;
 DELETE FROM information;
 DELETE FROM faq;
+DELETE FROM submission;
 
 -- Faq --
 

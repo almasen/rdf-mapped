@@ -147,7 +147,6 @@ const fetchAllWithUniqueTitles = async () => {
 
 /**
  * Add a new course
- * TODO: ADD URN resolving
  * @param {Object} course
  */
 const addNewCourse = async (course) => {
@@ -157,7 +156,7 @@ const addNewCourse = async (course) => {
         capabilityId: parseInt(course.capability),
         categoryId: parseInt(course.category),
         competencyId: parseInt(course.competency),
-        urn: 'null',
+        urn: course.urn,
     });
     const courseId = insertionResult.rows[0].id;
     if (Array.isArray(course.phases)) {
@@ -173,8 +172,16 @@ const addNewCourse = async (course) => {
             phaseId: parseInt(course.phases),
         });
     }
-    log.info("Course %d: Successfully inserted to database", courseId);
-    cache.flush();
+    log.info("Course %d: Successfully inserted new record to database", courseId);
+    log.info("Course %d: Caching new course...", courseId);
+    const findResult = await courseRepo.findByIdWithFullInfo(courseId);
+    const temp = findResult.rows[0];
+    const coursesArray = cache.get("courses");
+    coursesArray.push(temp);
+    cache.set(`course-${courseId}`, temp);
+    cache.set("courses", coursesArray);
+    cache.updateFromAPI(`course-${courseId}`);
+    log.info("Course %d: Cache updated with new course.", courseId);
 };
 
 module.exports = {

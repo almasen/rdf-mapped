@@ -9,9 +9,6 @@ for (let i = 0; i < lines.length; i++) {
     const phases = lineSplit[0];
     const elementId = lineSplit[1];
 
-    // console.log(phases);
-    // console.log(elementId);
-
     if (phases.includes("1")) {
         outArray.push(`(${elementId}, 1)`);
     }

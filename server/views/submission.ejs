@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Submission - RDFmapped</title>
+    <meta property="og:type" content="">
+    <meta name="description" content="Vitae Researcher Development Framework Mapped to Linkedin Learning">
+
+    <%- include('./components/stylesheets'); -%>
+    <%- include('./components/scripts'); -%>
+</head>
+
+<body>
+    <%- include('./components/header'); -%>
+
+    <main class="page faq-page">
+        <section class="clean-block clean-faq dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Submission Details</h2>
+                    <!-- <p>Frequently Asked Questions</p> -->
+                </div>
+                <div class="block-content">
+                    <div class="row" style="margin: 26.5;">
+                        <div class="col-xl-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= submission.data.title %></h5>
+                                    <h6 class="card-subtitle mb-2 text-muted" style="padding-bottom: 10px !important;">Learning content type: <%= submission.data.type.toLowerCase() %></h6>
+                                    <p class="card-text">Domain: <%= submission.data.capabilityTitle %></p>
+                                    <p class="card-text">Subdomain: <%= submission.data.categoryTitle %></p>
+                                    <p class="card-text">Descriptor: <%= submission.data.competencyTitle %></p>
+                                    <p class="card-text">Phase:
+                                        <% if (typeof submission.data.phases === "object") { %>
+                                            <%= submission.data.phases.join("/") %>
+                                        <% } else { %>
+                                            <%= submission.data.phases %>
+                                        <% } %>
+                                    </p>
+                                    <p class="card-text">URL: <i><a href="<%= submission.data.hyperlink %>" target="_blank" rel="noopener noreferrer"><%= submission.data.hyperlink %></a></i></p>
+                                    <p class="card-text">
+                                        <% if (submission.data.urn) { %>
+                                            URN: <%= submission.data.urn %>
+                                        <% } else { %>
+                                            URN: <i>unknown</i>
+                                        <% } %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Submission Info</h5>
+
+                                    <% if (submission.status === "processing") { %>
+                                        <p class="card-text">STATUS<br><span class="badge badge-pill badge-secondary" style="background-color: grey;">processing</span><br>
+                                            <small><i>The automated system is processing the request..</i></small>
+                                        </p>
+                                    <% } else if (submission.status === "pending") { %>
+                                        <p class="card-text">STATUS<br><span class="badge badge-pill badge-light" style="background-color: yellowgreen;">pending</span><br>
+                                            <small>
+                                                <i>The automated system successfully verified the integrity of the submission. Now a member of our team will review the RDF parameters & publish the material if found to be in order.</i>
+                                            </small>
+                                        </p>
+                                    <% } else if (submission.status === "published") { %>
+                                        <p class="card-text">STATUS<br><span class="badge badge-pill badge-success">published</span><br>
+                                            <small>
+                                                <i>Your submitted content has been approved & published! You can now <a href="/search">search for it</a> on the RDFmapped website.</i>
+                                            </small>
+                                        </p>
+                                    <% } else if (submission.status === "failed") { %>
+                                        <p class="card-text">STATUS<br><span class="badge badge-pill badge-dark" style="background-color: orangered;">failed</span><br>
+                                            <small>
+                                                <i>Our automated system could not verify the submitted content. This could be because of a type on the URL or title.<br>Don't worry, a member of our team will review it shortly!</i>
+                                            </small>
+                                        </p>
+                                    <% } %>
+
+                                    <p class="card-text">SUBMITTED BY <br><i style="color: #0096a9;"><%= submission.submitter %></i></p>
+                                    <p class="card-text">SUBMISSION DATE <br><i><%= submission.data.timestamp %></i></p>
+                                    <p class="card-text">
+                                        <% if (submission.authenticationStatus === 1) { %>
+                                            VERIFICATION STATUS<br><i style="color:limegreen"><b>password verified</b></i>
+                                        <% } else if (submission.authenticationStatus === 0) { %>
+                                            VERIFICATION STATUS<br><i style="color: grey;"><b>no password provided</b></i>
+                                        <% } else { %>
+                                            VERIFICATION STATUS<br><i style="color:orange"><b>invalid password</b></i>
+                                        <% } %>
+                                    </p>
+                                    <% if (submission.data.publishedAt) { %>
+                                        <p class="card-text">PUBLISHED AT<br><i><%= submission.data.publishedAt %></i></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('./components/footer'); -%>
+</body>
+
+</html>

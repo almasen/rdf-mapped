@@ -122,7 +122,7 @@ const fetchURNByContent = async (learningObject, type) => {
         });
         const elements = response.body.elements;
         for (const e of elements) {
-            if (e.details.urls.webLaunch === learningObject.hyperlink) {
+            if (learningObject.hyperlink.startsWith(e.details.urls.webLaunch.substring(0, e.details.urls.webLaunch.length -2))) {
                 log.info("Linkedin-L API: Found matching URN for %s (%s) - (%s)", type, learningObject.title, e.urn);
                 return e.urn;
             }

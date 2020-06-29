@@ -189,6 +189,4 @@ test.skip('getting a course object and finding similar work', async () => {
     const fetchSimilarResult3 = await courseService.fetchSimilarCourseRecordsById(courseId3);
     const fetchSimilarRecords3 = fetchSimilarResult3;
     expect(fetchSimilarRecords3.length).toStrictEqual(0);
-
-    console.log("Sample course ids: " + courseId + ", " + courseId2 + ", " + courseId3);
 });

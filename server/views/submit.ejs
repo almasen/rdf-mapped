@@ -14,7 +14,7 @@
     <script>
         const contactSubmit = () => {
             const form = document.getElementById("submitForm");
-            if (document.getElementById("submitPassword").value === "") {
+            if (document.getElementById("submissionEmail").value === "") {
                 document.getElementById("hadPassWord").hidden = true;
             } else {
                 document.getElementById("weWillReview").hidden = true;
@@ -142,11 +142,11 @@
                         <fieldset class="form-group">
                             <h5 style="padding-bottom: 6px;">Type of content</h5>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="inlineRadio11" value="course" required>
+                                <input class="form-check-input" type="radio" name="type" id="inlineRadio11" value="COURSE" required>
                                 <label class="form-check-label" for="inlineRadio11">Course</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="inlineRadio12" value="video" required>
+                                <input class="form-check-input" type="radio" name="type" id="inlineRadio12" value="VIDEO" required>
                                 <label class="form-check-label" for="inlineRadio12">Video</label>
                             </div>
                         </fieldset>
@@ -218,7 +218,7 @@
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             Your email address (optional)
                             <input type="email" class="form-control" id="submissionEmail" name="email">
-                            <small id="emailHelp" class="form-text text-muted">If you wish to be contacted once we have reviewed your submission.</small>
+                            <small id="emailHelp" class="form-text text-muted">We'll send you a link where you can track the status of your submission.</small>
                         </div>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             Submission password (optional)
@@ -231,7 +231,7 @@
                     <div id="form-after" hidden>
                         <label>Thank you very much for your submission.</label>
                         <label id="weWillReview">We will review it shortly.</label>
-                        <label id="hadPassWord">Since you provided a content submission password, your submitted course / video will automatically be featured on the site within a couple of minutes (supposing that the password provided was correct). <br>Feel free to do a <a href="/search">search</a> by its title to see the result.</label>
+                        <label id="hadPassWord">Since you provided an email address, you'll shortly receive a link where you can track the status of your submission.</label>
                     </div>
                 </form>
             </div>

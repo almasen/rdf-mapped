@@ -59,9 +59,10 @@ app.use("/error", require("./routes/error"));
 
 // app.use("/capability", require("./routes/capability"));
 
-app.use("/submit/", require("./routes/submit/"));
+app.use("/submit", require("./routes/submit"));
 app.use("/submit/course", require("./routes/submit/course"));
 app.use("/submit/video", require("./routes/submit/video"));
+app.use("/submission", require("./routes/submission"));
 
 // // wildcard-protect
 app.all("*", function(req, res, next) {
@@ -84,7 +85,7 @@ const cache = require("./modules/cache");
     try {
         await courseService.fetchAll();
         await videoService.fetchAll();
-        await cache.updateFromAPI();
+        await cache.updateAllFromAPI();
     } catch (error) {
         log.error("Failed to fetch content on start-up, err: " + error.message);
     }

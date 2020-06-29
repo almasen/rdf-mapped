@@ -42,8 +42,14 @@ const fetchAllByParent = async (parentId) => {
     return findResult.rows;
 };
 
+const fetchById = async (id) => {
+    const findResult = await categoryRepo.findById(id);
+    return findResult.rows[0];
+};
+
 module.exports = {
     fetchAll,
     fetchByKeyword,
     fetchAllByParent,
+    fetchById,
 };

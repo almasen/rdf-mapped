@@ -1,7 +1,7 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "RDF-Mapped server",
+  "name": "RDFmapped",
+  "version": "1.4.2",
+  "description": "RDFmapped server",
   "main": "server.js",
   "scripts": {
     "test": "jest -i --detectOpenHandles",
