@@ -67,12 +67,12 @@ const fetchAndResolveVideo = async (videoId) => {
         log.info("Video %s: Fetched all info from CACHE", videoId);
         return cache.get(`video-${videoId}`);
     } else {
-        const findResult = await videoRepo.findByIdWithFullInfo(videoId);
-        if (findResult.rows.length < 1) {
-            throw new Error(`No video found by id '${videoId}'`);
-        }
-        log.info("Video %s: Fetched all info from DB", videoId);
-        return findResult.rows[0];
+        // const findResult = await videoRepo.findByIdWithFullInfo(videoId);
+        // if (findResult.rows.length < 1) { // TODO: disabled direct fetching of non-cached videos
+        throw new Error(`No video found by id '${videoId}'`);
+        // }
+        // log.info("Video %s: Fetched all info from DB", videoId);
+        // return findResult.rows[0];
     }
 };
 

@@ -130,3 +130,4 @@ rdfwebsitedns.txt
 *.pem
 *.docx
 *.docx#
+server/log/

@@ -67,12 +67,12 @@ const fetchAndResolveCourse = async (courseId) => {
         log.info("Course %s: Fetched all info from CACHE", courseId);
         return cache.get(`course-${courseId}`);
     } else {
-        const findResult = await courseRepo.findByIdWithFullInfo(courseId);
-        if (findResult.rows.length < 1) {
-            throw new Error(`No course found by id '${courseId}'`);
-        }
-        log.info("Course %s: Fetched all info from DB", courseId);
-        return findResult.rows[0];
+        // const findResult = await courseRepo.findByIdWithFullInfo(courseId);
+        // if (findResult.rows.length < 1) { // TODO: disabled direct fetching of non-cached courses
+        throw new Error(`No course found by id '${courseId}'`);
+        // }
+        // log.info("Course %s: Fetched all info from DB", courseId);
+        // return findResult.rows[0];
     }
 };
 

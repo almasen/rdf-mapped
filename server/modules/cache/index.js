@@ -50,10 +50,14 @@ const updateFromAPI = async () => {
                 // update object fields
                 val.title = learningObj.title.value;
                 val.hyperlink = learningObj.details.urls.webLaunch;
-                val.longDescription = learningObj.details.descriptionIncludingHtml.value;
-                val.shortDescription = learningObj.details.shortDescriptionIncludingHtml.value;
-                val.picture = learningObj.details.images.primary;
-                val.length = Math.ceil(learningObj.details.timeToComplete.duration / 3600);
+                val.longDescription = learningObj.details.descriptionIncludingHtml ?
+                    learningObj.details.descriptionIncludingHtml.value : null;
+                val.shortDescription = learningObj.details.shortDescriptionIncludingHtml ?
+                    learningObj.details.shortDescriptionIncludingHtml.value : null;
+                val.picture = learningObj.details.images.primary ?
+                    learningObj.details.images.primary : null;
+                val.length = learningObj.details.timeToComplete ?
+                    learningObj.details.timeToComplete.duration : null;
                 // store updated object
                 modulesCache.set(key, val);
             } else {
