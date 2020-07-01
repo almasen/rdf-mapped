@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Submit - RDF Mapped</title>
+    <title>Submit - RDFmapped</title>
     <meta property="og:type" content="">
     <meta name="description" content="Vitae Researcher Development Framework Mapped to Linkedin Learning">
 
@@ -14,7 +14,7 @@
     <script>
         const contactSubmit = () => {
             const form = document.getElementById("submitForm");
-            if (document.getElementById("submitPassword").value === "") {
+            if (document.getElementById("submissionEmail").value === "") {
                 document.getElementById("hadPassWord").hidden = true;
             } else {
                 document.getElementById("weWillReview").hidden = true;
@@ -135,18 +135,18 @@
             <div class="container">
                 <div class="block-heading">
                     <h2 class="text-info">Submit Content</h2>
-                    <p>Here you can submit a new course or video that will be featured on the RDF Mapped website.</p>
+                    <p>Here you can submit a new course or video that will be featured on the RDFmapped website.</p>
                 </div>
                 <form action="/submit" method="POST" target="dummyIFrame" onsubmit="contactSubmit();" id="submitForm">
                     <div id="form-inner">
                         <fieldset class="form-group">
                             <h5 style="padding-bottom: 6px;">Type of content</h5>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="inlineRadio11" value="course" required>
+                                <input class="form-check-input" type="radio" name="type" id="inlineRadio11" value="COURSE" required>
                                 <label class="form-check-label" for="inlineRadio11">Course</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="inlineRadio12" value="video" required>
+                                <input class="form-check-input" type="radio" name="type" id="inlineRadio12" value="VIDEO" required>
                                 <label class="form-check-label" for="inlineRadio12">Video</label>
                             </div>
                         </fieldset>
@@ -182,7 +182,7 @@
                             </select>
                         </div>
                         <fieldset class="form-group">
-                            Phases<br>
+                            Phase(s)<br>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox" name="phases" id="phases1" value="1">
                                 <label class="form-check-label" for="phases1">1</label>
@@ -203,10 +203,12 @@
                                 <input class="form-check-input" type="checkbox" name="phases" id="phases5" value="5">
                                 <label class="form-check-label" for="phases5">5</label>
                             </div>
+                            <small id="phasesHelp" class="form-text text-muted">Please only select more than one if the learning material covers topics that match multiple RDF phases</small>
                         </fieldset>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             Title
                             <input type="text" class="form-control" id="contentTitle" name="title" required>
+                            <small id="titleHelp" class="form-text text-muted">This must match the course/video title on Linkedin Learning</small>
                         </div>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             Hyperlink / URL
@@ -216,7 +218,7 @@
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             Your email address (optional)
                             <input type="email" class="form-control" id="submissionEmail" name="email">
-                            <small id="emailHelp" class="form-text text-muted">If you wish to be contacted once we have reviewed your submission.</small>
+                            <small id="emailHelp" class="form-text text-muted">We'll send you a link where you can track the status of your submission.</small>
                         </div>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             Submission password (optional)
@@ -229,7 +231,7 @@
                     <div id="form-after" hidden>
                         <label>Thank you very much for your submission.</label>
                         <label id="weWillReview">We will review it shortly.</label>
-                        <label id="hadPassWord">Since you provided a content submission password, your submitted course / video will automatically be featured on the site within a couple of minutes. <br>Feel free to do a <a href="/search">search</a> by its title to see the result.</label>
+                        <label id="hadPassWord">Since you provided an email address, you'll shortly receive a link where you can track the status of your submission.</label>
                     </div>
                 </form>
             </div>

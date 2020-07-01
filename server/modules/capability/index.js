@@ -27,7 +27,13 @@ const fetchByKeyword = async (keyword) => {
     return findResult.rows;
 };
 
+const fetchById = async (id) => {
+    const findResult = await capabilityRepo.findById(id);
+    return findResult.rows[0];
+};
+
 module.exports = {
     fetchAll,
     fetchByKeyword,
+    fetchById,
 };

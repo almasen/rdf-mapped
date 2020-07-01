@@ -1,24 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const log = require("../../../util/log");
-const videoService = require("../../../modules/video");
 const httpUtil = require("../../../util/http");
-const digest = require("../../../modules/digest");
 const downloadService = require("../../../modules/download");
+const submissionService = require("../../../modules/submission");
 
 router.post('/', async (req, res) => {
     log.info("Submitting a new video..");
     try {
-        if (digest.hashPassWithSaltInHex(req.body.password, "") !== process.env.SUBMISSION_PASSWORD) {
-            log.info("Submission rejected due to invalid password.");
-            return httpUtil.sendGenericError(
-                {
-                    message: "Invalid operation",
-                }, res);
-        }
-        await videoService.addNewVideo(req.body);
-        log.info("Successfully added new video with title %s",
-            req.body.title);
+        await submissionService.insertNewSubmission(req.body);
         downloadService.deleteExportFiles();
         return httpUtil.sendResult({
             status: 200,

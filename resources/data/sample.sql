@@ -19,9 +19,12 @@ INSERT INTO "faq"
     (question,
     answer)
 VALUES
-    ('What does RDF Mapped stand for?', 'RDF stands for the Vita Researcher Development Framework.<br><br>By RDF Mapped we refer to online learning material, such as Linkedin learning courses, mapped to the structure of the Development Framework.'),
-    ('Where did this data come from? How much learning material is mapped?', 'Initially, a spreadsheet of over 5000 records were created where courses and videos got linked to the appropriate RDF capabilities, categories and levels thanks to <b>JOHN DOE</b>.<br><br>We aim to take further this idea by providing an efficient way of searching this content and algorithmically suggest further relevant learning material. The range of mapped content is constantly expanding and we appreciate anyone''s suggestions and contribution.'),
-    ('Why might I see a course offered with different Categories/Competencies?', 'A course might align with the learning outcomes of multiple RDF pathways and our algorithm is set up in a way that it ensures learning material can be found by any matching parameter.');
+    ('Do I need a LinkedIn Learning account to use the resources?', 'Yes, you do. The search results provide a link to the courses and videos, but to access them, you are required to log into LinkedIn Learning.'),
+    ('How do I get access to LinkedIn Learning?', 'Please ask your institution or organisation if they have an enterprise license. If not, you can purchase an individual license. Please contact your organisation or see the LinkedIn Learning license options for details – we cannot help further with this.'),
+    ('What is the difference between a ‘course’ and a ‘video’?', 'Courses include various activities and resources such as videos, learning groups, exercises, and exams. You may be eligible for a certificate upon completion. <br><br>Videos are individual resources. These are component parts of courses, but in the context of search results on RDFmapped.com they are simply an individual course for you to watch.'),
+    ('Which search option is best for me?', 'If you know the area you wish to find resources for (e.g. writing, presentations) then using the <a href="/search#keywordSearchSection">Keyword Search</a> will give you results for all resources which contain that keyword. <br><br>If you know the Researcher Development Framework domain that you want to develop as part of your professional development, then using the <a href="/search#stepByStepSearchSection">Step-by-step Search</a> will give you a list of courses within the domain (and other filters) that you select.'),
+    ('Where can I find more information about the Researcher Development Framework?', 'Further information about the Researcher Development Framework can be found on the <a href="https://www.vitae.ac.uk/researchers-professional-development/about-the-vitae-researcher-development-framework/developing-the-vitae-researcher-development-framework" target="_blank" rel="noopener noreferrer">Vitae Researcher Development Framework</a> website.');
+    -- ('Why might I see a course offered with different Categories/Competencies?', 'A course might align with the learning outcomes of multiple RDF pathways and our algorithm is set up in a way that it ensures learning material can be found by any matching parameter.');
 
 -- Information --
 
@@ -150,7 +153,6 @@ VALUES
     ('Phase 3'),
     ('Phase 4'),
     ('Phase 5');
-
 
 -- Course --
 
@@ -3915,7 +3917,6 @@ VALUES
     ('Talent sourcing vs. recruiting', 'https://www.linkedin.com/learning/talent-sourcing/talent-sourcing-vs-recruiting', 4, 10, 48),
     ('Recruiting', 'https://www.linkedin.com/learning/strategic-human-resources/recruiting', 4, 10, 48),
     ('Common recruiting mistakes', 'https://www.linkedin.com/learning/', 4, 10, 48),
-    -- // TODO: --
     ('Recruitment and selection', 'https://www.linkedin.com/learning/diversity-and-inclusion-in-a-global-enterprise/recruitment-and-selection', 4, 10, 48),
     ('Improve your recruitment process', 'https://www.linkedin.com/learning/human-resources-diversity-recruiting/improve-your-recruitment-process', 4, 10, 48),
     ('How to use LinkedIn Recruiter to source talent', 'https://www.linkedin.com/learning/talent-sourcing/how-to-use-linkedin-recruiter-to-source-talent', 4, 10, 48),

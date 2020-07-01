@@ -40,6 +40,7 @@ CREATE TABLE course
     id serial NOT NULL,
     title varchar(128) NOT NULL,
     hyperlink varchar(256) NOT NULL,
+    urn varchar(64) DEFAULT 'null' NOT NULL,
     capability_id int NOT NULL,
     category_id int NOT NULL,
     competency_id int NOT NULL,
@@ -52,6 +53,7 @@ CREATE TABLE video
     id serial NOT NULL,
     title varchar(128) NOT NULL,
     hyperlink varchar(256) NOT NULL,
+    urn varchar(64) DEFAULT 'null' NOT NULL,
     capability_id int NOT NULL,
     category_id int NOT NULL,
     competency_id int NOT NULL,
@@ -91,6 +93,17 @@ CREATE TABLE faq
     question text NOT NULL,
     answer text NOT NULL,
     CONSTRAINT faq_pk PRIMARY KEY (id)
+);
+
+-- Table: submission
+CREATE TABLE submission
+(
+    id varchar(64) NOT NULL,
+    status varchar(32) NOT NULL,
+    submitter varchar(32) DEFAULT 'anonymous',
+    authentication_status INT DEFAULT 0 NOT NULL,
+    data jsonb,
+    CONSTRAINT submission_pk PRIMARY KEY (id)
 );
 
 

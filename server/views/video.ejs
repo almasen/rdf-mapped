@@ -36,7 +36,7 @@
     <main class="page">
         <section class="clean-block features">
             <div class="container">
-                <div style="padding-top: 20px;">
+                <div style="padding-top: 20px">
                     <a class="btn btn-outline-primary" role="button" href="javascript:history.back();">← Back</a>
                 </div>
                 <div class="block-heading" style="padding-top: 25px;">
@@ -44,34 +44,77 @@
                         <h2 class="text-info"><%= video.title %></h2>
                     </a>
                     <p>&nbsp;</p>
-                    <ol class="breadcrumb" style="background-color: rgb(228,241,255);opacity: 1;">
-                        <li class="breadcrumb-item"><a href="/video?capability=<%= video.capabilityId %>"><span><%= video.capabilityTitle %></span></a></li>
-                        <li class="breadcrumb-item"><a href="/video?category=<%= video.categoryId %>"><span><%= video.categoryTitle %></span></a></li>
-                        <li class="breadcrumb-item"><a href="/video?competency=<%= video.competencyId %>"><span><%= video.competencyTitle %></span></a></li>
+                    <ol class="breadcrumb shadow-sm rounded" style="background-color: #ebfbfd;opacity: 1;">
+                        <li class="breadcrumb-item">
+                            <a href="/video?capability=<%= video.capabilityId %>">
+                                <span>
+                                    Domain <%= video.capabilityTitle %>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item"><a
+                                href="/video?category=<%= video.categoryId %>"><span><%= video.categoryTitle %></span></a>
+                        </li>
+                        <li class="breadcrumb-item"><a
+                                href="/video?competency=<%= video.competencyId %>"><span><%= video.competencyTitle %></span></a>
+                        </li>
                     </ol>
                 </div>
                 <div class="row" style="margin: 26.5;">
                     <div class="col-xl-8">
-                        <h2 class="text-info">Video details:</h2>
-                        <p></p>
-                        <p>Title: <%= video.title %></p>
-                        <p>Domain: <%= video.capabilityTitle %></p>
+                        <!-- <h2 class="text-info">Video details:</h2> -->
+                        <div class="card mb-3 shadow-sm bg-white rounded">
+                            <% if (video.picture) { %>
+                                <img src="<%= video.picture %>" alt="<%= video.title %> - picture" style="object-fit:cover; max-height: 400px;">
+                            <% } %>
+                            <div class="card-body">
+                                <h4 class="card-title"><%= video.title %></h4>
+                                <p class="card-text" style="font-size: larger;">
+                                    <a href="/video?phase=<%= video.phases[0] %>">
+                                        <span class="badge badge-primary badge-pill">RDF phase
+                                            <%= video.phases.join("/") %></span>
+                                    </a>
+                                </p>
+                                <% if (video.longDescription) { %>
+                                    <p class="card-text" style="text-align: justify;"><%- video.longDescription %></p>
+                                <% } else if (video.shortDescription) { %>
+                                    <p class="card-text" style="text-align: justify;"><%- video.shortDescription %></p>
+                                <% } %>
+                                <!-- <p class="card-text">RDF phase: <%= video.phases.join("/") %></p> -->
+                                <% if (video.length) { %>
+                                    <% if (video.length > 3600 ) { %>
+                                        <p class="card-text">Approx. length: <%= Math.ceil(video.length / 3600) %> hours</p>
+                                    <% } else { %>
+                                        <p class="card-text">Approx. length: <%= Math.ceil(video.length / 60) %> minutes</p>
+                                    <% } %>
+                                <% } %>
+                                <a href="<%= video.hyperlink %>" target="_blank" rel="noopener noreferrer"
+                                    class="btn btn-primary">Watch this video on Linkedin Learning</a>
+                                <p class="card-text" style="text-align: end;">
+                                    <small class="text-muted">Flag any errors on this page: <a
+                                            href="#reportContentModal" data-toggle="modal"><i class="material-icons"
+                                                style="color: rgb(215,21,33);">flag</i></a>
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- <img src="<%= video.picture %>" alt="<%= video.title %> - picture" style="max-width: inherit;"> -->
+                        <!-- <p></p> -->
+                        <!-- <p>Title: <%= video.title %></p> -->
+                        <!-- <p>Domain: <%= video.capabilityTitle %></p>
                         <p>Subdomain: <%= video.categoryTitle %></p>
                         <p>Descriptor: <%= video.competencyTitle %></p>
-                        <p>Phase: <%= video.phases.join("/") %></p>
+                        <p>Phase: <%= video.phases.join("/") %></p> -->
                         <!-- <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p> -->
-                        <h5>Watch this video <a href="<%= video.hyperlink %>" target="_blank"
-                                rel="noopener noreferrer">here</a></h5>
-                        <p style="text-align: right; font-size: small;">Flag any inappropriate info: <a
-                                href="#reportContentModal" data-toggle="modal"><i class="material-icons"
-                                    style="color: rgb(215,21,33);">flag</i></a></p>
+                        <!-- <h5>Watch this video <a href="<%= video.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></h5> -->
+                        <!-- <p style="text-align: right; font-size: small;">Flag any errors: <a href="#reportContentModal" data-toggle="modal"><i class="material-icons" style="color: rgb(215,21,33);">flag</i></a></p> -->
                     </div>
                     <%- include('./components/report-content'); -%>
                     <div class="col">
                         <h2 class="text-info">Similar videos</h2>
                         <p>You might also be interested in these:</p>
                         <ul class="list-group">
-                            <!-- <ul class="list-group list-group-flush"> // TODO: -->
+                            <!-- <ul class="list-group list-group-flush"> -->
                             <% if (similarVideoRecords.length > 0) { %>
                             <% similarVideoRecords.forEach(e => { %>
                             <a href="<%= '/video/' + e.id %>"

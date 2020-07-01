@@ -67,12 +67,12 @@ const fetchAndResolveVideo = async (videoId) => {
         log.info("Video %s: Fetched all info from CACHE", videoId);
         return cache.get(`video-${videoId}`);
     } else {
-        const findResult = await videoRepo.findByIdWithFullInfo(videoId);
-        if (findResult.rows.length < 1) {
-            throw new Error(`No video found by id '${videoId}'`);
-        }
-        log.info("Video %s: Fetched all info from DB", videoId);
-        return findResult.rows[0];
+        // const findResult = await videoRepo.findByIdWithFullInfo(videoId);
+        // if (findResult.rows.length < 1) { // TODO: disabled direct fetching of non-cached videos
+        throw new Error(`No video found by id '${videoId}'`);
+        // }
+        // log.info("Video %s: Fetched all info from DB", videoId);
+        // return findResult.rows[0];
     }
 };
 
@@ -156,6 +156,7 @@ const addNewVideo = async (video) => {
         capabilityId: parseInt(video.capability),
         categoryId: parseInt(video.category),
         competencyId: parseInt(video.competency),
+        urn: video.urn,
     });
     const videoId = insertionResult.rows[0].id;
     if (Array.isArray(video.phases)) {
@@ -171,8 +172,16 @@ const addNewVideo = async (video) => {
             phaseId: parseInt(video.phases),
         });
     }
-    log.info("Video %d: Successfully inserted to database", videoId);
-    cache.flush();
+    log.info("Video %d: Successfully inserted new record to database", videoId);
+    log.info("Video %d: Caching new video...", videoId);
+    const findResult = await videoRepo.findByIdWithFullInfo(videoId);
+    const temp = findResult.rows[0];
+    const videosArray = cache.get("videos");
+    videosArray.push(temp);
+    cache.set(`video-${videoId}`, temp);
+    cache.set("videos", videosArray);
+    cache.updateFromAPI(`video-${videoId}`);
+    log.info("Video %d: Cache updated with new video.", videoId);
 };
 
 module.exports = {

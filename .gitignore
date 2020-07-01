@@ -124,3 +124,10 @@ server/bootstrap_design/
 *.bsdesign
 
 server/exports/
+
+rdfwebsitedns.txt
+
+*.pem
+*.docx
+*.docx#
+server/log/

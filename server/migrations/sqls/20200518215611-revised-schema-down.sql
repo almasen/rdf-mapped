@@ -10,5 +10,6 @@ DROP TABLE course_phase;
 DROP TABLE video_phase;
 DROP TABLE information;
 DROP TABLE faq;
+DROP TABLE submission;
 
 -- -- End of file.

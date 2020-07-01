@@ -1,0 +1,6 @@
+GET https://api.linkedin.com/v2/learningAssets/urn:li:lyndaCourse:111779?targetLocale.language=en&targetLocale.country=UK&expandDepth=1&includeRetired=false
+content-type: application/json
+Authorization: Bearer AQVvaEUNOg7-lTvylHaIBBM4NplNHdfhfhvIf2zLGPXVn3O1zDhfZACH9vUsMPqlA2R8-zgyIYZNuRdsjx0TykJG9An8tqXP7jCtIYgYS1Uc2RzyY3katTL33Y-Cu3uk0ZmDjwkiObD-dIix9r2e2RAAkMY2qeXQCF76WOdJcZvUzyjg4znIGSFstWl4fHxWZ3vkz-m5wWS_cSq2F_EXyOu_WtDybmw-uFFvCP01qFw7ezpzNh-mj_BZPCgb0Wh-_Q7Hq5NdxWa62aNbb-wDSxtmVyBG99xuvtu10EixW_48t1haRvY3NKrP7tFnVxVoKEbyQlUdLVwsqXwfXR8
+
+{
+}

@@ -7,6 +7,11 @@ const app = express();
 const helmet = require("helmet");
 const methodOverride = require('method-override');
 const path = require('path');
+const downloadService = require("./modules/download");
+
+const redis = require('redis');
+const RedisStore = require('connect-redis')(session);
+const redisClient = redis.createClient();
 
 // -- MIDDLEWARE -- //
 app.set('view-engine', 'ejs');
@@ -22,6 +27,9 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: new RedisStore({
+        client: redisClient,
+    }),
 }));
 app.use(methodOverride('_method'));
 // app.use(function(req, res, next) {
@@ -29,6 +37,8 @@ app.use(methodOverride('_method'));
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 // });
+
+downloadService.deleteExportFiles();
 
 // // -- ROUTES -- //
 app.use("/", require("./routes/root"));
@@ -40,20 +50,19 @@ app.use("/search", require("./routes/search"));
 app.use("/download", require("./routes/download"));
 app.use("/features", require("./routes/features"));
 app.use("/about", require("./routes/about"));
-app.use("/faq", require("./routes/faq"));
+app.use("/support", require("./routes/support"));
 app.use("/contact", require("./routes/contact"));
-// app.use("/login", require("./routes/login")); // TODO: TBD
-// app.use("/registration", require("./routes/registration")); // TODO: TBD
 
 app.use("/error", require("./routes/error"));
-app.use("/bugreport", require("./routes/bugreport"));
-app.use("/information", require("./routes/information"));
+// app.use("/bugreport", require("./routes/bugreport"));
+// app.use("/information", require("./routes/information"));
 
-app.use("/capability", require("./routes/capability"));
+// app.use("/capability", require("./routes/capability"));
 
-app.use("/submit/", require("./routes/submit/"));
+app.use("/submit", require("./routes/submit"));
 app.use("/submit/course", require("./routes/submit/course"));
 app.use("/submit/video", require("./routes/submit/video"));
+app.use("/submission", require("./routes/submission"));
 
 // // wildcard-protect
 app.all("*", function(req, res, next) {
@@ -64,5 +73,22 @@ app.all("*", function(req, res, next) {
 
 log.info(`App started successfully in ${process.env.NODE_ENV} environment...`);
 log.info(`View cache is ${app.get("view cache") ? "enabled" : "disabled"}`);
+
+
+// Fetch content after start-up
+
+const courseService = require("./modules/course");
+const videoService = require("./modules/video");
+const cache = require("./modules/cache");
+
+(async () => {
+    try {
+        await courseService.fetchAll();
+        await videoService.fetchAll();
+        await cache.updateAllFromAPI();
+    } catch (error) {
+        log.error("Failed to fetch content on start-up, err: " + error.message);
+    }
+})();
 
 module.exports = app;
