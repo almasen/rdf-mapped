@@ -53,6 +53,9 @@ app.use("/about", require("./routes/about"));
 app.use("/support", require("./routes/support"));
 app.use("/contact", require("./routes/contact"));
 
+app.use("/admin/login", require("./routes/admin/login"));
+app.use("/admin/panel", require("./routes/admin/panel"));
+
 app.use("/error", require("./routes/error"));
 // app.use("/bugreport", require("./routes/bugreport"));
 // app.use("/information", require("./routes/information"));

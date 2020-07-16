@@ -14,6 +14,11 @@ const fetchById = async (id) => {
     return findResult.rows[0];
 };
 
+const fetchAll = async () => {
+    const findResult = await submissionRepo.findAll();
+    return findResult.rows;
+};
+
 const insertNewSubmission = async (submission) => {
     const timestamp = (new Date()).toUTCString();
     submission.timestamp = timestamp;
@@ -83,4 +88,5 @@ const updateSubmission = async (submission) => {
 module.exports = {
     fetchById,
     insertNewSubmission,
+    fetchAll,
 };

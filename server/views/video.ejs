@@ -48,15 +48,17 @@
                         <li class="breadcrumb-item">
                             <a href="/video?capability=<%= video.capabilityId %>">
                                 <span>
+                                    <b>
                                     Domain <%= video.capabilityTitle %>
+                                    </b>
                                 </span>
                             </a>
                         </li>
                         <li class="breadcrumb-item"><a
-                                href="/video?category=<%= video.categoryId %>"><span><%= video.categoryTitle %></span></a>
+                                href="/video?category=<%= video.categoryId %>"><span><b><%= video.categoryTitle %></b></span></a>
                         </li>
                         <li class="breadcrumb-item"><a
-                                href="/video?competency=<%= video.competencyId %>"><span><%= video.competencyTitle %></span></a>
+                                href="/video?competency=<%= video.competencyId %>"><span><b><%= video.competencyTitle %></b></span></a>
                         </li>
                     </ol>
                 </div>
