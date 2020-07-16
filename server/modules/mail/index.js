@@ -72,7 +72,7 @@ const sendBugReport = (email, report) => {
     log.info("Sending bug report: '%s'", report);
     const toEmail = process.env.BUG_REPORT_EMAIL_ADDRESS;
     const subject = "Bug Report";
-    const text = "Bug report from " + email + ": " + report;
+    const text = `Bug report from ${email ? email : "anonymous"}:\n${report}`;
     return sendEmail(toEmail, subject, text);
 };
 

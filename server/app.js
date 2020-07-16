@@ -57,7 +57,7 @@ app.use("/admin/login", require("./routes/admin/login"));
 app.use("/admin/panel", require("./routes/admin/panel"));
 
 app.use("/error", require("./routes/error"));
-// app.use("/bugreport", require("./routes/bugreport"));
+app.use("/bugreport", require("./routes/bugreport"));
 // app.use("/information", require("./routes/information"));
 
 // app.use("/capability", require("./routes/capability"));
