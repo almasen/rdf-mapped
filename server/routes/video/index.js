@@ -17,7 +17,7 @@ router.get('/:id', async (req, res) => {
         });
     } catch (error) {
         log.error("Video %s: Failed fetching video data, err: " + error.message, req.params.id);
-        res.render('404.ejs', {
+        res.status(404).render('404.ejs', {
             baseurl: "",
         });
     }
@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
         });
     } catch (error) {
         log.error("Failed fetching videos with %s filters, err: " + error.message, req.query);
-        res.render('404.ejs', {
+        res.status(404).render('404.ejs', {
             baseurl: "",
         });
     }

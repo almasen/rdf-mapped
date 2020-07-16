@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
             baseurl: req.baseUrl,
         });
     } catch (error) {
-        res.render('404.ejs', {
+        res.status(404).render('404.ejs', {
             baseurl: "",
         });
     }

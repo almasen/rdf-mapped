@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
         });
     } catch (error) {
         log.error("Failed rendering admin login page, err: " + error.message);
-        res.render('404.ejs', {
+        res.status(404).render('404.ejs', {
             baseurl: "",
         });
     }
@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
         res.redirect("/admin/panel");
     } catch (error) {
         log.error("Failed rendering admin login page, err: " + error.message);
-        res.render('404.ejs', {
+        res.status(404).render('404.ejs', {
             baseurl: "",
         });
     }

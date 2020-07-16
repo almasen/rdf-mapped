@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
         });
     } catch (error) {
         log.error("CRITICAL: Launching / failed, err: " + error.message);
-        res.render('404.ejs', {
+        res.status(404).render('404.ejs', {
             baseurl: "",
         });
     }
