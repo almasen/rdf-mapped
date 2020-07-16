@@ -46,7 +46,7 @@
                     <p>&nbsp;</p>
                     <ol class="breadcrumb shadow-sm rounded" style="background-color: #ebfbfd;opacity: 1;">
                         <li class="breadcrumb-item">
-                            <a href="/video?capability=<%= video.capabilityId %>">
+                            <a href="/videos?capability=<%= video.capabilityId %>">
                                 <span>
                                     <b>
                                     Domain <%= video.capabilityTitle %>
@@ -55,10 +55,10 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item"><a
-                                href="/video?category=<%= video.categoryId %>"><span><b><%= video.categoryTitle %></b></span></a>
+                                href="/videos?category=<%= video.categoryId %>"><span><b><%= video.categoryTitle %></b></span></a>
                         </li>
                         <li class="breadcrumb-item"><a
-                                href="/video?competency=<%= video.competencyId %>"><span><b><%= video.competencyTitle %></b></span></a>
+                                href="/videos?competency=<%= video.competencyId %>"><span><b><%= video.competencyTitle %></b></span></a>
                         </li>
                     </ol>
                 </div>
@@ -72,7 +72,7 @@
                             <div class="card-body">
                                 <h4 class="card-title"><%= video.title %></h4>
                                 <p class="card-text" style="font-size: larger;">
-                                    <a href="/video?phase=<%= video.phases[0] %>">
+                                    <a href="/videos?phase=<%= video.phases[0] %>">
                                         <span class="badge badge-primary badge-pill">RDF phase
                                             <%= video.phases.join("/") %></span>
                                     </a>

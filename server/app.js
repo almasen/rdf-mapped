@@ -44,7 +44,9 @@ downloadService.deleteExportFiles();
 app.use("/", require("./routes/root"));
 
 app.use("/course", require("./routes/course"));
+app.use("/courses", require("./routes/courses"));
 app.use("/video", require("./routes/video"));
+app.use("/videos", require("./routes/videos"));
 
 app.use("/search", require("./routes/search"));
 app.use("/download", require("./routes/download"));
