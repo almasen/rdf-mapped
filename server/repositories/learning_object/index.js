@@ -2,7 +2,9 @@ const db = require("../../database/connection");
 
 const insert = (learningObject) => {
     const query = "INSERT INTO learning_object(urn, timestamp, data) VALUES ($1, $2, $3) " +
-        "RETURNING *"; // returns passed learningObject with it's id set to corresponding id in database
+    "ON CONFLICT ON CONSTRAINT learning_object_pk " +
+    "DO UPDATE SET timestamp = $2, data = $3 " +
+    "RETURNING *"; // returns passed learningObject with it's id set to corresponding id in database
     const params = [learningObject.urn, learningObject.timestamp, learningObject.data];
     return db.query(query, params);
 };

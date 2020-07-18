@@ -1,5 +1,8 @@
 const got = require("got");
 const log = require("../../util/log");
+const {differenceInDays} = require("date-fns");
+
+const learningObjectRepository = require("../../repositories/learning_object");
 
 let failedRenewals = 0;
 
@@ -37,6 +40,16 @@ const renewAccessToken = async () => {
  * @return {Object} learningObject or undefined
  */
 const fetchLearningObject = async (urn) => {
+    const findResult = await learningObjectRepository.findByURN(urn);
+    if (findResult.rows.length > 0) {
+        const lastUpdated = new Date(findResult.rows[0].timestamp);
+        if (differenceInDays((new Date()), lastUpdated) < 7) {
+            log.info("Linkedin-L API: Found up to date learning object (%s) in database", urn);
+            return findResult.rows[0].data;
+        }
+        log.info("Linkedin-L API: Found outdated learning object (%s) in database, re-fetching...", urn);
+    }
+
     log.info("Linkedin-L API: Attempting to fetch learning obj(%s)..", urn);
 
     const meta = [
@@ -88,6 +101,11 @@ const fetchLearningObject = async (urn) => {
         });
         if (response.statusCode === 200) {
             log.info("Linkedin-L API: Successfully fetched learning asset.");
+            await learningObjectRepository.insert({
+                urn,
+                timestamp: (new Date()).toUTCString(),
+                data: JSON.stringify(response.body),
+            });
             return response.body;
         }
     } catch (error) {
