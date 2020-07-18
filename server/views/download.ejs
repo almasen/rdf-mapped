@@ -16,6 +16,7 @@
             const form = document.getElementById("downloadForm");
             document.getElementById("form-inner").hidden = true;
             document.getElementById("form-after").hidden = false;
+            document.getElementById("form-after2").hidden = false;
         };
     </script>
 </head>
@@ -63,9 +64,12 @@
                     </div>
                     <div id="form-after" hidden>
                         <label>Your download should start in a few seconds..</label>
-                        <label>If your download failed to start, please <a href="/contact/">let us know</a>.</label>
+                        <label>If your download failed to start, please <a href="/contact/"><b>let us know</b></a>.</label>
                     </div>
                 </form>
+                <div id="form-after2" hidden style="padding-bottom: 100px !important;">
+                    <p>&nbsp;</p>
+                </div>
             </div>
             <%- include('./components/dummy-iframe'); -%>
         </section>
