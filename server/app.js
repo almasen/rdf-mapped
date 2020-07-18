@@ -8,6 +8,8 @@ const helmet = require("helmet");
 const methodOverride = require('method-override');
 const path = require('path');
 const downloadService = require("./modules/download");
+const recache = require("./modules/cache/recache");
+const scheduler = require("./modules/scheduler");
 
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
@@ -37,8 +39,6 @@ app.use(methodOverride('_method'));
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 // });
-
-downloadService.deleteExportFiles();
 
 // // -- ROUTES -- //
 app.use("/", require("./routes/root"));
@@ -80,20 +80,12 @@ log.info(`App started successfully in ${process.env.NODE_ENV} environment...`);
 log.info(`View cache is ${app.get("view cache") ? "enabled" : "disabled"}`);
 
 
-// -- Fetch content after start-up -- //
+// -- Update content after start-up -- //
+downloadService.deleteExportFiles();
+recache.recacheAll();
 
-const courseService = require("./modules/course");
-const videoService = require("./modules/video");
-const cache = require("./modules/cache");
+// -- Schedule recurring tasks -- //
+scheduler.scheduleAllTasks();
 
-(async () => {
-    try {
-        await courseService.fetchAll();
-        await videoService.fetchAll();
-        await cache.updateAllFromAPI();
-    } catch (error) {
-        log.error("Failed to fetch content on start-up, err: " + error.message);
-    }
-})();
 
 module.exports = app;
