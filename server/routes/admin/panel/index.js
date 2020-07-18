@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const log = require("../../../util/log");
-const adminService = require("../../../modules/admin");
 const courseService = require("../../../modules/course");
 const videoService = require("../../../modules/video");
 const submissionService = require("../../../modules/submission");
