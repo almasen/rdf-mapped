@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Submit - RDFmapped</title>
     <meta property="og:type" content="website">
-    <meta name="description" content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
+    <meta name="description"
+        content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
     <meta property="og:title" content="Researcher Development Framework Mapped">
     <meta property="og:site_name" content="RDFmapped">
     <meta name="robots" content="index, follow">
@@ -26,107 +27,107 @@
             document.getElementById("form-after").hidden = false;
         };
         $(document).ready(() => {
-                $('#stepByStepSelectCapability').select2();
-                $('#stepByStepSelectCategory').select2();
-                $('#stepByStepSelectCompetency').select2();
-                $('#stepByStepSelectPhase').select2();
-            });
-            $.fn.select2.defaults.set("theme", "bootstrap");
-            localStorage.setItem("categoriesByParents", "<%= JSON.stringify(categoriesByParents) %>");
-            localStorage.setItem("competenciesByParents", "<%= JSON.stringify(competenciesByParents) %>");
-            function decodeHtml(html) {
-                var txt = document.createElement("textarea");
-                txt.innerHTML = html;
-                return txt.value;
+            $('#stepByStepSelectCapability').select2();
+            $('#stepByStepSelectCategory').select2();
+            $('#stepByStepSelectCompetency').select2();
+            $('#stepByStepSelectPhase').select2();
+        });
+        $.fn.select2.defaults.set("theme", "bootstrap");
+        localStorage.setItem("categoriesByParents", "<%= JSON.stringify(categoriesByParents) %>");
+        localStorage.setItem("competenciesByParents", "<%= JSON.stringify(competenciesByParents) %>");
+        function decodeHtml(html) {
+            var txt = document.createElement("textarea");
+            txt.innerHTML = html;
+            return txt.value;
+        }
+        const capabilityChange = ((obj) => {
+            const val = obj.value;
+            const optPlaceholder = document.createElement('option');
+            optPlaceholder.value = "-1";
+            optPlaceholder.innerHTML = "Subdomain";
+            optPlaceholder.selected = true;
+            optPlaceholder.disabled = true;
+            const optPlaceholder2 = document.createElement('option');
+            optPlaceholder2.value = "-1";
+            optPlaceholder2.innerHTML = "Competency";
+            optPlaceholder2.selected = true;
+            optPlaceholder2.disabled = true;
+            if (val === "-1") {
+                $('#stepByStepSelectCategory')
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append(optPlaceholder);
+                document.getElementById("stepByStepSelectCategory").disabled = true;
+                $('#stepByStepSelectCompetency')
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append(optPlaceholder2);
+                document.getElementById("stepByStepSelectCompetency").disabled = true;
+                return;
+            } else {
+                $('#stepByStepSelectCompetency')
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append(optPlaceholder2);
+                document.getElementById("stepByStepSelectCompetency").disabled = true;
+                const categoriesByParents = JSON.parse(decodeHtml(localStorage.getItem("categoriesByParents")));
+                const matchingCategories = categoriesByParents[val];
+                $('#stepByStepSelectCategory').removeAttr("disabled");
+                $('#stepByStepSelectCategory')
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append(optPlaceholder);
+                matchingCategories.forEach(e => {
+                    const opt = document.createElement('option');
+                    opt.value = e.id.toString();
+                    opt.innerHTML = e.title;
+                    $('#stepByStepSelectCategory').append(opt);
+                });
             }
-            const capabilityChange = ((obj) => {
-                const val = obj.value;
-                const optPlaceholder = document.createElement('option');
-                optPlaceholder.value = "-1";
-                optPlaceholder.innerHTML = "Subdomain";
-                optPlaceholder.selected = true;
-                optPlaceholder.disabled = true;
-                const optPlaceholder2 = document.createElement('option');
-                optPlaceholder2.value = "-1";
-                optPlaceholder2.innerHTML = "Competency";
-                optPlaceholder2.selected = true;
-                optPlaceholder2.disabled = true;
-                if (val === "-1") {
-                    $('#stepByStepSelectCategory')
-                        .find('option')
-                        .remove()
-                        .end()
-                        .append(optPlaceholder);
-                    document.getElementById("stepByStepSelectCategory").disabled = true;
-                    $('#stepByStepSelectCompetency')
-                        .find('option')
-                        .remove()
-                        .end()
-                        .append(optPlaceholder2);
-                    document.getElementById("stepByStepSelectCompetency").disabled = true;
-                    return;
-                } else {
-                    $('#stepByStepSelectCompetency')
-                        .find('option')
-                        .remove()
-                        .end()
-                        .append(optPlaceholder2);
-                    document.getElementById("stepByStepSelectCompetency").disabled = true;
-                    const categoriesByParents = JSON.parse(decodeHtml(localStorage.getItem("categoriesByParents")));
-                    const matchingCategories = categoriesByParents[val];
-                    $('#stepByStepSelectCategory').removeAttr("disabled");
-                    $('#stepByStepSelectCategory')
-                        .find('option')
-                        .remove()
-                        .end()
-                        .append(optPlaceholder);
-                    matchingCategories.forEach(e => {
-                        const opt = document.createElement('option');
-                        opt.value = e.id.toString();
-                        opt.innerHTML = e.title;
-                        $('#stepByStepSelectCategory').append(opt);
-                    });
-                }
-            });
-            const categoryChange = ((obj) => {
-                const val = obj.value;
-                const optPlaceholder = document.createElement('option');
-                optPlaceholder.value = "-1";
-                optPlaceholder.innerHTML = "Competency";
-                optPlaceholder.selected = true;
-                optPlaceholder.disabled = true;
-                if (val === "-1") {
-                    $('#stepByStepSelectCompetency')
-                        .find('option')
-                        .remove()
-                        .end()
-                        .append(optPlaceholder);
-                    document.getElementById("stepByStepSelectCompetency").disabled = true;
-                    return;
-                } else {
-                    const categoriesByParents = JSON.parse(decodeHtml(localStorage.getItem("competenciesByParents")));
-                    const matchingCategories = categoriesByParents[val];
-                    $('#stepByStepSelectCompetency').removeAttr("disabled");
-                    $('#stepByStepSelectCompetency')
-                        .find('option')
-                        .remove()
-                        .end()
-                        .append(optPlaceholder);
-                    matchingCategories.forEach(e => {
-                        const opt = document.createElement('option');
-                        opt.value = e.id.toString();
-                        opt.innerHTML = e.title;
-                        $('#stepByStepSelectCompetency').append(opt);
-                    });
-                }
-            });
-            $(document).ready(() => {
-                    document.forms.submitForm.type.forEach(radio => {
-                    radio.addEventListener('change', () => {
-                        document.forms.submitForm.action = ("/submit/" + document.forms.submitForm.type.value);
-                    })
+        });
+        const categoryChange = ((obj) => {
+            const val = obj.value;
+            const optPlaceholder = document.createElement('option');
+            optPlaceholder.value = "-1";
+            optPlaceholder.innerHTML = "Competency";
+            optPlaceholder.selected = true;
+            optPlaceholder.disabled = true;
+            if (val === "-1") {
+                $('#stepByStepSelectCompetency')
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append(optPlaceholder);
+                document.getElementById("stepByStepSelectCompetency").disabled = true;
+                return;
+            } else {
+                const categoriesByParents = JSON.parse(decodeHtml(localStorage.getItem("competenciesByParents")));
+                const matchingCategories = categoriesByParents[val];
+                $('#stepByStepSelectCompetency').removeAttr("disabled");
+                $('#stepByStepSelectCompetency')
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append(optPlaceholder);
+                matchingCategories.forEach(e => {
+                    const opt = document.createElement('option');
+                    opt.value = e.id.toString();
+                    opt.innerHTML = e.title;
+                    $('#stepByStepSelectCompetency').append(opt);
                 });
-                });
+            }
+        });
+        $(document).ready(() => {
+            document.forms.submitForm.type.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    document.forms.submitForm.action = ("/submit/" + document.forms.submitForm.type.value);
+                })
+            });
+        });
     </script>
 </head>
 
@@ -145,17 +146,20 @@
                         <fieldset class="form-group">
                             <h5 style="padding-bottom: 6px;">Type of content</h5>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="inlineRadio11" value="COURSE" required>
+                                <input class="form-check-input" type="radio" name="type" id="inlineRadio11"
+                                    value="COURSE" required>
                                 <label class="form-check-label" for="inlineRadio11">Course</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="inlineRadio12" value="VIDEO" required>
+                                <input class="form-check-input" type="radio" name="type" id="inlineRadio12"
+                                    value="VIDEO" required>
                                 <label class="form-check-label" for="inlineRadio12">Video</label>
                             </div>
                         </fieldset>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             <h5 style="padding-bottom: 6px;">RDF Parameters</h5>
-                            <select class="custom-select" name="capability" id="stepByStepSelectCapability" onchange="capabilityChange(this)" required>
+                            <select class="custom-select" name="capability" id="stepByStepSelectCapability"
+                                onchange="capabilityChange(this)" required>
                                 <option value="-1" selected disabled>Domain</option>
                                 <% if (capabilities.length > 0) { %>
                                 <% capabilities.forEach(e => { %>
@@ -165,7 +169,8 @@
                             </select>
                         </div>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
-                            <select class="custom-select" name="category" id="stepByStepSelectCategory" onchange="categoryChange(this)" disabled required>
+                            <select class="custom-select" name="category" id="stepByStepSelectCategory"
+                                onchange="categoryChange(this)" disabled required>
                                 <option value="-1" selected disabled>Subdomain</option>
                                 <% if (categories.length > 0) { %>
                                 <% categories.forEach(e => { %>
@@ -175,7 +180,8 @@
                             </select>
                         </div>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
-                            <select class="custom-select" name="competency" id="stepByStepSelectCompetency" disabled required>
+                            <select class="custom-select" name="competency" id="stepByStepSelectCompetency" disabled
+                                required>
                                 <option value="-1" selected disabled>Descriptor</option>
                                 <% if (competencies.length > 0) { %>
                                 <% competencies.forEach(e => { %>
@@ -206,27 +212,33 @@
                                 <input class="form-check-input" type="checkbox" name="phases" id="phases5" value="5">
                                 <label class="form-check-label" for="phases5">5</label>
                             </div>
-                            <small id="phasesHelp" class="form-text text-muted">Please only select more than one if the learning material covers topics that match multiple RDF phases</small>
+                            <small id="phasesHelp" class="form-text text-muted">Please only select more than one if the
+                                learning material covers topics that match multiple RDF phases</small>
                         </fieldset>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             Title
                             <input type="text" class="form-control" id="contentTitle" name="title" required>
-                            <small id="titleHelp" class="form-text text-muted">This must match the course/video title on LinkedIn Learning</small>
+                            <small id="titleHelp" class="form-text text-muted">This must match the course/video title on
+                                LinkedIn Learning</small>
                         </div>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             Hyperlink / URL
                             <input type="text" class="form-control" id="contentHyperlink" name="hyperlink" required>
-                            <small id="hyperlinkHelp" class="form-text text-muted">Please paste in the LinkedIn Learning link of the course</small>
+                            <small id="hyperlinkHelp" class="form-text text-muted">Please paste in the LinkedIn Learning
+                                link of the course</small>
                         </div>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             Your email address (optional)
                             <input type="email" class="form-control" id="submissionEmail" name="email">
-                            <small id="emailHelp" class="form-text text-muted">We'll send you a link where you can track the status of your submission.</small>
+                            <small id="emailHelp" class="form-text text-muted">We'll send you a link where you can track
+                                the status of your submission.</small>
                         </div>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             Submission password (optional)
                             <input type="password" class="form-control" id="submitPassword" name="password">
-                            <small id="submitPassword" class="form-text text-muted">If you do not have a content submission password, just leave this box empty and your suggested content will be reviewed by a member of staff shortly.</small>
+                            <small id="submitPassword" class="form-text text-muted">If you do not have a content
+                                submission password, just leave this box empty and your suggested content will be
+                                reviewed by a member of staff shortly.</small>
                         </div>
                         <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Submit</button>
                         </div>
@@ -234,7 +246,8 @@
                     <div id="form-after" hidden>
                         <label>Thank you very much for your submission.</label>
                         <label id="weWillReview">We will review it shortly.</label>
-                        <label id="hadPassWord">Since you provided an email address, you'll shortly receive a link where you can track the status of your submission.</label>
+                        <label id="hadPassWord">Since you provided an email address, you'll shortly receive a link where
+                            you can track the status of your submission.</label>
                     </div>
                 </form>
             </div>
