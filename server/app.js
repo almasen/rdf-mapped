@@ -55,13 +55,14 @@ app.use("/about", require("./routes/about"));
 app.use("/support", require("./routes/support"));
 app.use("/contact", require("./routes/contact"));
 
-app.use("/admin/login", require("./routes/admin/login"));
-app.use("/admin/panel", require("./routes/admin/panel"));
+// app.use("/admin/login", require("./routes/admin/login"));
+// app.use("/admin/panel", require("./routes/admin/panel"));
 
 app.use("/error", require("./routes/error"));
 app.use("/bugreport", require("./routes/bugreport"));
 // app.use("/information", require("./routes/information"));
 
+// API
 // app.use("/capability", require("./routes/capability"));
 
 app.use("/submit", require("./routes/submit"));
@@ -80,7 +81,7 @@ log.info(`App started successfully in ${process.env.NODE_ENV} environment...`);
 log.info(`View cache is ${app.get("view cache") ? "enabled" : "disabled"}`);
 
 
-// Fetch content after start-up
+// -- Fetch content after start-up -- //
 
 const courseService = require("./modules/course");
 const videoService = require("./modules/video");
