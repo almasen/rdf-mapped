@@ -46,6 +46,7 @@
     "material-design-icons": "^3.0.1",
     "method-override": "^3.0.0",
     "node-cache": "^5.1.0",
+    "node-schedule": "^1.3.2",
     "nodemailer": "^6.4.6",
     "paginate-info": "^1.0.4",
     "pg": "^8.0.2",

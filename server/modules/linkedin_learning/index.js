@@ -43,7 +43,7 @@ const fetchLearningObject = async (urn) => {
     const findResult = await learningObjectRepository.findByURN(urn);
     if (findResult.rows.length > 0) {
         const lastUpdated = new Date(findResult.rows[0].timestamp);
-        if (differenceInDays((new Date()), lastUpdated) < 7) {
+        if (differenceInDays((new Date()), lastUpdated) < 6) {
             log.info("LinkedIn-L API: Found up to date learning object (%s) in database", urn);
             return findResult.rows[0].data;
         }
