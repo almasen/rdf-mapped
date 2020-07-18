@@ -12,7 +12,7 @@ router.get('/:id', async (req, res) => {
         res.render('video.ejs', {
             video,
             similarVideoRecords,
-            baseurl: req.baseUrl, // TODO: ?
+            baseurl: req.baseUrl,
         });
     } catch (error) {
         log.error("Video %s: Failed fetching video data, err: " + error.message, req.params.id);

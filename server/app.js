@@ -17,7 +17,7 @@ const redisClient = redis.createClient();
 
 // -- MIDDLEWARE -- //
 app.set('view-engine', 'ejs');
-// app.set("view cache", true); // TODO: enable view cache
+// if (process.env.NODE_ENV === "production") app.set("view cache", true);
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(helmet());
@@ -77,7 +77,7 @@ app.all("*", function(req, res, next) {
 });
 
 log.info(`App started successfully in ${process.env.NODE_ENV} environment...`);
-log.info(`View cache is ${app.get("view cache") ? "enabled" : "disabled"}`);
+log.info(`View cache is ${app.get("view cache") ? "ENABLED" : "DISABLED"}`);
 
 
 // -- Update content after start-up -- //
