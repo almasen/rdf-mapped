@@ -44,13 +44,13 @@ const fetchLearningObject = async (urn) => {
     if (findResult.rows.length > 0) {
         const lastUpdated = new Date(findResult.rows[0].timestamp);
         if (differenceInDays((new Date()), lastUpdated) < 6) {
-            log.info("LinkedIn-L API: Found up to date learning object (%s) in database", urn);
+            log.debug("LinkedIn-L API: Found up to date learning object (%s) in database", urn);
             return findResult.rows[0].data;
         }
-        log.info("LinkedIn-L API: Found outdated learning object (%s) in database, re-fetching...", urn);
+        log.debug("LinkedIn-L API: Found outdated learning object (%s) in database, re-fetching...", urn);
     }
 
-    log.info("LinkedIn-L API: Attempting to fetch learning obj(%s)..", urn);
+    log.debug("LinkedIn-L API: Attempting to fetch learning obj(%s)..", urn);
 
     const meta = [
         "urn",
@@ -84,7 +84,7 @@ const fetchLearningObject = async (urn) => {
                             await renewAccessToken();
 
                             // Retry
-                            log.info("LinkedIn-L API: Retrying with new access token...");
+                            log.debug("LinkedIn-L API: Retrying with new access token...");
                             return retryWithNewToken();
                         }
 
@@ -100,7 +100,7 @@ const fetchLearningObject = async (urn) => {
             },
         });
         if (response.statusCode === 200) {
-            log.info("LinkedIn-L API: Successfully fetched learning asset.");
+            log.debug("LinkedIn-L API: Successfully fetched learning asset.");
             await learningObjectRepository.insert({
                 urn,
                 timestamp: (new Date()).toUTCString(),
@@ -109,7 +109,7 @@ const fetchLearningObject = async (urn) => {
             return response.body;
         }
     } catch (error) {
-        log.error("LinkedIn-L API: Failed to GET learning asset endpoint, err: " + error.message);
+        log.debug("LinkedIn-L API: Failed to GET learning asset (%s) endpoint, err: " + error.message, urn);
     }
 };
 
