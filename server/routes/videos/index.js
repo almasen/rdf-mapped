@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
         res.render('videos.ejs', {
             videos: fetchResult,
             pageData,
-            baseurl: req.baseUrl, // TODO: ?
+            baseurl: req.baseUrl,
             searchUrl,
         });
     } catch (error) {

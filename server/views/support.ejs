@@ -5,8 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Support - RDFmapped</title>
-    <meta property="og:type" content="">
-    <meta name="description" content="Vitae Researcher Development Framework Mapped to LinkedIn Learning">
+    <meta property="og:type" content="website">
+    <meta name="description"
+        content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
+    <meta property="og:title" content="Researcher Development Framework Mapped">
+    <meta property="og:site_name" content="RDFmapped">
+    <meta name="robots" content="index, follow">
 
     <%- include('./components/stylesheets'); -%>
     <%- include('./components/scripts'); -%>
@@ -24,14 +28,14 @@
                 </div>
                 <div class="block-content">
                     <% if (faqs.length > 0) { %>
-                        <% faqs.forEach(e => { %>
-                            <div class="faq-item">
-                                <h4 class="question"><%- e.question %></h4>
-                                <div class="answer" style="color: #212529; opacity: 0.9;">
-                                    <p><%- e.answer %></p>
-                                </div>
-                            </div>
-                        <% }); %>
+                    <% faqs.forEach(e => { %>
+                    <div class="faq-item">
+                        <h4 class="question"><%- e.question %></h4>
+                        <div class="answer" style="color: #212529; opacity: 0.9;">
+                            <p><%- e.answer %></p>
+                        </div>
+                    </div>
+                    <% }); %>
                     <% } %>
                     <div class="faq-item">
                         <div class="answer" style="color: #212529; opacity: 0.9;">

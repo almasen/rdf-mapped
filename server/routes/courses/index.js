@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
         res.render('courses.ejs', {
             courses: fetchResult,
             pageData,
-            baseurl: req.baseUrl, // TODO: ?
+            baseurl: req.baseUrl,
             searchUrl,
         });
     } catch (error) {

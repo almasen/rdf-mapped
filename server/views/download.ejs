@@ -5,8 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Download - RDFmapped</title>
-    <meta property="og:type" content="">
-    <meta name="description" content="Vitae Researcher Development Framework Mapped to LinkedIn Learning">
+    <meta property="og:type" content="website">
+    <meta name="description"
+        content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
+    <meta property="og:title" content="Researcher Development Framework Mapped">
+    <meta property="og:site_name" content="RDFmapped">
+    <meta name="robots" content="index, follow">
 
     <%- include('./components/stylesheets'); -%>
     <%- include('./components/scripts'); -%>
@@ -31,40 +35,49 @@
                     <h2 class="text-info">Download</h2>
                     <p>Here you can download all courses & videos featured on the RDFmapped website.</p>
                 </div>
-                <form action="/download" method="GET" target="dummyIFrame" onsubmit="contactSubmit();" id="downloadForm">
+                <form action="/download" method="GET" target="dummyIFrame" onsubmit="contactSubmit();"
+                    id="downloadForm">
                     <div id="form-inner">
                         <fieldset class="form-group" style="padding-bottom: 10px;">
                             <h5 style="padding-bottom: 6px;">Content to download</h5>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="content" id="inlineRadio1" value="courses" required>
+                                <input class="form-check-input" type="radio" name="content" id="inlineRadio1"
+                                    value="courses" required>
                                 <label class="form-check-label" for="inlineRadio1">Courses</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="content" id="inlineRadio2" value="videos" required>
+                                <input class="form-check-input" type="radio" name="content" id="inlineRadio2"
+                                    value="videos" required>
                                 <label class="form-check-label" for="inlineRadio2">Videos</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="content" id="inlineRadio3" value="combined" required>
+                                <input class="form-check-input" type="radio" name="content" id="inlineRadio3"
+                                    value="combined" required>
                                 <label class="form-check-label" for="inlineRadio3">Combined</label>
                             </div>
                         </fieldset>
                         <fieldset class="form-group">
                             <h5 style="padding-bottom: 6px;">File type</h5>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="inlineRadio11" value="csv" required>
+                                <input class="form-check-input" type="radio" name="type" id="inlineRadio11" value="csv"
+                                    required>
                                 <label class="form-check-label" for="inlineRadio11">CSV</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="inlineRadio12" value="json" required>
+                                <input class="form-check-input" type="radio" name="type" id="inlineRadio12" value="json"
+                                    required>
                                 <label class="form-check-label" for="inlineRadio12">JSON</label>
                             </div>
-                            <small id="emailHelp" class="form-text text-muted">A CSV can easily be imported into Excel or other spreadsheet applications</small>
+                            <small id="emailHelp" class="form-text text-muted">A CSV can easily be imported into Excel
+                                or other spreadsheet applications</small>
                         </fieldset>
-                        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Download content</button></div>
+                        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Download
+                                content</button></div>
                     </div>
                     <div id="form-after" hidden>
                         <label>Your download should start in a few seconds..</label>
-                        <label>If your download failed to start, please <a href="/contact/"><b>let us know</b></a>.</label>
+                        <label>If your download failed to start, please <a href="/contact/"><b>let us
+                                    know</b></a>.</label>
                     </div>
                 </form>
                 <div id="form-after2" hidden style="padding-bottom: 100px !important;">

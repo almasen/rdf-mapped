@@ -12,21 +12,21 @@
     </thead>
     <tbody>
         <% if (courses.length > 0) { %>
-            <% var idx = 0; courses.forEach(e => { ++idx; %>
-                <tr style="transform: rotate(0);">
-                    <th scope="row">
-                        <a href="/course/<%= e.id %>" class="stretched-link">
-                            <%= idx %>
-                        </a>
-                    </th>
-                    <td>Course</td>
-                    <td><%= e.capabilityTitle %></td>
-                    <td><%= e.categoryTitle %></td>
-                    <td><%= e.competencyTitle %></td>
-                    <td><%= e.phases.join("/") %></td>
-                    <td><%= e.title %></td>
-                </tr>
-            <% }); %>
+        <% var idx = 0; courses.forEach(e => { ++idx; %>
+        <tr style="transform: rotate(0);">
+            <th scope="row">
+                <a href="/course/<%= e.id %>" class="stretched-link">
+                    <%= idx %>
+                </a>
+            </th>
+            <td>Course</td>
+            <td><%= e.capabilityTitle %></td>
+            <td><%= e.categoryTitle %></td>
+            <td><%= e.competencyTitle %></td>
+            <td><%= e.phases.join("/") %></td>
+            <td><%= e.title %></td>
+        </tr>
+        <% }); %>
         <% } %>
     </tbody>
 </table>

@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta property="og:type" content="">
-    <meta name="description" content="Vitae Researcher Development Framework Mapped to LinkedIn Learning">
-    <!-- //TODO: -->
+    <meta property="og:type" content="website">
+    <meta name="description"
+        content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
+    <meta property="og:title" content="Researcher Development Framework Mapped">
+    <meta property="og:site_name" content="RDFmapped">
+    <meta name="robots" content="noindex, nofollow">
 
     <%- include('./components/stylesheets'); -%>
 
@@ -14,7 +18,6 @@
     <script>
         const submitMissingRecommendation = () => {
             document.getElementById("missingRecommendations").submit();
-            // alert("We have been notified that recommendations are missing from this page. \nThank you very much for you help!");
             document.getElementById("missingRecommendationsContainer").classList.remove("active");
             document.getElementById("missingRecommendationsContainer").classList.add("disabled");
             document.getElementById("missingRecommendationsText").innerText = "No similar courses. \nThank you for letting us know about this issue.";
@@ -22,12 +25,13 @@
     </script>
 
     <% if (course) { %>
-        <title>Course: <%= course.title %> - RDFmapped</title>
+    <title>Course: <%= course.title %> - RDFmapped</title>
     <% } else { %>
-        <title>Course</title>
+    <title>Course</title>
     <% } %>
 
 </head>
+
 <body>
     <%- include('./components/header'); -%>
 
@@ -38,20 +42,38 @@
                     <a class="btn btn-outline-primary" role="button" href="javascript:history.back();">← Back</a>
                 </div>
                 <div class="block-heading" style="padding-top: 25px;">
-                    <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer"><h2 class="text-info"><%= course.title %></h2></a>
+                    <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer">
+                        <h2 class="text-info"><%= course.title %></h2>
+                    </a>
                     <p>&nbsp;</p>
                     <ol class="breadcrumb shadow-sm rounded" style="background-color: #ebfbfd;opacity: 1;">
                         <li class="breadcrumb-item">
                             <a href="/courses?capability=<%= course.capabilityId %>">
                                 <span>
                                     <b>
-                                    Domain <%= course.capabilityTitle %>
+                                        Domain <%= course.capabilityTitle %>
                                     </b>
                                 </span>
                             </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="/courses?category=<%= course.categoryId %>"><span><b><%= course.categoryTitle %></b></span></a></li>
-                        <li class="breadcrumb-item"><a href="/courses?competency=<%= course.competencyId %>"><span><b><%= course.competencyTitle %></b></span></a></li>
+                        <li class="breadcrumb-item">
+                            <a href="/courses?category=<%= course.categoryId %>">
+                                <span>
+                                    <b>
+                                        <%= course.categoryTitle %>
+                                    </b>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="/courses?competency=<%= course.competencyId %>">
+                                <span>
+                                    <b>
+                                        <%= course.competencyTitle %>
+                                    </b>
+                                </span>
+                            </a>
+                        </li>
                     </ol>
                 </div>
                 <div class="row" style="margin: 26.5;">
@@ -59,67 +81,66 @@
                         <!-- <h2 class="text-info">Course details:</h2> -->
                         <div class="card mb-3 shadow-sm bg-white rounded">
                             <% if (course.picture) { %>
-                                <img src="<%= course.picture %>" alt="<%= course.title %> - picture" style="object-fit:cover; max-height: 400px;">
+                            <img src="<%= course.picture %>" alt="<%= course.title %> - picture"
+                                style="object-fit:cover; max-height: 400px;">
                             <% } %>
                             <div class="card-body">
                                 <h4 class="card-title"><%= course.title %></h4>
                                 <p class="card-text" style="font-size: larger;">
                                     <a href="/courses?phase=<%= course.phases[0] %>">
-                                        <span class="badge badge-primary badge-pill">RDF phase <%= course.phases.join("/") %></span>
+                                        <span class="badge badge-primary badge-pill">RDF phase
+                                            <%= course.phases.join("/") %></span>
                                     </a>
                                 </p>
                                 <% if (course.longDescription) { %>
-                                        <p class="card-text" style="text-align: justify;"><%- course.longDescription %></p>
-                                    <% } else if (course.shortDescription) { %>
-                                        <p class="card-text" style="text-align: justify;"><%- course.shortDescription %></p>
+                                <p class="card-text" style="text-align: justify;"><%- course.longDescription %></p>
+                                <% } else if (course.shortDescription) { %>
+                                <p class="card-text" style="text-align: justify;"><%- course.shortDescription %></p>
                                 <% } %>
-                                <!-- <p class="card-text">RDF phase: <%= course.phases.join("/") %></p> -->
                                 <% if (course.length) { %>
-                                    <% if (course.length > 3600 ) { %>
-                                        <p class="card-text">Approx. length: <%= Math.ceil(course.length / 3600) %> hours</p>
-                                    <% } else { %>
-                                        <p class="card-text">Approx. length: <%= Math.ceil(course.length / 60) %> minutes</p>
-                                    <% } %>
+                                <% if (course.length > 3600 ) { %>
+                                <p class="card-text">Approx. length: <%= Math.ceil(course.length / 3600) %> hours</p>
+                                <% } else { %>
+                                <p class="card-text">Approx. length: <%= Math.ceil(course.length / 60) %> minutes</p>
                                 <% } %>
-                                <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Access this course on LinkedIn Learning</a>
+                                <% } %>
+                                <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer"
+                                    class="btn btn-primary">Access this course on LinkedIn Learning</a>
                                 <p class="card-text" style="text-align: end;">
-                                    <small class="text-muted">Flag any errors on this page: <a href="#reportContentModal" data-toggle="modal"><i class="material-icons" style="color: rgb(215,21,33);">flag</i></a>
+                                    <small class="text-muted">Flag any errors on this page: <a
+                                            href="#reportContentModal" data-toggle="modal"><i class="material-icons"
+                                                style="color: rgb(215,21,33);">flag</i></a>
                                     </small>
                                 </p>
                             </div>
                         </div>
-                        <!-- <img src="<%= course.picture %>" alt="<%= course.title %> - picture" style="max-width: inherit;"> -->
-                        <!-- <p></p> -->
-                        <!-- <p>Title: <%= course.title %></p> -->
-                        <!-- <p>Domain: <%= course.capabilityTitle %></p>
-                        <p>Subdomain: <%= course.categoryTitle %></p>
-                        <p>Descriptor: <%= course.competencyTitle %></p>
-                        <p>Phase: <%= course.phases.join("/") %></p> -->
-                        <!-- <p>Rating:&nbsp;&nbsp;<i class="fas fa-star" style="color: rgb(255,195,0);"></i></p> -->
-                        <!-- <h5>Watch this course <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer">here</a></h5> -->
-                        <!-- <p style="text-align: right; font-size: small;">Flag any errors: <a href="#reportContentModal" data-toggle="modal"><i class="material-icons" style="color: rgb(215,21,33);">flag</i></a></p> -->
                     </div>
                     <%- include('./components/report-content'); -%>
                     <div class="col">
                         <h2 class="text-info">Similar courses</h2>
                         <p>You might also be interested in these:</p>
                         <ul class="list-group">
-                        <!-- <ul class="list-group list-group-flush"> -->
+                            <!-- <ul class="list-group list-group-flush"> -->
                             <% if (similarCourseRecords.length > 0) { %>
-                                <% similarCourseRecords.forEach(e => { %>
-                                    <a href="<%= '/course/' + e.id %>" class="list-group-item list-group-item-action"><%= e.title %></a>
-                                    <!-- <li class="list-group-item"><span></span></li> -->
-                                <% }); %>
+                            <% similarCourseRecords.forEach(e => { %>
+                            <a href="<%= '/course/' + e.id %>"
+                                class="list-group-item list-group-item-action"><%= e.title %></a>
+                            <!-- <li class="list-group-item"><span></span></li> -->
+                            <% }); %>
                             <% } else { %>
-                                <button type="button" id="missingRecommendationsContainer" class="list-group-item active">
-                                    <div onclick="submitMissingRecommendation();">
-                                        <form action="/bugreport" method="POST" id="missingRecommendations" target="dummyframe">
-                                            <span id="missingRecommendationsText">We could not find similar courses. <i class="material-icons"> sentiment_very_dissatisfied </i> Please consider flagging this simply by clicking on this field. </span>
-                                            <input id="email" name="email" value="missing-recommendations" hidden>
-                                            <input id="report" name="report" value="Missing recommendations for course 'id:<%= course.id %>'" hidden>
-                                        </form>
-                                    </div>
-                                </button>
+                            <button type="button" id="missingRecommendationsContainer" class="list-group-item active">
+                                <div onclick="submitMissingRecommendation();">
+                                    <form action="/bugreport" method="POST" id="missingRecommendations"
+                                        target="dummyframe">
+                                        <span id="missingRecommendationsText">We could not find similar courses. <i
+                                                class="material-icons"> sentiment_very_dissatisfied </i> Please consider
+                                            flagging this simply by clicking on this field. </span>
+                                        <input id="email" name="email" value="missing-recommendations" hidden>
+                                        <input id="report" name="report"
+                                            value="Missing recommendations for course 'id:<%= course.id %>'" hidden>
+                                    </form>
+                                </div>
+                            </button>
                             <% } %>
                         </ul>
                     </div>
@@ -131,4 +152,5 @@
 
     <%- include('./components/footer'); -%>
 </body>
+
 </html>
