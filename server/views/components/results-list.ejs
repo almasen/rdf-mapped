@@ -3,7 +3,7 @@
     <!-- .articles will be added to .article-feed -->
     <% if (pageData.data.length > 0) { %>
         <% pageData.data.forEach(e => { %>
-            <a href="<%= baseurl %>/<%= e.id %>" class="list-group-item list-group-item-action">
+            <a href="<%= (baseurl === '/courses') ? 'course' : 'video' %>/<%= e.id %>" class="list-group-item list-group-item-action">
                     <h4><%= e.title %></h4>
                 <p>
                     <% if (e.shortDescription) { %>

@@ -8,6 +8,8 @@ const helmet = require("helmet");
 const methodOverride = require('method-override');
 const path = require('path');
 const downloadService = require("./modules/download");
+const recache = require("./modules/cache/recache");
+const scheduler = require("./modules/scheduler");
 
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
@@ -38,25 +40,28 @@ app.use(methodOverride('_method'));
 //     next();
 // });
 
-downloadService.deleteExportFiles();
-
 // // -- ROUTES -- //
 app.use("/", require("./routes/root"));
 
 app.use("/course", require("./routes/course"));
+app.use("/courses", require("./routes/courses"));
 app.use("/video", require("./routes/video"));
+app.use("/videos", require("./routes/videos"));
 
 app.use("/search", require("./routes/search"));
 app.use("/download", require("./routes/download"));
-app.use("/features", require("./routes/features"));
+
 app.use("/about", require("./routes/about"));
 app.use("/support", require("./routes/support"));
 app.use("/contact", require("./routes/contact"));
 
-app.use("/error", require("./routes/error"));
-// app.use("/bugreport", require("./routes/bugreport"));
+// app.use("/admin/login", require("./routes/admin/login"));
+// app.use("/admin/panel", require("./routes/admin/panel"));
+
+app.use("/bugreport", require("./routes/bugreport"));
 // app.use("/information", require("./routes/information"));
 
+// API
 // app.use("/capability", require("./routes/capability"));
 
 app.use("/submit", require("./routes/submit"));
@@ -66,7 +71,7 @@ app.use("/submission", require("./routes/submission"));
 
 // // wildcard-protect
 app.all("*", function(req, res, next) {
-    res.render('404.ejs', {
+    res.status(404).render('404.ejs', {
         baseurl: "",
     });
 });
@@ -75,20 +80,12 @@ log.info(`App started successfully in ${process.env.NODE_ENV} environment...`);
 log.info(`View cache is ${app.get("view cache") ? "enabled" : "disabled"}`);
 
 
-// Fetch content after start-up
+// -- Update content after start-up -- //
+downloadService.deleteExportFiles();
+recache.recacheAll();
 
-const courseService = require("./modules/course");
-const videoService = require("./modules/video");
-const cache = require("./modules/cache");
+// -- Schedule recurring tasks -- //
+scheduler.scheduleAllTasks();
 
-(async () => {
-    try {
-        await courseService.fetchAll();
-        await videoService.fetchAll();
-        await cache.updateAllFromAPI();
-    } catch (error) {
-        log.error("Failed to fetch content on start-up, err: " + error.message);
-    }
-})();
 
 module.exports = app;

@@ -95,6 +95,15 @@ CREATE TABLE faq
     CONSTRAINT faq_pk PRIMARY KEY (id)
 );
 
+-- Table: learning_object
+CREATE TABLE learning_object
+(
+    urn varchar(64) NOT NULL,
+    timestamp timestamptz NOT NULL,
+    data jsonb,
+    CONSTRAINT learning_object_pk PRIMARY KEY (urn)
+);
+
 -- Table: submission
 CREATE TABLE submission
 (

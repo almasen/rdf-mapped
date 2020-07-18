@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Download - RDFmapped</title>
     <meta property="og:type" content="">
-    <meta name="description" content="Vitae Researcher Development Framework Mapped to Linkedin Learning">
+    <meta name="description" content="Vitae Researcher Development Framework Mapped to LinkedIn Learning">
 
     <%- include('./components/stylesheets'); -%>
     <%- include('./components/scripts'); -%>
@@ -16,6 +16,7 @@
             const form = document.getElementById("downloadForm");
             document.getElementById("form-inner").hidden = true;
             document.getElementById("form-after").hidden = false;
+            document.getElementById("form-after2").hidden = false;
         };
     </script>
 </head>
@@ -57,15 +58,18 @@
                                 <input class="form-check-input" type="radio" name="type" id="inlineRadio12" value="json" required>
                                 <label class="form-check-label" for="inlineRadio12">JSON</label>
                             </div>
-                            <small id="emailHelp" class="form-text text-muted">CSV can easily be imported into Excel or other spreadsheet applications</small>
+                            <small id="emailHelp" class="form-text text-muted">A CSV can easily be imported into Excel or other spreadsheet applications</small>
                         </fieldset>
                         <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Download content</button></div>
                     </div>
                     <div id="form-after" hidden>
                         <label>Your download should start in a few seconds..</label>
-                        <label>If your download failed to start, please <a href="/contact/">let us know</a>.</label>
+                        <label>If your download failed to start, please <a href="/contact/"><b>let us know</b></a>.</label>
                     </div>
                 </form>
+                <div id="form-after2" hidden style="padding-bottom: 100px !important;">
+                    <p>&nbsp;</p>
+                </div>
             </div>
             <%- include('./components/dummy-iframe'); -%>
         </section>

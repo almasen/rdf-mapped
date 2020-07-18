@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta property="og:type" content="">
-    <meta name="description" content="Vitae Researcher Development Framework Mapped to Linkedin Learning">
+    <meta name="description" content="Vitae Researcher Development Framework Mapped to LinkedIn Learning">
     <!-- //TODO: -->
 
     <%- include('./components/stylesheets'); -%>
@@ -22,7 +22,7 @@
     </script>
 
     <% if (course) { %>
-        <title>Course: <%= course.title _%></title>
+        <title>Course: <%= course.title %> - RDFmapped</title>
     <% } else { %>
         <title>Course</title>
     <% } %>
@@ -42,14 +42,16 @@
                     <p>&nbsp;</p>
                     <ol class="breadcrumb shadow-sm rounded" style="background-color: #ebfbfd;opacity: 1;">
                         <li class="breadcrumb-item">
-                            <a href="/course?capability=<%= course.capabilityId %>">
+                            <a href="/courses?capability=<%= course.capabilityId %>">
                                 <span>
+                                    <b>
                                     Domain <%= course.capabilityTitle %>
+                                    </b>
                                 </span>
                             </a>
                         </li>
-                        <li class="breadcrumb-item"><a href="/course?category=<%= course.categoryId %>"><span><%= course.categoryTitle %></span></a></li>
-                        <li class="breadcrumb-item"><a href="/course?competency=<%= course.competencyId %>"><span><%= course.competencyTitle %></span></a></li>
+                        <li class="breadcrumb-item"><a href="/courses?category=<%= course.categoryId %>"><span><b><%= course.categoryTitle %></b></span></a></li>
+                        <li class="breadcrumb-item"><a href="/courses?competency=<%= course.competencyId %>"><span><b><%= course.competencyTitle %></b></span></a></li>
                     </ol>
                 </div>
                 <div class="row" style="margin: 26.5;">
@@ -62,7 +64,7 @@
                             <div class="card-body">
                                 <h4 class="card-title"><%= course.title %></h4>
                                 <p class="card-text" style="font-size: larger;">
-                                    <a href="/course?phase=<%= course.phases[0] %>">
+                                    <a href="/courses?phase=<%= course.phases[0] %>">
                                         <span class="badge badge-primary badge-pill">RDF phase <%= course.phases.join("/") %></span>
                                     </a>
                                 </p>
@@ -79,7 +81,7 @@
                                         <p class="card-text">Approx. length: <%= Math.ceil(course.length / 60) %> minutes</p>
                                     <% } %>
                                 <% } %>
-                                <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Watch this course on Linkedin Learning</a>
+                                <a href="<%= course.hyperlink %>" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Access this course on LinkedIn Learning</a>
                                 <p class="card-text" style="text-align: end;">
                                     <small class="text-muted">Flag any errors on this page: <a href="#reportContentModal" data-toggle="modal"><i class="material-icons" style="color: rgb(215,21,33);">flag</i></a>
                                     </small>

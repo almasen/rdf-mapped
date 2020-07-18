@@ -58,7 +58,7 @@ router.get('/', async (req, res) => {
     } catch (error) {
         log.error("%s: Downloading '%s' export with filetype '%s' failed, err:" + error.message,
             req.baseUrl, req.query.content, req.query.type);
-        res.render('404.ejs', {
+        res.status(404).render('404.ejs', {
             baseurl: "",
         });
     }

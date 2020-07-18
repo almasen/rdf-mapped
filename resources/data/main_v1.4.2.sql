@@ -22,10 +22,10 @@ INSERT INTO "faq"
 VALUES
     ('Do I need a LinkedIn Learning account to use the resources?', 'Yes, you do. The search results provide a link to the courses and videos, but to access them, you are required to log into LinkedIn Learning.'),
     ('How do I get access to LinkedIn Learning?', 'Please ask your institution or organisation if they have an enterprise license. If not, you can purchase an individual license. Please contact your organisation or see the LinkedIn Learning license options for details – we cannot help further with this.'),
-    ('What is the difference between a ‘course’ and a ‘video’?', 'Courses include various activities and resources such as videos, learning groups, exercises, and exams. You may be eligible for a certificate upon completion. <br><br>Videos are individual resources. These are component parts of courses, but in the context of search results on RDFmapped.com they are simply an individual course for you to watch.'),
-    ('Which search option is best for me?', 'If you know the area you wish to find resources for (e.g. writing, presentations) then using the <a href="/search#keywordSearchSection">Keyword Search</a> will give you results for all resources which contain that keyword. <br><br>If you know the Researcher Development Framework domain that you want to develop as part of your professional development, then using the <a href="/search#stepByStepSearchSection">Step-by-step Search</a> will give you a list of courses within the domain (and other filters) that you select.'),
-    ('Where can I find more information about the Researcher Development Framework?', 'Further information about the Researcher Development Framework can be found on the <a href="https://www.vitae.ac.uk/researchers-professional-development/about-the-vitae-researcher-development-framework/developing-the-vitae-researcher-development-framework" target="_blank" rel="noopener noreferrer">Vitae Researcher Development Framework</a> website.');
-    -- ('Why might I see a course offered with different Categories/Competencies?', 'A course might align with the learning outcomes of multiple RDF pathways and our algorithm is set up in a way that it ensures learning material can be found by any matching parameter.');
+    ('What is the difference between a ‘course’ and a ‘video’?', 'Courses include various activities and resources such as videos, learning groups, exercises, and exams. You may be eligible for a certificate upon completion. <br><br>Videos are individual resources. These are component parts of courses, but in the context of search results on RDFmapped.com they are simply an individual video for you to watch.'),
+    ('Which search option is best for me?', 'If you know the area you wish to find resources for (e.g. writing, presentations) then using the <a href="/search#keywordSearchSection"><b>Keyword Search</b></a> will give you results for all resources which contain that keyword. <br><br>If you know the Researcher Development Framework domain that you want to develop as part of your professional development, then using the <a href="/search#stepByStepSearchSection"><b>Step-by-step Search</b></a> will give you a list of courses within the domain (and other filters) that you select.'),
+    ('Where can I find more information about the Researcher Development Framework?', 'Further information about the Researcher Development Framework can be found on the <a href="https://www.vitae.ac.uk/researchers-professional-development/about-the-vitae-researcher-development-framework/developing-the-vitae-researcher-development-framework" target="_blank" rel="noopener noreferrer"><b>Vitae Researcher Development Framework</b></a> website.'),
+    ('Why might I see a course offered with different Domains/Subdomains?', 'A course might align with the learning outcomes of multiple RDF pathways and our algorithm is set up in a way that it ensures learning material can be found by any matching parameter.');
 
 -- Information --
 
@@ -35,7 +35,7 @@ INSERT INTO "information"
 VALUES
     ('privacyPolicy', 'We don''t sell your data'),
     ('terms', 'luctus ut, pellentesque eget, dictum placerat, augue. Sed molestie. Sed id'),
-    ('about', 'The Vitae Researcher Development Framework Mapped to Linkedin Learning courses & videos');
+    ('about', 'The Vitae Researcher Development Framework Mapped to LinkedIn Learning courses & videos');
 
 -- Capability --
 
@@ -2227,7 +2227,7 @@ VALUES
     ('Honesty is the best policy', 'https://www.linkedin.com/learning/the-hard-thing-about-hard-things-building-a-business-when-there-are-no-easy-answers-blinkist/honesty-is-the-best-policy?u=104', 2, 4, 20, 'null'),
     ('Find the honesty balance', 'https://www.linkedin.com/learning/radical-candor-blinkist-summary/find-the-honesty-balance?u=104', 2, 4, 20, 'urn:li:lyndaVideo:(urn:li:lyndaCourse:5015883,5039822)'),
     ('Keep yourself honest', 'https://www.linkedin.com/learning/prepare-yourself-for-a-career-in-sales/keep-yourself-honest?u=104', 2, 4, 20, 'null'),
-    ('Linkedin Culture and Values in action: Be Open, Honest and Constructive', 'https://www.linkedin.com/learning/content/435139?u=104', 2, 4, 20, 'null'),
+    ('LinkedIn Culture and Values in action: Be Open, Honest and Constructive', 'https://www.linkedin.com/learning/content/435139?u=104', 2, 4, 20, 'null'),
     ('Leading honest conversations', 'https://www.linkedin.com/learning/reid-hoffman-and-chris-yeh-on-creating-an-alliance-with-employees/leading-honest-conversations?u=104', 2, 4, 20, 'urn:li:lyndaVideo:(urn:li:lyndaCourse:479849,528645)'),
     ('Being open and honest', 'https://www.linkedin.com/learning/building-trust-6/being-open-and-honest?u=104', 2, 4, 20, 'urn:li:lyndaVideo:(urn:li:lyndaCourse:700791,5004151)'),
     ('Being honest and authentic', 'https://www.linkedin.com/learning/designing-a-resume-for-creatives/being-honest-and-authentic?u=104', 2, 4, 20, 'urn:li:lyndaVideo:(urn:li:lyndaCourse:628694,750614)'),

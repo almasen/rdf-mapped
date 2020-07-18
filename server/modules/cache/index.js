@@ -30,7 +30,7 @@ const logStats = () => {
 };
 
 const updateAllFromAPI = async () => {
-    log.info("Attempting to update CACHE from Linkedin-L API..");
+    log.info("Attempting to update CACHE from LinkedIn-L API..");
 
     const courses = [];
     const videos = [];
@@ -41,7 +41,7 @@ const updateAllFromAPI = async () => {
         videos: [],
     };
     for await (const key of modulesCache.keys()) {
-        // check if object has an Linkedin Learning API ID
+        // check if object has an LinkedIn Learning API ID
         const val = modulesCache.get(key);
         if (/^urn:li:/.test(val.urn)) {
             const learningObj = await linkedinApi.fetchLearningObject(val.urn);
@@ -83,8 +83,8 @@ const updateAllFromAPI = async () => {
     modulesCache.set("courses", courses);
     modulesCache.set("videos", videos);
     errorCount === 0 ?
-        log.info("CACHE update from Linkedin-L API finished without errors: %s objects fetched successfully", successCount) :
-        log.warn("CACHE update from Linkedin-L API had at least one error: %s succeeded, %s failed", successCount, errorCount);
+        log.info("CACHE update from LinkedIn-L API finished without errors: %s objects fetched successfully", successCount) :
+        log.warn("CACHE update from LinkedIn-L API had at least one error: %s succeeded, %s failed", successCount, errorCount);
     logStats();
 
 
@@ -92,7 +92,7 @@ const updateAllFromAPI = async () => {
 };
 
 const updateFromAPI = async (key) => {
-    log.info("Attempting to update CACHE(%s) from Linkedin-L API..", key);
+    log.info("Attempting to update CACHE(%s) from LinkedIn-L API..", key);
     try {
         const val = modulesCache.get(key);
         const learningObj = await linkedinApi.fetchLearningObject(val.urn);
@@ -121,9 +121,9 @@ const updateFromAPI = async (key) => {
                 modulesCache.set("videos", videos);
             }
         }
-        log.info("Successfully updated CACHE(%s) from Linkedin-L API..", key);
+        log.info("Successfully updated CACHE(%s) from LinkedIn-L API..", key);
     } catch (error) {
-        log.error("Failed to update CACHE(%s from Linkedin-L API.., err: " + error.message, key);
+        log.error("Failed to update CACHE(%s from LinkedIn-L API.., err: " + error.message, key);
     }
 };
 

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Admin Panel - RDFmapped</title>
+    <meta property="og:type" content="">
+    <meta name="description" content="Vitae Researcher Development Framework Mapped to LinkedIn Learning">
+
+    <%- include('./components/stylesheets'); -%>
+    <%- include('./components/scripts'); -%>
+</head>
+
+<body>
+    <%- include('./components/header'); -%>
+
+    <main class="page faq-page">
+        <section class="clean-block clean-faq dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Hi Dan</h2>
+                    <!-- <p>Frequently Asked Questions</p> -->
+                </div>
+                <div class="block-content">
+                        <h4 style="text-align: center; padding-bottom: 15px;">Stats</h4>
+                        <div class="row" style="padding-bottom: 25px;">
+                            <div class="col">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%= courses.length %> featured courses</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted"><%= uniqueCourses.length %> unique</h6>
+                                        <p class="card-text">A course may have multiple RDF mappings</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%= videos.length %> featured videos</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted"><%= uniqueVideos.length %> unique</h6>
+                                        <p class="card-text">A video may have multiple RDF mappings</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%= submissions.length %> submission(s)</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">
+                                            <% var pendingCount = 0; submissions.forEach(e => { %>
+                                                <% if (e.status !== "published") { %>
+                                                    <% ++pendingCount; %>
+                                                <% } %>
+                                            <% }); %>
+                                            <%= pendingCount %> require review
+                                        </h6>
+                                        <p class="card-text">Pending/failed submissions require manual review.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 style="text-align: center; padding-bottom: 15px;">Submissions</h4>
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="bg-primary text-white">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <!-- <th scope="col">Type</th> -->
+                                            <th scope="col">Timestamp</th>
+                                            <th scope="col">Submitter</th>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Authentication status</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (submissions.length > 0) { %>
+                                        <% var idx = 0; submissions.forEach(e => { ++idx; %>
+                                        <tr style="transform: rotate(0);">
+                                            <th scope="row">
+                                                <a href="/submission/<%= e.id %>" class="stretched-link">
+                                                    <%= idx %>
+                                                </a>
+                                            </th>
+                                            <!-- <td>Course</td> -->
+                                            <td><%= e.data.timestamp %></td>
+                                            <td><%= e.submitter %></td>
+                                            <td><%= e.data.title %></td>
+                                            <td>
+                                                <% if (e.authenticationStatus === 1) { %>
+                                                    <i style="color:limegreen">password verified</i>
+                                                <% } else if (e.authenticationStatus === 0) { %>
+                                                    <i style="color: grey;">no password</i>
+                                                <% } else { %>
+                                                    <i style="color:orange">invalid password</i>
+                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <% if (e.status === "processing") { %>
+                                                <span class="badge badge-pill badge-secondary" style="background-color: grey;">processing</span>
+                                                <% } else if (e.status === "pending") { %>
+                                                <span class="badge badge-pill badge-light"
+                                                        style="background-color: yellowgreen;">pending</span>
+
+                                                <% } else if (e.status === "published") { %>
+                                                <span class="badge badge-pill badge-success">published</span>
+                                                <% } else if (e.status === "failed") { %>
+                                                <span class="badge badge-pill badge-dark"
+                                                        style="background-color: orangered;">failed</span>
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                        <% }); %>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('./components/footer'); -%>
+</body>
+
+</html>

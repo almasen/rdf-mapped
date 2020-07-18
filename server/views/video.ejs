@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta property="og:type" content="">
-    <meta name="description" content="Vitae Researcher Development Framework Mapped to Linkedin Learning">
+    <meta name="description" content="Vitae Researcher Development Framework Mapped to LinkedIn Learning">
     <!-- //TODO: -->
 
     <%- include('./components/stylesheets'); -%>
@@ -23,7 +23,7 @@
     </script>
 
     <% if (video) { %>
-    <title>Video: <%= video.title _%></title>
+    <title>Video: <%= video.title %> - RDFmapped</title>
     <% } else { %>
     <title>Video</title>
     <% } %>
@@ -46,17 +46,19 @@
                     <p>&nbsp;</p>
                     <ol class="breadcrumb shadow-sm rounded" style="background-color: #ebfbfd;opacity: 1;">
                         <li class="breadcrumb-item">
-                            <a href="/video?capability=<%= video.capabilityId %>">
+                            <a href="/videos?capability=<%= video.capabilityId %>">
                                 <span>
+                                    <b>
                                     Domain <%= video.capabilityTitle %>
+                                    </b>
                                 </span>
                             </a>
                         </li>
                         <li class="breadcrumb-item"><a
-                                href="/video?category=<%= video.categoryId %>"><span><%= video.categoryTitle %></span></a>
+                                href="/videos?category=<%= video.categoryId %>"><span><b><%= video.categoryTitle %></b></span></a>
                         </li>
                         <li class="breadcrumb-item"><a
-                                href="/video?competency=<%= video.competencyId %>"><span><%= video.competencyTitle %></span></a>
+                                href="/videos?competency=<%= video.competencyId %>"><span><b><%= video.competencyTitle %></b></span></a>
                         </li>
                     </ol>
                 </div>
@@ -70,7 +72,7 @@
                             <div class="card-body">
                                 <h4 class="card-title"><%= video.title %></h4>
                                 <p class="card-text" style="font-size: larger;">
-                                    <a href="/video?phase=<%= video.phases[0] %>">
+                                    <a href="/videos?phase=<%= video.phases[0] %>">
                                         <span class="badge badge-primary badge-pill">RDF phase
                                             <%= video.phases.join("/") %></span>
                                     </a>
@@ -89,7 +91,7 @@
                                     <% } %>
                                 <% } %>
                                 <a href="<%= video.hyperlink %>" target="_blank" rel="noopener noreferrer"
-                                    class="btn btn-primary">Watch this video on Linkedin Learning</a>
+                                    class="btn btn-primary">Access this video on LinkedIn Learning</a>
                                 <p class="card-text" style="text-align: end;">
                                     <small class="text-muted">Flag any errors on this page: <a
                                             href="#reportContentModal" data-toggle="modal"><i class="material-icons"
