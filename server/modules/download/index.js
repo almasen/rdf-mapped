@@ -11,7 +11,6 @@ const fields = ['id', 'title', 'hyperlink', 'capabilityTitle', 'capabilityId',
 const opts = {fields};
 
 const generateExportFiles = async () => {
-    // TODO: check if export is up to date
     if (
         fs.existsSync("./exports/rdf-mapped-combined.json") &&
         fs.existsSync("./exports/rdf-mapped-courses.json") &&
