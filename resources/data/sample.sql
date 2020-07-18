@@ -34,7 +34,7 @@ INSERT INTO "information"
 VALUES
     ('privacyPolicy', 'We don''t sell your data'),
     ('terms', 'luctus ut, pellentesque eget, dictum placerat, augue. Sed molestie. Sed id'),
-    ('about', 'The Vitae Researcher Development Framework Mapped to Linkedin Learning courses & videos');
+    ('about', 'The Vitae Researcher Development Framework Mapped to LinkedIn Learning courses & videos');
 
 -- Capability --
 
@@ -2224,7 +2224,7 @@ VALUES
     ('Honesty is the best policy', 'https://www.linkedin.com/learning/the-hard-thing-about-hard-things-building-a-business-when-there-are-no-easy-answers-blinkist/honesty-is-the-best-policy?u=104', 2, 4, 20),
     ('Find the honesty balance', 'https://www.linkedin.com/learning/radical-candor-blinkist-summary/find-the-honesty-balance?u=104', 2, 4, 20),
     ('Keep yourself honest', 'https://www.linkedin.com/learning/prepare-yourself-for-a-career-in-sales/keep-yourself-honest?u=104', 2, 4, 20),
-    ('Linkedin Culture and Values in action: Be Open, Honest and Constructive', 'https://www.linkedin.com/learning/content/435139?u=104', 2, 4, 20),
+    ('LinkedIn Culture and Values in action: Be Open, Honest and Constructive', 'https://www.linkedin.com/learning/content/435139?u=104', 2, 4, 20),
     ('Leading honest conversations', 'https://www.linkedin.com/learning/reid-hoffman-and-chris-yeh-on-creating-an-alliance-with-employees/leading-honest-conversations?u=104', 2, 4, 20),
     ('Being open and honest', 'https://www.linkedin.com/learning/building-trust-6/being-open-and-honest?u=104', 2, 4, 20),
     ('Being honest and authentic', 'https://www.linkedin.com/learning/designing-a-resume-for-creatives/being-honest-and-authentic?u=104', 2, 4, 20),

@@ -7,7 +7,7 @@ const learningObjectRepository = require("../../repositories/learning_object");
 let failedRenewals = 0;
 
 const renewAccessToken = async () => {
-    log.info("Linkedin-L API: Attempting to renew access token..");
+    log.info("LinkedIn-L API: Attempting to renew access token..");
 
     try {
         const response = await got.post("https://www.linkedin.com/oauth/v2/accessToken", {
@@ -22,15 +22,15 @@ const renewAccessToken = async () => {
         if (response.statusCode === 200) {
             process.env.LINKEDIN_LEARNING_TOKEN = response.body.access_token;
             failedRenewals = 0;
-            log.info("Linkedin-L API: Successfully renewed access token.");
+            log.info("LinkedIn-L API: Successfully renewed access token.");
         } else {
             ++failedRenewals;
-            log.error("Linkedin-L API: Failed to renew access token, statusCode: %s, statusMsg: %s",
+            log.error("LinkedIn-L API: Failed to renew access token, statusCode: %s, statusMsg: %s",
                 response.statusCode, response.statusMessage);
         }
     } catch (error) {
         ++failedRenewals;
-        log.error("Linkedin-L API: Failed to POST token renewal endpoint, err:" + error.message);
+        log.error("LinkedIn-L API: Failed to POST token renewal endpoint, err:" + error.message);
     }
 };
 
@@ -44,13 +44,13 @@ const fetchLearningObject = async (urn) => {
     if (findResult.rows.length > 0) {
         const lastUpdated = new Date(findResult.rows[0].timestamp);
         if (differenceInDays((new Date()), lastUpdated) < 7) {
-            log.info("Linkedin-L API: Found up to date learning object (%s) in database", urn);
+            log.info("LinkedIn-L API: Found up to date learning object (%s) in database", urn);
             return findResult.rows[0].data;
         }
-        log.info("Linkedin-L API: Found outdated learning object (%s) in database, re-fetching...", urn);
+        log.info("LinkedIn-L API: Found outdated learning object (%s) in database, re-fetching...", urn);
     }
 
-    log.info("Linkedin-L API: Attempting to fetch learning obj(%s)..", urn);
+    log.info("LinkedIn-L API: Attempting to fetch learning obj(%s)..", urn);
 
     const meta = [
         "urn",
@@ -79,12 +79,12 @@ const fetchLearningObject = async (urn) => {
                 afterResponse: [
                     async (response, retryWithNewToken) => {
                         if (response.statusCode === 401 && failedRenewals === 0) { // Unauthorized
-                            log.error("Linkedin-L API: failed to authenticate for learning asset endpoint. " +
+                            log.error("LinkedIn-L API: failed to authenticate for learning asset endpoint. " +
                                 "Attempting to retry with a new access token..");
                             await renewAccessToken();
 
                             // Retry
-                            log.info("Linkedin-L API: Retrying with new access token...");
+                            log.info("LinkedIn-L API: Retrying with new access token...");
                             return retryWithNewToken();
                         }
 
@@ -100,7 +100,7 @@ const fetchLearningObject = async (urn) => {
             },
         });
         if (response.statusCode === 200) {
-            log.info("Linkedin-L API: Successfully fetched learning asset.");
+            log.info("LinkedIn-L API: Successfully fetched learning asset.");
             await learningObjectRepository.insert({
                 urn,
                 timestamp: (new Date()).toUTCString(),
@@ -109,7 +109,7 @@ const fetchLearningObject = async (urn) => {
             return response.body;
         }
     } catch (error) {
-        log.error("Linkedin-L API: Failed to GET learning asset endpoint, err: " + error.message);
+        log.error("LinkedIn-L API: Failed to GET learning asset endpoint, err: " + error.message);
     }
 };
 
@@ -120,7 +120,7 @@ const fetchLearningObject = async (urn) => {
  * @return {String} URN or undefined
  */
 const fetchURNByContent = async (learningObject, type) => {
-    log.info("Linkedin-L API: Attempting to find matching URN for %s (%s)", type, learningObject.title);
+    log.info("LinkedIn-L API: Attempting to find matching URN for %s (%s)", type, learningObject.title);
     try {
         const response = await got("https://api.linkedin.com/v2/learningAssets", {
             responseType: "json",
@@ -141,13 +141,13 @@ const fetchURNByContent = async (learningObject, type) => {
         const elements = response.body.elements;
         for (const e of elements) {
             if (learningObject.hyperlink.startsWith(e.details.urls.webLaunch.substring(0, e.details.urls.webLaunch.length -2))) {
-                log.info("Linkedin-L API: Found matching URN for %s (%s) - (%s)", type, learningObject.title, e.urn);
+                log.info("LinkedIn-L API: Found matching URN for %s (%s) - (%s)", type, learningObject.title, e.urn);
                 return e.urn;
             }
         }
-        log.error("Linkedin-L API: No matching URN found for %s (%s)", type, learningObject.title);
+        log.error("LinkedIn-L API: No matching URN found for %s (%s)", type, learningObject.title);
     } catch (error) {
-        log.error("Linkedin-L API: Failed to GET learning assets endpoint, err: " + error.message);
+        log.error("LinkedIn-L API: Failed to GET learning assets endpoint, err: " + error.message);
     }
 };
 
