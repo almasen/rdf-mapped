@@ -115,5 +115,15 @@ CREATE TABLE submission
     CONSTRAINT submission_pk PRIMARY KEY (id)
 );
 
+-- Table: admin
+CREATE TABLE admin
+(
+    id serial NOT NULL,
+    email varchar(64) NOT NULL,
+    username varchar(64) NOT NULL,
+    password_hash varchar(64) NOT NULL,
+    salt varchar(64) NOT NULL,
+    CONSTRAINT admin_pk PRIMARY KEY (id)
+);
 
 -- END OF FILE

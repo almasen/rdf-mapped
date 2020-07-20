@@ -12,5 +12,6 @@ DROP TABLE information;
 DROP TABLE faq;
 DROP TABLE learning_object;
 DROP TABLE submission;
+DROP TABLE admin;
 
 -- -- End of file.
