@@ -4,7 +4,7 @@ const log = require("../../../util/log");
 const adminService = require("../../../modules/admin");
 
 router.get('/', async (req, res) => {
-    // log.info("Rendering admin log-in page..");
+    log.info("Rendering admin log-in page..");
     try {
         res.render("login.ejs", {
             baseurl: req.baseUrl,
