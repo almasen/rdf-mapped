@@ -25,11 +25,11 @@ const logInAdmin = async (email, password) => {
  * by JWE. Upon successful verification,
  * the admin's (user)name is returned.
  * Otherwise, a JWE or JWT error is thrown.
- * @param {Object} JWE
+ * @param {Object} jwe
  * @return {string} name of admin
  */
-const authenticateAdmin = (JWE) => {
-    return jose.decryptAndVerify(JWE, config).name;
+const authenticateAdmin = (jwe) => {
+    return jose.decryptAndVerify(jwe, config).name;
 };
 
 module.exports = {
