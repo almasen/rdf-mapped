@@ -11,7 +11,7 @@ config.jose = {
     enc: "A128GCM",
     iss: "rdfmapped.com",
     exp: "1 d",
-    aud: "rdfmapped.com/admin",
+    aud: "RDFmapped.com/admin",
     sigAlg: "ES256",
 };
 

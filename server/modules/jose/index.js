@@ -136,6 +136,7 @@ const sign = (payload, exp) => {
             typ: "JWT",
         },
         issuer: config.iss,
+        audience: config.aud,
         kid: true,
         expiresIn: exp !== undefined ? exp : config.exp,
     });

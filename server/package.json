@@ -38,6 +38,7 @@
     "got": "^11.5.1",
     "helmet": "^3.23.3",
     "infinite-scroll": "^3.0.6",
+    "jose": "^1.27.2",
     "jquery-ui": "^1.12.1",
     "js-base64": "^3.2.4",
     "json2csv": "^5.0.1",
