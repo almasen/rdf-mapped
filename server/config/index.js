@@ -10,7 +10,7 @@ config.jose = {
     alg: "ECDH-ES+A128KW",
     enc: "A128GCM",
     iss: "rdfmapped.com",
-    exp: "1 d",
+    exp: "30 d",
     aud: "RDFmapped.com/admin",
     sigAlg: "ES256",
 };
