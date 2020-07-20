@@ -29,6 +29,11 @@
                     <p>Log in to the admin panel</p>
                 </div>
                 <form action="/admin/login" method="POST" id="submitLogin">
+                    <% if (locals.errorMsg) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= errorMsg %>
+                    </div>
+                    <% } %>
                     <div class="form-group">
                         <label for="email">Email</label><input class="form-control item" name="email" type="email"
                             id="email">
