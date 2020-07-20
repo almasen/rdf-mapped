@@ -1,5 +1,9 @@
 const config = {};
 
+config.linkedinLearningAPI = {
+    ttl: 6, // in days
+};
+
 config.jose = {
     kty: "EC",
     crvOrSize: "P-256",

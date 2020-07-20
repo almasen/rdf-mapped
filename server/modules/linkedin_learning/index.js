@@ -1,6 +1,7 @@
 const got = require("got");
 const log = require("../../util/log");
 const {differenceInDays} = require("date-fns");
+const config = require("../../config").linkedinLearningAPI;
 
 const learningObjectRepository = require("../../repositories/learning_object");
 
@@ -43,7 +44,7 @@ const fetchLearningObject = async (urn) => {
     const findResult = await learningObjectRepository.findByURN(urn);
     if (findResult.rows.length > 0) {
         const lastUpdated = new Date(findResult.rows[0].timestamp);
-        if (differenceInDays((new Date()), lastUpdated) < 6) {
+        if (differenceInDays((new Date()), lastUpdated) < config.ttl) {
             log.debug("LinkedIn-L API: Found up to date learning object (%s) in database", urn);
             return findResult.rows[0].data;
         }
