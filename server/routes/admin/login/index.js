@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const log = require("../../../util/log");
 const adminService = require("../../../modules/admin");
-const admin = require("../../../repositories/admin");
 
 router.get('/', async (req, res) => {
     // log.info("Rendering admin log-in page..");
