@@ -5,6 +5,7 @@ const flash = require('express-flash');
 const session = require('express-session');
 const app = express();
 const helmet = require("helmet");
+const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
 const path = require('path');
 const downloadService = require("./modules/download");
@@ -21,6 +22,7 @@ app.set('view-engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(helmet());
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(flash());
@@ -55,8 +57,8 @@ app.use("/about", require("./routes/about"));
 app.use("/support", require("./routes/support"));
 app.use("/contact", require("./routes/contact"));
 
-// app.use("/admin/login", require("./routes/admin/login"));
-// app.use("/admin/panel", require("./routes/admin/panel"));
+app.use("/admin/login", require("./routes/admin/login"));
+app.use("/admin/panel", require("./routes/admin/panel"));
 
 app.use("/bugreport", require("./routes/bugreport"));
 // app.use("/information", require("./routes/information"));
