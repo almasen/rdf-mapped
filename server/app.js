@@ -15,6 +15,7 @@ const scheduler = require("./modules/scheduler");
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
 const redisClient = redis.createClient();
+const rateLimit = require("express-rate-limit");
 
 // -- MIDDLEWARE -- //
 app.set('view-engine', 'ejs');
@@ -42,7 +43,20 @@ app.use(methodOverride('_method'));
 //     next();
 // });
 
-// // -- ROUTES -- //
+// -- DDoS PROTECTION -- //
+// Enable if you're behind a reverse proxy (AWS ELB, Nginx, etc)
+// see https://expressjs.com/en/guide/behind-proxies.html
+// app.set('trust proxy', 1);
+
+const limiter = rateLimit({
+    windowMs: 5 * 60 * 1000, // 5 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+});
+
+//  apply to all requests
+app.use(limiter);
+
+// -- ROUTES -- //
 app.use("/", require("./routes/root"));
 
 app.use("/course", require("./routes/course"));
