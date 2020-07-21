@@ -36,7 +36,7 @@ INSERT INTO "information"
 VALUES
     ('privacyPolicy', 'We don''t sell your data'),
     ('terms', 'luctus ut, pellentesque eget, dictum placerat, augue. Sed molestie. Sed id'),
-    ('about', 'The Vitae Researcher Development Framework Mapped to LinkedIn Learning courses & videos');
+    ('about', 'RDFmapped.com has been developed by the King’s College London Centre for Doctoral Studies.<br><br>The site is based on a dataset which mapped Vitae’s Researcher Development Framework against LinkedIn Learning resources. This mapping was completed by LinkedIn Learning in collaboration with Vitae* (credit pending). This original mapping was in spreadsheet form. The aim of this site is to make that dataset accessible, searchable, and convenient for researchers.<br><br> We took the decision to make RDFmapped.com an open resource to support all researchers in their professional development.<br><br> The site is actively maintained and continues to be expanded from its original set of LinkedIn Learning resources. If you or your department would like to suggest further LinkedIn Learning resources to add, please <b><a href="/contact">contact us</a></b> to discuss.');
 
 -- Capability --
 
