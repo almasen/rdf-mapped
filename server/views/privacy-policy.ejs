@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>About - RDFmapped</title>
+    <title>Privacy Policy - RDFmapped</title>
     <meta property="og:type" content="website">
     <meta name="description"
         content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
@@ -14,6 +14,14 @@
 
     <%- include('./components/stylesheets'); -%>
     <%- include('./components/scripts'); -%>
+    <style>
+        .anchor {
+            display: block;
+            height: 90px;
+            margin-top: -90px;
+            visibility: hidden;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,18 +31,11 @@
         <section class="clean-block clean-faq dark">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">About</h2>
+                    <h2 class="text-info">Privacy Policy</h2>
                     <!-- <p>TBD</p> -->
                 </div>
                 <div class="block-content">
-                    <div class="faq-item">
-                        <h4 class="question">TBD</h4>
-                        <div class="answer">
-                            <p style="text-align: justify; opacity: 0.9 !important; color: #212529;">
-                                <%- privacyInfo %>
-                            </p>
-                        </div>
-                    </div>
+                    <%- privacyInfo %>
                 </div>
             </div>
         </section>
