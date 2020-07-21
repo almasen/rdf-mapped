@@ -61,7 +61,6 @@ app.use("/admin/login", require("./routes/admin/login"));
 app.use("/admin/dashboard", require("./routes/admin/dashboard"));
 
 app.use("/bugreport", require("./routes/bugreport"));
-// app.use("/information", require("./routes/information"));
 
 // API
 // app.use("/capability", require("./routes/capability"));
