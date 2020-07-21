@@ -1,35 +1,6 @@
 const informationRepository = require("../../repositories/information");
 
 /**
- * Creates a new information entry to be added to the database if type does not exist
- * else updates the current one.
- * @param {object} information A valid information entry
- * Fails if something goes wrong in db.
- */
-const changeInformation = async (information ) => {
-    const typeExists = await getInformationData(information.type.toString());
-    if (Object.keys(typeExists.data.information).length === 0) {
-        return await createNewInformation(information);
-    } else {
-        return await updateInformation(information);
-    }
-};
-
-/**
- * Creates a new information entry to be added to the database.
- * @param {object} information A valid information entry of a type that does not exist yet
- * Fails if type already exists
- */
-const createNewInformation = async (information) => {
-    const informationResult = await informationRepository.insert(information);
-    return ({
-        status: 200,
-        message: "Information entry created successfully",
-        data: {information: informationResult.rows[0]},
-    });
-};
-
-/**
  * Updates an information entry that already exists in the database.
  * @param {object} information A valid information object
  * Fails if database calls fail.
@@ -65,5 +36,5 @@ const getInformationData = async (type) => {
 
 module.exports = {
     getInformationData,
-    changeInformation,
+    updateInformation,
 };
