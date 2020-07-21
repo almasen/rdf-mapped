@@ -21,12 +21,12 @@ router.post('/', async (req, res) => {
     log.info("%s: Attempting to log-in as admin..", req.body.email);
     try {
         const jwe = await adminService.logInAdmin(req.body.email, req.body.password);
-        log.info("%s: Successfully logged in as admin, redirecting to admin panel..", req.body.email);
+        log.info("%s: Successfully logged in as admin, redirecting to admin dashboard..", req.body.email);
         res.cookie('jwe', jwe, {
             httpOnly: true,
             secure: true,
         });
-        res.redirect("/admin/panel");
+        res.redirect("/admin/dashboard");
     } catch (error) {
         log.error("Failed to authenticate on login page, err: " + error.message);
         res.status(400).render("login.ejs", {

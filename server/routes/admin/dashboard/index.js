@@ -10,9 +10,9 @@ router.get('/', async (req, res) => {
     try {
         const jwe = req.cookies.jwe;
         if (jwe) {
-            log.info("Attempting to authenticate a user for admin panel, ref:'%s'", jwe.split('.')[4]);
+            log.info("Attempting to authenticate a user for admin dashboard, ref:'%s'", jwe.split('.')[4]);
             const adminName = adminService.authenticateAdmin(jwe);
-            log.info("Successfully authenticated %s for admin panel, ref:" + jwe.split('.')[4], adminName);
+            log.info("Successfully authenticated %s for admin dashboard, ref:" + jwe.split('.')[4], adminName);
 
             // Fetch admin site-statistics
             const courses = await courseService.fetchAll();
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
             const videos = await videoService.fetchAll();
             const uniqueVideos = await videoService.fetchAllWithUniqueTitles();
             const submissions = await submissionService.fetchAll();
-            res.render("admin-panel.ejs", {
+            res.render("admin-dashboard.ejs", {
                 baseurl: req.baseUrl,
                 adminName,
                 courses,
@@ -30,11 +30,11 @@ router.get('/', async (req, res) => {
                 submissions,
             });
         } else {
-            log.info("An attempted visit at admin panel without a jwe token, redirecting to admin/login");
+            log.info("An attempted visit at admin dashboard without a jwe token, redirecting to admin/login");
             res.redirect("/admin/login");
         }
     } catch (error) {
-        log.error("Failed to authenticate for admin panel, err: " + error.message);
+        log.error("Failed to authenticate for admin dashboard, err: " + error.message);
         res.redirect("/admin/login");
     }
 });
