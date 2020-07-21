@@ -53,7 +53,7 @@ app.use("/videos", require("./routes/videos"));
 app.use("/search", require("./routes/search"));
 app.use("/download", require("./routes/download"));
 
-app.use("/about", require("./routes/about"));
+app.use("/about", require("./routes/information/about"));
 app.use("/support", require("./routes/support"));
 app.use("/contact", require("./routes/contact"));
 
