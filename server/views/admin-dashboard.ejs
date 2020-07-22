@@ -10,7 +10,7 @@
         content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
     <meta property="og:title" content="Researcher Development Framework Mapped">
     <meta property="og:site_name" content="RDFmapped">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, nofollow">
 
     <%- include('./components/stylesheets'); -%>
     <%- include('./components/scripts'); -%>
@@ -30,7 +30,7 @@
                     again.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </a>
                 </div>
                 <div class="block-content">
                     <h4 style="text-align: center; padding-bottom: 15px;">Stats</h4>
@@ -69,6 +69,17 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <h4 style="padding-bottom: 15px;">Tools</h4>
+                    <div class="btn-group-vertical">
+                        <a href="/admin/dashboard/submissions" type="button" class="btn btn-primary">Review submissions</a>
+                        <a href="#" type="button" class="btn btn-primary">Add courses/videos</a>
+                        <a href="#" type="button" class="btn btn-primary">Bulk upload courses/videos</a>
+                        <a href="#" type="button" class="btn btn-primary">Edit FAQs (support page)</a>
+                        <a href="/admin/dashboard/information?type=about" type="button" class="btn btn-primary">Edit about us</a>
+                        <a href="/admin/dashboard/information?type=privacy" type="button" class="btn btn-primary">Edit privacy policy</a>
+                        <a href="/admin/dashboard/information?type=terms" type="button" class="btn btn-primary">Edit terms and conditions</a>
+                        <a href="/admin/dashboard/information?type=accessibility" type="button" class="btn btn-primary">Edit accessibility statement</a>
                     </div>
                     <h4 style="text-align: center; padding-bottom: 15px;">Submissions</h4>
                     <div class="row">
