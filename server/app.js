@@ -78,6 +78,8 @@ app.use("/contact", require("./routes/contact"));
 
 app.use("/admin/login", require("./routes/admin/login"));
 app.use("/admin/dashboard", require("./routes/admin/dashboard"));
+app.use("/admin/dashboard/information", require("./routes/admin/dashboard/information"));
+app.use("/admin/dashboard/submissions", require("./routes/admin/dashboard/submissions"));
 
 app.use("/bugreport", require("./routes/bugreport"));
 
