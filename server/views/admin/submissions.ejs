@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Submissions - RDFmapped</title>
+    <meta property="og:type" content="website">
+    <meta name="description"
+        content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
+    <meta property="og:title" content="Researcher Development Framework Mapped">
+    <meta property="og:site_name" content="RDFmapped">
+    <meta name="robots" content="noindex, nofollow">
+
+    <%- include('../components/stylesheets'); -%>
+    <%- include('../components/scripts'); -%>
+</head>
+
+<body>
+    <%- include('../components/header'); -%>
+
+    <main class="page faq-page">
+        <section class="clean-block clean-faq dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Submissions</h2>
+                    <p>Go back to <a href="/admin/dashboard">Admin Dashboard</a></p>
+                </div>
+                <div class="block-content">
+                    <h4 style="text-align: center; padding-bottom: 15px;">Submissions</h4>
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="bg-primary text-white">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <!-- <th scope="col">Type</th> -->
+                                        <th scope="col">Timestamp</th>
+                                        <th scope="col">Submitter</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Authentication status</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if (submissions.length > 0) { %>
+                                    <% var idx = 0; submissions.forEach(e => { ++idx; %>
+                                    <tr style="transform: rotate(0);">
+                                        <th scope="row">
+                                            <a href="/submission/<%= e.id %>" class="stretched-link">
+                                                <%= idx %>
+                                            </a>
+                                        </th>
+                                        <!-- <td>Course</td> -->
+                                        <td><%= e.data.timestamp %></td>
+                                        <td><%= e.submitter %></td>
+                                        <td><%= e.data.title %></td>
+                                        <td>
+                                            <% if (e.authenticationStatus === 1) { %>
+                                            <i style="color:limegreen">password verified</i>
+                                            <% } else if (e.authenticationStatus === 0) { %>
+                                            <i style="color: grey;">no password</i>
+                                            <% } else { %>
+                                            <i style="color:orange">invalid password</i>
+                                            <% } %>
+                                        </td>
+                                        <td>
+                                            <% if (e.status === "processing") { %>
+                                            <span class="badge badge-pill badge-secondary"
+                                                style="background-color: grey;">processing</span>
+                                            <% } else if (e.status === "pending") { %>
+                                            <span class="badge badge-pill badge-light"
+                                                style="background-color: yellowgreen;">pending</span>
+
+                                            <% } else if (e.status === "published") { %>
+                                            <span class="badge badge-pill badge-success">published</span>
+                                            <% } else if (e.status === "failed") { %>
+                                            <span class="badge badge-pill badge-dark"
+                                                style="background-color: orangered;">failed</span>
+                                            <% } %>
+                                        </td>
+                                    </tr>
+                                    <% }); %>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('../components/footer'); -%>
+</body>
+
+</html>
