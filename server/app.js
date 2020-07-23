@@ -2,25 +2,25 @@ require("dotenv").config();
 const log = require("./util/log");
 const express = require("express");
 const session = require('express-session');
-const app = express();
 const helmet = require("helmet");
 const cookieParser = require('cookie-parser');
 const path = require('path');
-const downloadService = require("./modules/download");
-const recache = require("./modules/cache/recache");
-const scheduler = require("./modules/scheduler");
+const rateLimit = require("express-rate-limit");
 
+// Initialise application
+const app = express();
+
+// -- Session store -- //
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
 const redisClient = redis.createClient();
-const rateLimit = require("express-rate-limit");
 
-// -- MIDDLEWARE -- //
+// -- App config -- //
 app.set('view-engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(helmet());
-app.use(cookieParser());
+app.use(cookieParser()); // if secret is specified, it should match session secret
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use('/favicon.ico', express.static('favicon.ico'));
@@ -33,69 +33,63 @@ app.use(session({
     }),
 }));
 
-// -- DDoS PROTECTION -- //
-// Enable if you're behind a reverse proxy (AWS ELB, Nginx, etc)
-// see https://expressjs.com/en/guide/behind-proxies.html
-// app.set('trust proxy', 1);
-
+// -- DDoS / bruteforce protection -- //
+// app.set('trust proxy', 1); // enable if behind a reverse proxy (Nginx, etc)
 const limiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 5 minutes
     max: 100, // limit each IP to 100 requests per windowMs
 });
 app.use(limiter); //  apply to all requests
 
-// -- ROUTES -- //
-app.use("/", require("./routes/root"));
 
+// -- Routes -- //
+app.use("/", require("./routes/root"));
+// Learning content
 app.use("/course", require("./routes/course"));
 app.use("/courses", require("./routes/courses"));
 app.use("/video", require("./routes/video"));
 app.use("/videos", require("./routes/videos"));
-
+// Search content
 app.use("/search", require("./routes/search"));
+// Download content
 app.use("/download", require("./routes/download"));
-
-// information routes
-app.use("/about", require("./routes/information/about"));
-app.use("/terms", require("./routes/information/terms"));
-app.use("/privacy", require("./routes/information/privacy"));
-app.use("/accessibility", require("./routes/information/accessibility"));
-
-app.use("/support", require("./routes/support"));
-app.use("/contact", require("./routes/contact"));
-
-app.use("/admin/login", require("./routes/admin/login"));
-app.use("/admin/dashboard", require("./routes/admin/dashboard"));
-app.use("/admin/dashboard/information", require("./routes/admin/dashboard/information"));
-app.use("/admin/dashboard/submissions", require("./routes/admin/dashboard/submissions"));
-
-app.use("/bugreport", require("./routes/bugreport"));
-
-// API
-// app.use("/capability", require("./routes/capability"));
-
+// Content submission
 app.use("/submit", require("./routes/submit"));
 app.use("/submit/course", require("./routes/submit/course"));
 app.use("/submit/video", require("./routes/submit/video"));
 app.use("/submission", require("./routes/submission"));
 
-// // wildcard-protect
-app.all("*", function(req, res, next) {
+// Information routes
+app.use("/about", require("./routes/information/about"));
+app.use("/terms", require("./routes/information/terms"));
+app.use("/privacy", require("./routes/information/privacy"));
+app.use("/accessibility", require("./routes/information/accessibility"));
+// Faqs
+app.use("/support", require("./routes/support"));
+
+// Contact routes
+app.use("/contact", require("./routes/contact"));
+app.use("/bugreport", require("./routes/bugreport"));
+
+// Admin routes
+app.use("/admin/login", require("./routes/admin/login"));
+app.use("/admin/dashboard", require("./routes/admin/dashboard"));
+app.use("/admin/dashboard/information", require("./routes/admin/dashboard/information"));
+app.use("/admin/dashboard/submissions", require("./routes/admin/dashboard/submissions"));
+
+// API routes (might be added in the future)
+// app.use("/capability", require("./routes/capability"));
+
+// Wildcard-catch non-matching addresses
+app.all("*", (req, res, next) => {
     res.status(404).render('404.ejs', {
         baseurl: "",
     });
 });
 
+
+// -- App startup logs -- //
 log.info(`App started successfully in ${process.env.NODE_ENV} environment...`);
 log.info(`View cache is ${app.get("view cache") ? "ENABLED" : "DISABLED"}`);
-
-
-// -- Update content after start-up -- //
-downloadService.deleteExportFiles();
-recache.recacheAll();
-
-// -- Schedule recurring tasks -- //
-scheduler.scheduleAllTasks();
-
 
 module.exports = app;
