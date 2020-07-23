@@ -1,12 +1,10 @@
 require("dotenv").config();
 const log = require("./util/log");
 const express = require("express");
-const flash = require('express-flash');
 const session = require('express-session');
 const app = express();
 const helmet = require("helmet");
 const cookieParser = require('cookie-parser');
-const methodOverride = require('method-override');
 const path = require('path');
 const downloadService = require("./modules/download");
 const recache = require("./modules/cache/recache");
@@ -25,7 +23,6 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-app.use(flash());
 app.use('/favicon.ico', express.static('favicon.ico'));
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -35,7 +32,6 @@ app.use(session({
         client: redisClient,
     }),
 }));
-app.use(methodOverride('_method'));
 
 // -- DDoS PROTECTION -- //
 // Enable if you're behind a reverse proxy (AWS ELB, Nginx, etc)
@@ -46,9 +42,7 @@ const limiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 5 minutes
     max: 100, // limit each IP to 100 requests per windowMs
 });
-
-//  apply to all requests
-app.use(limiter);
+app.use(limiter); //  apply to all requests
 
 // -- ROUTES -- //
 app.use("/", require("./routes/root"));
