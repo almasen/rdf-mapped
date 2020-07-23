@@ -19,7 +19,6 @@ const rateLimit = require("express-rate-limit");
 
 // -- MIDDLEWARE -- //
 app.set('view-engine', 'ejs');
-// if (process.env.NODE_ENV === "production") app.set("view cache", true);
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(helmet());
@@ -37,11 +36,6 @@ app.use(session({
     }),
 }));
 app.use(methodOverride('_method'));
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
 
 // -- DDoS PROTECTION -- //
 // Enable if you're behind a reverse proxy (AWS ELB, Nginx, etc)
