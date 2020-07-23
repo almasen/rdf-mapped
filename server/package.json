@@ -1,5 +1,5 @@
 {
-  "name": "RDFmapped",
+  "name": "rdfmapped.com",
   "version": "1.4.2",
   "description": "RDFmapped server",
   "main": "server.js",
