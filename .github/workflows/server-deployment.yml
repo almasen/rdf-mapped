@@ -31,6 +31,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY_ACT }}
           passphrase: ${{ secrets.SSH_PHRASE_ACT }}
-          script: whoami
+          script: ${{ secrets.DEPLOY_SCRIPT }}
           script_stop: true
           debug: true
