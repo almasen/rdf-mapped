@@ -78,7 +78,9 @@ app.use("/admin/dashboard/information", require("./routes/admin/dashboard/inform
 app.use("/admin/dashboard/submissions", require("./routes/admin/dashboard/submissions"));
 
 // API routes (might be added in the future)
-// app.use("/capability", require("./routes/capability"));
+// app.use("/api/capability", require("./routes/capability"));
+// app.use("/api/category", require("./routes/category"));
+// app.use("/api/competency", require("./routes/competency"));
 
 // Wildcard-catch non-matching addresses
 app.all("*", (req, res, next) => {

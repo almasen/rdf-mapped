@@ -8,6 +8,6 @@ const PORT = process.env.PORT || 8000;
     await startupService.initialise();
     log.info(`Successfully initialised services. Starting server..`);
     app.listen(PORT, () => {
-        log.info(`Server started successfully. Listening on port ${PORT}.`);
+        log.info(`Server started successfully. Listening on port:${PORT}`);
     });
 })();
