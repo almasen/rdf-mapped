@@ -1,7 +1,7 @@
 const config = {};
 
 config.linkedinLearningAPI = {
-    ttl: 6, // in days
+    ttl: 16, // in days
 };
 
 config.jose = {
@@ -13,6 +13,18 @@ config.jose = {
     exp: "30 d",
     aud: "RDFmapped.com/admin",
     sigAlg: "ES256",
+};
+
+config.scheduler = {
+    recache: {
+        hour: 4,
+        minute: 30,
+        dayOfWeek: 3, // 0 is Sunday
+    },
+    deleteExports: {
+        hour: 4,
+        minute: 20,
+    },
 };
 
 module.exports = config;

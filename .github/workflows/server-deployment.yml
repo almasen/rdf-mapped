@@ -39,4 +39,3 @@ jobs:
           passphrase: ${{ secrets.SSH_PHRASE_ACT }}
           script: ${{ secrets.DEPLOY_SCRIPT }}
           script_stop: true
-          

@@ -1,14 +1,11 @@
 const schedule = require('node-schedule');
 const recache = require("../cache/recache");
+const config = require("../../config").scheduler;
 const log = require("../../util/log");
 const downloadService = require("../download");
 
 const scheduleRecache = () => {
-    schedule.scheduleJob({
-        hour: 4,
-        minute: 30,
-        dayOfWeek: 3,
-    }, async () => {
+    schedule.scheduleJob(config.recache, async () => {
         log.info("SCHEDULER: Executing scheduled task 'recacheAll()' at %s...",
             (new Date).toUTCString());
         await recache.recacheAll();
@@ -16,10 +13,7 @@ const scheduleRecache = () => {
 };
 
 const scheduleDeleteExportFiles = () => {
-    schedule.scheduleJob({
-        hour: 4,
-        minute: 20,
-    }, async () => {
+    schedule.scheduleJob(config.deleteExports, async () => {
         log.info("SCHEDULER: Executing scheduled task 'deleteExportFiles()' at %s...",
             (new Date).toUTCString());
         downloadService.deleteExportFiles();
