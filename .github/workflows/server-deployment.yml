@@ -1,0 +1,35 @@
+name: Server Deployment
+# Trigger on master branch changes
+on:
+  push: # run whenever something is merged into master
+    branches:
+      - master
+    paths:
+      - "server/**"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub repository
+        uses: actions/checkout@master
+
+      - name: Publish server components
+        uses: easingthemes/ssh-deploy@v2.1.4
+        env:
+          # ARGS: "-rltgoDzvO --delete" adjust?
+          SOURCE: "server/"
+          TARGET: ${{ secrets.DEPLOY_DIR }}
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY_DEP }}
+
+      - name: Deploy updated server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY_ACT }}
+          passphrase: ${{ secrets.SSH_PHRASE_ACT }}
+          script: ${{ secrets.DEPLOY_SCRIPT }}
+          script_stop: true

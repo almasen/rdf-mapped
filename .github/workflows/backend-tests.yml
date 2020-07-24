@@ -1,17 +1,17 @@
-name: Backend
+name: Backend Tests
 
 # Trigger on push or pull request
 on:
   push:
-    branches: # == run tests only on push to following branches: ==
+    branches:
       - master # master (rerun tests after merging a PR)
       - dev
     paths:
       - "server/**" # limit workflow tests only to changes in backend folder
   pull_request:
-    branches: # == run tests only on pull request opens/updates to: ==
+    branches:
       - master
-      - dev # dev
+      - dev
     paths:
       - "server/**"
 
@@ -21,19 +21,19 @@ jobs:
     runs-on: ubuntu-latest
     # setup node, build, and run tests
     steps:
-      - name: checkout GitHub repository
+      - name: Checkout GitHub repository
         uses: actions/checkout@v2
 
-      - name: set up Node.js 12.x
+      - name: Set up Node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
-      - name: npm install
+      - name: Install npm packages
         working-directory: ./server
         run: npm ci
 
-      - name: run ESLint
+      - name: Run ESLint
         working-directory: ./server
         run: npx eslint ./
 
