@@ -29,12 +29,12 @@
             <div class="container">
                 <div class="block-heading">
                     <h2 class="text-info">Edit Information Entry</h2>
-                    <p>Go back to <a href="/admin/dashboard">Admin Dashboard</a></p>
+                    <p>Go back to <a href="/admin">Admin Dashboard</a></p>
                 </div>
                 <div class="block-content">
                     <div class="row" style="padding-bottom: 20px;">
                         <h4 style="padding-right: 30px;">Edit the text below as you wish then make sure to hit save here:</h4>
-                        <form action="/admin/dashboard/information" method="POST" id="updateInfoForm" target="dummyframe">
+                        <form action="/admin/information" method="POST" id="updateInfoForm" target="dummyframe">
                             <button onclick="getEditorValue()" type="submit" class="btn btn-primary" name="updatedInformation" id="updatedInformationButton" value="cheese">Save & submit</button>
                             <input type="text" name="type" hidden readonly value="<%= informationType %>">
                         </form>

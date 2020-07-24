@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
             httpOnly: true,
             secure: true,
         });
-        res.redirect("/admin/dashboard");
+        res.redirect("/admin");
     } catch (error) {
         log.error("Failed to authenticate on login page, err: " + error.message);
         res.status(400).render("login.ejs", {

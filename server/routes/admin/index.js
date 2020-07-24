@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const log = require("../../../util/log");
-const courseService = require("../../../modules/course");
-const videoService = require("../../../modules/video");
-const submissionService = require("../../../modules/submission");
-const adminService = require("../../../modules/admin");
+const log = require("../../util/log");
+const courseService = require("../../modules/course");
+const videoService = require("../../modules/video");
+const submissionService = require("../../modules/submission");
+const adminService = require("../../modules/admin");
 
 router.get('/', async (req, res) => {
     try {

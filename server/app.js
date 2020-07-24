@@ -73,14 +73,15 @@ app.use("/bugreport", require("./routes/bugreport"));
 
 // Admin routes
 app.use("/admin/login", require("./routes/admin/login"));
-app.use("/admin/dashboard", require("./routes/admin/dashboard"));
-app.use("/admin/dashboard/information", require("./routes/admin/dashboard/information"));
-app.use("/admin/dashboard/submissions", require("./routes/admin/dashboard/submissions"));
+app.use("/admin", require("./routes/admin"));
+app.use("/admin/information", require("./routes/admin/information"));
+app.use("/admin/submissions", require("./routes/admin/submissions"));
 
 // API routes (might be added in the future)
 // app.use("/api/capability", require("./routes/capability"));
 // app.use("/api/category", require("./routes/category"));
 // app.use("/api/competency", require("./routes/competency"));
+// app.all("/api/*", requireAPIAuth) // TODO: API authentication
 
 // Wildcard-catch non-matching addresses
 app.all("*", (req, res, next) => {

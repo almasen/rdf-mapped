@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const log = require("../../../../util/log");
-const adminService = require("../../../../modules/admin");
-const informationService = require("../../../../modules/information");
-const { updateInformation } = require("../../../../modules/information");
+const log = require("../../../util/log");
+const adminService = require("../../../modules/admin");
+const informationService = require("../../../modules/information");
 
 router.get('/', async (req, res) => {
     try {
@@ -24,7 +23,7 @@ router.get('/', async (req, res) => {
                     informationType,
                 });
             } else {
-                res.redirect("/admin/dashboard");
+                res.redirect("/admin");
             }
         } else {
             log.info("An attempted visit at admin/info without a jwe token, redirecting to admin/login");

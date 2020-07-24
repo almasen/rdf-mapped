@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const log = require("../../../../util/log");
-const submissionService = require("../../../../modules/submission");
-const adminService = require("../../../../modules/admin");
+const log = require("../../../util/log");
+const submissionService = require("../../../modules/submission");
+const adminService = require("../../../modules/admin");
 
 router.get('/', async (req, res) => {
     try {
