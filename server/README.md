@@ -8,4 +8,4 @@ Start by running `npm install` and then `npm run prod/dev-start` in a terminal
 3. Add Postgres installation `/bin` directory to PATH
 4. Create local database for application using `createdb -U postgres rdfdatabase`
 5. Run database migrations using `npm run db-migrate up`
-6. Optionally import test dataset form /resources directory
+6. (optional) Import test dataset form /resources directory
