@@ -27,7 +27,21 @@ const fetchByKeyword = async (keyword) => {
     return findResult.rows;
 };
 
+/**
+ * Update an faq object in the database.
+ * Flushes the faqs from cache upon a successful
+ * update.
+ * @param {Object} faq valid faq object
+ */
+const update = async (faq) => {
+    const updateResult = await faqRepo.update(faq);
+    // flush cached faqs if successful
+    cache.del("faqs");
+    return updateResult.rows[0];
+};
+
 module.exports = {
     fetchAll,
     fetchByKeyword,
+    update,
 };

@@ -19,6 +19,10 @@ const has = (key) => {
     return modulesCache.has(key);
 };
 
+const del = (key) => {
+    modulesCache.del(key);
+};
+
 const flush = () => {
     log.info("About to flush CACHE, current stats: %s", modulesCache.getStats());
     modulesCache.flushAll();
@@ -131,6 +135,7 @@ module.exports = {
     get,
     set,
     has,
+    del,
     flush,
     logStats,
     updateAllFromAPI,
