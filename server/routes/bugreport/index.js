@@ -35,9 +35,10 @@ const httpUtil = require("../../util/http");
  */
 router.post("/", async (req, res) => {
     try {
-        log.info("%s: Sending bug report", req.body.email, req.body.userId);
-        const result = await mailSender.sendBugReport(req.body.email, req.body.report);
-        httpUtil.sendResult(result, res);
+        log.info("%s: Sending bug report",
+            req.body.email ? req.body.email : "anonymous", req.body.originalUrl);
+        await mailSender.sendBugReport(req.body.email, req.body.originalUrl, req.body.report);
+        httpUtil.sendGenericSuccess(res);
     } catch (e) {
         log.error("%s: Sending bug report failed " + e, req.body.email, req.body.userId);
         httpUtil.sendGenericError(e, res);
