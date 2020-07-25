@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Edit FAQs - RDFmapped</title>
+    <meta property="og:type" content="website">
+    <meta name="description"
+        content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
+    <meta property="og:title" content="Researcher Development Framework Mapped">
+    <meta property="og:site_name" content="RDFmapped">
+    <meta name="robots" content="noindex, nofollow">
+
+    <%- include('../components/stylesheets'); -%>
+    <%- include('../components/scripts'); -%>
+
+
+    <!-- Set up Quill editor -->
+    <!-- Include stylesheet -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+</head>
+
+<body>
+    <%- include('../components/header'); -%>
+
+    <main class="page faq-page">
+        <section class="clean-block clean-faq dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Choose which FAQ entry to edit</h2>
+                    <p>Go back to <a href="/admin">Admin Dashboard</a></p>
+                </div>
+                <div class="block-content">
+                    <div class="row">
+                        <div class="col-3">
+                            <h5 style="padding-bottom: 10px;">FAQ Question:</h5>
+                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <% faqs.forEach(e => { %>
+                                    <a class="nav-link <%= e.id === 1 ? 'active' : '' %>" id="v-pills-<%= e.id %>-tab" data-toggle="pill" href="#v-pills-<%= e.id %>" role="tab"
+                                        aria-controls="v-pills-<%= e.id %>" aria-selected="<%= e.id === 1 ? 'true' : 'false' %>"><%= e.question %></a>
+                                <% }); %>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <h5 style="padding-bottom: 10px;">FAQ Answer & Edit button:</h5>
+                            <div class="tab-content" id="v-pills-tabContent">
+                                <% faqs.forEach(e => { %>
+                                    <div class="tab-pane fade <%= e.id === 1 ? 'show active' : '' %>" id="v-pills-<%= e.id %>" role="tabpanel" aria-labelledby="v-pills-<%= e.id %>-tab">
+                                        <%- e.answer %>
+                                        <br><br>
+                                        <a class="btn btn-outline-primary" role="button" href="/admin/faq/<%= e.id %>">Edit me</a>
+                                    </div>
+                                <% }); %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+    </main>
+
+    <%- include('../components/footer'); -%>
+
+</body>
+
+</html>
