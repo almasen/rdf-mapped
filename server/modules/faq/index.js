@@ -6,9 +6,21 @@ const fetchAll = async () => {
         return cache.get("faqs");
     } else {
         const findResult = await faqRepo.findAll();
-        cache.set("faqs", findResult.rows);
-        return findResult.rows;
+        const sortedFaqs = findResult.rows.sort((a, b) => a.id - b.id);
+        cache.set("faqs", sortedFaqs);
+        return sortedFaqs;
     }
+};
+
+/**
+ * Get an faq record from the database.
+ * (skips cache check)
+ * @param {Number} id
+ * @return {Object} faq object
+ */
+const findById = async (id) => {
+    const findResult = await faqRepo.findById(id);
+    return findResult.rows[0];
 };
 
 const fetchByKeyword = async (keyword) => {
@@ -44,4 +56,5 @@ module.exports = {
     fetchAll,
     fetchByKeyword,
     update,
+    findById,
 };
