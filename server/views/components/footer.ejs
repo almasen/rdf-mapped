@@ -1,19 +1,32 @@
 <footer class="page-footer dark">
     <div class="container">
-        <div class="row">
+        <div class="row" id="footerNarrow" hidden>
+            <div class="col">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/search">Search</a></li>
+                    <li><a href="/support">Support</a></li>
+                    <li><a href="/submit">Submit content</a></li>
+                    <li><a href="/download">Download archive</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/accessibility">Accessibility statement</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                </ul>
+                <a href="https://www.kcl.ac.uk" target="_blank" rel="noopener noreferrer">
+                    <img src="/img/kcl/KCL_box_red_485_rgb.jpg" alt="KCL Logo" style="width: 180px;">
+                </a>
+            </div>
+        </div>
+        <div class="row" id="footerWide">
             <div class="col">
                 <!-- <h5 style="padding-bottom: 5px;">Supported by</h5> -->
                 <a href="https://www.kcl.ac.uk" target="_blank" rel="noopener noreferrer">
                     <img src="/img/kcl/KCL_box_red_485_rgb.jpg" alt="KCL Logo" style="width: 180px;">
                 </a>
-                <!-- <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/search">Search</a></li>
-                    <li><a href="#">Downloads</a></li> -->
-                <!-- </ul> -->
             </div>
             <div class="col">
-                <!-- <h5>RDF Learning Material</h5> -->
+                <!-- <h5>Learning material</h5> -->
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/search">Search</a></li>
@@ -27,7 +40,7 @@
                 <ul>
                     <li><a href="/about">About</a></li>
                     <li><a href="/contact">Contact</a></li>
-                    <li><a href="#">Accessibility statement</a></li>
+                    <li><a href="/accessibility">Accessibility statement</a></li>
                     <li><a href="/privacy">Privacy Policy</a></li>
                 </ul>
             </div>
@@ -43,3 +56,17 @@
         </p>
     </div>
 </footer>
+<script>
+    const screenWidthChange = () => {
+        const wideScreen = window.matchMedia("(min-width: 800px)");
+        if (wideScreen.matches) {
+            document.getElementById("footerWide").hidden = false;
+            document.getElementById("footerNarrow").hidden = true;
+        } else {
+            document.getElementById("footerWide").hidden = true;
+            document.getElementById("footerNarrow").hidden = false;
+        }
+    };
+    $(window).resize(() => { screenWidthChange() });
+    $(document).ready(() => { screenWidthChange() });
+</script>
