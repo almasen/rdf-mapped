@@ -54,7 +54,7 @@
    *
    * 1. Reset Bootstrap defaults.
    * 2. Adjust the dropdown arrow button icon position.
-   *
+   *x`
    * @see https://getbootstrap.com/docs/4.0/components/forms/#sizing
    */
   /* 1 */
@@ -214,9 +214,9 @@
 }
 
 .select2-container--bootstrap.select2-container--focus .select2-selection, .select2-container--bootstrap.select2-container--open .select2-selection {
-  border-color: #0096a9;
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 150, 169, 0.25);
-          box-shadow: 0 0 0 0.2rem rgba(0, 150, 169, 0.25);
+  border-color: #6cd3e0;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .select2-container--bootstrap.select2-container--open {
@@ -281,7 +281,7 @@
 }
 
 .select2-container--bootstrap .select2-dropdown {
-  border-color: #0096a9;
+  border-color: #6cd3e0;
   overflow-x: hidden;
   margin-top: -1px;
 }
