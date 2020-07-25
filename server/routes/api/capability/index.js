@@ -1,22 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const capabilityService = require("../../modules/capability");
-const pagination = require("../../modules/pagination");
-const log = require("../../util/log");
+const capabilityService = require("../../../modules/capability");
+const pagination = require("../../../modules/pagination");
+const log = require("../../../util/log");
 
 router.get('/', async (req, res) => {
     try {
-        log.info("Fetching capabilities..");
+        log.info("API: Fetching capabilities..");
         const fetchResult = await capabilityService.fetchByKeyword(req.query.keyword);
         const pageData = pagination.getPageData(req.query.currentPage, req.query.pageSize, fetchResult);
         res.status(200).send({
             pageData,
         });
     } catch (error) {
-        log.error("Course %s: Failed fetching course data, err: " + error.message, req.params.id);
-        res.status(404).render('404.ejs', {
-            baseurl: "",
-        });
+        log.error("API: Failed fetching capabilities, err: " + error.message);
+        res.status(404).send(error.message);
     }
 });
 

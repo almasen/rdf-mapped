@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Edit FAQs - RDFmapped</title>
+    <meta property="og:type" content="website">
+    <meta name="description"
+        content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
+    <meta property="og:title" content="Researcher Development Framework Mapped">
+    <meta property="og:site_name" content="RDFmapped">
+    <meta name="robots" content="noindex, nofollow">
+
+    <%- include('../components/stylesheets'); -%>
+    <%- include('../components/scripts'); -%>
+
+
+    <!-- Set up Quill editor -->
+    <!-- Include stylesheet -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+</head>
+
+<body>
+    <%- include('../components/header'); -%>
+
+    <main class="page faq-page">
+        <section class="clean-block clean-faq dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Edit FAQ Entry</h2>
+                    <p>Go back to <a href="/admin">Admin Dashboard</a></p>
+                    <p>Go back to <a href="/admin/edit/faq">FAQ Entry Selector</a></p>
+                </div>
+                <div class="block-content">
+                    <div class="row" style="padding-bottom: 20px;">
+                        <h4 style="padding-right: 30px;">Edit the text below as you wish then make sure to hit save
+                            here:</h4>
+                    </div>
+                    <form action="/admin/edit/faq" method="POST" id="updateInfoForm" target="dummyframe">
+                        <button onclick="getEditorValue()" type="submit" class="btn btn-primary" name="answer"
+                            id="updatedInformationButton" value="cheese">Save &
+                            submit</button>
+                        <input type="text" name="id" hidden readonly value="<%= faq.id %>">
+                        <p style="padding-top: 15px;">Edit the FAQ question here (plain text only):</p>
+                        <input class="form-control" type="text" name="question" value="<%= faq.question %>">
+                    </form>
+
+                    <p style="padding-top: 15px;">Rich text editor for FAQ answer:</p>
+
+                    <!-- Create the editor container -->
+                    <div id="editor">
+                        <%- faq.answer %>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Changes submitted</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Your changes have been submitted.<br><br>
+                        If successful, the changes will be live immediately.<br>
+                        Navigate to the 'support' page to check if the info updated.<br><br>
+                        If the changes failed to update, something probably went wrong. Please refer to the system logs
+                        for more info and/or contact the devs
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a class="btn btn-info" href="/admin/edit/faq" role="button">Edit another FAQ entry</a>
+                        <a class="btn btn-primary" href="/support" role="button">Go to /support</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+    </main>
+
+    <%- include('../components/footer'); -%>
+
+    <!-- Include the Quill library -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <!-- Initialize Quill editor -->
+    <script>
+        const quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+    </script>
+    <script>
+        function getEditorValue() {
+            document.getElementById("updatedInformationButton").value = document.querySelector(".ql-editor").innerHTML;
+            $("#exampleModal").modal();
+        };
+    </script>
+</body>
+
+</html>

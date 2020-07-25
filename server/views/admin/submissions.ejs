@@ -4,66 +4,29 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Admin Panel - RDFmapped</title>
+    <title>Submissions - RDFmapped</title>
     <meta property="og:type" content="website">
     <meta name="description"
         content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
     <meta property="og:title" content="Researcher Development Framework Mapped">
     <meta property="og:site_name" content="RDFmapped">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, nofollow">
 
-    <%- include('./components/stylesheets'); -%>
-    <%- include('./components/scripts'); -%>
+    <%- include('../components/stylesheets'); -%>
+    <%- include('../components/scripts'); -%>
 </head>
 
 <body>
-    <%- include('./components/header'); -%>
+    <%- include('../components/header'); -%>
 
     <main class="page faq-page">
         <section class="clean-block clean-faq dark">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">Hi Dan</h2>
-                    <!-- <p>Frequently Asked Questions</p> -->
+                    <h2 class="text-info">Submissions</h2>
+                    <p>Go back to <a href="/admin">Admin Dashboard</a></p>
                 </div>
                 <div class="block-content">
-                    <h4 style="text-align: center; padding-bottom: 15px;">Stats</h4>
-                    <div class="row" style="padding-bottom: 25px;">
-                        <div class="col">
-                            <div class="card" style="width: 18rem;">
-                                <div class="card-body">
-                                    <h5 class="card-title"><%= courses.length %> featured courses</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted"><%= uniqueCourses.length %> unique</h6>
-                                    <p class="card-text">A course may have multiple RDF mappings</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card" style="width: 18rem;">
-                                <div class="card-body">
-                                    <h5 class="card-title"><%= videos.length %> featured videos</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted"><%= uniqueVideos.length %> unique</h6>
-                                    <p class="card-text">A video may have multiple RDF mappings</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card" style="width: 18rem;">
-                                <div class="card-body">
-                                    <h5 class="card-title"><%= submissions.length %> submission(s)</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">
-                                        <% var pendingCount = 0; submissions.forEach(e => { %>
-                                        <% if (e.status !== "published") { %>
-                                        <% ++pendingCount; %>
-                                        <% } %>
-                                        <% }); %>
-                                        <%= pendingCount %> require review
-                                    </h6>
-                                    <p class="card-text">Pending/failed submissions require manual review.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <h4 style="text-align: center; padding-bottom: 15px;">Submissions</h4>
                     <div class="row">
                         <div class="table-responsive">
@@ -128,7 +91,7 @@
         </section>
     </main>
 
-    <%- include('./components/footer'); -%>
+    <%- include('../components/footer'); -%>
 </body>
 
 </html>

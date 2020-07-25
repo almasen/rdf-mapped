@@ -1,69 +1,42 @@
 const informationRepository = require("../../repositories/information");
-
-/**
- * Creates a new information entry to be added to the database if type does not exist
- * else updates the current one.
- * @param {object} information A valid information entry
- * Fails if something goes wrong in db.
- */
-const changeInformation = async (information ) => {
-    const typeExists = await getInformationData(information.type.toString());
-    if (Object.keys(typeExists.data.information).length === 0) {
-        return await createNewInformation(information);
-    } else {
-        return await updateInformation(information);
-    }
-};
-
-/**
- * Creates a new information entry to be added to the database.
- * @param {object} information A valid information entry of a type that does not exist yet
- * Fails if type already exists
- */
-const createNewInformation = async (information) => {
-    const informationResult = await informationRepository.insert(information);
-    return ({
-        status: 200,
-        message: "Information entry created successfully",
-        data: {information: informationResult.rows[0]},
-    });
-};
+const cache = require("../cache");
 
 /**
  * Updates an information entry that already exists in the database.
- * @param {object} information A valid information object
- * Fails if database calls fail.
+ * Updates the record in the cache too.
+ * @param {Object} information a valid information object
+ * @return {Object} updated information entry
  */
 const updateInformation = async (information) => {
     const updateInformationResult = await informationRepository.update(information);
-    return ({
-        status: 200,
-        message: "Information entry updated successfully",
-        data: {information: updateInformationResult.rows[0]},
-    });
+    const updatedRecord = updateInformationResult.rows[0];
+    // if successful, cache it
+    cache.set(`information-${information.type}`, updatedRecord.content);
+    return updatedRecord;
 };
 
 /**
- * Gets data about an information entry that already exists in the database.
+ * Gets data about an information entry that already exists in
+ * the cache or database. Caches the value if only in DB.
+ * Does not validate that DB has the record!
  * @param {String} type type of information
- * Fails if database calls fail.
+ * @return {String} content of information entry
  */
 const getInformationData = async (type) => {
-    const informationResult = await informationRepository.findByType(type);
-    const information = informationResult.rows[0];
+    const cacheKey = `information-${type}`;
+    if (cache.has(cacheKey)) {
+        return cache.get(cacheKey);
+    } else {
+        const informationResult = await informationRepository.findByType(type);
+        const informationObject = informationResult.rows[0];
 
-    return ({
-        status: 200,
-        message: "Information entry fetched successfully",
-        data: {
-            information: {
-                ...information,
-            },
-        },
-    });
+        cache.set(cacheKey, informationObject.content);
+
+        return informationObject.content;
+    }
 };
 
 module.exports = {
     getInformationData,
-    changeInformation,
+    updateInformation,
 };

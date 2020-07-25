@@ -12,6 +12,8 @@ const sendResult = (result, httpResponse) => {
 
 const sendGenericError = (error, httpResponse) => httpResponse.status(500).send({message: error.message});
 
+const sendGenericSuccess = (httpResponse) => httpResponse.status(200).send({message: "Success."});
+
 const sendBuiltInError = (httpError, httpResponse) => httpResponse.status(httpError.status).send({message: httpError.message});
 
 const sendErrorWithRedirect = (status, message, httpResponse, token, data) => {
@@ -35,4 +37,5 @@ module.exports = {
     sendBuiltInError,
     sendErrorWithRedirect,
     sendBuiltInErrorWithRedirect,
+    sendGenericSuccess,
 };

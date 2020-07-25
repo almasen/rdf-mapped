@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('./components/google-analytics'); -%>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Privacy Policy - RDFmapped</title>
+    <meta property="og:type" content="website">
+    <meta name="description"
+        content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
+    <meta property="og:title" content="Researcher Development Framework Mapped">
+    <meta property="og:site_name" content="RDFmapped">
+    <meta name="robots" content="index, follow">
+
+    <%- include('./components/stylesheets'); -%>
+    <%- include('./components/scripts'); -%>
+    <style>
+        .anchor {
+            display: block;
+            height: 90px;
+            margin-top: -90px;
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('./components/header'); -%>
+
+    <main class="page faq-page">
+        <section class="clean-block clean-faq dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Privacy Policy</h2>
+                    <!-- <p>TBD</p> -->
+                </div>
+                <div class="block-content">
+                    <%- privacyInfo %>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('./components/footer'); -%>
+</body>
+
+</html>

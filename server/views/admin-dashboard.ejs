@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('./components/google-analytics'); -%>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Admin Dashboard - RDFmapped</title>
+    <meta property="og:type" content="website">
+    <meta name="description"
+        content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
+    <meta property="og:title" content="Researcher Development Framework Mapped">
+    <meta property="og:site_name" content="RDFmapped">
+    <meta name="robots" content="noindex, nofollow">
+
+    <%- include('./components/stylesheets'); -%>
+    <%- include('./components/scripts'); -%>
+</head>
+
+<body>
+    <%- include('./components/header'); -%>
+
+    <main class="page faq-page">
+        <section class="clean-block clean-faq dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Admin Dashboard</h2>
+                </div>
+                <div class="alert alert-light alert-dismissible fade show" role="alert" style="color: #0096a9;">
+                    <strong>Hi <%= adminName %>, welcome to the admin dashboard!</strong> Please use the menu below to edit content, review submissions, etc
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="block-content">
+                    <h4 style="text-align: center; padding-bottom: 15px;">Stats</h4>
+                    <div class="row" style="padding-bottom: 25px;">
+                        <div class="col">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= courses.length %> featured courses</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted"><%= uniqueCourses.length %> unique</h6>
+                                    <p class="card-text">A course may have multiple RDF mappings</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= videos.length %> featured videos</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted"><%= uniqueVideos.length %> unique</h6>
+                                    <p class="card-text">A video may have multiple RDF mappings</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= submissions.length %> submission(s)</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">
+                                        <% var pendingCount = 0; submissions.forEach(e => { %>
+                                        <% if (e.status !== "published") { %>
+                                        <% ++pendingCount; %>
+                                        <% } %>
+                                        <% }); %>
+                                        <%= pendingCount %> require review
+                                    </h6>
+                                    <p class="card-text">Pending/failed submissions require manual review.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h4 style="padding-bottom: 15px;">Admin menu</h4>
+                    <div class="btn-group-vertical">
+                        <a href="/admin/submissions" type="button" class="btn btn-primary">Review submissions</a>
+                        <a href="#" type="button" class="btn btn-primary">Add courses/videos</a>
+                        <a href="#" type="button" class="btn btn-primary">Bulk upload courses/videos</a>
+                        <a href="/admin/edit/faq" type="button" class="btn btn-primary">Edit FAQs (support page)</a>
+                        <a href="/admin/edit/information?type=about" type="button" class="btn btn-primary">Edit about us</a>
+                        <a href="/admin/edit/information?type=privacy" type="button" class="btn btn-primary">Edit privacy policy</a>
+                        <a href="/admin/edit/information?type=terms" type="button" class="btn btn-primary">Edit terms and conditions</a>
+                        <a href="/admin/edit/information?type=accessibility" type="button" class="btn btn-primary">Edit accessibility statement</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('./components/footer'); -%>
+</body>
+
+</html>

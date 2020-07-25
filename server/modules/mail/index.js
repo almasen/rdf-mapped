@@ -1,62 +1,32 @@
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 const log = require("../../util/log");
 
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_ADDRESS,
-        pass: process.env.EMAIL_PASSWORD,
-    },
-});
+// Configure interface
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 /**
- * Send a custom email asynchronously, returning a promise.
- * The sending of the email is skipped if in .env the
- * SKIP_MAIL_SENDING_FOR_TESTING flag is set to true.
- * @param {string} email
- * @param {string} subject
- * @param {string} text
- * @return {Promise}
+ * Send email asynchronously.
+ * Success or failure is logged.
+ * @param {String} from
+ * @param {String} to
+ * @param {String} subject
+ * @param {String} text
  */
-const sendEmail = (email, subject, text) => {
-    log.info("'%s': Sending email", email);
-    return new Promise((resolve, reject) => {
-        const mailOptions = {
-            from: process.env.EMAIL_ADDRESS,
-            to: email,
-            subject: subject,
-            text: text,
-        };
-        if (process.env.SKIP_MAIL_SENDING_FOR_TESTING == true) {
-            log.info("'%s': Skipping email sending", email);
-            const result = {
-                status: 200,
-                info: "testing",
-                message: "Email sent to " + email,
-            };
-            resolve(result);
-        } else {
-            transporter.sendMail(mailOptions, (err, info) => {
-                if (err) {
-                    log.error("'%s': Email sending failed: " + err, email);
-                    const result = {
-                        status: 500,
-                        info: err,
-                        message: "Email sending failed to " + email,
-                    };
-                    resolve(result);
-                } else {
-                    log.info("'%s': Email sent successfully", email);
-                    const result = {
-                        status: 200,
-                        info: info,
-                        message: "Email sent to " + email,
-                    };
-                    resolve(result);
-                }
-            });
-        }
-    });
+const sendEmail = async (from, to, subject, text) => {
+    log.info("'%s': Sending email to '%s'", from, to);
+    try {
+        await sgMail.send({
+            from: from ? from : process.env.DEFAULT_EMAIL_ADDRESS,
+            to,
+            subject,
+            text,
+            html: text,
+        });
+        log.info("'%s': Email sent successfully to '%s'", from, to);
+    } catch (error) {
+        log.error("'%s': Failed sending email to '%s', err: " +
+            error.message, from, to);
+    }
 };
 
 /**
@@ -65,15 +35,16 @@ const sendEmail = (email, subject, text) => {
  * of the email to be the server email address, but the
  * user's email is specified in the body of the email.
  * @param {string} email the user input contact email address
+ * @param {string} originalUrl
  * @param {string} report the user input bug report
  * @return {Promise}
  */
-const sendBugReport = (email, report) => {
-    log.info("Sending bug report: '%s'", report);
-    const toEmail = process.env.BUG_REPORT_EMAIL_ADDRESS;
-    const subject = "Bug Report";
-    const text = `Bug report from ${email ? email : "anonymous"}:\n${report}`;
-    return sendEmail(toEmail, subject, text);
+const sendBugReport = async (email, originalUrl, report) => {
+    log.info("Sending bug report for route: '%s'", originalUrl);
+    const fromToEmail = process.env.BUG_REPORT_EMAIL_ADDRESS;
+    const subject = `[rdfmapped.com] Bug Report for route: ${originalUrl}`;
+    const text = `Route: ${originalUrl} \nBug report from ${email ? email : "anonymous"}:\n${report}`;
+    return sendEmail(fromToEmail, fromToEmail, subject, text);
 };
 
 module.exports = {

@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <%- include('./components/google-analytics'); -%>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Login - RDFmapped</title>
@@ -10,7 +11,7 @@
         content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
     <meta property="og:title" content="Researcher Development Framework Mapped">
     <meta property="og:site_name" content="RDFmapped">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, nofollow">
 
     <%- include('./components/stylesheets'); -%>
 
@@ -26,9 +27,14 @@
             <div class="container">
                 <div class="block-heading">
                     <h2 class="text-info">Admin Log In</h2>
-                    <p>Log in to the admin panel</p>
+                    <p>Log in to the admin dashboard</p>
                 </div>
                 <form action="/admin/login" method="POST" id="submitLogin">
+                    <% if (locals.errorMsg) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= errorMsg %>
+                    </div>
+                    <% } %>
                     <div class="form-group">
                         <label for="email">Email</label><input class="form-control item" name="email" type="email"
                             id="email">

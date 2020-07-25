@@ -13,8 +13,9 @@ router.post('/', (req, res) => {
     log.info("%s: Sending us contact-us message..", req.body.email);
     try {
         mail.sendEmail(
-            process.env.EMAIL_ADDRESS,
-            `[RDFmapped] Contact-us: ${req.body.subject}`,
+            process.env.CONTACT_EMAIL_ADDRESS,
+            process.env.CONTACT_EMAIL_ADDRESS,
+            `[rdfmapped.com] Contact form: ${req.body.subject}`,
             `Contact request from ${req.body.email} - ${req.body.name}:\n${req.body.message}`,
         );
     } catch (error) {

@@ -13,6 +13,7 @@ router.get('/:id', async (req, res) => {
             course,
             similarCourseRecords,
             baseurl: req.baseUrl,
+            originalUrl: req.originalUrl,
         });
     } catch (error) {
         log.error("Course %s: Failed fetching course data, err: " + error.message, req.params.id);
