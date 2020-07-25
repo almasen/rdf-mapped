@@ -4,6 +4,7 @@ const mail = require("../../modules/mail");
 const log = require("../../util/log");
 
 router.get('/', (req, res) => {
+    log.error("Failed to render contact us page, err: " + error.message);
     res.render("contact-us.ejs", {
         baseurl: req.baseUrl,
     });
