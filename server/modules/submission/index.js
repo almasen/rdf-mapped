@@ -39,10 +39,11 @@ const insertNewSubmission = async (submission) => {
     await submissionRepo.insert(submission);
     if (submission.email) {
         mail.sendEmail(
+            process.env.SUBMISSION_EMAIL_ADDRESS,
             submission.email,
-            "RDFmapped Content Submission",
-            `Thank you very much for suggesting submitting content to the RDFmapped website, we really appreciate the contribution.\n` +
-            `You can track the progress of you submission via the following link: rdfmapped.com/submission/${submission.id}`);
+            "Your RDFmapped Content Submission",
+            `Thank you very much for submitting content to the RDFmapped website, we really appreciate the contribution.\n` +
+            `You can track the progress of you submission via the following link: https://rdfmapped.com/submission/${submission.id}`);
     }
     await attemptToFindURN(submission);
 };
