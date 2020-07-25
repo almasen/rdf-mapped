@@ -30,14 +30,14 @@
                 <div class="block-heading">
                     <h2 class="text-info">Edit FAQ Entry</h2>
                     <p>Go back to <a href="/admin">Admin Dashboard</a></p>
-                    <p>Go back to <a href="/admin/faq">FAQ Entry Selector</a></p>
+                    <p>Go back to <a href="/admin/edit/faq">FAQ Entry Selector</a></p>
                 </div>
                 <div class="block-content">
                     <div class="row" style="padding-bottom: 20px;">
                         <h4 style="padding-right: 30px;">Edit the text below as you wish then make sure to hit save
                             here:</h4>
                     </div>
-                    <form action="/admin/faq" method="POST" id="updateInfoForm" target="dummyframe">
+                    <form action="/admin/edit/faq" method="POST" id="updateInfoForm" target="dummyframe">
                         <button onclick="getEditorValue()" type="submit" class="btn btn-primary" name="answer"
                             id="updatedInformationButton" value="cheese">Save &
                             submit</button>
@@ -75,7 +75,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a class="btn btn-info" href="/admin/faq" role="button">Edit another FAQ entry</a>
+                        <a class="btn btn-info" href="/admin/edit/faq" role="button">Edit another FAQ entry</a>
                         <a class="btn btn-primary" href="/support" role="button">Go to /support</a>
                     </div>
                 </div>

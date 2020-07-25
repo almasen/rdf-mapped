@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const log = require("../../../util/log");
-const adminService = require("../../../modules/admin");
-const informationService = require("../../../modules/information");
+const log = require("../../../../util/log");
+const adminService = require("../../../../modules/admin");
+const informationService = require("../../../../modules/information");
 
 router.get('/', async (req, res) => {
     try {

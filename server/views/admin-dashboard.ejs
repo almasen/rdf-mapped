@@ -27,8 +27,7 @@
                     <h2 class="text-info">Admin Dashboard</h2>
                 </div>
                 <div class="alert alert-light alert-dismissible fade show" role="alert" style="color: #0096a9;">
-                    <strong>Hi <%= adminName %>, welcome to the admin dashboard!</strong> Please note that in case of a server restart, you may need to log-in
-                    again.
+                    <strong>Hi <%= adminName %>, welcome to the admin dashboard!</strong> Please use the menu below to edit content, review submissions, etc
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </a>
@@ -76,11 +75,11 @@
                         <a href="/admin/submissions" type="button" class="btn btn-primary">Review submissions</a>
                         <a href="#" type="button" class="btn btn-primary">Add courses/videos</a>
                         <a href="#" type="button" class="btn btn-primary">Bulk upload courses/videos</a>
-                        <a href="/admin/faq" type="button" class="btn btn-primary">Edit FAQs (support page)</a>
-                        <a href="/admin/information?type=about" type="button" class="btn btn-primary">Edit about us</a>
-                        <a href="/admin/information?type=privacy" type="button" class="btn btn-primary">Edit privacy policy</a>
-                        <a href="/admin/information?type=terms" type="button" class="btn btn-primary">Edit terms and conditions</a>
-                        <a href="/admin/information?type=accessibility" type="button" class="btn btn-primary">Edit accessibility statement</a>
+                        <a href="/admin/edit/faq" type="button" class="btn btn-primary">Edit FAQs (support page)</a>
+                        <a href="/admin/edit/information?type=about" type="button" class="btn btn-primary">Edit about us</a>
+                        <a href="/admin/edit/information?type=privacy" type="button" class="btn btn-primary">Edit privacy policy</a>
+                        <a href="/admin/edit/information?type=terms" type="button" class="btn btn-primary">Edit terms and conditions</a>
+                        <a href="/admin/edit/information?type=accessibility" type="button" class="btn btn-primary">Edit accessibility statement</a>
                     </div>
                 </div>
             </div>
