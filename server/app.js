@@ -76,6 +76,7 @@ app.use("/admin/login", require("./routes/admin/login"));
 app.use("/admin", require("./routes/admin"));
 app.use("/admin/information", require("./routes/admin/information"));
 app.use("/admin/faq", require("./routes/admin/faq"));
+app.use("/admin/new/faq", require("./routes/admin/new/faq"));
 app.use("/admin/submissions", require("./routes/admin/submissions"));
 
 // API routes (might be added in the future)
