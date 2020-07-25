@@ -52,9 +52,25 @@ const update = async (faq) => {
     return updateResult.rows[0];
 };
 
+/**
+ * Insert a new faq into the database.
+ * @param {String} question
+ * @param {String} answer
+ * @return {Object} new faq record
+ */
+const insert = async (question, answer) => {
+    const insertionResult = await faqRepo.insert({
+        question,
+        answer,
+    });
+    cache.del("faqs");
+    return insertionResult.rows[0];
+};
+
 module.exports = {
     fetchAll,
     fetchByKeyword,
     update,
+    insert,
     findById,
 };
