@@ -1,7 +1,7 @@
 const config = {};
 
 config.linkedinLearningAPI = {
-    ttl: 16, // in days // TODO:
+    ttl: 6, // in days
 };
 
 config.jose = {
