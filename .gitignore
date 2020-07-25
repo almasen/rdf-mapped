@@ -135,3 +135,5 @@ server/log/
 resources/data/createAdmins
 
 resources/data/admins.sql
+
+server/views/components/google-analytics.ejs
