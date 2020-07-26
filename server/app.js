@@ -34,7 +34,9 @@ app.use(session({
 }));
 
 // -- DDoS / bruteforce protection -- //
-// app.set('trust proxy', 1); // enable if behind a reverse proxy (Nginx, etc)
+if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1);
+}
 const limiter = rateLimit({
     windowMs: 5 * 60 * 1000, // 5 minutes
     max: 100, // limit each IP to 100 requests per windowMs
@@ -96,5 +98,6 @@ app.all("*", (req, res, next) => {
 // -- App startup logs -- //
 log.info(`App started successfully in ${process.env.NODE_ENV} environment...`);
 log.info(`View cache is ${app.get("view cache") ? "ENABLED" : "DISABLED"}`);
+log.info(`Trust proxy is ${app.get("trust proxy") ? "ENABLED" : "DISABLED"}`);
 
 module.exports = app;
