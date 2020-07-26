@@ -1,2 +1,0 @@
-#!/bin/bash
-sudo -i -u postgres -- psql -U postgres rdfdatabase < main_v1.4.2.sql
