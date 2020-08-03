@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('./components/google-analytics'); -%>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Submission - RDFmapped</title>
+    <meta property="og:type" content="website">
+    <meta name="description"
+        content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
+    <meta property="og:title" content="Researcher Development Framework Mapped">
+    <meta property="og:site_name" content="RDFmapped">
+    <meta name="robots" content="index, follow">
+
+    <%- include('./components/stylesheets'); -%>
+    <%- include('./components/scripts'); -%>
+
+    <script>
+        const contactSubmit = () => {
+            const form = document.getElementById("submitForm");
+            if (document.getElementById("submissionEmail").value === "") {
+                document.getElementById("hadPassWord").hidden = true;
+            } else {
+                document.getElementById("weWillReview").hidden = true;
+            }
+            document.getElementById("form-inner").hidden = true;
+            document.getElementById("form-after").hidden = false;
+        };
+        $(document).ready(() => {
+            $('#stepByStepSelectCapability').select2();
+            $('#stepByStepSelectCategory').select2();
+            $('#stepByStepSelectCompetency').select2();
+            $('#stepByStepSelectPhase').select2();
+        });
+        $.fn.select2.defaults.set("theme", "bootstrap");
+        localStorage.setItem("categoriesByParents", "<%= JSON.stringify(categoriesByParents) %>");
+        localStorage.setItem("competenciesByParents", "<%= JSON.stringify(competenciesByParents) %>");
+        function decodeHtml(html) {
+            var txt = document.createElement("textarea");
+            txt.innerHTML = html;
+            return txt.value;
+        }
+        const capabilityChange = ((obj) => {
+            const val = obj.value;
+            const optPlaceholder = document.createElement('option');
+            optPlaceholder.value = "-1";
+            optPlaceholder.innerHTML = "Subdomain";
+            optPlaceholder.selected = true;
+            optPlaceholder.disabled = true;
+            const optPlaceholder2 = document.createElement('option');
+            optPlaceholder2.value = "-1";
+            optPlaceholder2.innerHTML = "Competency";
+            optPlaceholder2.selected = true;
+            optPlaceholder2.disabled = true;
+            if (val === "-1") {
+                $('#stepByStepSelectCategory')
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append(optPlaceholder);
+                document.getElementById("stepByStepSelectCategory").disabled = true;
+                $('#stepByStepSelectCompetency')
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append(optPlaceholder2);
+                document.getElementById("stepByStepSelectCompetency").disabled = true;
+                return;
+            } else {
+                $('#stepByStepSelectCompetency')
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append(optPlaceholder2);
+                document.getElementById("stepByStepSelectCompetency").disabled = true;
+                const categoriesByParents = JSON.parse(decodeHtml(localStorage.getItem("categoriesByParents")));
+                const matchingCategories = categoriesByParents[val];
+                $('#stepByStepSelectCategory').removeAttr("disabled");
+                $('#stepByStepSelectCategory')
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append(optPlaceholder);
+                matchingCategories.forEach(e => {
+                    const opt = document.createElement('option');
+                    opt.value = e.id.toString();
+                    opt.innerHTML = e.title;
+                    $('#stepByStepSelectCategory').append(opt);
+                });
+            }
+        });
+        const categoryChange = ((obj) => {
+            const val = obj.value;
+            const optPlaceholder = document.createElement('option');
+            optPlaceholder.value = "-1";
+            optPlaceholder.innerHTML = "Competency";
+            optPlaceholder.selected = true;
+            optPlaceholder.disabled = true;
+            if (val === "-1") {
+                $('#stepByStepSelectCompetency')
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append(optPlaceholder);
+                document.getElementById("stepByStepSelectCompetency").disabled = true;
+                return;
+            } else {
+                const categoriesByParents = JSON.parse(decodeHtml(localStorage.getItem("competenciesByParents")));
+                const matchingCategories = categoriesByParents[val];
+                $('#stepByStepSelectCompetency').removeAttr("disabled");
+                $('#stepByStepSelectCompetency')
+                    .find('option')
+                    .remove()
+                    .end()
+                    .append(optPlaceholder);
+                matchingCategories.forEach(e => {
+                    const opt = document.createElement('option');
+                    opt.value = e.id.toString();
+                    opt.innerHTML = e.title;
+                    $('#stepByStepSelectCompetency').append(opt);
+                });
+            }
+        });
+        $(document).ready(() => {
+            document.forms.submitForm.type.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    document.forms.submitForm.action = ("/submit/" + document.forms.submitForm.type.value);
+                })
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <%- include('./components/header'); -%>
+
+    <main class="page faq-page">
+        <section class="clean-block clean-faq dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Submission Details</h2>
+                    <!-- <p>Frequently Asked Questions</p> -->
+                </div>
+                <div class="block-content">
+                    <% if (adminUse) { %>
+                        <div class="row" id="adminTools" style="padding-bottom: 25px;">
+                            <div class="col">Admin tools:</div>
+                            <div class="col"><a class="btn btn-primary" href="/submission/<%= id %>/map" role="button">Map to RDF params</a></div>
+                            <% if (submission.data.capabilityTitle === undefined) { %>
+                                <div class="col"><a class="btn btn-secondary" href="#" role="button">Approve & publish</a> <br>Only after mapped</div>
+                            <% } else { %>
+                                <div class="col"><a class="btn btn-success" href="/submission/<%= id %>/publish" role="button">Approve & publish</a></div>
+                            <% } %>
+                            <% if (submission.status === 'rejected') { %>
+                            <div class="col"><a class="btn btn-secondary" href="#" role="button">Reject</a> <br>Already rejected</div>
+                            <% } else { %>
+                            <div class="col"><a class="btn btn-danger" href="/submission/<%= id %>/reject" role="button">Reject</a></div>
+                            <% } %>
+                        </div>
+                    <% } %>
+                    <div class="row" style="margin: 26.5;">
+                        <div class="col-xl-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= submission.data.title %></h5>
+                                    <h6 class="card-subtitle mb-2 text-muted" style="padding-bottom: 10px !important;">
+                                        Learning content type: <%= submission.data.type.toLowerCase() %></h6>
+                                    <% if (submission.data.categoryTitle) { %>
+                                        <p class="card-text">Domain: <%= submission.data.capabilityTitle %></p>
+                                        <p class="card-text">Subdomain: <%= submission.data.categoryTitle %></p>
+                                        <p class="card-text">Descriptor: <%= submission.data.competencyTitle %></p>
+                                        <p class="card-text">Phase:
+                                            <% if (typeof submission.data.phases === "object") { %>
+                                            <%= submission.data.phases.join("/") %>
+                                            <% } else { %>
+                                            <%= submission.data.phases %>
+                                            <% } %>
+                                        </p>
+                                    <% } %>
+
+                                    <p class="card-text">URL: <i><a href="<%= submission.data.hyperlink %>"
+                                                target="_blank"
+                                                rel="noopener noreferrer"><%= submission.data.hyperlink %></a></i></p>
+                                    <p class="card-text">
+                                        <% if (submission.data.urn) { %>
+                                        URN: <%= submission.data.urn %>
+                                        <% } else { %>
+                                        URN: <i>unknown</i>
+                                        <% } %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="card" style="padding-top: 20px;">
+                            <form style="margin: 20px 20px 20px 20px;" action="/submission/<%= id %>/map" method="POST">
+                                <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
+                                    <h5 style="padding-bottom: 6px;">RDF Parameters</h5>
+                                    <select class="custom-select" name="capability" id="stepByStepSelectCapability" onchange="capabilityChange(this)"
+                                        required>
+                                        <option value="-1" selected disabled>Domain</option>
+                                        <% if (capabilities.length > 0) { %>
+                                        <% capabilities.forEach(e => { %>
+                                        <option value="<%= e.id %>"><%= e.title %></option>
+                                        <% }); %>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
+                                    <select class="custom-select" name="category" id="stepByStepSelectCategory" onchange="categoryChange(this)" disabled
+                                        required>
+                                        <option value="-1" selected disabled>Subdomain</option>
+                                        <% if (categories.length > 0) { %>
+                                        <% categories.forEach(e => { %>
+                                        <option value="<%= e.id %>"><%= e.title %></option>
+                                        <% }); %>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
+                                    <select class="custom-select" name="competency" id="stepByStepSelectCompetency" disabled required>
+                                        <option value="-1" selected disabled>Descriptor</option>
+                                        <% if (competencies.length > 0) { %>
+                                        <% competencies.forEach(e => { %>
+                                        <option value="<%= e.id %>"><%= e.title %></option>
+                                        <% }); %>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                <fieldset class="form-group">
+                                    Phase(s)<br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="phases" id="phases1" value="1">
+                                        <label class="form-check-label" for="phases1">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="phases" id="phases2" value="2">
+                                        <label class="form-check-label" for="phases2">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="phases" id="phases3" value="3">
+                                        <label class="form-check-label" for="phases3">3</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="phases" id="phases4" value="4">
+                                        <label class="form-check-label" for="phases4">4</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="phases" id="phases5" value="5">
+                                        <label class="form-check-label" for="phases5">5</label>
+                                    </div>
+                                    <small id="phasesHelp" class="form-text text-muted">Please only select more than one if the
+                                        learning material covers topics that match multiple RDF phases</small>
+                                </fieldset>
+                                <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Submit</button></div>
+                            </form>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Submission Info</h5>
+
+                                    <% if (submission.status === "processing") { %>
+                                    <p class="card-text">STATUS<br><span class="badge badge-pill badge-secondary"
+                                            style="background-color: grey;">processing</span><br>
+                                        <small><i>The automated system is processing the request..</i></small>
+                                    </p>
+                                    <% } else if (submission.status === "pending") { %>
+                                    <p class="card-text">STATUS<br><span class="badge badge-pill badge-light"
+                                            style="background-color: yellowgreen;">pending</span><br>
+                                        <small>
+                                            <i>The automated system successfully verified the integrity of the
+                                                submission. Now a member of our team will map to the RDF parameters &
+                                                publish the material.</i>
+                                        </small>
+                                    </p>
+                                    <% } else if (submission.status === "published") { %>
+                                    <p class="card-text">STATUS<br><span
+                                            class="badge badge-pill badge-success">published</span><br>
+                                        <small>
+                                            <i>Your submitted content has been approved & published! You can now <a
+                                                    href="/search">search for it</a> on the RDFmapped website.</i>
+                                        </small>
+                                    </p>
+                                    <% } else if (submission.status === "failed") { %>
+                                    <p class="card-text">STATUS<br><span class="badge badge-pill badge-dark"
+                                            style="background-color: orangered;">failed</span><br>
+                                        <small>
+                                            <i>Our automated system could not verify the submitted content. This could
+                                                be because of a typo in the URL or title.<br>Don't worry, a member of
+                                                our team will review your submission shortly.</i>
+                                        </small>
+                                    </p>
+                                    <% } else if (submission.status === "rejected") { %>
+                                    <p class="card-text">STATUS<br><span class="badge badge-pill badge-danger">rejected</span><br>
+                                        <small>
+                                            <i>Your submission has been rejected by a member of our team.<br>If you think this should not have happened, please <a href="/contact">get in touch with us</a>.</i>
+                                        </small>
+                                    </p>
+                                    <% } %>
+
+                                    <p class="card-text">SUBMITTED BY <br><i
+                                            style="color: #0096a9;"><%= submission.submitter %></i></p>
+                                    <p class="card-text">SUBMISSION DATE <br><i><%= submission.data.timestamp %></i></p>
+                                    <% if (submission.data.publishedAt) { %>
+                                    <p class="card-text">PUBLISHED AT<br><i><%= submission.data.publishedAt %></i></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('./components/footer'); -%>
+</body>
+
+</html>

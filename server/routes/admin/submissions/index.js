@@ -12,11 +12,18 @@ router.get('/', async (req, res) => {
             const adminName = adminService.authenticateAdmin(jwe);
             log.info("Successfully authenticated %s for admin dashboard, ref:" + jwe.split('.')[4], adminName);
 
-            const submissions = await submissionService.fetchAll();
+            let submissions = await submissionService.fetchAll();
+
+            const status = req.query.status;
+            if (status) {
+                submissions = submissions.filter(submission => submission.status === status);
+            }
+
             res.render("./admin/submissions.ejs", {
                 baseurl: req.baseUrl,
                 adminName,
                 submissions,
+                status,
             });
         } else {
             log.info("An attempted visit at admin dashboard without a jwe token, redirecting to admin/login");

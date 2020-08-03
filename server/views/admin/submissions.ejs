@@ -27,7 +27,18 @@
                     <p>Go back to <a href="/admin">Admin Dashboard</a></p>
                 </div>
                 <div class="block-content">
-                    <h4 style="text-align: center; padding-bottom: 15px;">Submissions</h4>
+                    <div class="form-group row">
+                        <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Show</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="exampleFormControlSelect1" onchange="location = this.value;">
+                                <option value="/admin/submissions">All</option>
+                                <option value="/admin/submissions?status=pending" <% if (status === 'pending') { %> <%= 'selected' %> <% } %> >Pending</option>
+                                <option value="/admin/submissions?status=rejected" <% if (status === 'rejected') { %> <%= 'selected' %> <% } %> >Rejected</option>
+                                <option value="/admin/submissions?status=failed" <% if (status === 'failed') { %> <%= 'selected' %> <% } %> >Failed</option>
+                                <option value="/admin/submissions?status=processing" <% if (status === 'processing') { %> <%= 'selected' %> <% } %> >Processing</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
@@ -37,9 +48,8 @@
                                         <!-- <th scope="col">Type</th> -->
                                         <th scope="col">Timestamp</th>
                                         <th scope="col">Submitter</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Authentication status</th>
                                         <th scope="col">Status</th>
+                                        <th scope="col">Title</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,18 +62,8 @@
                                             </a>
                                         </th>
                                         <!-- <td>Course</td> -->
-                                        <td><%= e.data.timestamp %></td>
+                                        <td><%= new Date(e.data.timestamp).toLocaleString() %></td>
                                         <td><%= e.submitter %></td>
-                                        <td><%= e.data.title %></td>
-                                        <td>
-                                            <% if (e.authenticationStatus === 1) { %>
-                                            <i style="color:limegreen">password verified</i>
-                                            <% } else if (e.authenticationStatus === 0) { %>
-                                            <i style="color: grey;">no password</i>
-                                            <% } else { %>
-                                            <i style="color:orange">invalid password</i>
-                                            <% } %>
-                                        </td>
                                         <td>
                                             <% if (e.status === "processing") { %>
                                             <span class="badge badge-pill badge-secondary"
@@ -77,8 +77,11 @@
                                             <% } else if (e.status === "failed") { %>
                                             <span class="badge badge-pill badge-dark"
                                                 style="background-color: orangered;">failed</span>
+                                            <% } else if (e.status === "rejected") { %>
+                                            <span class="badge badge-pill badge-danger">rejected</span>
                                             <% } %>
                                         </td>
+                                        <td><%= e.data.title %></td>
                                     </tr>
                                     <% }); %>
                                     <% } %>

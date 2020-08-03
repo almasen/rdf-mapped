@@ -28,6 +28,30 @@
                     <!-- <p>Frequently Asked Questions</p> -->
                 </div>
                 <div class="block-content">
+                    <% if (adminUse) { %>
+                        <div class="row" id="adminTools" style="padding-bottom: 25px;">
+                            <div class="col">Admin tools:</div>
+                            <% if (submission.status === "published") { %>
+                            <div class="col"><a class="btn btn-secondary" href="#" role="button">Map to RDF params</a> <br>Already published</div>
+                            <% } else { %>
+                            <div class="col"><a class="btn btn-primary" href="/submission/<%= id %>/map" role="button">Map to RDF params</a></div>
+                            <% } %>
+                            <% if (submission.data.capabilityTitle === undefined) { %>
+                                <div class="col"><a class="btn btn-secondary" href="#" role="button">Approve & publish</a> <br>Only after mapped</div>
+                            <% } else if (submission.status === "published") { %>
+                                <div class="col"><a class="btn btn-secondary" href="#" role="button">Approve & publish</a> <br>Already published</div>
+                            <% } else { %>
+                                <div class="col"><a class="btn btn-success" href="/submission/<%= id %>/publish" role="button">Approve & publish</a></div>
+                            <% } %>
+                            <% if (submission.status === 'rejected') { %>
+                            <div class="col"><a class="btn btn-secondary" href="#" role="button">Reject</a> <br>Already rejected</div>
+                            <% } else if (submission.status === "published") { %>
+                            <div class="col"><a class="btn btn-secondary" href="#" role="button">Reject</a> <br>Already published</div>
+                            <% } else { %>
+                            <div class="col"><a class="btn btn-danger" href="/submission/<%= id %>/reject" role="button">Reject</a></div>
+                            <% } %>
+                        </div>
+                    <% } %>
                     <div class="row" style="margin: 26.5;">
                         <div class="col-xl-8">
                             <div class="card">
@@ -35,16 +59,19 @@
                                     <h5 class="card-title"><%= submission.data.title %></h5>
                                     <h6 class="card-subtitle mb-2 text-muted" style="padding-bottom: 10px !important;">
                                         Learning content type: <%= submission.data.type.toLowerCase() %></h6>
-                                    <p class="card-text">Domain: <%= submission.data.capabilityTitle %></p>
-                                    <p class="card-text">Subdomain: <%= submission.data.categoryTitle %></p>
-                                    <p class="card-text">Descriptor: <%= submission.data.competencyTitle %></p>
-                                    <p class="card-text">Phase:
-                                        <% if (typeof submission.data.phases === "object") { %>
-                                        <%= submission.data.phases.join("/") %>
-                                        <% } else { %>
-                                        <%= submission.data.phases %>
-                                        <% } %>
-                                    </p>
+                                    <% if (submission.data.categoryTitle) { %>
+                                        <p class="card-text">Domain: <%= submission.data.capabilityTitle %></p>
+                                        <p class="card-text">Subdomain: <%= submission.data.categoryTitle %></p>
+                                        <p class="card-text">Descriptor: <%= submission.data.competencyTitle %></p>
+                                        <p class="card-text">Phase:
+                                            <% if (typeof submission.data.phases === "object") { %>
+                                            <%= submission.data.phases.join("/") %>
+                                            <% } else { %>
+                                            <%= submission.data.phases %>
+                                            <% } %>
+                                        </p>
+                                    <% } %>
+
                                     <p class="card-text">URL: <i><a href="<%= submission.data.hyperlink %>"
                                                 target="_blank"
                                                 rel="noopener noreferrer"><%= submission.data.hyperlink %></a></i></p>
@@ -73,8 +100,8 @@
                                             style="background-color: yellowgreen;">pending</span><br>
                                         <small>
                                             <i>The automated system successfully verified the integrity of the
-                                                submission. Now a member of our team will review the RDF parameters &
-                                                publish the material if found to be in order.</i>
+                                                submission. Now a member of our team will map to the RDF parameters &
+                                                publish the material.</i>
                                         </small>
                                     </p>
                                     <% } else if (submission.status === "published") { %>
@@ -91,7 +118,13 @@
                                         <small>
                                             <i>Our automated system could not verify the submitted content. This could
                                                 be because of a typo in the URL or title.<br>Don't worry, a member of
-                                                our team will review your submission shortly!</i>
+                                                our team will review your submission shortly.</i>
+                                        </small>
+                                    </p>
+                                    <% } else if (submission.status === "rejected") { %>
+                                    <p class="card-text">STATUS<br><span class="badge badge-pill badge-danger">rejected</span><br>
+                                        <small>
+                                            <i>Your submission has been rejected by a member of our team.<br>If you think this should not have happened, please <a href="/contact">get in touch with us</a>.</i>
                                         </small>
                                     </p>
                                     <% } %>
@@ -99,15 +132,6 @@
                                     <p class="card-text">SUBMITTED BY <br><i
                                             style="color: #0096a9;"><%= submission.submitter %></i></p>
                                     <p class="card-text">SUBMISSION DATE <br><i><%= submission.data.timestamp %></i></p>
-                                    <p class="card-text">
-                                        <% if (submission.authenticationStatus === 1) { %>
-                                        VERIFICATION STATUS<br><i style="color:limegreen"><b>password verified</b></i>
-                                        <% } else if (submission.authenticationStatus === 0) { %>
-                                        VERIFICATION STATUS<br><i style="color: grey;"><b>no password provided</b></i>
-                                        <% } else { %>
-                                        VERIFICATION STATUS<br><i style="color:orange"><b>invalid password</b></i>
-                                        <% } %>
-                                    </p>
                                     <% if (submission.data.publishedAt) { %>
                                     <p class="card-text">PUBLISHED AT<br><i><%= submission.data.publishedAt %></i></p>
                                     <% } %>

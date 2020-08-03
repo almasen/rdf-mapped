@@ -108,9 +108,8 @@ CREATE TABLE learning_object
 CREATE TABLE submission
 (
     id varchar(64) NOT NULL,
-    status varchar(32) NOT NULL,
+    status varchar(32) NOT NULL DEFAULT 'processing',
     submitter varchar(32) DEFAULT 'anonymous',
-    authentication_status INT DEFAULT 0 NOT NULL,
     data jsonb,
     CONSTRAINT submission_pk PRIMARY KEY (id)
 );
