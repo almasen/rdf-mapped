@@ -57,8 +57,6 @@ app.use("/search", require("./routes/search"));
 app.use("/download", require("./routes/download"));
 // Content submission
 app.use("/submit", require("./routes/submit"));
-app.use("/submit/course", require("./routes/submit/course"));
-app.use("/submit/video", require("./routes/submit/video"));
 app.use("/submission", require("./routes/submission"));
 
 // Information routes
