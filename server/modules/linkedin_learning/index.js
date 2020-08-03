@@ -121,7 +121,7 @@ const fetchLearningObject = async (urn) => {
  * @return {String} URN or undefined
  */
 const fetchURNByContent = async (learningObject, type) => {
-    log.info("LinkedIn-L API: Attempting to find matching URN for %s (%s)", type, learningObject.title);
+    log.info("LinkedIn-L API: Attempting to find matching URN for %s (%s)", type, learningObject.data.title);
     try {
         const response = await got("https://api.linkedin.com/v2/learningAssets", {
             responseType: "json",
@@ -134,19 +134,42 @@ const fetchURNByContent = async (learningObject, type) => {
                 "count": 10,
                 "assetRetrievalCriteria.includeRetired": false,
                 "assetRetrievalCriteria.expandDepth": 1,
-                "assetFilteringCriteria.keyword": learningObject.title,
+                "assetFilteringCriteria.keyword": learningObject.data.title,
                 "assetFilteringCriteria.assetTypes[0]": type,
                 "fields": "urn,details:(urls:(webLaunch))",
+            },
+            hooks: {
+                afterResponse: [
+                    async (response, retryWithNewToken) => {
+                        if (response.statusCode === 401 && failedRenewals === 0) { // Unauthorized
+                            log.error("LinkedIn-L API: failed to authenticate for learning asset endpoint. " +
+                                "Attempting to retry with a new access token..");
+                            await renewAccessToken();
+
+                            // Retry
+                            log.debug("LinkedIn-L API: Retrying with new access token...");
+                            return retryWithNewToken();
+                        }
+
+                        // No changes otherwise
+                        return response;
+                    },
+                ],
+                beforeRetry: [
+                    async (options, error, retryCount) => {
+                        options.headers.Authorization = getOAuthToken();
+                    },
+                ],
             },
         });
         const elements = response.body.elements;
         for (const e of elements) {
-            if (learningObject.hyperlink.startsWith(e.details.urls.webLaunch.substring(0, e.details.urls.webLaunch.length -2))) {
-                log.info("LinkedIn-L API: Found matching URN for %s (%s) - (%s)", type, learningObject.title, e.urn);
+            if (learningObject.data.hyperlink.startsWith(e.details.urls.webLaunch.substring(0, e.details.urls.webLaunch.length -2))) {
+                log.info("LinkedIn-L API: Found matching URN for %s (%s) - (%s)", type, learningObject.data.title, e.urn);
                 return e.urn;
             }
         }
-        log.error("LinkedIn-L API: No matching URN found for %s (%s)", type, learningObject.title);
+        log.error("LinkedIn-L API: No matching URN found for %s (%s)", type, learningObject.data.title);
     } catch (error) {
         log.error("LinkedIn-L API: Failed to GET learning assets endpoint, err: " + error.message);
     }
