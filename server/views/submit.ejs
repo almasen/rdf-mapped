@@ -17,119 +17,25 @@
     <%- include('./components/scripts'); -%>
 
     <script>
-        const contactSubmit = () => {
-            const form = document.getElementById("submitForm");
-            if (document.getElementById("submissionEmail").value === "") {
-                document.getElementById("hadPassWord").hidden = true;
-            } else {
-                document.getElementById("weWillReview").hidden = true;
-            }
-            document.getElementById("form-inner").hidden = true;
-            document.getElementById("form-after").hidden = false;
-        };
         $(document).ready(() => {
-            $('#stepByStepSelectCapability').select2();
-            $('#stepByStepSelectCategory').select2();
-            $('#stepByStepSelectCompetency').select2();
-            $('#stepByStepSelectPhase').select2();
-        });
-        $.fn.select2.defaults.set("theme", "bootstrap");
-        localStorage.setItem("categoriesByParents", "<%= JSON.stringify(categoriesByParents) %>");
-        localStorage.setItem("competenciesByParents", "<%= JSON.stringify(competenciesByParents) %>");
-        function decodeHtml(html) {
-            var txt = document.createElement("textarea");
-            txt.innerHTML = html;
-            return txt.value;
-        }
-        const capabilityChange = ((obj) => {
-            const val = obj.value;
-            const optPlaceholder = document.createElement('option');
-            optPlaceholder.value = "-1";
-            optPlaceholder.innerHTML = "Subdomain";
-            optPlaceholder.selected = true;
-            optPlaceholder.disabled = true;
-            const optPlaceholder2 = document.createElement('option');
-            optPlaceholder2.value = "-1";
-            optPlaceholder2.innerHTML = "Competency";
-            optPlaceholder2.selected = true;
-            optPlaceholder2.disabled = true;
-            if (val === "-1") {
-                $('#stepByStepSelectCategory')
-                    .find('option')
-                    .remove()
-                    .end()
-                    .append(optPlaceholder);
-                document.getElementById("stepByStepSelectCategory").disabled = true;
-                $('#stepByStepSelectCompetency')
-                    .find('option')
-                    .remove()
-                    .end()
-                    .append(optPlaceholder2);
-                document.getElementById("stepByStepSelectCompetency").disabled = true;
-                return;
-            } else {
-                $('#stepByStepSelectCompetency')
-                    .find('option')
-                    .remove()
-                    .end()
-                    .append(optPlaceholder2);
-                document.getElementById("stepByStepSelectCompetency").disabled = true;
-                const categoriesByParents = JSON.parse(decodeHtml(localStorage.getItem("categoriesByParents")));
-                const matchingCategories = categoriesByParents[val];
-                $('#stepByStepSelectCategory').removeAttr("disabled");
-                $('#stepByStepSelectCategory')
-                    .find('option')
-                    .remove()
-                    .end()
-                    .append(optPlaceholder);
-                matchingCategories.forEach(e => {
-                    const opt = document.createElement('option');
-                    opt.value = e.id.toString();
-                    opt.innerHTML = e.title;
-                    $('#stepByStepSelectCategory').append(opt);
-                });
-            }
-        });
-        const categoryChange = ((obj) => {
-            const val = obj.value;
-            const optPlaceholder = document.createElement('option');
-            optPlaceholder.value = "-1";
-            optPlaceholder.innerHTML = "Competency";
-            optPlaceholder.selected = true;
-            optPlaceholder.disabled = true;
-            if (val === "-1") {
-                $('#stepByStepSelectCompetency')
-                    .find('option')
-                    .remove()
-                    .end()
-                    .append(optPlaceholder);
-                document.getElementById("stepByStepSelectCompetency").disabled = true;
-                return;
-            } else {
-                const categoriesByParents = JSON.parse(decodeHtml(localStorage.getItem("competenciesByParents")));
-                const matchingCategories = categoriesByParents[val];
-                $('#stepByStepSelectCompetency').removeAttr("disabled");
-                $('#stepByStepSelectCompetency')
-                    .find('option')
-                    .remove()
-                    .end()
-                    .append(optPlaceholder);
-                matchingCategories.forEach(e => {
-                    const opt = document.createElement('option');
-                    opt.value = e.id.toString();
-                    opt.innerHTML = e.title;
-                    $('#stepByStepSelectCompetency').append(opt);
-                });
-            }
-        });
-        $(document).ready(() => {
-            document.forms.submitForm.type.forEach(radio => {
-                radio.addEventListener('change', () => {
-                    document.forms.submitForm.action = ("/submit/" + document.forms.submitForm.type.value);
-                })
+            $("#submitForm").submit((event) => {
+                const recaptcha = $("#g-recaptcha-response").val();
+                if (recaptcha === "") {
+                    event.preventDefault();
+                    document.getElementById("pleaseCompleteCaptcha").hidden = false;
+                    return;
+                };
+                if (document.getElementById("submissionEmail").value === "") {
+                    document.getElementById("hadEmail").hidden = true;
+                } else {
+                    document.getElementById("weWillReview").hidden = true;
+                }
+                document.getElementById("form-inner").hidden = true;
+                document.getElementById("form-after").hidden = false;
             });
         });
     </script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -142,7 +48,7 @@
                     <h2 class="text-info">Submit Content</h2>
                     <p>Here you can submit a new course or video that will be featured on the RDFmapped website.</p>
                 </div>
-                <form action="/submit" method="POST" target="dummyIFrame" onsubmit="contactSubmit();" id="submitForm">
+                <form action="/submit" method="POST" target="dummyIFrame" id="submitForm">
                     <div id="form-inner">
                         <fieldset class="form-group">
                             <h5 style="padding-bottom: 6px;">Type of content</h5>
@@ -156,65 +62,6 @@
                                     value="VIDEO" required>
                                 <label class="form-check-label" for="inlineRadio12">Video</label>
                             </div>
-                        </fieldset>
-                        <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
-                            <h5 style="padding-bottom: 6px;">RDF Parameters</h5>
-                            <select class="custom-select" name="capability" id="stepByStepSelectCapability"
-                                onchange="capabilityChange(this)" required>
-                                <option value="-1" selected disabled>Domain</option>
-                                <% if (capabilities.length > 0) { %>
-                                <% capabilities.forEach(e => { %>
-                                <option value="<%= e.id %>"><%= e.title %></option>
-                                <% }); %>
-                                <% } %>
-                            </select>
-                        </div>
-                        <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
-                            <select class="custom-select" name="category" id="stepByStepSelectCategory"
-                                onchange="categoryChange(this)" disabled required>
-                                <option value="-1" selected disabled>Subdomain</option>
-                                <% if (categories.length > 0) { %>
-                                <% categories.forEach(e => { %>
-                                <option value="<%= e.id %>"><%= e.title %></option>
-                                <% }); %>
-                                <% } %>
-                            </select>
-                        </div>
-                        <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
-                            <select class="custom-select" name="competency" id="stepByStepSelectCompetency" disabled
-                                required>
-                                <option value="-1" selected disabled>Descriptor</option>
-                                <% if (competencies.length > 0) { %>
-                                <% competencies.forEach(e => { %>
-                                <option value="<%= e.id %>"><%= e.title %></option>
-                                <% }); %>
-                                <% } %>
-                            </select>
-                        </div>
-                        <fieldset class="form-group">
-                            Phase(s)<br>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="phases" id="phases1" value="1">
-                                <label class="form-check-label" for="phases1">1</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="phases" id="phases2" value="2">
-                                <label class="form-check-label" for="phases2">2</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="phases" id="phases3" value="3">
-                                <label class="form-check-label" for="phases3">3</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="phases" id="phases4" value="4">
-                                <label class="form-check-label" for="phases4">4</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="phases" id="phases5" value="5">
-                                <label class="form-check-label" for="phases5">5</label>
-                            </div>
-                            <small id="phasesHelp" class="form-text text-muted">Please only select more than one if the
-                                learning material covers topics that match multiple RDF phases</small>
                         </fieldset>
                         <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                             Title
@@ -234,20 +81,20 @@
                             <small id="emailHelp" class="form-text text-muted">We'll send you a link where you can track
                                 the status of your submission.</small>
                         </div>
-                        <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
-                            Submission password (optional)
-                            <input type="password" class="form-control" id="submitPassword" name="password">
-                            <small id="submitPassword" class="form-text text-muted">If you do not have a content
-                                submission password, just leave this box empty and your suggested content will be
-                                reviewed by a member of staff shortly.</small>
+
+                        <div class="alert alert-warning" role="alert" id="pleaseCompleteCaptcha" hidden>
+                            Please complete the reCAPTCHA
                         </div>
+
+                        <div class="g-recaptcha" data-sitekey="<%= reCAPTCHASiteKey %>" style="padding-bottom: 20px;"></div>
+
                         <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Submit</button>
                         </div>
                     </div>
                     <div id="form-after" hidden>
                         <label>Thank you very much for your submission.</label>
                         <label id="weWillReview">We will review it shortly.</label>
-                        <label id="hadPassWord">Since you provided an email address, you'll shortly receive a link where
+                        <label id="hadEmail">Since you provided an email address, you'll shortly receive a link where
                             you can track the status of your submission.<br><br>If you don't see the e-mail within a few minutes, please also check your spam folder. If you still can't find it, please <a href="/contact">contact us</a>.</label>
                     </div>
                 </form>
