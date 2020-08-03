@@ -77,6 +77,8 @@
                                             <% } else if (e.status === "failed") { %>
                                             <span class="badge badge-pill badge-dark"
                                                 style="background-color: orangered;">failed</span>
+                                            <% } else if (e.status === "rejected") { %>
+                                            <span class="badge badge-pill badge-danger">rejected</span>
                                             <% } %>
                                         </td>
                                         <td><%= e.data.title %></td>
