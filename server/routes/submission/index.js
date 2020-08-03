@@ -3,6 +3,11 @@ const router = express.Router();
 const log = require("../../util/log");
 const submissionService = require("../../modules/submission");
 const adminService = require("../../modules/admin");
+const capabilityService = require("../../modules/capability");
+const categoryService = require("../../modules/category");
+const competencyService = require("../../modules/competency");
+const phaseService = require("../../modules/phase");
+const filtering = require("../../modules/filtering");
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
@@ -59,7 +64,27 @@ router.get('/:id/:action', async (req, res) => {
 
                 case "map":
                     adminUseCase = "map";
-                    break;
+                    const capabilities = await capabilityService.fetchAll();
+                    const categories = await categoryService.fetchAll();
+                    const categoriesByParents = filtering.groupByParent(categories, "capabilityId");
+                    const competencies = await competencyService.fetchAll();
+                    const competenciesByParents = filtering.groupByParent(competencies, "categoryId");
+                    const phases = await phaseService.fetchAll();
+                    const submission = await submissionService.fetchById(id);
+                    res.render('map-submission.ejs', {
+                        baseurl: req.baseUrl,
+                        submission,
+                        adminUse: true,
+                        adminUseCase,
+                        id,
+                        capabilities,
+                        competencies,
+                        categories,
+                        categoriesByParents,
+                        competenciesByParents,
+                        phases,
+                    });
+                    return;
 
                 default:
                     throw new Error("Unknown admin use case " + action);
@@ -84,6 +109,24 @@ router.get('/:id/:action', async (req, res) => {
         log.error("Failed to authenticate for submission(id:%s)/%s, err: " + error.message,
             id, action);
         res.redirect("/admin/login");
+    }
+});
+
+router.post('/:id/map', async (req, res) => {
+    const id = req.params.id;
+    log.info("Submission %s: Fetching submission data", id);
+    try {
+        const jwe = req.cookies.jwe;
+        adminService.authenticateAdmin(jwe);
+
+        await submissionService.mapSubmission(id, req.body.capability, req.body.category, req.body.competency, req.body.phases);
+
+        res.redirect(`/submission/${id}`);
+    } catch (error) {
+        log.error("Failed rendering submission page, err:" + error.message);
+        res.status(404).render('404.ejs', {
+            baseurl: "",
+        });
     }
 });
 

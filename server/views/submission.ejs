@@ -31,14 +31,22 @@
                     <% if (adminUse) { %>
                         <div class="row" id="adminTools" style="padding-bottom: 25px;">
                             <div class="col">Admin tools:</div>
+                            <% if (submission.status === "published") { %>
+                            <div class="col"><a class="btn btn-secondary" href="#" role="button">Map to RDF params</a> <br>Already published</div>
+                            <% } else { %>
                             <div class="col"><a class="btn btn-primary" href="/submission/<%= id %>/map" role="button">Map to RDF params</a></div>
+                            <% } %>
                             <% if (submission.data.capabilityTitle === undefined) { %>
                                 <div class="col"><a class="btn btn-secondary" href="#" role="button">Approve & publish</a> <br>Only after mapped</div>
+                            <% } else if (submission.status === "published") { %>
+                                <div class="col"><a class="btn btn-secondary" href="#" role="button">Approve & publish</a> <br>Already published</div>
                             <% } else { %>
                                 <div class="col"><a class="btn btn-success" href="/submission/<%= id %>/publish" role="button">Approve & publish</a></div>
                             <% } %>
                             <% if (submission.status === 'rejected') { %>
                             <div class="col"><a class="btn btn-secondary" href="#" role="button">Reject</a> <br>Already rejected</div>
+                            <% } else if (submission.status === "published") { %>
+                            <div class="col"><a class="btn btn-secondary" href="#" role="button">Reject</a> <br>Already published</div>
                             <% } else { %>
                             <div class="col"><a class="btn btn-danger" href="/submission/<%= id %>/reject" role="button">Reject</a></div>
                             <% } %>

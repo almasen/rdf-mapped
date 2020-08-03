@@ -40,7 +40,6 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     log.info("Submitting a new %s..", req.body.type);
     try {
-        console.log(req.body);
         const captchaVerified = await captchaService.verifyResponse(req.body['g-recaptcha-response']);
         if (!captchaVerified) {
             return httpUtil.sendResult({

@@ -6,6 +6,9 @@ const courseService = require("../course");
 const videoService = require("../video");
 const mail = require("../mail");
 const util = require("../../util/");
+const capabilityService = require("../capability");
+const categoryService = require("../category");
+const competencyService = require("../competency");
 
 const fetchById = async (id) => {
     const findResult = await submissionRepo.findById(id);
@@ -32,8 +35,22 @@ const generateSubmissionID = (email, timestamp) => {
 
 const rejectSubmission = async (id) => {
     const submission = await fetchById(id);
-    console.log(submission);
     submission.status = 'rejected';
+    await updateSubmission(submission);
+};
+
+const mapSubmission = async (id, capability, category, competency, phases) => {
+    const submission = await fetchById(id);
+    submission.data.capability = capability;
+    submission.data.category = category;
+    submission.data.competency = competency;
+    submission.data.phases = phases;
+    const capabilityObj = await capabilityService.fetchById(capability);
+    const categoryObj = await categoryService.fetchById(category);
+    const competencyObj = await competencyService.fetchById(competency);
+    submission.data.capabilityTitle = capabilityObj.title;
+    submission.data.categoryTitle = categoryObj.title;
+    submission.data.competencyTitle = competencyObj.title;
     await updateSubmission(submission);
 };
 
@@ -42,12 +59,12 @@ const publishSubmission = async (id) => {
     if (!submission.data.urn) {
         throw new Error("Mustn't publish submission without a URN!");
     }
-    if (!submission.data.capabilityId) {
+    if (!submission.data.capability) {
         throw new Error("Mustn't publish submission without an RDF mapping!");
     }
-    submission.type === "COURSE" ?
-        await courseService.addNewCourse(submission) :
-        await videoService.addNewVideo(submission);
+    submission.data.type === "COURSE" ?
+        await courseService.addNewCourse(submission.data) :
+        await videoService.addNewVideo(submission.data);
     submission.status = "published";
     await updateSubmission(submission);
 };
@@ -98,4 +115,5 @@ module.exports = {
     fetchAll,
     rejectSubmission,
     publishSubmission,
+    mapSubmission,
 };
