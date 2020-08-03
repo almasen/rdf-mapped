@@ -30,6 +30,28 @@ const generateSubmissionID = (email, timestamp) => {
     );
 };
 
+const rejectSubmission = async (id) => {
+    const submission = await fetchById(id);
+    console.log(submission);
+    submission.status = 'rejected';
+    await updateSubmission(submission);
+};
+
+const publishSubmission = async (id) => {
+    const submission = await fetchById(id);
+    if (!submission.data.urn) {
+        throw new Error("Mustn't publish submission without a URN!");
+    }
+    if (!submission.data.capabilityId) {
+        throw new Error("Mustn't publish submission without an RDF mapping!");
+    }
+    submission.type === "COURSE" ?
+        await courseService.addNewCourse(submission) :
+        await videoService.addNewVideo(submission);
+    submission.status = "published";
+    await updateSubmission(submission);
+};
+
 const insertNewSubmission = async (type, title, hyperlink, email) => {
     const timestamp = (new Date()).toUTCString();
     const id = generateSubmissionID(email, timestamp);
@@ -47,7 +69,6 @@ const insertNewSubmission = async (type, title, hyperlink, email) => {
             `Thank you very much for submitting content to the RDFmapped website, we really appreciate the contribution.\n` +
             `You can track the progress of you submission via the following link: https://rdfmapped.com/submission/${id}`);
     }
-    console.log(insertionResult.rows[0]);
     attemptToFindURN(insertionResult.rows[0]);
 };
 
@@ -67,19 +88,14 @@ const attemptToFindURN = async (submission) => {
     }
 };
 
-const publishSubmission = async (submission) => {
-    submission.type === "COURSE" ?
-        await courseService.addNewCourse(submission) :
-        await videoService.addNewVideo(submission);
-};
-
 const updateSubmission = async (submission) => {
-    const updateResult = await submissionRepo.update(submission);
-    console.log(updateResult.rows[0]);
+    await submissionRepo.update(submission);
 };
 
 module.exports = {
     fetchById,
     insertNewSubmission,
     fetchAll,
+    rejectSubmission,
+    publishSubmission,
 };
