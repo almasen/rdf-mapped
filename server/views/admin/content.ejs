@@ -26,8 +26,28 @@
                 <div class="block-heading">
                     <h2 class="text-info">Courses</h2>
                     <p>Go back to <a href="/admin">Admin Dashboard</a></p>
-                    <p>Go back to <a href="/admin/content">content type selector (course/video)</a></p>
                 </div>
+                <div class="form-group row">
+                    <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Show</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="exampleFormControlSelect1" onchange="location = this.value;">
+                            <option value="/admin/content?type=course" <% if (type === 'course') { %> <%= 'selected' %>
+                                <% } %>>Courses</option>
+                            <option value="/admin/content?type=video" <% if (type === 'video') { %> <%= 'selected' %>
+                                <% } %>>Videos</option>
+                        </select>
+                    </div>
+                </div>
+                <h4>How to use?</h4>
+                <ul>
+                    <li>If you wish to see all mappings of a single course, filter by a title</li>
+                    <li>If you wish <b>to add another mapping for a course, use Copy</b></li>
+                    <li>If you wish to edit a mapping, use Edit</li>
+                    <li>If you wish to remove a mapping for a course, use Del</li>
+                    <li>If you wish to remove a course completely, you must remove all of its mappings</li>
+                    <li>Short forms: D - domain, SD - subdomain, Lvl - Phases, Dupl. - duplicate</li>
+                    <li>Course titles and hyperlinks can't be edited, those are pulled from LinkedIn Learning</li>
+                </ul>
                 <div class="card" id="TableSorterCard">
                     <div class="row table-topper align-items-center">
                         <div class="col-4 text-left" style="margin: 0px;padding: 5px 15px;"><button class="btn btn-primary btn-sm reset"
@@ -51,18 +71,16 @@
                                 <table class="table table tablesorter" id="ipi-table">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>#</th>
+                                            <th>ID</th>
                                             <th>Title</th>
                                             <th>D</th>
                                             <th>SD</th>
                                             <th>Descriptor</th>
-                                            <th>Phases</th>
-                                            <th class="filter-false sorter-false">Duplicate</th>
+                                            <th>Lvl</th>
+                                            <th>View</th>
+                                            <th class="filter-false sorter-false">Dupl.</th>
                                             <th class="filter-false sorter-false">Edit</th>
                                             <th class="filter-false sorter-false">Delete</th>
-                                            <!-- <th class="sorter-false"> RDF 2 No Sort</th>
-                                            <th class="filter-false">Phase 3 No Filter</th>
-                                            <th class="filter-false sorter-false">Column 4 No Sort No Filter</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -75,7 +93,8 @@
                                                     <td><%= e.categoryTitle.substring(0,2) %></td>
                                                     <td><%= e.competencyTitle %></td>
                                                     <td><%= e.phases.join("/") %></td>
-                                                    <td><button type="button" class="btn btn-primary">Copy</button></td>
+                                                    <td><button type="button" class="btn btn-primary">View</button></td>
+                                                    <td><button type="button" class="btn btn-success">Copy</button></td>
                                                     <td><button type="button" class="btn btn-warning">Edit</button></td>
                                                     <td><button type="button" class="btn btn-danger">Del</button></td>
                                                 </tr>
