@@ -146,6 +146,7 @@
                     <% if (adminUse) { %>
                         <div class="row" id="adminTools" style="padding-bottom: 25px;">
                             <div class="col">Admin tools:</div>
+                            <div class="col"><a class="btn btn-outline-primary" href="/admin" role="button">Back to admin dashboard</a></div>
                             <div class="col"><a class="btn btn-primary" href="/submission/<%= id %>/map" role="button">Map to RDF params</a></div>
                             <% if (submission.data.capabilityTitle === undefined) { %>
                                 <div class="col"><a class="btn btn-secondary" href="#" role="button">Approve & publish</a> <br>Only after mapped</div>

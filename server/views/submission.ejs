@@ -31,6 +31,7 @@
                     <% if (adminUse) { %>
                         <div class="row" id="adminTools" style="padding-bottom: 25px;">
                             <div class="col">Admin tools:</div>
+                            <div class="col"><a class="btn btn-outline-primary" href="/admin" role="button">Back to admin dashboard</a></div>
                             <% if (submission.status === "published") { %>
                             <div class="col"><a class="btn btn-secondary" href="#" role="button">Map to RDF params</a> <br>Already published</div>
                             <% } else { %>
