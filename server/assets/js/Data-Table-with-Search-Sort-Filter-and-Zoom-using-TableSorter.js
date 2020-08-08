@@ -1,5 +1,5 @@
 $(function() {
-    
+
     // Table zoom scaling START
 	var _zoomLevel = 100;
 	var oDiv = document.getElementById("ipi-table");
