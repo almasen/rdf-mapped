@@ -176,12 +176,65 @@ const addNewCourse = async (course) => {
     log.info("Course %d: Caching new course...", courseId);
     const findResult = await courseRepo.findByIdWithFullInfo(courseId);
     const temp = findResult.rows[0];
+    cache.set(`course-${courseId}`, temp);
+    await cache.updateFromAPI(`course-${courseId}`);
+    log.info("Course %d: Cache updated with new course.", courseId);
+    return courseId;
+};
+
+const updateCourse = async (course) => {
+    const courseId = parseInt(course.id);
+    await courseRepo.update({
+        title: course.title,
+        hyperlink: course.hyperlink,
+        capabilityId: parseInt(course.capability),
+        categoryId: parseInt(course.category),
+        competencyId: parseInt(course.competency),
+        urn: course.urn,
+        id: courseId,
+    });
+    await coursePhaseRepo.removeByCourseId(courseId);
+    if (Array.isArray(course.phases)) {
+        for await (const phase of course.phases) {
+            await coursePhaseRepo.insert({
+                courseId,
+                phaseId: parseInt(phase),
+            });
+        }
+    } else {
+        await coursePhaseRepo.insert({
+            courseId,
+            phaseId: parseInt(course.phases),
+        });
+    }
+    log.info("Course %d: Successfully updated record in database", courseId);
+    log.info("Course %d: Caching updated course...", courseId);
+    const findResult = await courseRepo.findByIdWithFullInfo(courseId);
+    const temp = findResult.rows[0];
     const coursesArray = cache.get("courses");
-    coursesArray.push(temp);
+    const index = coursesArray.findIndex((e) => {
+        return e.id === courseId;
+    });
+    coursesArray[index] = temp;
     cache.set(`course-${courseId}`, temp);
     cache.set("courses", coursesArray);
-    cache.updateFromAPI(`course-${courseId}`);
-    log.info("Course %d: Cache updated with new course.", courseId);
+    log.info("Course %d: Cache updated with updated course.", courseId);
+};
+
+const deleteCourse = async (id) => {
+    log.info("Course %d: Deleting course with all details...", id);
+    await courseRepo.removeById(id);
+    await coursePhaseRepo.removeByCourseId(id);
+    log.info("Course %d: Deleting course from cache...", id);
+    cache.del(`course-${id}`);
+    const coursesArray = cache.get("courses");
+    const index = coursesArray.findIndex((e) => {
+        return e.id === parseInt(id);
+    });
+    coursesArray.splice(index, 1);
+    cache.set("courses", coursesArray);
+    log.info("Course %d: Deleted course from cache...", id);
+    log.info("Course %d: Deleted course with all details...", id);
 };
 
 module.exports = {
@@ -191,4 +244,6 @@ module.exports = {
     fetchAll,
     fetchAllWithUniqueTitles,
     addNewCourse,
+    updateCourse,
+    deleteCourse,
 };
