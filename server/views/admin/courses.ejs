@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Courses - RDFmapped</title>
+    <meta property="og:type" content="website">
+    <meta name="description"
+        content="Vitae Researcher Development Framework Mapped to LinkedIn Learning Courses & Videos">
+    <meta property="og:title" content="Researcher Development Framework Mapped">
+    <meta property="og:site_name" content="RDFmapped">
+    <meta name="robots" content="noindex, nofollow">
+
+    <%- include('../components/stylesheets'); -%>
+    <%- include('../components/scripts'); -%>
+    <link rel="stylesheet" href="/css/Data-Table-with-Search-Sort-Filter-and-Zoom-using-TableSorter.css">
+</head>
+
+<body>
+    <%- include('../components/header'); -%>
+
+    <main class="page faq-page">
+        <section class="clean-block clean-faq dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Courses</h2>
+                    <p>Go back to <a href="/admin">Admin Dashboard</a></p>
+                    <p>Go back to <a href="/admin/content">content type selector (course/video)</a></p>
+                </div>
+                <div class="card" id="TableSorterCard">
+                    <div class="row table-topper align-items-center">
+                        <div class="col-4 text-left" style="margin: 0px;padding: 5px 15px;"><button class="btn btn-primary btn-sm reset"
+                                type="button" style="padding: 5px;margin: 2px;">Reset Filters</button><button
+                                class="btn btn-warning btn-sm" id="zoom_in" type="button" zoomclick="ChangeZoomLevel(-10);"
+                                style="padding: 5px;margin: 2px;"><i class="fa fa-search-plus"></i></button>
+                            <button class="btn btn-warning btn-sm" id="zoom_out" type="button" zoomclick="ChangeZoomLevel(-10);"
+                                style="padding: 5px;margin: 2px;"><i class="fa fa-search-minus"></i></button>
+                        </div>
+                        <div class="col-4 text-center" style="margin: 0px;padding: 5px 10px;">
+                            <h6 id="counter">Showing: <strong id="rowCount">ALL</strong>&nbsp;Row(s)</h6>
+                        </div>
+                        <div class="col-4 text-right" style="margin: 0px;padding: 5px 10px;"><a href="#" data-toggle="modal"
+                                data-target="#tablehelpModal"><i class="fa fa-question-circle" data-toggle="tooltip"
+                                    data-placement="top" title="Custom Sort Details" aria-hidden="true"
+                                    style="padding: 5px 15px;margin: 2px;"></i></a></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div>
+                                <table class="table table tablesorter" id="ipi-table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>D</th>
+                                            <th>SD</th>
+                                            <th>Descriptor</th>
+                                            <th>Phases</th>
+                                            <th class="filter-false sorter-false">Duplicate</th>
+                                            <th class="filter-false sorter-false">Edit</th>
+                                            <th class="filter-false sorter-false">Delete</th>
+                                            <!-- <th class="sorter-false"> RDF 2 No Sort</th>
+                                            <th class="filter-false">Phase 3 No Filter</th>
+                                            <th class="filter-false sorter-false">Column 4 No Sort No Filter</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (fetchResult.length > 0) { %>
+                                            <% fetchResult.forEach(e => { %>
+                                                <tr>
+                                                    <td><%= e.id %></td>
+                                                    <td><%= e.title %></td>
+                                                    <td><%= e.capabilityTitle.substring(0,1) %></td>
+                                                    <td><%= e.categoryTitle.substring(0,2) %></td>
+                                                    <td><%= e.competencyTitle %></td>
+                                                    <td><%= e.phases.join("/") %></td>
+                                                    <td><button type="button" class="btn btn-primary">Copy</button></td>
+                                                    <td><button type="button" class="btn btn-warning">Edit</button></td>
+                                                    <td><button type="button" class="btn btn-danger">Del</button></td>
+                                                </tr>
+                                            <% }); %>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" role="dialog" tabindex="-1" id="tablehelpModal" aria-labeledby="tablehelpModal"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Table Filtering Options</h4><button type="button" class="close"
+                                        data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:1%">Priority</th>
+                                                    <th style="width:9%">Operator</th>
+                                                    <th style="width:30%">Description</th>
+                                                    <th style="width:60%">Examples</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td><code>|</code>&nbsp;or&nbsp;&nbsp;<code>OR</code><br></td>
+                                                    <td>Logical "or" (Vertical bar). Filter the column for content that matches text
+                                                        from either side of the bar.<br></td>
+                                                    <td><code>&lt;20 | &gt;40</code>&nbsp;(matches a column cell with either "&lt;20" or
+                                                        "&gt;40")<br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td><code>&amp;&amp;</code>&nbsp;or <code>AND</code><br></td>
+                                                    <td>Logical "and". Filter the column for content that matches text from either side
+                                                        of the operator.<br></td>
+                                                    <td><code>&gt;20 &amp;&amp; &gt;40</code>&nbsp;(matches a column cell that contains
+                                                        both "&gt;20" and "&lt;40")<br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td><code>/\d/</code><br></td>
+                                                    <td>Add any regex to the query to use in the query ("mig" flags can be
+                                                        included&nbsp;<code>/\w/mig</code>)<br></td>
+                                                    <td><code>/b[aeiou]g/i</code>&nbsp;(finds "bag", "beg", "BIG", "Bug",
+                                                        etc);<code>&gt;/r$/</code>&nbsp;(matches text that ends with an "r")<br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td><code>&lt; &lt;= &gt;= &gt;</code><br></td>
+                                                    <td>Find alphabetical or numerical values less than or greater than or equal to the
+                                                        filtered query .<br></td>
+                                                    <td><code>&lt;=10</code>&nbsp;(find values greater than or equal to 10)<br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>5</td>
+                                                    <td><code>!</code>&nbsp;or&nbsp;<code>!=</code><br></td>
+                                                    <td>Not operator, or not exactly match. Filter the column with content
+                                                        that&nbsp;<strong>do not</strong>&nbsp;match the query. Include an equal
+                                                        (<code>=</code>), single (<code>'</code>) or double quote (<code>"</code>)
+                                                        to exactly&nbsp;<em>not</em>&nbsp;match a filter.<br><br><br></td>
+                                                    <td><code>!e</code>&nbsp;(find text that doesn't contain an
+                                                        "e");<code>!"ELISA"</code>&nbsp;(find content that does not exactly match
+                                                        "ELISA")<br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>6</td>
+                                                    <td><code>"</code>&nbsp;or&nbsp;<code>=</code><br></td>
+                                                    <td>To exactly match the search query, add a quote, apostrophe or equal sign to the
+                                                        beginning and/or end of the query<br></td>
+                                                    <td><code>abc"</code>&nbsp;or&nbsp;<code>abc=</code>&nbsp;(exactly match "abc")<br>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>7</td>
+                                                    <td><code>-</code>&nbsp;or <code>to</code><br></td>
+                                                    <td>Find a range of values. Make sure there is a space before and after the dash (or
+                                                        the word "to").<br></td>
+                                                    <td><code>10 - 30</code>&nbsp;or&nbsp;<code>10 to 30</code>&nbsp;(match values
+                                                        between 10 and 30)<br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>8</td>
+                                                    <td><code>?</code><br></td>
+                                                    <td>Wildcard for a single, non-space character.<br></td>
+                                                    <td><code>S?c</code>&nbsp;(finds "Sec" and "Soc", but not "Seec")<br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>8</td>
+                                                    <td><code>*</code><br></td>
+                                                    <td>Wildcard for zero or more non-space characters.<br></td>
+                                                    <td><code>B*k</code>&nbsp;(matches "Black" and "Book")<br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>9</td>
+                                                    <td><code>~</code><br></td>
+                                                    <td>Perform a fuzzy search (matches sequential characters) by adding a tilde to the
+                                                        beginning of the query<br></td>
+                                                    <td><code>~bee</code>&nbsp;(matches "Bruce Lee" and "Brenda Dexter"),
+                                                        or&nbsp;<code>~piano</code>&nbsp;(matches "Philip Aaron Wong")<br></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>10</td>
+                                                    <td>text<br></td>
+                                                    <td>Any text entered in the filter will&nbsp;<strong>match</strong>&nbsp;text found
+                                                        within the column<br></td>
+                                                    <td><code>abc</code>&nbsp;(finds "abc", "abcd", "abcde",
+                                                        etc);<code>SEC</code>&nbsp;(finds "SEC" and "Analytical SEC")<br></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer"><button class="btn btn-danger" type="button"
+                                        data-dismiss="modal">Close</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('../components/footer'); -%>
+
+    <script src="/js/Data-Table-with-Search-Sort-Filter-and-Zoom-using-TableSorter.js"></script>
+</body>
+
+</html>
