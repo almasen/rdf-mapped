@@ -176,12 +176,65 @@ const addNewVideo = async (video) => {
     log.info("Video %d: Caching new video...", videoId);
     const findResult = await videoRepo.findByIdWithFullInfo(videoId);
     const temp = findResult.rows[0];
+    cache.set(`video-${videoId}`, temp);
+    await cache.updateFromAPI(`video-${videoId}`);
+    log.info("Video %d: Cache updated with new video.", videoId);
+    return videoId;
+};
+
+const updateVideo = async (video) => {
+    const videoId = parseInt(video.id);
+    await videoRepo.update({
+        title: video.title,
+        hyperlink: video.hyperlink,
+        capabilityId: parseInt(video.capability),
+        categoryId: parseInt(video.category),
+        competencyId: parseInt(video.competency),
+        urn: video.urn,
+        id: videoId,
+    });
+    await videoPhaseRepo.removeByVideoId(videoId);
+    if (Array.isArray(video.phases)) {
+        for await (const phase of video.phases) {
+            await videoPhaseRepo.insert({
+                videoId,
+                phaseId: parseInt(phase),
+            });
+        }
+    } else {
+        await videoPhaseRepo.insert({
+            videoId,
+            phaseId: parseInt(video.phases),
+        });
+    }
+    log.info("Video %d: Successfully updated record in database", videoId);
+    log.info("Video %d: Caching updated video...", videoId);
+    const findResult = await videoRepo.findByIdWithFullInfo(videoId);
+    const temp = findResult.rows[0];
     const videosArray = cache.get("videos");
-    videosArray.push(temp);
+    const index = videosArray.findIndex((e) => {
+        return e.id === videoId;
+    });
+    videosArray[index] = temp;
     cache.set(`video-${videoId}`, temp);
     cache.set("videos", videosArray);
-    cache.updateFromAPI(`video-${videoId}`);
-    log.info("Video %d: Cache updated with new video.", videoId);
+    log.info("Video %d: Cache updated with updated video.", videoId);
+};
+
+const deleteVideo = async (id) => {
+    log.info("Video %d: Deleting video with all details...", id);
+    await videoRepo.removeById(id);
+    await videoPhaseRepo.removeByVideoId(id);
+    log.info("Video %d: Deleting video from cache...", id);
+    cache.del(`video-${id}`);
+    const videosArray = cache.get("videos");
+    const index = videosArray.findIndex((e) => {
+        return e.id === parseInt(id);
+    });
+    videosArray.splice(index, 1);
+    cache.set("videos", videosArray);
+    log.info("Video %d: Deleted video from cache...", id);
+    log.info("Video %d: Deleted video with all details...", id);
 };
 
 module.exports = {
@@ -191,4 +244,6 @@ module.exports = {
     fetchAll,
     fetchAllWithUniqueTitles,
     addNewVideo,
+    updateVideo,
+    deleteVideo,
 };
