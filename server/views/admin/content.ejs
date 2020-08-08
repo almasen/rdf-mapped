@@ -47,6 +47,7 @@
                     <li>If you wish to remove a course completely, you must remove all of its mappings</li>
                     <li>Short forms: D - domain, SD - subdomain, Lvl - Phases, Dupl. - duplicate</li>
                     <li>Course titles and hyperlinks can't be edited, those are pulled from LinkedIn Learning</li>
+                    <li><b><em>This page may take a considerable time to load, please wait until it's responsive</em></b></li>
                     <li>If you don't see any courses/videos, make sure to Reset Filters and reload the page</li>
                 </ul>
                 <div class="card" id="TableSorterCard">
@@ -78,7 +79,7 @@
                                             <th>SD</th>
                                             <th>Descriptor</th>
                                             <th>Lvl</th>
-                                            <th>View</th>
+                                            <th class="filter-false sorter-false">View</th>
                                             <th class="filter-false sorter-false">Dupl.</th>
                                             <th class="filter-false sorter-false">Edit</th>
                                             <th class="filter-false sorter-false">Delete</th>
@@ -94,10 +95,10 @@
                                                     <td><%= e.categoryTitle.substring(0,2) %></td>
                                                     <td><%= e.competencyTitle %></td>
                                                     <td><%= e.phases.join("/") %></td>
-                                                    <td><button type="button" class="btn btn-primary">View</button></td>
-                                                    <td><button type="button" class="btn btn-success">Copy</button></td>
-                                                    <td><button type="button" class="btn btn-warning">Edit</button></td>
-                                                    <td><button type="button" class="btn btn-danger">Del</button></td>
+                                                    <td><a class="btn btn-primary" href="/<% if (type === 'video') { %>video<% } else { %>course<% } %>/<%= e.id %>" role="button">View</a></td>
+                                                    <td><a class="btn btn-success" href="/admin/content/edit?type=<% if (type === 'video') { %>video<% } else { %>course<% } %>&id=<%= e.id %>&action=duplicate" role="button">Copy</a></td>
+                                                    <td><a class="btn btn-warning" href="/admin/content/edit?type=<% if (type === 'video') { %>video<% } else { %>course<% } %>&id=<%= e.id %>&action=edit" role="button">Edit</a></td>
+                                                    <td><a class="btn btn-danger" href="/admin/content/edit?type=<% if (type === 'video') { %>video<% } else { %>course<% } %>&id=<%= e.id %>&action=delete" role="button">Del</a></td>
                                                 </tr>
                                             <% }); %>
                                         <% } %>

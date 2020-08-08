@@ -17,16 +17,6 @@
     <%- include('./components/scripts'); -%>
 
     <script>
-        const contactSubmit = () => {
-            const form = document.getElementById("submitForm");
-            if (document.getElementById("submissionEmail").value === "") {
-                document.getElementById("hadPassWord").hidden = true;
-            } else {
-                document.getElementById("weWillReview").hidden = true;
-            }
-            document.getElementById("form-inner").hidden = true;
-            document.getElementById("form-after").hidden = false;
-        };
         $(document).ready(() => {
             $('#stepByStepSelectCapability').select2();
             $('#stepByStepSelectCategory').select2();
@@ -121,13 +111,6 @@
                     $('#stepByStepSelectCompetency').append(opt);
                 });
             }
-        });
-        $(document).ready(() => {
-            document.forms.submitForm.type.forEach(radio => {
-                radio.addEventListener('change', () => {
-                    document.forms.submitForm.action = ("/submit/" + document.forms.submitForm.type.value);
-                })
-            });
         });
     </script>
 </head>
