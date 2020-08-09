@@ -23,7 +23,7 @@ app.use(helmet());
 app.use(cookieParser()); // if secret is specified, it should match session secret
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-app.use('/favicon.ico', express.static(path.join(__dirname, 'assets/favicon/favicon.ico')));
+app.use('/favicon.ico', express.static(path.join(__dirname, 'assets/favicon/favicon_new.ico')));
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
