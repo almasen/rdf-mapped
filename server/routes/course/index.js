@@ -14,6 +14,7 @@ router.get('/:id', async (req, res) => {
             similarCourseRecords,
             baseurl: req.baseUrl,
             originalUrl: req.originalUrl,
+            reCAPTCHASiteKey: process.env.GOOGLE_RECAPTCHA_KEY,
         });
     } catch (error) {
         log.error("Course %s: Failed fetching course data, err: " + error.message, req.params.id);

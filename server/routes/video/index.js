@@ -14,6 +14,7 @@ router.get('/:id', async (req, res) => {
             similarVideoRecords,
             baseurl: req.baseUrl,
             originalUrl: req.originalUrl,
+            reCAPTCHASiteKey: process.env.GOOGLE_RECAPTCHA_KEY,
         });
     } catch (error) {
         log.error("Video %s: Failed fetching video data, err: " + error.message, req.params.id);
