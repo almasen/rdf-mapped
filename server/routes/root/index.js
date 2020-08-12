@@ -5,11 +5,10 @@ const courseService = require("../../modules/course");
 const videoService = require("../../modules/video");
 
 router.get('/', async (req, res) => {
-    log.info("Loading home page, fetching all info..");
+    log.info("'%s'-Loading home page, fetching all info..", req.ip);
     try {
         const courses = await courseService.fetchAllWithUniqueTitles();
         const videos = await videoService.fetchAllWithUniqueTitles();
-        log.info("Fetched all info, rendering home page..");
         res.render("index.ejs", {
             baseurl: req.path,
             courses,

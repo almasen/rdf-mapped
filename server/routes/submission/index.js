@@ -11,7 +11,7 @@ const filtering = require("../../modules/filtering");
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id;
-    log.info("Submission %s: Fetching submission data", id);
+    log.info("'%s'-Submission %s: Fetching submission data", req.ip, id);
     try {
         const submission = await submissionService.fetchById(id);
 
@@ -43,13 +43,13 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/:action', async (req, res) => {
     const id = req.params.id;
     const action = req.params.action;
-    log.info("Submission %s: Attempting to perform action: %s", id, action);
+    log.info("'%s'-Submission %s: Attempting to perform action: %s", req.ip, id, action);
     try {
         const jwe = req.cookies.jwe;
         if (jwe) {
-            log.info("Attempting to authenticate admin for submission/%s, ref:'%s'", action, jwe.split('.')[4]);
+            log.info("'%s'-Attempting to authenticate admin for submission/%s, ref:'%s'", req.ip, action, jwe.split('.')[4]);
             const adminName = adminService.authenticateAdmin(jwe);
-            log.info("Successfully authenticated %s for submission/%s, ref:" + jwe.split('.')[4], adminName, action);
+            log.info("'%s'-Successfully authenticated %s for submission/%s, ref:" + jwe.split('.')[4], req.ip, adminName, action);
 
             let adminUseCase = "default";
 
@@ -101,8 +101,8 @@ router.get('/:id/:action', async (req, res) => {
                 id,
             });
         } else {
-            log.info("An attempted visit at submission(id:%s)/%s without a jwe token, redirecting to admin/login",
-                id, action);
+            log.info("'%s'-An attempted visit at submission(id:%s)/%s without a jwe token, redirecting to admin/login",
+                req.ip, id, action);
             res.redirect("/admin/login");
         }
     } catch (error) {
@@ -114,7 +114,7 @@ router.get('/:id/:action', async (req, res) => {
 
 router.post('/:id/map', async (req, res) => {
     const id = req.params.id;
-    log.info("Submission %s: Fetching submission data", id);
+    log.info("'%s'-Submission %s: Fetching submission data", req.ip, id);
     try {
         const jwe = req.cookies.jwe;
         adminService.authenticateAdmin(jwe);

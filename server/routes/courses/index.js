@@ -5,7 +5,7 @@ const courseService = require("../../modules/course");
 const pagination = require("../../modules/pagination");
 
 router.get('/', async (req, res) => {
-    log.info("Fetching courses with %s filters", JSON.stringify(req.query));
+    log.info("'%s'-Fetching courses with %s filters", req.ip, JSON.stringify(req.query));
     try {
         const filters = req.query;
         const fetchResult = await courseService.fetchByFilters(filters);

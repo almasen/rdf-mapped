@@ -62,7 +62,7 @@ const fetchSimilarCourseRecords = async (course, maximum) => {
  * @return {Object} course
  */
 const fetchAndResolveCourse = async (courseId) => {
-    log.debug("Course %s: Fetching all info", courseId);
+    log.info("Course %s: Fetching all info", courseId);
     if (cache.has(`course-${courseId}`)) {
         log.info("Course %s: Fetched all info from CACHE", courseId);
         return cache.get(`course-${courseId}`);

@@ -8,16 +8,16 @@ router.get('/', async (req, res) => {
     try {
         const jwe = req.cookies.jwe;
         if (jwe) {
-            log.info("Attempting to authenticate a user for admin/faq/new, ref:'%s'", jwe.split('.')[4]);
+            log.info("'%s'-Attempting to authenticate a user for admin/faq/new, ref:'%s'", req.ip, jwe.split('.')[4]);
             const adminName = adminService.authenticateAdmin(jwe);
-            log.info("Successfully authenticated %s for admin/faq/new, ref:" + jwe.split('.')[4], adminName);
+            log.info("'%s'-Successfully authenticated %s for admin/faq/new, ref:" + jwe.split('.')[4], req.ip, adminName);
 
             res.render("./admin/add-faq.ejs", {
                 baseurl: req.baseUrl,
                 adminName,
             });
         } else {
-            log.info("An attempted visit at admin/faq/new without a jwe token, redirecting to admin/login");
+            log.info("'%s'-An attempted visit at admin/faq/new without a jwe token, redirecting to admin/login", req.ip);
             res.redirect("/admin/login");
         }
     } catch (error) {
@@ -30,17 +30,17 @@ router.post('/', async (req, res) => {
     try {
         const jwe = req.cookies.jwe;
         if (jwe) {
-            log.info("Attempting to authenticate a user for admin/faq/new, ref:'%s'", jwe.split('.')[4]);
+            log.info("'%s'-Attempting to authenticate a user for admin/faq/new, ref:'%s'", req.ip, jwe.split('.')[4]);
             const adminName = adminService.authenticateAdmin(jwe);
-            log.info("Successfully authenticated %s for admin/info/new, ref:" + jwe.split('.')[4], adminName);
+            log.info("'%s'-Successfully authenticated %s for admin/info/new, ref:" + jwe.split('.')[4], req.ip, adminName);
 
-            log.info("Attempting to insert new faq entry..");
+            log.info("'%s'-Attempting to insert new faq entry..", req.ip);
             await faqService.insert(req.body.question, req.body.answer);
-            log.info("Successfully inserted new faq entry..");
+            log.info("'%s'-Successfully inserted new faq entry..", req.ip);
 
             res.status(200).send("Success.");
         } else {
-            log.info("An attempted visit at admin/faq/new without a jwe token, redirecting to admin/login");
+            log.info("'%s'-An attempted visit at admin/faq/new without a jwe token, redirecting to admin/login", req.ip);
             res.redirect("/admin/login");
         }
     } catch (error) {

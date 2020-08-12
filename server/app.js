@@ -43,6 +43,11 @@ const limiter = rateLimit({
 });
 app.use(limiter); //  apply to all requests
 
+// Debug log IP addresses
+app.use((req, res, next) => {
+    log.debug(req.ip);
+    next();
+});
 
 // -- Routes -- //
 app.use("/", require("./routes/root"));

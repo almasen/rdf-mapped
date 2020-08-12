@@ -8,9 +8,9 @@ router.get('/', async (req, res) => {
     try {
         const jwe = req.cookies.jwe;
         if (jwe) {
-            log.info("Attempting to authenticate a user for admin dashboard, ref:'%s'", jwe.split('.')[4]);
+            log.info("'%s'-Attempting to authenticate a user for admin dashboard, ref:'%s'", req.ip, jwe.split('.')[4]);
             const adminName = adminService.authenticateAdmin(jwe);
-            log.info("Successfully authenticated %s for admin dashboard, ref:" + jwe.split('.')[4], adminName);
+            log.info("'%s'-Successfully authenticated %s for admin dashboard, ref:" + jwe.split('.')[4], req.ip, adminName);
 
             let submissions = await submissionService.fetchAll();
 
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
                 status,
             });
         } else {
-            log.info("An attempted visit at admin dashboard without a jwe token, redirecting to admin/login");
+            log.info("'%s'-An attempted visit at admin dashboard without a jwe token, redirecting to admin/login", req.ip);
             res.redirect("/admin/login");
         }
     } catch (error) {

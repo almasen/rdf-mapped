@@ -8,9 +8,9 @@ router.get('/', async (req, res) => {
     try {
         const jwe = req.cookies.jwe;
         if (jwe) {
-            log.info("Attempting to authenticate a user for admin/faq, ref:'%s'", jwe.split('.')[4]);
+            log.info("'%s'-Attempting to authenticate a user for admin/faq, ref:'%s'", req.ip, jwe.split('.')[4]);
             const adminName = adminService.authenticateAdmin(jwe);
-            log.info("Successfully authenticated %s for admin/faq, ref:" + jwe.split('.')[4], adminName);
+            log.info("'%s'-Successfully authenticated %s for admin/faq, ref:" + jwe.split('.')[4], req.ip, adminName);
 
             const faqs = await faqService.fetchAll();
 
@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
                 faqs,
             });
         } else {
-            log.info("An attempted visit at admin/faq without a jwe token, redirecting to admin/login");
+            log.info("'%s'-An attempted visit at admin/faq without a jwe token, redirecting to admin/login", req.ip);
             res.redirect("/admin/login");
         }
     } catch (error) {
@@ -33,9 +33,9 @@ router.get('/:id', async (req, res) => {
     try {
         const jwe = req.cookies.jwe;
         if (jwe) {
-            log.info("Attempting to authenticate a user for admin/faq, ref:'%s'", jwe.split('.')[4]);
+            log.info("'%s'-Attempting to authenticate a user for admin/faq, ref:'%s'", req.ip, jwe.split('.')[4]);
             const adminName = adminService.authenticateAdmin(jwe);
-            log.info("Successfully authenticated %s for admin/faq, ref:" + jwe.split('.')[4], adminName);
+            log.info("'%s'-Successfully authenticated %s for admin/faq, ref:" + jwe.split('.')[4], req.ip, adminName);
 
             const faq = await faqService.findById(req.params.id);
 
@@ -45,7 +45,7 @@ router.get('/:id', async (req, res) => {
                 faq,
             });
         } else {
-            log.info("An attempted visit at admin/faq without a jwe token, redirecting to admin/login");
+            log.info("'%s'-An attempted visit at admin/faq without a jwe token, redirecting to admin/login", req.ip);
             res.redirect("/admin/login");
         }
     } catch (error) {
@@ -58,19 +58,19 @@ router.post('/', async (req, res) => {
     try {
         const jwe = req.cookies.jwe;
         if (jwe) {
-            log.info("Attempting to authenticate a user for admin/faq, ref:'%s'", jwe.split('.')[4]);
+            log.info("'%s'-Attempting to authenticate a user for admin/faq, ref:'%s'", req.ip, jwe.split('.')[4]);
             const adminName = adminService.authenticateAdmin(jwe);
-            log.info("Successfully authenticated %s for admin/info, ref:" + jwe.split('.')[4], adminName);
+            log.info("'%s'-Successfully authenticated %s for admin/info, ref:" + jwe.split('.')[4], req.ip, adminName);
 
             const faq = {...req.body};
 
-            log.info("Attempting to update 'id:%s' faq entry..", faq.id);
+            log.info("'%s'-Attempting to update 'id:%s' faq entry..", req.ip, faq.id);
             await faqService.update(faq);
-            log.info("Successfully updated 'id:%s' faq entry..", faq.id);
+            log.info("'%s'-Successfully updated 'id:%s' faq entry..", req.ip, faq.id);
 
             res.status(200).send("Success.");
         } else {
-            log.info("An attempted visit at admin/faq without a jwe token, redirecting to admin/login");
+            log.info("'%s'-An attempted visit at admin/faq without a jwe token, redirecting to admin/login", req.ip);
             res.redirect("/admin/login");
         }
     } catch (error) {

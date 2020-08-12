@@ -4,14 +4,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="reportContentModalLabel">Flag content</h5>
+                <h5 class="modal-title" id="reportContentModalLabel">Report a bug / flag content</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/bugreport" method="POST" id="reportContentForm" target="dummyframe2"
-                    onsubmit="dismissModal();">
+                <form action="/bugreport" method="POST" id="reportContentForm" target="dummyframe2">
                     <div class="form-group">
                         <label for="email">Optionally provide a follow-up email address:</label>
                         <input class="form-control" id="email" name="email" type="email" aria-describedby="emailHelp">
@@ -23,9 +22,13 @@
                         <textarea class="form-control" id="report" name="report" rows="3" required
                             placeholder="Something is not loading.."></textarea>
                     </div>
+                    <div class="alert alert-danger" role="alert" id="pleaseCompleteCaptcha" hidden>
+                        Please complete the reCAPTCHA
+                    </div>
                     <div class="form-group">
                         <input type="text" hidden readonly name="originalUrl" value="<%= originalUrl %>">
                     </div>
+                    <div class="g-recaptcha" data-sitekey="<%= reCAPTCHASiteKey %>" style="padding-bottom: 20px;"></div>
                 </form>
             </div>
             <iframe name="dummyframe2" id="dummyframe2" style="display: none;"></iframe>
@@ -56,8 +59,18 @@
     </div>
 </div>
 <script>
-    const dismissModal = () => {
-        $('#reportContentModal').modal('hide');
-        $('#thankYouModal').modal('show');
-    };
+    $(document).ready(() => {
+        $("#reportContentForm").submit((event) => {
+            const recaptcha = $("#g-recaptcha-response").val();
+            if (recaptcha === "") {
+                event.preventDefault();
+                document.getElementById("pleaseCompleteCaptcha").hidden = false;
+                return;
+            } else {
+                $('#reportContentModal').modal('hide');
+                $('#thankYouModal').modal('show');
+            }
+        });
+    });
 </script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>

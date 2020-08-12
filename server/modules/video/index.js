@@ -62,7 +62,7 @@ const fetchSimilarVideoRecords = async (video, maximum) => {
  * @return {Object} video
  */
 const fetchAndResolveVideo = async (videoId) => {
-    log.debug("Video %s: Fetching all info", videoId);
+    log.info("Video %s: Fetching all info", videoId);
     if (cache.has(`video-${videoId}`)) {
         log.info("Video %s: Fetched all info from CACHE", videoId);
         return cache.get(`video-${videoId}`);

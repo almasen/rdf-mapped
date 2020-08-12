@@ -10,7 +10,7 @@ const videoService = require("../../modules/video");
 const filtering = require("../../modules/filtering");
 
 router.get('/', async (req, res) => {
-    log.info("Loading search page, fetching all info..");
+    log.info("'%s'-Loading search page, fetching all info..", req.ip);
     try {
         const capabilities = await capabilityService.fetchAll();
         const categories = await categoryService.fetchAll();
@@ -20,7 +20,6 @@ router.get('/', async (req, res) => {
         const phases = await phaseService.fetchAll();
         const courses = await courseService.fetchAllWithUniqueTitles();
         const videos = await videoService.fetchAllWithUniqueTitles();
-        log.info("Fetched all info, rendering home page..");
         res.render("search.ejs", {
             baseurl: req.baseUrl,
             capabilities,
