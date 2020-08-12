@@ -15,6 +15,19 @@
     <%- include('./components/stylesheets'); -%>
     <%- include('./components/scripts'); -%>
     <script src="/infinite-scroll/dist/infinite-scroll.pkgd.min.js"></script>
+    <style>
+        @media (min-width: 800px) {
+            #infiniteCards {
+                min-width: 438px;
+            }
+        }
+
+        @media (max-width: 800px) {
+             #infiniteCards {
+                min-width: 400px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -36,7 +49,7 @@
                 </div>
                 <div class="row">
                     <div class="col" style="max-width: 25%;"></div>
-                    <div class="col" style="min-width: 438px;">
+                    <div class="col" id="infiniteCards">
                         <%- include('./components/results-list'); -%>
                     </div>
                     <div class="col" style="max-width: 25%;"></div>
