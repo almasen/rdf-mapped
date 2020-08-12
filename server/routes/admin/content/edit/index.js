@@ -77,7 +77,7 @@ router.get('/', async (req, res) => {
                 phases,
             });
         } else {
-            log.info("An attempted visit at admin route without a jwe token, redirecting to admin/login");
+            log.info("'%s'-An attempted visit at admin route without a jwe token, redirecting to admin/login", req.ip);
             res.redirect("/admin/login");
         }
     } catch (error) {
@@ -117,7 +117,7 @@ router.post('/', async (req, res) => {
             }
             res.redirect(`/admin/content/edit?type=${type}&id=${id}&action=${action}`);
         } else {
-            log.info("An attempted visit at admin route without a jwe token, redirecting to admin/login");
+            log.info("'%s'-An attempted visit at admin route without a jwe token, redirecting to admin/login", req.ip);
             res.redirect("/admin/login");
         }
     } catch (error) {

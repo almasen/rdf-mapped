@@ -6,7 +6,7 @@ const log = require("../../../util/log");
 
 router.get('/', async (req, res) => {
     try {
-        log.info("API: Fetching capabilities..");
+        log.info("'%s'-API: Fetching capabilities..", req.ip);
         const fetchResult = await capabilityService.fetchByKeyword(req.query.keyword);
         const pageData = pagination.getPageData(req.query.currentPage, req.query.pageSize, fetchResult);
         res.status(200).send({

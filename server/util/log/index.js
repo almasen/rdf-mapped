@@ -22,24 +22,7 @@ log4js.configure({
 
 const log = log4js.getLogger();
 
-switch (process.env.NODE_ENV) {
-    case "test":
-        log.level = "debug";
-        break;
-    case "development":
-        log.level = "info";
-        break;
-    default:
-        log.level = "info";
-}
-
-if (process.env.NO_LOG == "True") {
-    log.level = "off";
-}
-
-if (process.env.INFO_LOG == "True") {
-    log.level = "info";
-}
+log.level = process.env.LOG_LEVEL;
 
 log.info("Logging at level: %s", log.level);
 

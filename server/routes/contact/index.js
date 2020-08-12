@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    log.info("%s: Sending us contact-us message..", req.body.email);
+    log.info("'%s'-%s: Sending us contact-us message..", req.ip, req.body.email);
     try {
         const captchaVerified = await captchaService.verifyResponse(req.body['g-recaptcha-response']);
         if (!captchaVerified) {

@@ -11,8 +11,8 @@ router.get('/', async (req, res) => {
         return;
     }
 
-    log.info("%s: Downloading '%s' export with filetype '%s'",
-        req.baseUrl, req.query.content, req.query.type);
+    log.info("'%s'-%s: Downloading '%s' export with filetype '%s'",
+        req.ip, req.baseUrl, req.query.content, req.query.type);
     try {
         await downloadService.generateExportFiles();
         // validate filetype
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
                 break;
 
             default:
-                log.info("%s: Downloading '%s' export rejected for invalid filetype '%s'",
+                log.info("'%s'-%s: Downloading '%s' export rejected for invalid filetype '%s'",
                     req.baseUrl, req.query.content, req.query.type);
                 res.render('404.ejs', {
                     baseurl: "",

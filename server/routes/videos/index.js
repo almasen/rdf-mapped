@@ -5,7 +5,7 @@ const videoService = require("../../modules/video");
 const pagination = require("../../modules/pagination");
 
 router.get('/', async (req, res) => {
-    log.info("Fetching videos with %s filters", JSON.stringify(req.query));
+    log.info("'%s'-Fetching videos with %s filters", req.ip, JSON.stringify(req.query));
     try {
         const filters = req.query;
         const fetchResult = await videoService.fetchByFilters(filters);

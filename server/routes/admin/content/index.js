@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
                 type,
             });
         } else {
-            log.info("An attempted visit at admin route without a jwe token, redirecting to admin/login");
+            log.info("'%s'-An attempted visit at admin route without a jwe token, redirecting to admin/login", req.ip);
             res.redirect("/admin/login");
         }
     } catch (error) {
