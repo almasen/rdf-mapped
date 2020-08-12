@@ -8,7 +8,7 @@ router.get('/:id', async (req, res) => {
     try {
         const video = await videoService.fetchAndResolveVideo(req.params.id);
         const similarVideoRecords = await videoService.fetchSimilarVideoRecords(video, 5);
-        log.info("'%s'-Video %s: Rendering page %s recommendations ", req.ip, req.params.id, similarVideoRecords.count);
+        log.info("'%s'-Video %s: Rendering page %s recommendations ", req.ip, req.params.id, similarVideoRecords.length);
         res.render('video.ejs', {
             video,
             similarVideoRecords,

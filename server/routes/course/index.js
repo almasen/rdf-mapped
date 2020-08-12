@@ -8,7 +8,7 @@ router.get('/:id', async (req, res) => {
     try {
         const course = await courseService.fetchAndResolveCourse(req.params.id);
         const similarCourseRecords = await courseService.fetchSimilarCourseRecords(course, 5);
-        log.info("'%s'-Course %s: Rendering page %s recommendations ", req.ip, req.params.id, similarCourseRecords.count);
+        log.info("'%s'-Course %s: Rendering page %s recommendations ", req.ip, req.params.id, similarCourseRecords.length);
         res.render('course.ejs', {
             course,
             similarCourseRecords,
