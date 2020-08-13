@@ -19,7 +19,9 @@ const redisClient = redis.createClient();
 app.set('view-engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
-app.use(helmet());
+app.use(helmet({
+    hsts: false, // enabled in higher level server conf
+}));
 app.use(cookieParser()); // if secret is specified, it should match session secret
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
