@@ -77,6 +77,7 @@ app.use("/admin/login", require("./routes/admin/login"));
 app.use("/admin", require("./routes/admin"));
 app.use("/admin/edit/information", require("./routes/admin/edit/information"));
 app.use("/admin/edit/faq", require("./routes/admin/edit/faq"));
+app.use("/admin/edit/faq/delete", require("./routes/admin/edit/faq/delete"));
 app.use("/admin/new/faq", require("./routes/admin/new/faq"));
 app.use("/admin/submissions", require("./routes/admin/submissions"));
 app.use("/admin/content", require("./routes/admin/content"));
