@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const log = require("../../../../../util/log");
-const adminService = require("../../../../../modules/admin");
-const faqService = require("../../../../../modules/faq");
+const log = require("../../../util/log");
+const adminService = require("../../../modules/admin");
+const faqService = require("../../../modules/faq");
 
-router.get('/:id', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const jwe = req.cookies.jwe;
         if (jwe) {
@@ -12,13 +12,13 @@ router.get('/:id', async (req, res) => {
             const adminName = adminService.authenticateAdmin(jwe);
             log.info("'%s'-Successfully authenticated %s for admin/faq, ref:" + jwe.split('.')[4], req.ip, adminName);
 
-            const id = req.params.id;
+            const faqs = await faqService.fetchAll();
 
-            log.info("'%s'-Attempting to delete 'id:%s' faq entry..", req.ip, id);
-            await faqService.remove(id);
-            log.info("'%s'-Successfully updated 'id:%s' faq entry..", req.ip, id);
-
-            res.redirect(`/admin/edit/faq`);
+            res.render("./admin/edit-faqs.ejs", {
+                baseurl: req.baseUrl,
+                adminName,
+                faqs,
+            });
         } else {
             log.info("'%s'-An attempted visit at admin/faq without a jwe token, redirecting to admin/login", req.ip);
             res.redirect("/admin/login");
