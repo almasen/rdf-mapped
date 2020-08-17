@@ -1,5 +1,5 @@
 const mail = require("../mail");
-const admin = require("../admin");
+const adminService = require("../admin");
 const log = require("../../util/log");
 
 /**
@@ -23,7 +23,7 @@ const sendBugReport = async (originalUrl, ip, email, report) => {
         email,
         report,
     };
-    admin.logBugReport(bugreport);
+    adminService.logBugReport(bugreport);
     await mail.sendEmail(
         process.env.BUG_REPORT_EMAIL_ADDRESS,
         process.env.BUG_REPORT_EMAIL_ADDRESS,

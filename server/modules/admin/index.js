@@ -37,9 +37,7 @@ const authenticateAdmin = (jwe) => {
 };
 
 const logBugReport = (bugreport) => {
-    console.log(bugReports.length);
     bugReports.push(bugreport);
-    console.log(bugReports.length);
 };
 
 const logContactRequest = (contactRequest) => {
@@ -52,9 +50,14 @@ const sendSummary = () => {
         process.env.SUMMARY_EMAIL_ADDRESS,
         "Your RDFmapped weekly summary",
         `Hello,\nHere is your rdfmapped.com weekly summary.\n\n` +
-        `Number of new bugreports:${bugReports.length}\nNumber of new contact requests\n\n\n` +
-        `Bug reports:\n${bugReports.toString()}` +
-        `Contact requests:\n${contactRequests.toString()}`);
+        `Number of new bugreports: ${bugReports.length}\nNumber of new contact requests: ${contactRequests.length}\n\n\n` +
+        `Bug reports: ${bugReports.toString()}\n\n` +
+        `Contact requests: ${contactRequests.toString()}\n\n`,
+        `<p>Hello,</p><p>Here is your rdfmapped.com weekly summary.<br></p>` +
+        `<p>Number of new bugreports: <b>${bugReports.length}</b></p>` +
+        `<p>Number of new contact requests: <b>${contactRequests.length}</b><br></p>` +
+        `<p>Bug reports: <code>${JSON.stringify(bugReports)}</code><br></p>` +
+        `<p>Contact requests: <code>${JSON.stringify(contactRequests)}</code></p>`);
     bugReports.length = 0;
     contactRequests.length = 0;
 };
