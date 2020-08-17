@@ -2,6 +2,10 @@ const adminRepo = require("../../repositories/admin");
 const jose = require("../jose");
 const digest = require("../digest");
 const config = require("../../config").jose.aud;
+const mail = require("../mail");
+
+const bugReports = [];
+const contactRequests = [];
 
 const logInAdmin = async (email, password) => {
     const findResult = await adminRepo.findByEmail(email);
@@ -32,7 +36,33 @@ const authenticateAdmin = (jwe) => {
     return jose.decryptAndVerify(jwe, config).name;
 };
 
+const logBugReport = (bugreport) => {
+    console.log(bugReports.length);
+    bugReports.push(bugreport);
+    console.log(bugReports.length);
+};
+
+const logContactRequest = (contactRequest) => {
+    contactRequests.push(contactRequest);
+};
+
+const sendSummary = () => {
+    mail.sendEmail(
+        process.env.DEFAULT_EMAIL_ADDRESS,
+        process.env.SUMMARY_EMAIL_ADDRESS,
+        "Your RDFmapped weekly summary",
+        `Hello,\nHere is your rdfmapped.com weekly summary.\n\n` +
+        `Number of new bugreports:${bugReports.length}\nNumber of new contact requests\n\n\n` +
+        `Bug reports:\n${bugReports.toString()}` +
+        `Contact requests:\n${contactRequests.toString()}`);
+    bugReports.length = 0;
+    contactRequests.length = 0;
+};
+
 module.exports = {
     logInAdmin,
     authenticateAdmin,
+    logBugReport,
+    logContactRequest,
+    sendSummary,
 };

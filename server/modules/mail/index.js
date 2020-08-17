@@ -11,7 +11,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
  * @param {String} to
  * @param {String} subject
  * @param {String} text
- * @param {String} html
+ * @param {String} [html=text] text will be used as html body if omitted
  */
 const sendEmail = async (from, to, subject, text, html) => {
     log.info("'%s': Sending email to '%s'", from, to);
@@ -30,25 +30,6 @@ const sendEmail = async (from, to, subject, text, html) => {
     }
 };
 
-/**
- * Send a bug report email asynchronously to the bug report
- * email address specified in .env. This sets the sender
- * of the email to be the server email address, but the
- * user's email is specified in the body of the email.
- * @param {string} email the user input contact email address
- * @param {string} originalUrl
- * @param {string} report the user input bug report
- * @return {Promise}
- */
-const sendBugReport = async (email, originalUrl, report) => {
-    log.info("Sending bug report for route: '%s'", originalUrl);
-    const fromToEmail = process.env.BUG_REPORT_EMAIL_ADDRESS;
-    const subject = `[rdfmapped.com] Bug Report for route: ${originalUrl}`;
-    const text = `Route: ${originalUrl} \nBug report from ${email ? email : "anonymous"}:\n${report}`;
-    return sendEmail(fromToEmail, fromToEmail, subject, text);
-};
-
 module.exports = {
     sendEmail,
-    sendBugReport,
 };
