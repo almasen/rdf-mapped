@@ -58,7 +58,7 @@
                                     <h5 class="card-title"><%= submissions.length %> submission(s)</h5>
                                     <h6 class="card-subtitle mb-2 text-muted">
                                         <% var pendingCount = 0; submissions.forEach(e => { %>
-                                        <% if (e.status !== "published") { %>
+                                        <% if (e.status !== "published" && e.status !== "rejected") { %>
                                         <% ++pendingCount; %>
                                         <% } %>
                                         <% }); %>
