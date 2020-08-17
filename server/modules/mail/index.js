@@ -11,8 +11,9 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
  * @param {String} to
  * @param {String} subject
  * @param {String} text
+ * @param {String} html
  */
-const sendEmail = async (from, to, subject, text) => {
+const sendEmail = async (from, to, subject, text, html) => {
     log.info("'%s': Sending email to '%s'", from, to);
     try {
         await sgMail.send({
@@ -20,7 +21,7 @@ const sendEmail = async (from, to, subject, text) => {
             to,
             subject,
             text,
-            html: text,
+            html: html ? html : text,
         });
         log.info("'%s': Email sent successfully to '%s'", from, to);
     } catch (error) {
