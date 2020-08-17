@@ -30,7 +30,7 @@
                 <div class="block-heading">
                     <h2 class="text-info">Choose which FAQ entry to edit</h2>
                     <p style="padding-bottom: 10px;">Go back to <a href="/admin">Admin Dashboard</a></p>
-                    <a class="btn btn-primary" href="/admin/new/faq" role="button">Add a new FAQ item</a>
+                    <a class="btn btn-primary" href="/admin/faq/new" role="button">Add a new FAQ item</a>
                 </div>
                 <div class="block-content">
                     <div class="row">
@@ -50,7 +50,8 @@
                                     <div class="tab-pane fade <%= e.id === 1 ? 'show active' : '' %>" id="v-pills-<%= e.id %>" role="tabpanel" aria-labelledby="v-pills-<%= e.id %>-tab">
                                         <%- e.answer %>
                                         <br><br>
-                                        <a class="btn btn-outline-primary" role="button" href="/admin/edit/faq/<%= e.id %>">Edit me</a>
+                                        <a class="btn btn-outline-primary" role="button" href="/admin/faq/edit/<%= e.id %>">Edit me</a>
+                                        <a style="margin-left: 35px" class="btn btn-danger" role="button" href="/admin/faq/delete/<%= e.id %>">Delete me :(</a>
                                     </div>
                                 <% }); %>
                             </div>

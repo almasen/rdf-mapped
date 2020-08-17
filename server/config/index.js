@@ -25,6 +25,11 @@ config.scheduler = {
         hour: 4,
         minute: 20,
     },
+    weeklySummary: {
+        hour: 0,
+        minute: 0,
+        dayOfWeek: 1,
+    },
 };
 
 module.exports = config;

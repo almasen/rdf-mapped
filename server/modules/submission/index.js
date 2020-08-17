@@ -84,7 +84,11 @@ const insertNewSubmission = async (type, title, hyperlink, email) => {
             email,
             "Your RDFmapped Content Submission",
             `Thank you very much for submitting content to the RDFmapped website, we really appreciate the contribution.\n` +
-            `You can track the progress of you submission via the following link: https://rdfmapped.com/submission/${id}`);
+            `You can track the progress of you submission via the following link: https://rdfmapped.com/submission/${id}`,
+            `<p>Thank you very much for submitting content to the RDFmapped website, we really appreciate the contribution.</p>` +
+            `You can track the progress of you submission via the following link: ` +
+            `<a href="https://rdfmapped.com/submission/${id}" target="_blank" rel="noopener noreferrer">` +
+            `https://rdfmapped.com/submission/${id}</a>`);
     }
     attemptToFindURN(insertionResult.rows[0]);
 };

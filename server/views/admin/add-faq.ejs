@@ -30,12 +30,13 @@
                 <div class="block-heading">
                     <h2 class="text-info">Add FAQ Entry</h2>
                     <p>Go back to <a href="/admin">Admin Dashboard</a></p>
+                    <p>Go back to <a href="/admin/faq">FAQ selector</a></p>
                 </div>
                 <div class="block-content">
                     <div class="row" style="padding-bottom: 20px;">
                         <h4 style="padding-right: 30px;">Type in the FAQ question in the field below and the (optionally formatted) answer in the Rich Text editor box.</h4>
                     </div>
-                    <form action="/admin/new/faq" method="POST" id="updateInfoForm" target="dummyframe">
+                    <form action="/admin/faq/new" method="POST" id="updateInfoForm" target="dummyframe">
                         <button onclick="getEditorValue()" type="submit" class="btn btn-primary" name="answer"
                             id="updatedInformationButton" value="null">Save &
                             submit</button>

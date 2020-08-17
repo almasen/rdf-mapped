@@ -4,7 +4,7 @@
 const log = require("../../util/log");
 const express = require("express");
 const router = express.Router();
-const mailSender = require("../../modules/mail");
+const bugreport = require("../../modules/bugreport");
 const httpUtil = require("../../util/http");
 const captchaService = require("../../modules/captcha");
 
@@ -44,11 +44,11 @@ router.post("/", async (req, res) => {
                 message: "reCAPTCHA verification failed",
             }, res);
         } else {
-            await mailSender.sendBugReport(req.body.email, req.body.originalUrl, req.body.report);
+            await bugreport.sendBugReport(req.body.originalUrl, req.ip, req.body.email, req.body.report);
             httpUtil.sendGenericSuccess(res);
         }
     } catch (e) {
-        log.error("%s: Sending bug report failed " + e, req.body.email, req.body.userId);
+        log.error("%s: Sending bug report failed " + e, req.ip);
         httpUtil.sendGenericError(e, res);
     }
 });

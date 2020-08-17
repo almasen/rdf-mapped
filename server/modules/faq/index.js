@@ -44,12 +44,24 @@ const fetchByKeyword = async (keyword) => {
  * Flushes the faqs from cache upon a successful
  * update.
  * @param {Object} faq valid faq object
+ * @return {Object} updated faq object
  */
 const update = async (faq) => {
     const updateResult = await faqRepo.update(faq);
     // flush cached faqs if successful
     cache.del("faqs");
     return updateResult.rows[0];
+};
+
+/**
+ * Delete an faq object from the database.
+ * Flushes the faqs from the cache upon a successful
+ * deletion.
+ * @param {Number} id of faq object
+ */
+const remove = async (id) => {
+    await faqRepo.removeById(id);
+    cache.del("faqs");
 };
 
 /**
@@ -73,4 +85,5 @@ module.exports = {
     update,
     insert,
     findById,
+    remove,
 };
