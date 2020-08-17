@@ -75,7 +75,7 @@ app.use("/bugreport", require("./routes/bugreport"));
 // Admin routes
 app.use("/admin/login", require("./routes/admin/login"));
 app.use("/admin", require("./routes/admin"));
-app.use("/admin/edit/information", require("./routes/admin/edit/information"));
+app.use("/admin/information", require("./routes/admin/information"));
 app.use("/admin/faq", require("./routes/admin/faq"));
 app.use("/admin/faq/new", require("./routes/admin/faq/new"));
 app.use("/admin/faq/edit", require("./routes/admin/faq/edit"));
