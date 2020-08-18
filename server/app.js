@@ -62,7 +62,6 @@ app.use("/submission", require("./routes/submission"));
 
 // Information routes
 app.use("/about", require("./routes/information/about"));
-app.use("/terms", require("./routes/information/terms"));
 app.use("/privacy", require("./routes/information/privacy"));
 app.use("/accessibility", require("./routes/information/accessibility"));
 // Faqs
