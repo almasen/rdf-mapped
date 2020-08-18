@@ -75,6 +75,7 @@ const fetchLearningObject = async (urn) => {
             searchParams: {
                 "fields": `${meta.join()},details:(${details.join()})`,
                 "expandDepth": 1,
+                "targetLocale.language": "en",
             },
             hooks: {
                 afterResponse: [
@@ -110,7 +111,7 @@ const fetchLearningObject = async (urn) => {
             return response.body;
         }
     } catch (error) {
-        log.info("LinkedIn-L API: Failed to GET learning asset (%s) endpoint, err: " + error.message, urn);
+        log.error("LinkedIn-L API: Failed to GET learning asset (%s) endpoint, err: " + error.message, urn);
     }
 };
 

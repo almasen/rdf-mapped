@@ -131,5 +131,3 @@ rdfwebsitedns.txt
 *.docx
 *.docx#
 server/log/
-
-server/views/components/google-analytics.ejs
