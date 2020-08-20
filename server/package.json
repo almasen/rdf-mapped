@@ -20,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@octokit/request": "^5.4.7",
     "@sendgrid/mail": "^7.2.2",
     "adm-zip": "^0.4.16",
     "body-parser": "^1.19.0",
