@@ -28,7 +28,7 @@ const generateSubmissionID = (email, timestamp) => {
         digest.hashVarargInBase64(
             email,
             timestamp,
-            process.env.SUBMISSION_SIG_KEY,
+            process.env.SERVER_SIG_KEY,
         ),
     );
 };

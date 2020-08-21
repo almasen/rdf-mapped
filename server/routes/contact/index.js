@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const mail = require("../../modules/mail");
+const contact = require("../../modules/contact");
 const captchaService = require("../../modules/captcha");
 const log = require("../../util/log");
+const httpUtil = require("../../util/http");
 
 router.get('/', (req, res) => {
     try {
@@ -28,12 +29,8 @@ router.post('/', async (req, res) => {
                 message: "reCAPTCHA verification failed",
             }, res);
         } else {
-            mail.sendEmail(
-                process.env.CONTACT_EMAIL_ADDRESS,
-                process.env.CONTACT_EMAIL_ADDRESS,
-                `[rdfmapped.com] Contact form: ${req.body.subject}`,
-                `Contact request from ${req.body.email} - ${req.body.name}:\n${req.body.message}`,
-            );
+            await contact.processContactRequest(req.ip, req.body);
+            httpUtil.sendGenericSuccess(res);
         }
     } catch (error) {
         log.error("%s: Contact-us failed, err: " + error.message, req.body.email);

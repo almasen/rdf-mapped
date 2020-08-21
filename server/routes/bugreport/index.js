@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
                 message: "reCAPTCHA verification failed",
             }, res);
         } else {
-            await bugreport.sendBugReport(req.body.originalUrl, req.ip, req.body.email, req.body.report);
+            await bugreport.processBugReport(req.body.originalUrl, req.ip, req.body.email, req.body.report);
             httpUtil.sendGenericSuccess(res);
         }
     } catch (e) {
