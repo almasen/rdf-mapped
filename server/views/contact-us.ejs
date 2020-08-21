@@ -47,17 +47,19 @@
                 </div>
                 <form action="/contact" method="POST" target="dummyIFrame" id="contactUsForm">
                     <div id="form-inner">
-                        <!-- <div class="form-group"><label>Type</label>
-                            <select class="form-control" id="type" name="type" required>
-                                <option selected disabled>Please select the reason for contact</option>
-                                <option>Content suggestion</option>
-                                <option>Feature request</option>
-                                <option>Technical issues</option>
-                                <option>Other</option>
+                        <div class="form-group"><label>Reason</label>
+                            <select class="form-control" id="reason" name="reason" required>
+                                <option selected disabled>Select reason</option>
+                                <option value="general">General enquiry</option>
+                                <option value="feature_request">Feature request/suggestion</option>
+                                <option value="dataset">Dataset to be imported</option>
+                                <option value="bugreport">Bug report/technical issues</option>
+                                <option value="other">Other</option>
                             </select>
-                        </div> -->
+                        </div>
                         <div class="form-group"><label>Name</label><input class="form-control" type="text" id="name"
                                 name="name" required></div>
+
                         <div class="form-group"><label>Subject</label><input class="form-control" type="text"
                                 id="subject" name="subject" required></div>
                         <div class="form-group"><label>Email</label><input class="form-control" type="email" id="email"
