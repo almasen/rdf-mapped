@@ -8,7 +8,19 @@ const processContactRequest = async (ip, data) => {
     contactRequest.ip = ip;
     await sendContactRequest(contactRequest);
     admin.logContactRequest(contactRequest);
-    // octokit.createFeatureRequestIssue(contactRequest);
+    console.log(contactRequest);
+    switch (contactRequest.reason) {
+        case "bugreport":
+            octokit.createBugreportIssue(contactRequest);
+            break;
+
+        case "feature_request":
+            octokit.createFeatureRequestIssue(contactRequest);
+            break;
+
+        default:
+            break;
+    }
 };
 
 const sendContactRequest = async (contactRequest) => {
