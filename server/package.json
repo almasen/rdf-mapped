@@ -1,24 +1,27 @@
 {
-  "name": "rdfmapped.com",
-  "version": "1.7.1",
-  "description": "RDFmapped server",
+  "name": "rdfmapped",
+  "version": "1.8.0",
+  "description": "Researcher Development Framework Mapped",
+  "homepage": "https://rdfmapped.com",
+  "author": {
+    "name": "Daniel Almasi",
+    "email": "hello@almasi.dev",
+    "url": "https://github.com/almasen"
+  },
+  "license": "MIT",
   "main": "server.js",
   "scripts": {
     "test": "jest -i --detectOpenHandles",
-    "test-nologs": "env NO_LOG=True jest -i --detectOpenHandles",
-    "test-infologs": "env INFO_LOG=True jest -i --detectOpenHandles",
     "start": "node server.js",
     "db-migrate": "db-migrate",
     "docs": "jsdoc -r -c ./jsdoc/.jsdocrc.json ./modules",
     "dev-start": "env NODE_ENV=development nodemon --ignore './exports/' ./server",
     "prod-start": "env NODE_ENV=production node ./server",
-    "check-all": "db-migrate reset; db-migrate up; npm i; jest -i --detectOpenHandles; jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes; eslint ./ --fix",
+    "check-all": "db-migrate reset; db-migrate up; npm i; jest -i --detectOpenHandles; jsdoc -r -c ./jsdoc/.jsdocrc.json ./modules; eslint ./ --fix",
     "rem-logs": "del-cli ./log/*.log",
     "rem-exports": "del-cli ./exports/*",
-    "insert-samples": "env NO_LOG=True jest -i /test/helpers/sample"
+    "insert-samples": "jest -i /test/helpers/sample"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@octokit/request": "^5.4.7",
     "@sendgrid/mail": "^7.2.4",
