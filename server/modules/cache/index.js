@@ -1,38 +1,73 @@
+/**
+ * @module cache
+ */
 const NodeCache = require("node-cache");
 const log = require("../../util/log");
 const linkedinApi = require("../linkedin_learning");
 const fs = require('fs');
 
+/**
+ * The main server cache.
+ */
 const modulesCache = new NodeCache({
     checkperiod: 0,
 });
 
+/**
+ * Get a cached object.
+ * @param {String} key
+ * @return {Object} cached object
+ */
 const get = (key) => {
     return modulesCache.get(key);
 };
 
+/**
+ * Cache an object.
+ * @param {String} key
+ * @param {String} value
+ */
 const set = (key, value) => {
     modulesCache.set(key, value);
 };
 
+/**
+ * Return true if key exists in cache.
+ * @param {String} key
+ * @return {Boolean} true if exists
+ */
 const has = (key) => {
     return modulesCache.has(key);
 };
 
+/**
+ * Remove an object from the cache.
+ * @param {String} key
+ */
 const del = (key) => {
     modulesCache.del(key);
 };
 
+/**
+ * Flush the cache.
+ */
 const flush = () => {
     log.info("About to flush CACHE, current stats: %s", modulesCache.getStats());
     modulesCache.flushAll();
     log.info("Flushed CACHE, stats reset: %s", modulesCache.getStats());
 };
 
+/**
+ * Log the cache stats.
+ */
 const logStats = () => {
     log.info("CACHE stats: %s", modulesCache.getStats());
 };
 
+/**
+ * Update all cached learning objects from LinkedIn Learning API.
+ * Log the results and write out failed objects to a separate log file.
+ */
 const updateAllFromAPI = async () => {
     log.info("Attempting to update CACHE from LinkedIn-L API..");
 
@@ -91,10 +126,13 @@ const updateAllFromAPI = async () => {
         log.warn("CACHE update from LinkedIn-L API had at least one error: %s succeeded, %s failed", successCount, errorCount);
     logStats();
 
-
     fs.writeFileSync(`./log/objects_without_urn_${(new Date()).toUTCString()}`, JSON.stringify(objectsWithoutURN));
 };
 
+/**
+ * Update a single cached object from LinkedIn Learning API.
+ * @param {String} key
+ */
 const updateFromAPI = async (key) => {
     log.info("Attempting to update CACHE(%s) from LinkedIn-L API..", key);
     try {

@@ -1,6 +1,14 @@
+/**
+ * @module faq
+ */
 const faqRepo = require("../../repositories/faq");
 const cache = require("../cache");
 
+/**
+ * Fetch all FAQ objects and return them sorted ascending by id.
+ * If FAQs are cached, fetch from cache, otherwise fetch from
+ * the database and cache them for future use.
+ */
 const fetchAll = async () => {
     if (cache.has("faqs")) {
         return cache.get("faqs");
@@ -13,8 +21,8 @@ const fetchAll = async () => {
 };
 
 /**
- * Get an faq record from the database.
- * (skips cache check)
+ * Get an FAQ object record directly from the database.
+ * Skips cache check, designed to be used for admin functionality.
  * @param {Number} id
  * @return {Object} faq object
  */
@@ -23,6 +31,13 @@ const findById = async (id) => {
     return findResult.rows[0];
 };
 
+/**
+ * Fetch FAQs based on input keyword and matching titles.
+ * If FAQs are cached, return from cache,
+ * otherwise, fetch from database.
+ * @param {String} keyword
+ * @return {Array} matching FAQ objects
+ */
 const fetchByKeyword = async (keyword) => {
     if (cache.has("faqs")) {
         const cachedVal = cache.get("faqs");
@@ -66,6 +81,8 @@ const remove = async (id) => {
 
 /**
  * Insert a new faq into the database.
+ * Flushes the faqs from the cache upon a successful
+ * insertion.
  * @param {String} question
  * @param {String} answer
  * @return {Object} new faq record

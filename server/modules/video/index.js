@@ -1,3 +1,6 @@
+/**
+ * @module video
+ */
 const videoRepo = require("../../repositories/video");
 const videoPhaseRepo = require("../../repositories/video/phase");
 const log = require("../../util/log");
@@ -67,15 +70,16 @@ const fetchAndResolveVideo = async (videoId) => {
         log.info("Video %s: Fetched all info from CACHE", videoId);
         return cache.get(`video-${videoId}`);
     } else {
-        // const findResult = await videoRepo.findByIdWithFullInfo(videoId);
-        // if (findResult.rows.length < 1) { // TODO: disabled direct fetching of non-cached videos
         throw new Error(`No video found by id '${videoId}'`);
-        // }
-        // log.info("Video %s: Fetched all info from DB", videoId);
-        // return findResult.rows[0];
     }
 };
 
+/**
+ * Fetch videos based on input filters.
+ * Fetches from cache if possible
+ * @param {Object} filters
+ * @return {Array} matching video objects
+ */
 const fetchByFilters = async (filters) => {
     if (cache.has("videos")) {
         const cachedVal = cache.get("videos");
@@ -127,6 +131,12 @@ const fetchByFilters = async (filters) => {
     }
 };
 
+/**
+ * Fetch call videos.
+ * Fetches from cache if possible, otherwise
+ * fetches from database and caches values
+ * for future use.
+ */
 const fetchAll = async () => {
     if (cache.has("videos")) {
         return cache.get("videos");
@@ -140,13 +150,22 @@ const fetchAll = async () => {
     }
 };
 
+/**
+ * Fetch all videos that have unique titles.
+ * Fetches all videos then filters and sorts
+ * by the titles.
+ * @return {Array} videos
+ */
 const fetchAllWithUniqueTitles = async () => {
     const allVideos = await fetchAll();
     return filtering.filterAndSortByTitle(allVideos);
 };
 
 /**
- * Add a new video
+ * Add a new video: insert new video object to the database,
+ * and immediately attempt to update the cache with the new object.
+ * The video object is only cached if it can successfully be updated
+ * from the LinkedIn Learning API.
  * @param {Object} video
  */
 const addNewVideo = async (video) => {
@@ -182,6 +201,13 @@ const addNewVideo = async (video) => {
     return videoId;
 };
 
+/**
+ * Update a video: update a stored video object in the database,
+ * and immediately attempt to update the cache with the object.
+ * The video object is only cached if it can successfully be updated
+ * from the LinkedIn Learning API.
+ * @param {Object} video
+ */
 const updateVideo = async (video) => {
     const videoId = parseInt(video.id);
     await videoRepo.update({
@@ -221,6 +247,11 @@ const updateVideo = async (video) => {
     log.info("Video %d: Cache updated with updated video.", videoId);
 };
 
+/**
+ * Delete a video from the database and efficiently remove it
+ * from the cache so full flushing of cache can be avoided.
+ * @param {Number} id
+ */
 const deleteVideo = async (id) => {
     log.info("Video %d: Deleting video with all details...", id);
     await videoRepo.removeById(id);

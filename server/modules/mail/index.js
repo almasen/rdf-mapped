@@ -1,3 +1,6 @@
+/**
+ * @module mail
+ */
 const sgMail = require('@sendgrid/mail');
 const log = require("../../util/log");
 
@@ -6,6 +9,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 /**
  * Send email asynchronously.
+ * Supports both HTML and plain text email bodies.
  * Success or failure is logged.
  * @param {String} from
  * @param {String} to

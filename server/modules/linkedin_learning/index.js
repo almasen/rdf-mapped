@@ -1,3 +1,6 @@
+/**
+ * @module linkedinLearning
+ */
 const got = require("got");
 const log = require("../../util/log");
 const {differenceInDays} = require("date-fns");
@@ -5,8 +8,17 @@ const config = require("../../config").linkedinLearningAPI;
 
 const learningObjectRepository = require("../../repositories/learning_object");
 
+/**
+ * Number of failed API token renewals.
+ * Functions use this to avoid repeating
+ * unauthorised API requests
+ */
 let failedRenewals = 0;
 
+/**
+ * Attempt to renew LinkedIn Learning API token.
+ * Update failedRenewals counter based on result.
+ */
 const renewAccessToken = async () => {
     log.info("LinkedIn-L API: Attempting to renew access token..");
 
@@ -36,7 +48,13 @@ const renewAccessToken = async () => {
 };
 
 /**
- *
+ * Attempt to fetch learningObject from LinkedIn Learning API
+ * based on its Unique Resource Identifier (URN) if respective
+ * object in database is out of date.
+ * If the API response is 401 Unauthorised and there haven't been
+ * any failed renewals, reattempts with a renewed token.
+ * Logs attempt details including whether the cached value is up to date.
+ * Returns undefined on failure.
  * @param {String} urn
  * @return {Object} learningObject or undefined
  */
@@ -116,9 +134,15 @@ const fetchLearningObject = async (urn) => {
 };
 
 /**
- * Attempt to fetch matching URN to given learningObject.
+ * Attempt to fetch matching URN to given learningObject from LinkedIn Learning API.
+ * In order for a URN to be considered matching, the user input hyperlink must match
+ * the full path of the API object's hyperlink.
+ * If the API response is 401 Unauthorised and there haven't been
+ * any failed renewals, reattempts with a renewed token.
+ * Logs attempt details including degree of match.
+ * Returns undefined on failure.
  * @param {Object} learningObject must have title & hyperlink
- * @param {String} type one L.Learning obj type COURSE / VIDEO / LEARNING_PATH
+ * @param {String} type learning object type COURSE / VIDEO
  * @return {String} URN or undefined
  */
 const fetchURNByContent = async (learningObject, type) => {
@@ -176,6 +200,10 @@ const fetchURNByContent = async (learningObject, type) => {
     }
 };
 
+/**
+ * Returns the server's LinkedIn Learning API token in OAuth 2.0 Authorisation header format.
+ * @return {String} API token in OAuth 2.0 format
+ */
 const getOAuthToken = () => {
     return `Bearer ${process.env.LINKEDIN_LEARNING_TOKEN}`;
 };

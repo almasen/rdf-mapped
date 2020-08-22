@@ -1,6 +1,15 @@
+/**
+ * @module category
+ */
 const categoryRepo = require("../../repositories/category");
 const cache = require("../cache");
 
+/**
+ * Fetch all categories. If cached,
+ * return from cache, otherwise, fetch from
+ * database and cache the values.
+ * @return {Array} all category objects
+ */
 const fetchAll = async () => {
     if (cache.has("categories")) {
         return cache.get("categories");
@@ -11,6 +20,13 @@ const fetchAll = async () => {
     }
 };
 
+/**
+ * Fetch categories based on input keyword.
+ * If categories are cached, return from cache,
+ * otherwise, fetch from database.
+ * @param {String} keyword
+ * @return {Array} matching category objects
+ */
 const fetchByKeyword = async (keyword) => {
     if (cache.has("categories")) {
         const cachedVal = cache.get("categories");
@@ -27,6 +43,15 @@ const fetchByKeyword = async (keyword) => {
     return findResult.rows;
 };
 
+/**
+ * Fetch all categories based on input parent id.
+ * If categories are cached, return from cache,
+ * otherwise, fetch from database.
+ * A parent of a category refers to the higher level
+ * grouping: 'capabilities'.
+ * @param {Number} parentId
+ * @return {Array} matching category objects
+ */
 const fetchAllByParent = async (parentId) => {
     if (cache.has("categories")) {
         const cachedVal = cache.get("categories");
@@ -42,6 +67,11 @@ const fetchAllByParent = async (parentId) => {
     return findResult.rows;
 };
 
+/**
+ * Fetch a category object by id from database.
+ * @param {Number} id
+ * @return {Object} category object
+ */
 const fetchById = async (id) => {
     const findResult = await categoryRepo.findById(id);
     return findResult.rows[0];

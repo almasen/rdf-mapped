@@ -1,3 +1,6 @@
+/**
+ * @module submission
+ */
 const submissionRepo = require("../../repositories/submission");
 const digest = require("../digest");
 const linkedinAPI = require("../linkedin_learning");
@@ -10,6 +13,11 @@ const capabilityService = require("../capability");
 const categoryService = require("../category");
 const competencyService = require("../competency");
 
+/**
+ * Fetch submission from database by id.
+ * @param {String} id
+ * @return {Object} submission object
+ */
 const fetchById = async (id) => {
     const findResult = await submissionRepo.findById(id);
     if (findResult.rows.length === 0) {
@@ -18,27 +26,51 @@ const fetchById = async (id) => {
     return findResult.rows[0];
 };
 
+/**
+ * Fetch all submissions from database.
+ * @return {Array} submissions
+ */
 const fetchAll = async () => {
     const findResult = await submissionRepo.findAll();
     return findResult.rows;
 };
-
+/**
+ * Generate unique submission id by hashing
+ * the email, timestamp and server secret.
+ * @param {String} email
+ * @param {String} timestamp
+ * @return {String} unique submission id
+ */
 const generateSubmissionID = (email, timestamp) => {
     return util.base64ToURLSafe(
         digest.hashVarargInBase64(
             email,
             timestamp,
-            process.env.SERVER_SIG_KEY,
+            process.env.SERVER_SECRET,
         ),
     );
 };
 
+/**
+ * Update the status of a submission
+ * to rejected.
+ * @param {String} id
+ */
 const rejectSubmission = async (id) => {
     const submission = await fetchById(id);
     submission.status = 'rejected';
     await updateSubmission(submission);
 };
 
+/**
+ * Map a submission to given RDF parameters and
+ * update record in database.
+ * @param {String} id
+ * @param {Number} capability id of capability
+ * @param {Number} category id of category
+ * @param {Number} competency id of competency
+ * @param {any} phases array or single id number
+ */
 const mapSubmission = async (id, capability, category, competency, phases) => {
     const submission = await fetchById(id);
     submission.data.capability = capability;
@@ -54,6 +86,11 @@ const mapSubmission = async (id, capability, category, competency, phases) => {
     await updateSubmission(submission);
 };
 
+/**
+ * Publish a submission: insert it as a new learning object and
+ * update its status to published.
+ * @param {String} id
+ */
 const publishSubmission = async (id) => {
     const submission = await fetchById(id);
     if (!submission.data.urn) {
@@ -69,6 +106,14 @@ const publishSubmission = async (id) => {
     await updateSubmission(submission);
 };
 
+/**
+ * Insert new submission in the database and send
+ * tracking link to user if an email was provided.
+ * @param {String} type course / video
+ * @param {String} title
+ * @param {String} hyperlink
+ * @param {String} email
+ */
 const insertNewSubmission = async (type, title, hyperlink, email) => {
     const timestamp = (new Date()).toUTCString();
     const id = generateSubmissionID(email, timestamp);
@@ -93,6 +138,13 @@ const insertNewSubmission = async (type, title, hyperlink, email) => {
     attemptToFindURN(insertionResult.rows[0]);
 };
 
+/**
+ * Verify the integrity of a submission via the LinkedIn
+ * Learning API and update its status accordingly.
+ * Upon success, the submission's Unique Resource Identifier
+ * is set to match the LinkedIn Learning URN.
+ * @param {Object} submission
+ */
 const attemptToFindURN = async (submission) => {
     try {
         log.info("Attempting to find URN for submission(%s)", submission.id);
@@ -109,6 +161,10 @@ const attemptToFindURN = async (submission) => {
     }
 };
 
+/**
+ * Update a submission object in the database.
+ * @param {Object} submission
+ */
 const updateSubmission = async (submission) => {
     await submissionRepo.update(submission);
 };

@@ -1,3 +1,6 @@
+/**
+ * @module jose
+ */
 const jose = require('jose');
 const config = require("../../config").jose;
 const fs = require("fs");

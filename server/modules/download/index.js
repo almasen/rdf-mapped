@@ -1,3 +1,6 @@
+/**
+ * @module download
+ */
 const courseService = require("../course");
 const videoService = require("../video");
 const fs = require("fs");
@@ -10,6 +13,10 @@ const fields = ['id', 'title', 'hyperlink', 'capabilityTitle', 'capabilityId',
     'categoryTitle', 'categoryId', 'competencyTitle', 'competencyId', 'phases'];
 const opts = {fields};
 
+/**
+ * Export stored learning objects to various archive formats
+ * if export files do not yet exist.
+ */
 const generateExportFiles = async () => {
     if (
         fs.existsSync("./exports/rdf-mapped-combined.json") &&
@@ -61,6 +68,11 @@ const generateExportFiles = async () => {
     }
 };
 
+/**
+ * Delete all archives, i.e. clear the export folder.
+ * This is often called after database changes to ensure
+ * archives are up to date.
+ */
 const deleteExportFiles = () => {
     rimraf("./exports/*", (result) => {
         log.info("Cleared exports folder");

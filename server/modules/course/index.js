@@ -1,3 +1,6 @@
+/**
+ * @module course
+ */
 const courseRepo = require("../../repositories/course");
 const coursePhaseRepo = require("../../repositories/course/phase");
 const log = require("../../util/log");
@@ -67,15 +70,16 @@ const fetchAndResolveCourse = async (courseId) => {
         log.info("Course %s: Fetched all info from CACHE", courseId);
         return cache.get(`course-${courseId}`);
     } else {
-        // const findResult = await courseRepo.findByIdWithFullInfo(courseId);
-        // if (findResult.rows.length < 1) { // TODO: disabled direct fetching of non-cached courses
         throw new Error(`No course found by id '${courseId}'`);
-        // }
-        // log.info("Course %s: Fetched all info from DB", courseId);
-        // return findResult.rows[0];
     }
 };
 
+/**
+ * Fetch courses based on input filters.
+ * Fetches from cache if possible
+ * @param {Object} filters
+ * @return {Array} matching course objects
+ */
 const fetchByFilters = async (filters) => {
     if (cache.has("courses")) {
         const cachedVal = cache.get("courses");
@@ -127,6 +131,12 @@ const fetchByFilters = async (filters) => {
     }
 };
 
+/**
+ * Fetch call courses.
+ * Fetches from cache if possible, otherwise
+ * fetches from database and caches values
+ * for future use.
+ */
 const fetchAll = async () => {
     if (cache.has("courses")) {
         return cache.get("courses");
@@ -140,13 +150,22 @@ const fetchAll = async () => {
     }
 };
 
+/**
+ * Fetch all courses that have unique titles.
+ * Fetches all courses then filters and sorts
+ * by the titles.
+ * @return {Array} courses
+ */
 const fetchAllWithUniqueTitles = async () => {
     const allCourses = await fetchAll();
     return filtering.filterAndSortByTitle(allCourses);
 };
 
 /**
- * Add a new course
+ * Add a new course: insert new course object to the database,
+ * and immediately attempt to update the cache with the new object.
+ * The course object is only cached if it can successfully be updated
+ * from the LinkedIn Learning API.
  * @param {Object} course
  */
 const addNewCourse = async (course) => {
@@ -182,6 +201,13 @@ const addNewCourse = async (course) => {
     return courseId;
 };
 
+/**
+ * Update a course: update a stored course object in the database,
+ * and immediately attempt to update the cache with the object.
+ * The course object is only cached if it can successfully be updated
+ * from the LinkedIn Learning API.
+ * @param {Object} course
+ */
 const updateCourse = async (course) => {
     const courseId = parseInt(course.id);
     await courseRepo.update({
@@ -221,6 +247,11 @@ const updateCourse = async (course) => {
     log.info("Course %d: Cache updated with updated course.", courseId);
 };
 
+/**
+ * Delete a course from the database and efficiently remove it
+ * from the cache so full flushing of cache can be avoided.
+ * @param {Number} id
+ */
 const deleteCourse = async (id) => {
     log.info("Course %d: Deleting course with all details...", id);
     await courseRepo.removeById(id);

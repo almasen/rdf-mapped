@@ -1,12 +1,35 @@
+/**
+ * @module admin
+ */
 const adminRepo = require("../../repositories/admin");
 const jose = require("../jose");
 const digest = require("../digest");
 const config = require("../../config").jose.aud;
 const mail = require("../mail");
 
+/**
+ * Temporary logs of bugreports.
+ * Solely used for weekly notification of admins
+ * and cleared afterwards to ensure privacy of users.
+ */
 const bugReports = [];
+
+/**
+ * Temporary logs contact requests.
+ * Solely used for weekly notification of admins
+ * and cleared afterwards to ensure privacy of users.
+ */
 const contactRequests = [];
 
+/**
+ * Attempt to log in admin and generate a JWE token
+ * if successful.
+ * Throws an error on failure with appropriate message.
+ * @param {String} email
+ * @param {String} password
+ * @return {Object} JWE token on success
+ * @throws {Error} on invalid email or password
+ */
 const logInAdmin = async (email, password) => {
     const findResult = await adminRepo.findByEmail(email);
     if (findResult.rows.length === 0) {
@@ -36,14 +59,29 @@ const authenticateAdmin = (jwe) => {
     return jose.decryptAndVerify(jwe, config).name;
 };
 
+/**
+ * Log a copy of a bugreport in
+ * weekly temp storage.
+ * @param {Object} bugreport
+ */
 const logBugReport = (bugreport) => {
     bugReports.push(bugreport);
 };
 
+/**
+ * Log a copy of a contact request in
+ * weekly temp storage.
+ * @param {Object} contactRequest
+ */
 const logContactRequest = (contactRequest) => {
     contactRequests.push(contactRequest);
 };
 
+/**
+ * Send weekly summary of bugreports and contact
+ * requests to admins, then clear temp storage
+ * to ensure privacy of users.
+ */
 const sendSummary = () => {
     mail.sendEmail(
         process.env.DEFAULT_EMAIL_ADDRESS,
