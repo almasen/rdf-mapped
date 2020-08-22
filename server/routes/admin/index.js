@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
             const videos = await videoService.fetchAll();
             const uniqueVideos = await videoService.fetchAllWithUniqueTitles();
             const submissions = await submissionService.fetchAll();
-            res.render("admin-dashboard.ejs", {
+            res.render("./admin/dashboard.ejs", {
                 baseurl: req.baseUrl,
                 adminName,
                 courses,
