@@ -8,7 +8,6 @@ const processContactRequest = async (ip, data) => {
     contactRequest.ip = ip;
     await sendContactRequest(contactRequest);
     admin.logContactRequest(contactRequest);
-    console.log(contactRequest);
     switch (contactRequest.reason) {
         case "bugreport":
             octokit.createBugreportIssue(contactRequest);
@@ -28,7 +27,9 @@ const sendContactRequest = async (contactRequest) => {
         process.env.CONTACT_EMAIL_ADDRESS,
         process.env.CONTACT_EMAIL_ADDRESS,
         `[rdfmapped.com] Contact form: ${contactRequest.subject}`,
-        `Contact request from ${contactRequest.email} - ${contactRequest.name}:\n${contactRequest.message}`,
+        `Contact request [${contactRequest.reason}] from ${contactRequest.email} - ${contactRequest.name}:\n${contactRequest.message}`,
+        `<h2>Contact request</h2><p>reason: ${contactRequest.reason}</p><p>subject: ${contactRequest.subject}</p>` +
+            `<p>email: ${contactRequest.email}</p><p>name: ${contactRequest.email}</p><p>message: ${contactRequest.message}</p>`,
     );
 };
 
