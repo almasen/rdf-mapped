@@ -90,7 +90,7 @@ app.use("/admin/content/edit", require("./routes/admin/content/edit"));
 // app.all("/api/*", requireAPIAuth) // TODO: API authentication
 
 // Wildcard-catch non-matching addresses
-app.all("*", (req, res, next) => {
+app.all("*", (req, res) => {
     res.status(404).render('404.ejs', {
         baseurl: "",
     });
