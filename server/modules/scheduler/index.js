@@ -37,7 +37,7 @@ const scheduleWeeklySummary = () => {
     schedule.scheduleJob(config.weeklySummary, async () => {
         log.info("SCHEDULER: Executing scheduled task 'scheduleWeeklySummary()' at %s...",
             (new Date).toUTCString());
-        await adminService.sendSummary();
+        adminService.sendSummary();
     });
 };
 
