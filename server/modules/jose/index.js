@@ -17,7 +17,7 @@ const {
  * key with config-defined type and curve/size.
  */
 const encKey = (
-    process.env.PRESERVE_SESSIONS_ON_REBOOT == true ?
+    process.env.PRESERVE_SESSIONS_ON_REBOOT === '1' ?
         JWK.asKey({
             key: fs.readFileSync("./keys/enc.key"),
             format: "pem",
@@ -40,7 +40,7 @@ const encKey = (
  * key with config-defined type and curve/size.
  */
 const sigKey = (
-    process.env.PRESERVE_SESSIONS_ON_REBOOT == true ?
+    process.env.PRESERVE_SESSIONS_ON_REBOOT === '1' ?
         JWK.asKey({
             key: fs.readFileSync("./keys/sig.key"),
             format: "pem",
@@ -103,7 +103,7 @@ const getSigPubAsPEM = () => {
  * @return {string} JWE object as string
  */
 const encrypt = (cleartext, pub) => {
-    if (pub === undefined && process.env.SYMMETRIC_ENC_ENABLED == true) {
+    if (pub === undefined && process.env.SYMMETRIC_ENC_ENABLED === '1') {
         pub = encKey;
     };
     return JWE.encrypt(cleartext, JWK.asKey(pub),

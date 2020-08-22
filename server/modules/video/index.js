@@ -89,23 +89,23 @@ const fetchByFilters = async (filters) => {
             if (
                 (
                     !filters.capability ||
-                    parseInt(filters.capability) === -1 ||
-                    e.capabilityId === parseInt(filters.capability)
+                    parseInt(filters.capability, 10) === -1 ||
+                    e.capabilityId === parseInt(filters.capability, 10)
                 ) &&
                 (
                     !filters.category ||
-                    parseInt(filters.category) === -1 ||
-                    e.categoryId === parseInt(filters.category)
+                    parseInt(filters.category, 10) === -1 ||
+                    e.categoryId === parseInt(filters.category, 10)
                 ) &&
                 (
                     !filters.competency ||
-                    parseInt(filters.competency) === -1 ||
-                    e.competencyId === parseInt(filters.competency)
+                    parseInt(filters.competency, 10) === -1 ||
+                    e.competencyId === parseInt(filters.competency, 10)
                 ) &&
                 (
                     !filters.phase ||
-                    parseInt(filters.phase) === -1 ||
-                    e.phases.includes(parseInt(filters.phase))
+                    parseInt(filters.phase, 10) === -1 ||
+                    e.phases.includes(parseInt(filters.phase, 10))
                 ) &&
                 (
                     regex.test(e.title)
@@ -119,10 +119,10 @@ const fetchByFilters = async (filters) => {
     } else {
         const findResult = await videoRepo.findByFiltersAndKeywordJoint({
             filters: {
-                capabilityId: filters.capability ? parseInt(filters.capability) : -1,
-                categoryId: filters.category ? parseInt(filters.category) : -1,
-                competencyId: filters.competency ? parseInt(filters.competency) : -1,
-                phaseId: filters.phase ? parseInt(filters.phase) : -1,
+                capabilityId: filters.capability ? parseInt(filters.capability, 10) : -1,
+                categoryId: filters.category ? parseInt(filters.category, 10) : -1,
+                competencyId: filters.competency ? parseInt(filters.competency, 10) : -1,
+                phaseId: filters.phase ? parseInt(filters.phase, 10) : -1,
             },
             keyword: filters.keyword ? filters.keyword : '',
         });
@@ -172,9 +172,9 @@ const addNewVideo = async (video) => {
     const insertionResult = await videoRepo.insert({
         title: video.title,
         hyperlink: video.hyperlink,
-        capabilityId: parseInt(video.capability),
-        categoryId: parseInt(video.category),
-        competencyId: parseInt(video.competency),
+        capabilityId: parseInt(video.capability, 10),
+        categoryId: parseInt(video.category, 10),
+        competencyId: parseInt(video.competency, 10),
         urn: video.urn,
     });
     const videoId = insertionResult.rows[0].id;
@@ -182,13 +182,13 @@ const addNewVideo = async (video) => {
         for await (const phase of video.phases) {
             await videoPhaseRepo.insert({
                 videoId,
-                phaseId: parseInt(phase),
+                phaseId: parseInt(phase, 10),
             });
         }
     } else {
         await videoPhaseRepo.insert({
             videoId,
-            phaseId: parseInt(video.phases),
+            phaseId: parseInt(video.phases, 10),
         });
     }
     log.info("Video %d: Successfully inserted new record to database", videoId);
@@ -209,13 +209,13 @@ const addNewVideo = async (video) => {
  * @param {Object} video
  */
 const updateVideo = async (video) => {
-    const videoId = parseInt(video.id);
+    const videoId = parseInt(video.id, 10);
     await videoRepo.update({
         title: video.title,
         hyperlink: video.hyperlink,
-        capabilityId: parseInt(video.capability),
-        categoryId: parseInt(video.category),
-        competencyId: parseInt(video.competency),
+        capabilityId: parseInt(video.capability, 10),
+        categoryId: parseInt(video.category, 10),
+        competencyId: parseInt(video.competency, 10),
         urn: video.urn,
         id: videoId,
     });
@@ -224,13 +224,13 @@ const updateVideo = async (video) => {
         for await (const phase of video.phases) {
             await videoPhaseRepo.insert({
                 videoId,
-                phaseId: parseInt(phase),
+                phaseId: parseInt(phase, 10),
             });
         }
     } else {
         await videoPhaseRepo.insert({
             videoId,
-            phaseId: parseInt(video.phases),
+            phaseId: parseInt(video.phases, 10),
         });
     }
     log.info("Video %d: Successfully updated record in database", videoId);
@@ -260,7 +260,7 @@ const deleteVideo = async (id) => {
     cache.del(`video-${id}`);
     const videosArray = cache.get("videos");
     const index = videosArray.findIndex((e) => {
-        return e.id === parseInt(id);
+        return e.id === parseInt(id, 10);
     });
     videosArray.splice(index, 1);
     cache.set("videos", videosArray);

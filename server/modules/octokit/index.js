@@ -100,7 +100,7 @@ const createFeatureRequestIssue = async (featureRequest) => {
  */
 const createIssue = async (title, body, label) => {
     try {
-        if (process.env.CREATE_GITHUB_ISSUES == false) {
+        if (process.env.CREATE_GITHUB_ISSUES === '0') {
             log.info("Skipping creation of Github Issue - %s", title);
             return;
         }

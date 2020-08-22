@@ -89,23 +89,23 @@ const fetchByFilters = async (filters) => {
             if (
                 (
                     !filters.capability ||
-                    parseInt(filters.capability) === -1 ||
-                    e.capabilityId === parseInt(filters.capability)
+                    parseInt(filters.capability, 10) === -1 ||
+                    e.capabilityId === parseInt(filters.capability, 10)
                 ) &&
                 (
                     !filters.category ||
-                    parseInt(filters.category) === -1 ||
-                    e.categoryId === parseInt(filters.category)
+                    parseInt(filters.category, 10) === -1 ||
+                    e.categoryId === parseInt(filters.category, 10)
                 ) &&
                 (
                     !filters.competency ||
-                    parseInt(filters.competency) === -1 ||
-                    e.competencyId === parseInt(filters.competency)
+                    parseInt(filters.competency, 10) === -1 ||
+                    e.competencyId === parseInt(filters.competency, 10)
                 ) &&
                 (
                     !filters.phase ||
-                    parseInt(filters.phase) === -1 ||
-                    e.phases.includes(parseInt(filters.phase))
+                    parseInt(filters.phase, 10) === -1 ||
+                    e.phases.includes(parseInt(filters.phase, 10))
                 ) &&
                 (
                     regex.test(e.title)
@@ -119,10 +119,10 @@ const fetchByFilters = async (filters) => {
     } else {
         const findResult = await courseRepo.findByFiltersAndKeywordJoint({
             filters: {
-                capabilityId: filters.capability ? parseInt(filters.capability) : -1,
-                categoryId: filters.category ? parseInt(filters.category) : -1,
-                competencyId: filters.competency ? parseInt(filters.competency) : -1,
-                phaseId: filters.phase ? parseInt(filters.phase) : -1,
+                capabilityId: filters.capability ? parseInt(filters.capability, 10) : -1,
+                categoryId: filters.category ? parseInt(filters.category, 10) : -1,
+                competencyId: filters.competency ? parseInt(filters.competency, 10) : -1,
+                phaseId: filters.phase ? parseInt(filters.phase, 10) : -1,
             },
             keyword: filters.keyword ? filters.keyword : '',
         });
@@ -172,9 +172,9 @@ const addNewCourse = async (course) => {
     const insertionResult = await courseRepo.insert({
         title: course.title,
         hyperlink: course.hyperlink,
-        capabilityId: parseInt(course.capability),
-        categoryId: parseInt(course.category),
-        competencyId: parseInt(course.competency),
+        capabilityId: parseInt(course.capability, 10),
+        categoryId: parseInt(course.category, 10),
+        competencyId: parseInt(course.competency, 10),
         urn: course.urn,
     });
     const courseId = insertionResult.rows[0].id;
@@ -182,13 +182,13 @@ const addNewCourse = async (course) => {
         for await (const phase of course.phases) {
             await coursePhaseRepo.insert({
                 courseId,
-                phaseId: parseInt(phase),
+                phaseId: parseInt(phase, 10),
             });
         }
     } else {
         await coursePhaseRepo.insert({
             courseId,
-            phaseId: parseInt(course.phases),
+            phaseId: parseInt(course.phases, 10),
         });
     }
     log.info("Course %d: Successfully inserted new record to database", courseId);
@@ -209,13 +209,13 @@ const addNewCourse = async (course) => {
  * @param {Object} course
  */
 const updateCourse = async (course) => {
-    const courseId = parseInt(course.id);
+    const courseId = parseInt(course.id, 10);
     await courseRepo.update({
         title: course.title,
         hyperlink: course.hyperlink,
-        capabilityId: parseInt(course.capability),
-        categoryId: parseInt(course.category),
-        competencyId: parseInt(course.competency),
+        capabilityId: parseInt(course.capability, 10),
+        categoryId: parseInt(course.category, 10),
+        competencyId: parseInt(course.competency, 10),
         urn: course.urn,
         id: courseId,
     });
@@ -224,13 +224,13 @@ const updateCourse = async (course) => {
         for await (const phase of course.phases) {
             await coursePhaseRepo.insert({
                 courseId,
-                phaseId: parseInt(phase),
+                phaseId: parseInt(phase, 10),
             });
         }
     } else {
         await coursePhaseRepo.insert({
             courseId,
-            phaseId: parseInt(course.phases),
+            phaseId: parseInt(course.phases, 10),
         });
     }
     log.info("Course %d: Successfully updated record in database", courseId);
@@ -260,7 +260,7 @@ const deleteCourse = async (id) => {
     cache.del(`course-${id}`);
     const coursesArray = cache.get("courses");
     const index = coursesArray.findIndex((e) => {
-        return e.id === parseInt(id);
+        return e.id === parseInt(id, 10);
     });
     coursesArray.splice(index, 1);
     cache.set("courses", coursesArray);

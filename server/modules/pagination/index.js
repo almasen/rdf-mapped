@@ -19,7 +19,7 @@ const getPageData = (currentPageIn, pageSizeIn, data) => {
     const count = data.length;
     const paginatedData = data.slice(offset, offset + limit);
     const paginationInfo = paginate(currentPage, count, data, pageSize);
-    paginationInfo.pageSize = parseInt(pageSize);
+    paginationInfo.pageSize = parseInt(pageSize, 10);
     return {
         meta: paginationInfo,
         data: paginatedData,
