@@ -9,7 +9,7 @@
     "test-infologs": "env INFO_LOG=True jest -i --detectOpenHandles",
     "start": "node server.js",
     "db-migrate": "db-migrate",
-    "docs": "jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes",
+    "docs": "jsdoc -r -c ./jsdoc/.jsdocrc.json ./modules",
     "dev-start": "env NODE_ENV=development nodemon --ignore './exports/' ./server",
     "prod-start": "env NODE_ENV=production node ./server",
     "check-all": "db-migrate reset; db-migrate up; npm i; jest -i --detectOpenHandles; jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes; eslint ./ --fix",
