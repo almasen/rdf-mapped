@@ -1,8 +1,17 @@
+/**
+ * @module recache
+ */
 const cache = require("../");
 const courseService = require("../../course");
 const videoService = require("../../video");
 const log = require("../../../util/log");
 
+/**
+ * Recache all objects: flush the cache and recache
+ * all objects having updated all learning objects
+ * from LinkedIn Learning API.
+ * Used on a scheduled basis to keep content up to date.
+ */
 const recacheAll = async () => {
     log.info("Attempting to recache all content..");
 

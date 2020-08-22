@@ -1,6 +1,15 @@
+/**
+ * @module competency
+ */
 const competencyRepo = require("../../repositories/competency");
 const cache = require("../cache");
 
+/**
+ * Fetch all competencies. If cached,
+ * return from cache, otherwise, fetch from
+ * database and cache the values.
+ * @return {Array} all competency objects
+ */
 const fetchAll = async () => {
     if (cache.has("competencies")) {
         return cachedVal = cache.get("competencies");
@@ -11,6 +20,13 @@ const fetchAll = async () => {
     }
 };
 
+/**
+ * Fetch competencies based on input keyword.
+ * If competencies are cached, return from cache,
+ * otherwise, fetch from database.
+ * @param {String} keyword
+ * @return {Array} matching competency objects
+ */
 const fetchByKeyword = async (keyword) => {
     if (cache.has("competencies")) {
         const cachedVal = cache.get("competencies");
@@ -27,6 +43,15 @@ const fetchByKeyword = async (keyword) => {
     return findResult.rows;
 };
 
+/**
+ * Fetch all competencies based on input parent id.
+ * If competencies are cached, return from cache,
+ * otherwise, fetch from database.
+ * A parent of a competency refers to the higher level
+ * grouping: 'categories'.
+ * @param {Number} parentId
+ * @return {Array} matching competency objects
+ */
 const fetchAllByParent = async (parentId) => {
     if (cache.has("competencies")) {
         const cachedVal = cache.get("competencies");
@@ -42,6 +67,11 @@ const fetchAllByParent = async (parentId) => {
     return findResult.rows;
 };
 
+/**
+ * Fetch a competency object by id from database.
+ * @param {Number} id
+ * @return {Object} competency object
+ */
 const fetchById = async (id) => {
     const findResult = await competencyRepo.findById(id);
     return findResult.rows[0];

@@ -1,8 +1,22 @@
+/**
+ * @module bugreport
+ */
 const mail = require("../mail");
 const adminService = require("../admin");
 const log = require("../../util/log");
 const octokit = require("../octokit");
 
+/**
+ * Process bugreport submitted by a user
+ * at a specific route: Send the bugreport
+ * email to admin, log the bugreport via
+ * the admin module and create an anonymised
+ * issue on Github.
+ * @param {String} originalUrl
+ * @param {String} ip
+ * @param {String} email
+ * @param {String} report text
+ */
 const processBugReport = async (originalUrl, ip, email, report) => {
     log.info("Processing bug report for route: '%s'", originalUrl);
     const bugreport = {
@@ -18,12 +32,11 @@ const processBugReport = async (originalUrl, ip, email, report) => {
 };
 
 /**
- * Send a bug report email asynchronously to the bug report
+ * Send a bug report email to the bug report
  * email address specified in .env. This sets the sender
  * of the email to be the server email address, but the
  * user's email is specified in the body of the email
- * if they provided one. Furthermore, the admin service
- * is called to log the bug report.
+ * if they provided one.
  * @param {Object} bugreport
  */
 const sendBugReport = async (bugreport) => {

@@ -9,7 +9,7 @@
     "test-infologs": "env INFO_LOG=True jest -i --detectOpenHandles",
     "start": "node server.js",
     "db-migrate": "db-migrate",
-    "docs": "jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes",
+    "docs": "jsdoc -r -c ./jsdoc/.jsdocrc.json ./modules",
     "dev-start": "env NODE_ENV=development nodemon --ignore './exports/' ./server",
     "prod-start": "env NODE_ENV=production node ./server",
     "check-all": "db-migrate reset; db-migrate up; npm i; jest -i --detectOpenHandles; jsdoc -r -c ./jsdoc/.jsdocrc.json ./routes; eslint ./ --fix",
@@ -54,7 +54,6 @@
     "pg-camelcase": "0.0.3",
     "pg-types": "^3.0.0",
     "redis": "^3.0.2",
-    "request": "^2.88.2",
     "rimraf": "^3.0.2",
     "select2": "^4.0.13",
     "select2-theme-bootstrap4": "^0.2.0-beta.6"

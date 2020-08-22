@@ -1,3 +1,6 @@
+/**
+ * @module digest
+ */
 const crypto = require("crypto");
 
 /**

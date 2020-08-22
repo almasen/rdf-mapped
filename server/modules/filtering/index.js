@@ -1,11 +1,26 @@
-const filterAndSortByTitle = (courses) => {
-    const uniqueCourses = new Map();
-    courses.forEach(e => {
-        uniqueCourses.set(e.title, e);
+/**
+ * @module filtering
+ */
+/**
+ * Filter and sort ascending the input records
+ * based on their titles.
+ * @param {Array} records
+ * @return {Array} sorted & filtered records
+ */
+const filterAndSortByTitle = (records) => {
+    const uniqueObjects = new Map();
+    records.forEach(e => {
+        uniqueObjects.set(e.title, e);
     });
-    return [...uniqueCourses.values()].sort((a, b) => a.title.localeCompare(b.title));
+    return [...uniqueObjects.values()].sort((a, b) => a.title.localeCompare(b.title));
 };
 
+/**
+ * Group all input records based on parent variable name.
+ * @param {Array} records
+ * @param {String} parentIdName variable name for parent ID
+ * @return {Array} grouped records
+ */
 const groupByParent = (records, parentIdName) => {
     const recordsMap = new Map();
     const sortedObject = {};

@@ -186,7 +186,6 @@ module.exports = {
     getCompetency2,
     getPhase1,
     getPhase2,
-    getPhase2,
     getPhase3,
     getPhase4,
     getPhase5,
