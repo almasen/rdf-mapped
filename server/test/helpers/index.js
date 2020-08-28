@@ -103,6 +103,7 @@ const course1 = {
     categoryId: -1,
     competencyId: -1,
     phases: [], // can be multiple IDs
+    urn: "null",
 };
 
 const getCourse1 = () => ({...course1});
@@ -114,6 +115,7 @@ const course2 = {
     categoryId: -1,
     competencyId: -1,
     phases: [], // can be multiple IDs
+    urn: "null",
 };
 
 const getCourse2 = () => ({...course2});
@@ -125,6 +127,7 @@ const course3 = {
     categoryId: -1,
     competencyId: -1,
     phases: [], // can be multiple IDs
+    urn: "null",
 };
 
 const getCourse3 = () => ({...course3});
@@ -136,6 +139,7 @@ const video1 = {
     categoryId: -1,
     competencyId: -1,
     phases: [], // can be multiple IDs
+    urn: "null",
 };
 
 const getVideo1 = () => ({...video1});
@@ -147,6 +151,7 @@ const video2 = {
     categoryId: -1,
     competencyId: -1,
     phases: [], // can be multiple IDs
+    urn: "null",
 };
 
 const getVideo2 = () => ({...video2});
@@ -158,6 +163,7 @@ const video3 = {
     categoryId: -1,
     competencyId: -1,
     phases: [], // can be multiple IDs
+    urn: "null",
 };
 
 const getVideo3 = () => ({...video3});
