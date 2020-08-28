@@ -20,7 +20,7 @@ const findAll = () => {
 };
 
 const update = (learningObject) => {
-    const query = "UPDATE learning_object SET timestamp = $2, data = $3 WHERE id = $1" +
+    const query = "UPDATE learning_object SET timestamp = $2, data = $3 WHERE urn = $1" +
         "RETURNING *"; // returns passed learningObject with it's id set to corresponding id in database
     const params = [learningObject.urn, learningObject.timestamp, learningObject.data];
     return db.query(query, params);
