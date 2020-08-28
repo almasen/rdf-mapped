@@ -11,13 +11,13 @@
   "license": "MIT",
   "main": "server.js",
   "scripts": {
-    "test": "jest -i --detectOpenHandles",
+    "test": "jest -i",
     "start": "node server.js",
     "db-migrate": "db-migrate",
     "docs": "jsdoc -r -c ./jsdoc/.jsdocrc.json ./modules",
     "dev-start": "env NODE_ENV=development nodemon --ignore './exports/' ./server",
     "prod-start": "env NODE_ENV=production node ./server",
-    "check-all": "db-migrate reset; db-migrate up; npm i; jest -i --detectOpenHandles; jsdoc -r -c ./jsdoc/.jsdocrc.json ./modules; eslint ./ --fix",
+    "check-all": "db-migrate reset; db-migrate up; npm i; jest -i; jsdoc -r -c ./jsdoc/.jsdocrc.json ./modules; eslint ./ --fix",
     "rem-logs": "del-cli ./log/*.log",
     "rem-exports": "del-cli ./exports/*",
     "insert-samples": "jest -i /test/helpers/sample"

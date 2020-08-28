@@ -1,4 +1,4 @@
-let cache = require("./");
+const cache = require("./");
 
 const testHelpers = require("../../test/helpers");
 
