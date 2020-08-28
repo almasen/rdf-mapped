@@ -59,3 +59,16 @@ test('inserting and deleting works', async () => {
     expect(findResult2.rows.length).toStrictEqual(0);
 });
 
+test('finding all works', async () => {
+    const insertResult = await phaseRepo.insert(phase1);
+    const insertRecord = insertResult.rows[0];
+    expect(insertRecord.title).toStrictEqual(phase1.title);
+    const findResult = await phaseRepo.findById(insertRecord.id);
+    const findRecord = findResult.rows[0];
+    expect(findRecord).toStrictEqual(insertRecord);
+    expect(findRecord.title).toStrictEqual(phase1.title);
+    const findAllResult = await phaseRepo.findAll();
+    const findAllRecord = findAllResult.rows[0];
+    expect(findAllResult.rows.length).toStrictEqual(1);
+    expect(findAllRecord.title).toStrictEqual(phase1.title);
+});
