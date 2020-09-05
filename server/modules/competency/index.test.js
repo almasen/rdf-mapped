@@ -11,8 +11,8 @@ jest.mock("../cache");
 let competency1, competency2;
 
 beforeEach(() => {
-    competency1 = testHelpers.getCapability1();
-    competency2 = testHelpers.getCapability2();
+    competency1 = testHelpers.getCompetency1();
+    competency2 = testHelpers.getCompetency2();
     return testHelpers.clearDatabase();
 });
 

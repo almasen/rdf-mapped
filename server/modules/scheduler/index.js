@@ -12,16 +12,14 @@ const adminService = require("../admin");
  * Schedule the 'recacheAll()' task according to the configuration module.
  */
 const scheduleRecache = () => {
-    schedule.scheduleJob(config.recache, async () => {
-        if (process.env.SCHEDULE_RECACHE === 1) {
-            log.info("SCHEDULER: Executing scheduled task 'recacheAll()' at %s...",
-                (new Date).toUTCString());
+    if (process.env.SCHEDULE_RECACHE === '1') {
+        schedule.scheduleJob(config.recache, async () => {
+            log.info("SCHEDULER: Executing scheduled task 'recacheAll()' at %s...", (new Date).toUTCString());
             await recache.recacheAll();
-        } else {
-            log.info("SCHEDULER: SKIPPING scheduled task 'recacheAll()' at %s...",
-                (new Date).toUTCString());
-        }
-    });
+        });
+    } else {
+        log.info("SCHEDULER: SKIPPING scheduling of task 'recacheAll()' due to environment config");
+    }
 };
 
 /**
