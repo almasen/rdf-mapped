@@ -222,10 +222,18 @@ const getOutdatedLearningObject1 = () => ({...outdatedLearningObject1});
 const submission1 = {
     status: 'processing',
     submitter: 'test@test.com',
-    data: `{"urn":"urn:li:lyndaCourse:697710","type":"COURSE","title":"Business Development Foundations: Researching Market and Customer Needs","phases":"5","category":"10","hyperlink":"https://www.linkedin.com/learning/business-development-foundations-researching-market-and-customer-needs/welcome?u=104","timestamp":"Sat, 22 Aug 2020 23:30:01 GMT","capability":"4","competency":"48","categoryTitle":"D1: Working with others","capabilityTitle":"D: Engagement, influence and impact","competencyTitle":"Team working"}`,
+    data: `{"type":"COURSE","title":"Business Development Foundations: Researching Market and Customer Needs","phases":"5","category":"10","hyperlink":"https://www.linkedin.com/learning/business-development-foundations-researching-market-and-customer-needs/welcome?u=104","timestamp":"Sat, 22 Aug 2020 23:30:01 GMT","capability":"4","competency":"48","categoryTitle":"D1: Working with others","capabilityTitle":"D: Engagement, influence and impact","competencyTitle":"Team working"}`,
 };
 
 const getSubmission1 = () => ({...submission1});
+
+const submission12 = {
+    status: 'processing',
+    submitter: 'anonymous',
+    data: `{"type":"COURSE","title":"Business Development Foundations: Researching Market and Customer Needs","phases":"5","category":"10","hyperlink":"https://www.linkedin.com/learning/business-development-foundations-researching-market-and-customer-needs/welcome?u=104","timestamp":"Sat, 22 Aug 2020 23:30:01 GMT","capability":"4","competency":"48","categoryTitle":"D1: Working with others","capabilityTitle":"D: Engagement, influence and impact","competencyTitle":"Team working"}`,
+};
+
+const getSubmission12 = () => ({...submission12});
 
 const submission2 = {
     status: 'pending',
@@ -238,7 +246,7 @@ const getSubmission2 = () => ({...submission2});
 const submission3 = {
     status: 'published',
     submitter: 'test@test.com',
-    data: `{"urn":"urn:li:lyndaCourse:697710","type":"COURSE","title":"Business Development Foundations: Researching Market and Customer Needs","phases":"5","category":"10","hyperlink":"https://www.linkedin.com/learning/business-development-foundations-researching-market-and-customer-needs/welcome?u=104","timestamp":"Sat, 22 Aug 2020 23:30:01 GMT","capability":"4","competency":"48","categoryTitle":"D1: Working with others","capabilityTitle":"D: Engagement, influence and impact","competencyTitle":"Team working"}`,
+    data: `{"urn":"urn:li:lyndaCourse:697710","type":"COURSE","title":"Business Development Foundations: Researching Market and Customer Needs","phases":"5","hyperlink":"https://www.linkedin.com/learning/business-development-foundations-researching-market-and-customer-needs/welcome?u=104","timestamp":"Sat, 22 Aug 2020 23:30:01 GMT"}`,
 };
 
 const getSubmission3 = () => ({...submission3});
@@ -306,6 +314,7 @@ module.exports = {
     getLearningObject2,
     getOutdatedLearningObject1,
     getSubmission1,
+    getSubmission12,
     getSubmission2,
     getSubmission3,
     getSubmission4,
