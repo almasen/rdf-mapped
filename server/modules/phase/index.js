@@ -5,7 +5,7 @@ const phaseRepo = require("../../repositories/phase");
 const cache = require("../cache");
 
 /**
- * Get phase array by concerting phase ids to
+ * Get phase array by converting phase ids to
  * titles.
  * @param {Array} phaseRecords
  * @return {Array} phase titles
