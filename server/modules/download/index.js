@@ -13,6 +13,8 @@ const fields = ['id', 'title', 'hyperlink', 'capabilityTitle', 'capabilityId',
     'categoryTitle', 'categoryId', 'competencyTitle', 'competencyId', 'phases'];
 const opts = {fields};
 
+fs.existsSync("./exports") || fs.mkdirSync("./exports");
+
 /**
  * Export stored learning objects to various archive formats
  * if export files do not yet exist.

@@ -101,5 +101,6 @@ app.all("*", (req, res) => {
 log.info(`App started successfully in ${process.env.NODE_ENV} environment...`);
 log.info(`View cache is ${app.get("view cache") ? "ENABLED" : "DISABLED"}`);
 log.info(`Trust proxy is ${app.get("trust proxy") ? "ENABLED" : "DISABLED"}`);
+log.info("Logging at level: %s", log.level);
 
 module.exports = app;

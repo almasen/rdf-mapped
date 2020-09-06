@@ -208,8 +208,17 @@ const getOAuthToken = () => {
     return `Bearer ${process.env.LINKEDIN_LEARNING_TOKEN}`;
 };
 
+/**
+ * TEST FUNCTION: Must only be used for testing purposes.
+ * Reset failedRenewals counter to 0.
+ */
+const resetFailedRenewalsCounter = () => {
+    failedRenewals = 0;
+};
+
 module.exports = {
     renewAccessToken,
     fetchLearningObject,
     fetchURNByContent,
+    resetFailedRenewalsCounter,
 };

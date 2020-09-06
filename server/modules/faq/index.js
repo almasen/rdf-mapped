@@ -32,7 +32,7 @@ const findById = async (id) => {
 };
 
 /**
- * Fetch FAQs based on input keyword and matching titles.
+ * Fetch FAQs based on input keyword and matching questions.
  * If FAQs are cached, return from cache,
  * otherwise, fetch from database.
  * @param {String} keyword
@@ -44,7 +44,7 @@ const fetchByKeyword = async (keyword) => {
         const regex = RegExp(keyword ? keyword : '', 'i');
         const matching = [];
         cachedVal.forEach(e => {
-            if (regex.test(e.title)) {
+            if (regex.test(e.question)) {
                 matching.push(e);
             }
         });
@@ -76,6 +76,7 @@ const update = async (faq) => {
  */
 const remove = async (id) => {
     await faqRepo.removeById(id);
+    // flush cached faqs if successful
     cache.del("faqs");
 };
 

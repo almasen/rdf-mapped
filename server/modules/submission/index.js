@@ -135,7 +135,7 @@ const insertNewSubmission = async (type, title, hyperlink, email) => {
             `<a href="https://rdfmapped.com/submission/${id}" target="_blank" rel="noopener noreferrer">` +
             `https://rdfmapped.com/submission/${id}</a>`);
     }
-    attemptToFindURN(insertionResult.rows[0]);
+    await attemptToFindURN(insertionResult.rows[0]);
 };
 
 /**

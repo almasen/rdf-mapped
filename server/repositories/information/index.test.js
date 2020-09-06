@@ -4,7 +4,7 @@ const testHelpers = require("../../test/helpers");
 let informationExample;
 
 beforeEach(() => {
-    informationExample = testHelpers.getInformation();
+    informationExample = testHelpers.getInformation1();
     return testHelpers.clearDatabase();
 });
 

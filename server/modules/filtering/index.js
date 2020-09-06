@@ -17,9 +17,11 @@ const filterAndSortByTitle = (records) => {
 
 /**
  * Group all input records based on parent variable name.
- * @param {Array} records
+ * Returns an object where the object parameters are the
+ * different values of the parent variable name.
+ * @param {Array} records which have a parent ID
  * @param {String} parentIdName variable name for parent ID
- * @return {Array} grouped records
+ * @return {Object} grouped records
  */
 const groupByParent = (records, parentIdName) => {
     const recordsMap = new Map();

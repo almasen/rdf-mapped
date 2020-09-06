@@ -7,7 +7,7 @@ const phaseRepo = require("../../phase");
 
 const testHelpers = require("../../../test/helpers");
 
-let course1, capability1, category1, competency1, phase1, phase2;
+let course1; let capability1; let category1; let competency1; let phase1; let phase2;
 
 beforeEach(() => {
     course1 = testHelpers.getCourse1();
