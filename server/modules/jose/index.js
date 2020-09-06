@@ -18,6 +18,7 @@ const {
  */
 const encKey = (
     process.env.PRESERVE_SESSIONS_ON_REBOOT === '1' ?
+        /* istanbul ignore next */
         JWK.asKey({
             key: fs.readFileSync("./keys/enc.key"),
             format: "pem",
@@ -41,6 +42,7 @@ const encKey = (
  */
 const sigKey = (
     process.env.PRESERVE_SESSIONS_ON_REBOOT === '1' ?
+        /* istanbul ignore next */
         JWK.asKey({
             key: fs.readFileSync("./keys/sig.key"),
             format: "pem",
