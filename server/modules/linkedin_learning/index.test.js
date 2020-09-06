@@ -9,7 +9,7 @@ jest.mock("../../repositories/learning_object");
 const got = require("got");
 jest.mock("got");
 
-let learningObject1, learningObject2, outdatedLearningObject1, submission1;
+let learningObject1; let learningObject2; let outdatedLearningObject1; let submission1;
 
 beforeEach(() => {
     learningObject1 = testHelpers.getLearningObject1();
@@ -33,8 +33,8 @@ test("API token renewal works", async () => {
     got.post.mockResolvedValue({
         statusCode: 200,
         body: {
-            access_token: "newToken"
-        }
+            access_token: "newToken",
+        },
     });
 
     await linkedinLearning.renewAccessToken();
@@ -49,7 +49,7 @@ test("attempting API token renewal with invalid secret fails as expected", async
     process.env.LINKEDIN_LEARNING_SECRET = 'notTnahpele';
     got.post.mockResolvedValue({
         statusCode: 401,
-        statusMessage: "Unauthorised."
+        statusMessage: "Unauthorised.",
     });
 
     await linkedinLearning.renewAccessToken();
@@ -83,7 +83,7 @@ test("fetching a LinkedIn Learning learning object works", async () => {
         statusCode: 200,
         body: {
             data: "someData",
-        }
+        },
     });
     learningObjectRepository.insert.mockResolvedValue();
 
@@ -100,14 +100,14 @@ test("fetching a LinkedIn Learning learning object with outdated DB records work
     process.env.LINKEDIN_LEARNING_SECRET = 'tnahpele';
     learningObjectRepository.findByURN.mockResolvedValue({
         rows: [
-            { ...outdatedLearningObject1 }
+            {...outdatedLearningObject1},
         ],
     });
     got.mockResolvedValue({
         statusCode: 200,
         body: {
             data: "someData",
-        }
+        },
     });
     learningObjectRepository.insert.mockResolvedValue();
 
@@ -125,14 +125,14 @@ test("attempting to fetch a LinkedIn Learning learning object with an up to date
     learningObject1.timestamp = (new Date).toUTCString();
     learningObjectRepository.findByURN.mockResolvedValue({
         rows: [
-            { ...learningObject1 }
+            {...learningObject1},
         ],
     });
     got.mockResolvedValue({
         statusCode: 200,
         body: {
             data: "someData",
-        }
+        },
     });
     learningObjectRepository.insert.mockResolvedValue();
 
@@ -153,7 +153,7 @@ test("failure when fetching a LinkedIn Learning learning object returns undefine
     got.mockResolvedValue({
         statusCode: 400,
         body: {
-        }
+        },
     });
     learningObjectRepository.insert.mockResolvedValue();
 
@@ -176,7 +176,7 @@ test("fetching LinkedIn Learning URN by content works", async () => {
                     details: {
                         urls: {
                             webLaunch: "https://rdfmapped.com",
-                        }
+                        },
                     },
                     urn: "rdfmapped.com",
                 },
@@ -184,7 +184,7 @@ test("fetching LinkedIn Learning URN by content works", async () => {
                     details: {
                         urls: {
                             webLaunch: "elephant",
-                        }
+                        },
                     },
                     urn: "tnahpele",
                 },
@@ -192,7 +192,7 @@ test("fetching LinkedIn Learning URN by content works", async () => {
                     details: {
                         urls: {
                             webLaunch: "https://www.linkedin.com/learning/somethingElse",
-                        }
+                        },
                     },
                     urn: "urn:li:example666",
                 },
@@ -200,7 +200,7 @@ test("fetching LinkedIn Learning URN by content works", async () => {
                     details: {
                         urls: {
                             webLaunch: "https://www.linkedin.com/learning/business-development-foundations-researching-market-and-customer-needs",
-                        }
+                        },
                     },
                     urn: "urn:li:example58",
                 },
@@ -232,7 +232,7 @@ test("failure when fetching LinkedIn Learning URN by content returns undefined a
                     details: {
                         urls: {
                             webLaunch: "https://rdfmapped.com",
-                        }
+                        },
                     },
                     urn: "rdfmapped.com",
                 },
@@ -240,7 +240,7 @@ test("failure when fetching LinkedIn Learning URN by content returns undefined a
                     details: {
                         urls: {
                             webLaunch: "elephant",
-                        }
+                        },
                     },
                     urn: "tnahpele",
                 },
@@ -248,7 +248,7 @@ test("failure when fetching LinkedIn Learning URN by content returns undefined a
                     details: {
                         urls: {
                             webLaunch: "https://www.linkedin.com/learning/somethingElse",
-                        }
+                        },
                     },
                     urn: "urn:li:example666",
                 },

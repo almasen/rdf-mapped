@@ -8,7 +8,7 @@ const cache = require("../cache");
 jest.mock("../../repositories/capability");
 jest.mock("../cache");
 
-let capability1, capability2;
+let capability1; let capability2;
 
 beforeEach(() => {
     capability1 = testHelpers.getCapability1();
@@ -33,8 +33,8 @@ test("fetching all from db works", async () => {
     capabilityRepo.findAll.mockResolvedValue({
         rows: [
             {...capability1},
-            {...capability2}
-        ]
+            {...capability2},
+        ],
     });
     const fetchResult = await capability.fetchAll();
     expect(fetchResult).toStrictEqual([capability1, capability2]);
@@ -52,8 +52,8 @@ test("fetching by keyword from db works", async () => {
     cache.has.mockReturnValue(false);
     capabilityRepo.findByKeyword.mockResolvedValue({
         rows: [
-            {...capability1}
-        ]
+            {...capability1},
+        ],
     });
     const fetchResult = await capability.fetchByKeyword(capability1.title.substring(0, 9));
     expect(fetchResult.length).toStrictEqual(1);
@@ -73,8 +73,8 @@ test("fetching by null keyword from db works", async () => {
     capabilityRepo.findByKeyword.mockResolvedValue({
         rows: [
             {...capability1},
-            {...capability2}
-        ]
+            {...capability2},
+        ],
     });
     const fetchResult = await capability.fetchByKeyword('');
     expect(fetchResult.length).toStrictEqual(2);
@@ -84,8 +84,8 @@ test("fetching by null keyword from db works", async () => {
 test("fetching by id from db works", async () => {
     capabilityRepo.findById.mockResolvedValue({
         rows: [
-            {...capability1}
-        ]
+            {...capability1},
+        ],
     });
     const fetchResult = await capability.fetchById();
     expect(fetchResult).toStrictEqual(capability1);

@@ -2,7 +2,7 @@ const capabilityRepo = require("./");
 
 const testHelpers = require("../../test/helpers");
 
-let capability1, capability2, capability3, capability4;
+let capability1; let capability2; let capability3; let capability4;
 
 beforeEach(() => {
     capability1 = testHelpers.getCapability1();
@@ -87,7 +87,7 @@ test('finding all works', async () => {
     // and only has them
     findRecords.forEach((e) => {
         expect(e.title === capability1.title || e.title === capability2.title).toBe(true);
-    })
+    });
 });
 
 test('finding by keyword works', async () => {

@@ -2,7 +2,7 @@ const learningObjectRepo = require("./");
 
 const testHelpers = require("../../test/helpers");
 
-let learningObj1, learningObj2, outdatedLearningObj;
+let learningObj1; let learningObj2; let outdatedLearningObj;
 
 beforeEach(() => {
     learningObj1 = testHelpers.getLearningObject1();

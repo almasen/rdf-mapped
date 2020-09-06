@@ -20,7 +20,7 @@ jest.mock("../capability");
 jest.mock("../category");
 jest.mock("../competency");
 
-let submission1, submission12, submission2, submission3, submission4, submission5;
+let submission1; let submission12; let submission2; let submission3; let submission4; let submission5;
 
 beforeEach(() => {
     submission1 = testHelpers.getSubmission1();
@@ -40,8 +40,8 @@ afterEach(() => {
 test("fetching submission by id works", async () => {
     submissionRepo.findById.mockResolvedValue({
         rows: [
-            { ...submission1 },
-        ]
+            {...submission1},
+        ],
     });
     const fetchResult = await submission.fetchById("uniqueID123");
     expect(fetchResult).toStrictEqual(submission1);
@@ -50,9 +50,9 @@ test("fetching submission by id works", async () => {
 test("fetching all submissions works", async () => {
     submissionRepo.findAll.mockResolvedValue({
         rows: [
-            { ...submission1 },
-            { ...submission2 },
-        ]
+            {...submission1},
+            {...submission2},
+        ],
     });
     const fetchResult = await submission.fetchAll();
     expect(fetchResult.length).toStrictEqual(2);
@@ -69,9 +69,9 @@ test("inserting a valid new submission works", async () => {
                 status: submission1.status,
                 submitter: submission1.submitter,
                 data: JSON.parse(submission1.data),
-                id: "uniqueID123"
+                id: "uniqueID123",
             },
-        ]
+        ],
     });
     submissionRepo.update.mockResolvedValue();
 
@@ -106,9 +106,9 @@ test("inserting a valid new anonymous submission works", async () => {
                 status: submission12.status,
                 submitter: submission12.submitter,
                 data: JSON.parse(submission12.data),
-                id: "uniqueID123"
+                id: "uniqueID123",
             },
-        ]
+        ],
     });
     submissionRepo.update.mockResolvedValue();
 
@@ -142,9 +142,9 @@ test("inserting an invalid new submission is marked failed as intended", async (
                 status: "processing",
                 submitter: submission4.submitter,
                 data: JSON.parse(submission4.data),
-                id: "uniqueID123"
+                id: "uniqueID123",
             },
-        ]
+        ],
     });
     submissionRepo.update.mockResolvedValue();
 
@@ -171,14 +171,14 @@ test("inserting an invalid new submission is marked failed as intended", async (
 test("rejecting submission by id works", async () => {
     submissionRepo.findById.mockResolvedValue({
         rows: [
-            { ...submission1 },
-        ]
+            {...submission1},
+        ],
     });
     submissionRepo.update.mockResolvedValue();
     await submission.rejectSubmission("uniqueID123");
     expect(submissionRepo.findById).toHaveBeenCalledTimes(1);
     expect(submissionRepo.update).toHaveBeenCalledTimes(1);
-    const calledWith = { ...submission1 };
+    const calledWith = {...submission1};
     calledWith.status = "rejected";
     expect(submissionRepo.update).toHaveBeenCalledWith(calledWith);
 });
@@ -192,9 +192,9 @@ test("publishing a valid course submission works", async () => {
                 status: "pending",
                 submitter: submission2.submitter,
                 data: JSON.parse(submission2.data),
-                id: "uniqueID123"
-            }
-        ]
+                id: "uniqueID123",
+            },
+        ],
     });
     submissionRepo.update.mockResolvedValue();
 
@@ -212,13 +212,13 @@ test("publishing a valid video submission works", async () => {
         status: "pending",
         submitter: submission2.submitter,
         data: JSON.parse(submission2.data),
-        id: "uniqueID123"
+        id: "uniqueID123",
     };
     dbRecord.data.type = "VIDEO";
     submissionRepo.findById.mockResolvedValue({
         rows: [
-            { ...dbRecord }
-        ]
+            {...dbRecord},
+        ],
     });
     submissionRepo.update.mockResolvedValue();
 
@@ -234,17 +234,17 @@ test("mapping a valid submission works", async () => {
         status: "pending",
         submitter: submission3.submitter,
         data: JSON.parse(submission3.data),
-        id: "uniqueID123"
+        id: "uniqueID123",
     };
     submissionRepo.findById.mockResolvedValue({
         rows: [
-            { ...dbRecord },
-        ]
+            {...dbRecord},
+        ],
     });
     submissionRepo.update.mockResolvedValue();
-    capability.fetchById.mockResolvedValue(testHelpers.getCapability1())
-    category.fetchById.mockResolvedValue(testHelpers.getCategory1())
-    competency.fetchById.mockResolvedValue(testHelpers.getCompetency1())
+    capability.fetchById.mockResolvedValue(testHelpers.getCapability1());
+    category.fetchById.mockResolvedValue(testHelpers.getCategory1());
+    competency.fetchById.mockResolvedValue(testHelpers.getCompetency1());
 
     await submission.mapSubmission("uniqueID123", 1, 1, 1, [1, 2]);
 

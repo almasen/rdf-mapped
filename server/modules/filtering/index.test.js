@@ -2,7 +2,7 @@ const filter = require("./");
 
 const testHelpers = require("../../test/helpers");
 
-let course1, course2;
+let course1; let course2;
 
 beforeEach(() => {
     course1 = testHelpers.getCourse1();
@@ -29,7 +29,7 @@ test("filtering and sorting by title works", async () => {
             title: "a",
             content: "abc",
         },
-    ]
+    ];
     const filteredAndSorted = filter.filterAndSortByTitle(records);
     expect(filteredAndSorted.length).toStrictEqual(2);
     expect(filteredAndSorted[0].title).toStrictEqual("a");
@@ -62,7 +62,7 @@ test("grouping by parents works", async () => {
             parId: 3,
             content: "f",
         },
-    ]
+    ];
     const grouped = filter.groupByParent(records, "parId");
     expect(typeof grouped).toStrictEqual("object");
     expect(grouped['1'].length).toStrictEqual(1);

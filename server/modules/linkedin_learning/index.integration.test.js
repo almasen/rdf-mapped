@@ -6,7 +6,7 @@ const learningObjectRepository = require("../../repositories/learning_object");
 
 jest.mock("../../repositories/learning_object");
 
-let learningObject1, learningObject2, outdatedLearningObject1;
+let learningObject1; let learningObject2; let outdatedLearningObject1;
 
 beforeEach(() => {
     linkedinLearning.resetFailedRenewalsCounter();

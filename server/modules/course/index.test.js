@@ -23,7 +23,7 @@ jest.mock("../../repositories/phase");
 jest.mock("../cache");
 jest.mock("../filtering");
 
-let course1, course2, course3, capability1, category1, competency1, capability2, category2, competency2, phase1, phase2;
+let course1; let course2; let course3; let capability1; let category1; let competency1; let capability2; let category2; let competency2; let phase1; let phase2;
 
 beforeEach(() => {
     course1 = testHelpers.getCourse1();
@@ -55,7 +55,7 @@ test('fetching similar course objects from cache works', async () => {
     course3.id = 3;
     cache.get.mockReturnValue([course1, course2, course3]);
 
-    const fetchRecords = await courseService.fetchSimilarCourseRecords({ ...course1});
+    const fetchRecords = await courseService.fetchSimilarCourseRecords({...course1});
 
     expect(fetchRecords.length).toStrictEqual(1);
     expect(fetchRecords[0]).toStrictEqual(course2);
@@ -71,12 +71,12 @@ test('fetching similar course objects from database works', async () => {
     course3.id = 3;
     courseRepo.findByFilters.mockResolvedValue({
         rows: [
-            { ...course1 },
-            { ...course2 },
-        ]
+            {...course1},
+            {...course2},
+        ],
     });
 
-    const fetchRecords = await courseService.fetchSimilarCourseRecords({ ...course1 }, 2);
+    const fetchRecords = await courseService.fetchSimilarCourseRecords({...course1}, 2);
 
     expect(fetchRecords.length).toStrictEqual(1);
     expect(fetchRecords[0]).toStrictEqual(course2);
@@ -116,10 +116,10 @@ test('fetching courses based on null filters from database works', async () => {
     cache.has.mockReturnValue(false);
     courseRepo.findByFiltersAndKeywordJoint.mockResolvedValue({
         rows: [
-            { ...course1 },
-            { ...course2 },
-            { ...course3 },
-        ]
+            {...course1},
+            {...course2},
+            {...course3},
+        ],
     });
 
     const fetchRecords = await courseService.fetchByFilters({});
@@ -177,8 +177,8 @@ test('fetching courses based on custom filters from database works', async () =>
     cache.has.mockReturnValue(false);
     courseRepo.findByFiltersAndKeywordJoint.mockResolvedValue({
         rows: [
-            { ...course1 },
-        ]
+            {...course1},
+        ],
     });
 
     const fetchRecords = await courseService.fetchByFilters({
@@ -207,10 +207,10 @@ test('fetching all from database works', async () => {
     cache.has.mockReturnValue(false);
     courseRepo.findByFiltersAndKeywordJoint.mockResolvedValue({
         rows: [
-            { ...course1 },
-            { ...course2 },
-            { ...course3 },
-        ]
+            {...course1},
+            {...course2},
+            {...course3},
+        ],
     });
 
     const fetchRecords = await courseService.fetchAll();
@@ -238,14 +238,14 @@ test('adding a new course with a single phase works', async () => {
     course1.phases = 1;
     courseRepo.insert.mockResolvedValue({
         rows: [
-            { ...course1 },
-        ]
+            {...course1},
+        ],
     });
     coursePhaseRepo.insert.mockResolvedValue();
     courseRepo.findByIdWithFullInfo.mockResolvedValue({
         rows: [
-            { ...course1 },
-        ]
+            {...course1},
+        ],
     });
     cache.set.mockReturnValue();
     cache.updateFromAPI.mockResolvedValue();
@@ -261,14 +261,14 @@ test('adding a new course with multiple phases works', async () => {
     course1.phases = [1, 2];
     courseRepo.insert.mockResolvedValue({
         rows: [
-            { ...course1 },
-        ]
+            {...course1},
+        ],
     });
     coursePhaseRepo.insert.mockResolvedValue();
     courseRepo.findByIdWithFullInfo.mockResolvedValue({
         rows: [
-            { ...course1 },
-        ]
+            {...course1},
+        ],
     });
     cache.set.mockReturnValue();
     cache.updateFromAPI.mockResolvedValue();
@@ -284,15 +284,15 @@ test('updating a course with a single phase works', async () => {
     course1.phases = 1;
     courseRepo.update.mockResolvedValue({
         rows: [
-            { ...course1 },
-        ]
+            {...course1},
+        ],
     });
     coursePhaseRepo.removeByCourseId.mockResolvedValue();
     coursePhaseRepo.insert.mockResolvedValue();
     courseRepo.findByIdWithFullInfo.mockResolvedValue({
         rows: [
-            { ...course1 },
-        ]
+            {...course1},
+        ],
     });
     cache.get.mockReturnValue([course1]);
     cache.set.mockReturnValue();
@@ -309,15 +309,15 @@ test('updating a course with multiple phases works', async () => {
     course1.phases = [1, 2];
     courseRepo.update.mockResolvedValue({
         rows: [
-            { ...course1 },
-        ]
+            {...course1},
+        ],
     });
     coursePhaseRepo.removeByCourseId.mockResolvedValue();
     coursePhaseRepo.insert.mockResolvedValue();
     courseRepo.findByIdWithFullInfo.mockResolvedValue({
         rows: [
-            { ...course1 },
-        ]
+            {...course1},
+        ],
     });
     cache.get.mockReturnValue([course1]);
     cache.set.mockReturnValue();

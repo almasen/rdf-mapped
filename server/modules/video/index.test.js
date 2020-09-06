@@ -23,7 +23,7 @@ jest.mock("../../repositories/phase");
 jest.mock("../cache");
 jest.mock("../filtering");
 
-let video1, video2, video3, capability1, category1, competency1, capability2, category2, competency2, phase1, phase2;
+let video1; let video2; let video3; let capability1; let category1; let competency1; let capability2; let category2; let competency2; let phase1; let phase2;
 
 beforeEach(() => {
     video1 = testHelpers.getVideo1();
@@ -55,7 +55,7 @@ test('fetching similar video objects from cache works', async () => {
     video3.id = 3;
     cache.get.mockReturnValue([video1, video2, video3]);
 
-    const fetchRecords = await videoService.fetchSimilarVideoRecords({ ...video1 });
+    const fetchRecords = await videoService.fetchSimilarVideoRecords({...video1});
 
     expect(fetchRecords.length).toStrictEqual(1);
     expect(fetchRecords[0]).toStrictEqual(video2);
@@ -71,12 +71,12 @@ test('fetching similar video objects from database works', async () => {
     video3.id = 3;
     videoRepo.findByFilters.mockResolvedValue({
         rows: [
-            { ...video1 },
-            { ...video2 },
-        ]
+            {...video1},
+            {...video2},
+        ],
     });
 
-    const fetchRecords = await videoService.fetchSimilarVideoRecords({ ...video1 }, 2);
+    const fetchRecords = await videoService.fetchSimilarVideoRecords({...video1}, 2);
 
     expect(fetchRecords.length).toStrictEqual(1);
     expect(fetchRecords[0]).toStrictEqual(video2);
@@ -84,7 +84,7 @@ test('fetching similar video objects from database works', async () => {
 
 test('fetching and resolving video object from cache works', async () => {
     cache.has.mockReturnValue(true);
-    cache.get.mockReturnValue({ ...video1 });
+    cache.get.mockReturnValue({...video1});
 
     const fetchRecord = await videoService.fetchAndResolveVideo(1);
 
@@ -116,10 +116,10 @@ test('fetching videos based on null filters from database works', async () => {
     cache.has.mockReturnValue(false);
     videoRepo.findByFiltersAndKeywordJoint.mockResolvedValue({
         rows: [
-            { ...video1 },
-            { ...video2 },
-            { ...video3 },
-        ]
+            {...video1},
+            {...video2},
+            {...video3},
+        ],
     });
 
     const fetchRecords = await videoService.fetchByFilters({});
@@ -177,8 +177,8 @@ test('fetching videos based on custom filters from database works', async () => 
     cache.has.mockReturnValue(false);
     videoRepo.findByFiltersAndKeywordJoint.mockResolvedValue({
         rows: [
-            { ...video1 },
-        ]
+            {...video1},
+        ],
     });
 
     const fetchRecords = await videoService.fetchByFilters({
@@ -207,10 +207,10 @@ test('fetching all from database works', async () => {
     cache.has.mockReturnValue(false);
     videoRepo.findByFiltersAndKeywordJoint.mockResolvedValue({
         rows: [
-            { ...video1 },
-            { ...video2 },
-            { ...video3 },
-        ]
+            {...video1},
+            {...video2},
+            {...video3},
+        ],
     });
 
     const fetchRecords = await videoService.fetchAll();
@@ -238,14 +238,14 @@ test('adding a new video with a single phase works', async () => {
     video1.phases = 1;
     videoRepo.insert.mockResolvedValue({
         rows: [
-            { ...video1 },
-        ]
+            {...video1},
+        ],
     });
     videoPhaseRepo.insert.mockResolvedValue();
     videoRepo.findByIdWithFullInfo.mockResolvedValue({
         rows: [
-            { ...video1 },
-        ]
+            {...video1},
+        ],
     });
     cache.set.mockReturnValue();
     cache.updateFromAPI.mockResolvedValue();
@@ -261,14 +261,14 @@ test('adding a new video with multiple phases works', async () => {
     video1.phases = [1, 2];
     videoRepo.insert.mockResolvedValue({
         rows: [
-            { ...video1 },
-        ]
+            {...video1},
+        ],
     });
     videoPhaseRepo.insert.mockResolvedValue();
     videoRepo.findByIdWithFullInfo.mockResolvedValue({
         rows: [
-            { ...video1 },
-        ]
+            {...video1},
+        ],
     });
     cache.set.mockReturnValue();
     cache.updateFromAPI.mockResolvedValue();
@@ -284,15 +284,15 @@ test('updating a video with a single phase works', async () => {
     video1.phases = 1;
     videoRepo.update.mockResolvedValue({
         rows: [
-            { ...video1 },
-        ]
+            {...video1},
+        ],
     });
     videoPhaseRepo.removeByVideoId.mockResolvedValue();
     videoPhaseRepo.insert.mockResolvedValue();
     videoRepo.findByIdWithFullInfo.mockResolvedValue({
         rows: [
-            { ...video1 },
-        ]
+            {...video1},
+        ],
     });
     cache.get.mockReturnValue([video1]);
     cache.set.mockReturnValue();
@@ -309,15 +309,15 @@ test('updating a video with multiple phases works', async () => {
     video1.phases = [1, 2];
     videoRepo.update.mockResolvedValue({
         rows: [
-            { ...video1 },
-        ]
+            {...video1},
+        ],
     });
     videoPhaseRepo.removeByVideoId.mockResolvedValue();
     videoPhaseRepo.insert.mockResolvedValue();
     videoRepo.findByIdWithFullInfo.mockResolvedValue({
         rows: [
-            { ...video1 },
-        ]
+            {...video1},
+        ],
     });
     cache.get.mockReturnValue([video1]);
     cache.set.mockReturnValue();

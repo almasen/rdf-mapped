@@ -4,7 +4,7 @@ const testHelpers = require("../../test/helpers");
 
 const apiService = require("../linkedin_learning");
 
-let course1, course2, video1, video2;
+let course1; let course2; let video1; let video2;
 
 jest.mock("../linkedin_learning");
 
@@ -50,14 +50,14 @@ test("updatingFromAPI with all params available works", async () => {
                 primary: "imgLink",
             },
             timeToComplete: "6h",
-        }
-    }
+        },
+    };
     apiService.fetchLearningObject.mockResolvedValue(learningObject);
 
-    course1.urn = "urn:li:123"
-    course2.urn = "NOURN"
-    video1.urn = "urn:li:345"
-    video2.urn = "NOURN"
+    course1.urn = "urn:li:123";
+    course2.urn = "NOURN";
+    video1.urn = "urn:li:345";
+    video2.urn = "NOURN";
 
     cache.set("course-1", course1);
     cache.set("video-1", video1);
@@ -78,15 +78,15 @@ test("updatingFromAPI with no params available works", async () => {
             urls: {
             },
             images: {
-            }
-        }
-    }
+            },
+        },
+    };
     apiService.fetchLearningObject.mockResolvedValue(learningObject);
 
-    course1.urn = "urn:li:123"
-    course2.urn = "urn:li:234"
-    video1.urn = "urn:li:345"
-    video2.urn = "urn:li:456"
+    course1.urn = "urn:li:123";
+    course2.urn = "urn:li:234";
+    video1.urn = "urn:li:345";
+    video2.urn = "urn:li:456";
 
     cache.set("course-1", course1);
     cache.set("video-1", video1);
@@ -114,12 +114,12 @@ test("updating single cached object from API with all params available works", a
                 primary: "imgLink",
             },
             timeToComplete: "6h",
-        }
-    }
+        },
+    };
     apiService.fetchLearningObject.mockResolvedValue(learningObject);
 
-    course1.urn = "urn:li:123"
-    video1.urn = "urn:li:345"
+    course1.urn = "urn:li:123";
+    video1.urn = "urn:li:345";
 
     cache.set("course-1", course1);
     cache.set("video-1", video1);
@@ -145,12 +145,12 @@ test("updating single cached object from API with no params available works", as
                 primary: "imgLink",
             },
             timeToComplete: "6h",
-        }
-    }
+        },
+    };
     apiService.fetchLearningObject.mockResolvedValue(learningObject);
 
-    course1.urn = "urn:li:123"
-    video1.urn = "urn:li:345"
+    course1.urn = "urn:li:123";
+    video1.urn = "urn:li:345";
 
     cache.set("course-1", course1);
     cache.set("video-1", video1);

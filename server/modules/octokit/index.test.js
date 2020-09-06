@@ -27,11 +27,11 @@ afterEach(() => {
 test("creating a detailed bugreport issue works", async () => {
     process.env.CREATE_GITHUB_ISSUES = '1';
     await octokit.createBugreportIssue({
-        subject: "test1",
-        report: "Something is wrong",
-        email: "secure@email.com",
-        ip: "clientIp",
-        name: "privateNaM",
+        "subject": "test1",
+        "report": "Something is wrong",
+        "email": "secure@email.com",
+        "ip": "clientIp",
+        "name": "privateNaM",
         'g-recaptcha-response': "reCAPTCHAres",
     });
 });
@@ -48,7 +48,7 @@ test("creating a minimalistic feature request issue works", async () => {
     process.env.CREATE_GITHUB_ISSUES = '1';
     await octokit.createFeatureRequestIssue({
         message: "Why can't this site brew my tea?",
-        subject: "Complaint!"
+        subject: "Complaint!",
     });
 });
 
@@ -56,6 +56,6 @@ test("skipping Github issue creation based on environment config", async () => {
     process.env.CREATE_GITHUB_ISSUES = '0';
     await octokit.createFeatureRequestIssue({
         message: "Why can't this site brew my tea?",
-        subject: "Complaint!"
+        subject: "Complaint!",
     });
 });

@@ -9,7 +9,7 @@ const insertTestObject = async () => {
     const query = "INSERT INTO admin(email, username, password_hash, salt) VALUES ($1, $2, $3, $4) RETURNING *";
     const params = [admin1.email, admin1.username, "123", "123"];
     return db.query(query, params);
-}
+};
 
 beforeEach(async () => {
     admin1 = testHelpers.getAdmin1();

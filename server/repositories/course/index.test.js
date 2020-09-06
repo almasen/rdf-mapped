@@ -7,7 +7,7 @@ const coursePhaseRepo = require("./phase");
 
 const testHelpers = require("../../test/helpers");
 
-let course1, course2, capability1, capability2, category1, category2, competency1, competency2, phase1, phase2;
+let course1; let course2; let capability1; let capability2; let category1; let category2; let competency1; let competency2; let phase1; let phase2;
 
 beforeEach(() => {
     course1 = testHelpers.getCourse1();
@@ -304,7 +304,7 @@ test('inserting and finding with optional filters and substring works', async ()
             competencyId: -1,
             phaseId: -1,
         },
-        keyword: "Research"
+        keyword: "Research",
     });
     expect(findByFiltersResult1.rows.length).toBe(3);
 
@@ -315,7 +315,7 @@ test('inserting and finding with optional filters and substring works', async ()
             competencyId: -1,
             phaseId: -1,
         },
-        keyword: "Paper"
+        keyword: "Paper",
     });
     expect(findByFiltersResult2.rows.length).toBe(1);
 
@@ -326,7 +326,7 @@ test('inserting and finding with optional filters and substring works', async ()
             competencyId: -1,
             phaseId: -1,
         },
-        keyword: "Research"
+        keyword: "Research",
     });
     expect(findByFiltersResult3.rows.length).toBe(2);
 
@@ -337,7 +337,7 @@ test('inserting and finding with optional filters and substring works', async ()
             competencyId: -1,
             phaseId: -1,
         },
-        keyword: "Research"
+        keyword: "Research",
     });
     expect(findByFiltersResult4.rows.length).toBe(1);
 });
@@ -560,7 +560,7 @@ test('inserting and finding with optional filters and substring works', async ()
             competencyId: -1,
             phaseId: -1,
         },
-        keyword: "Research"
+        keyword: "Research",
     });
     expect(findByFiltersResult1.rows.length).toBe(2);
     expect(findByFiltersResult1.rows[0].capabilityTitle === capability1.title || findByFiltersResult1.rows[0].capabilityTitle === capability2.title).toBe(true);

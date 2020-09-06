@@ -2,7 +2,7 @@ const faqRepo = require("./");
 
 const testHelpers = require("../../test/helpers");
 
-let faq1, faq2;
+let faq1; let faq2;
 
 beforeEach(() => {
     faq1 = testHelpers.getFAQ1();
@@ -49,7 +49,7 @@ test('finding all works', async () => {
     // and only has them
     findRecords.forEach((e) => {
         expect(e.answer === faq1.answer || e.answer === faq2.answer).toBe(true);
-    })
+    });
 });
 
 test('finding by keyword works', async () => {
@@ -98,5 +98,4 @@ test('updating works', async () => {
     const findResult2 = await faqRepo.findById(insertRecord.id);
     const findRecord2 = findResult2.rows[0];
     expect(findRecord2.answer).toStrictEqual("new ans");
-
 });

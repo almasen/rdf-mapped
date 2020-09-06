@@ -24,9 +24,9 @@ test("logging in admin works", async () => {
     admin1.id = 1;
     adminRepo.findByEmail.mockResolvedValue({
         rows: [{
-            ...admin1
+            ...admin1,
         }],
-    })
+    });
     const token = await admin.logInAdmin(admin1.email, "password");
 
     const name = admin.authenticateAdmin(token);
@@ -39,15 +39,14 @@ test("logging for weekly admin summary works", async () => {
     mail.sendEmail.mockResolvedValue();
     admin.logBugReport({
         email: "test@test.com",
-        report: "this doesn't work"
+        report: "this doesn't work",
     });
 
     admin.logContactRequest({
         email: "test@test.com",
-        request: "How do I use this site?"
+        request: "How do I use this site?",
     });
 
     admin.sendSummary();
     expect(mail.sendEmail).toHaveBeenCalledTimes(1);
-
 });

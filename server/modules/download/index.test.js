@@ -9,7 +9,7 @@ const rimraf = require('rimraf');
 jest.mock("../course");
 jest.mock("../video");
 
-let course1, course2, video1, video2;
+let course1; let course2; let video1; let video2;
 
 beforeEach(() => {
     course1 = testHelpers.getCourse1();

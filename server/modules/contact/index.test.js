@@ -26,13 +26,13 @@ test("processing bug report works", async () => {
     octokit.createFeatureRequestIssue.mockResolvedValue();
 
     await contact.processContactRequest('123', {
-        reason: "bugreport"
+        reason: "bugreport",
     });
     await contact.processContactRequest('123', {
-        reason: "feature_request"
+        reason: "feature_request",
     });
     await contact.processContactRequest('123', {
-        reason: "other"
+        reason: "other",
     });
 
     expect(mail.sendEmail).toHaveBeenCalledTimes(3);

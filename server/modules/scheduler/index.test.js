@@ -15,7 +15,7 @@ jest.mock("../cache/recache");
 jest.mock("../download");
 jest.mock("../admin");
 
-const { scheduleJob } = jest.createMockFromModule("node-schedule");
+const {scheduleJob} = jest.createMockFromModule("node-schedule");
 
 beforeEach(() => {
     return testHelpers.clearDatabase();
