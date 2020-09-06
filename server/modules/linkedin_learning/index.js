@@ -113,7 +113,7 @@ const fetchLearningObject = async (urn) => {
                     },
                 ],
                 beforeRetry: [
-                    async (options, error, retryCount) => {
+                    async (options) => {
                         options.headers.Authorization = getOAuthToken();
                     },
                 ],

@@ -76,7 +76,7 @@ const generateExportFiles = async () => {
  * archives are up to date.
  */
 const deleteExportFiles = () => {
-    rimraf("./exports/*", (result) => {
+    rimraf("./exports/*", () => {
         log.info("Cleared exports folder");
     });
 };
