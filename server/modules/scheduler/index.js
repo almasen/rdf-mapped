@@ -14,7 +14,9 @@ const adminService = require("../admin");
 const scheduleRecache = () => {
     if (process.env.SCHEDULE_RECACHE === '1') {
         schedule.scheduleJob(config.recache, async () => {
+            /* istanbul ignore next */
             log.info("SCHEDULER: Executing scheduled task 'recacheAll()' at %s...", (new Date).toUTCString());
+            /* istanbul ignore next */
             await recache.recacheAll();
         });
     } else {
@@ -27,8 +29,10 @@ const scheduleRecache = () => {
  */
 const scheduleDeleteExportFiles = () => {
     schedule.scheduleJob(config.deleteExports, async () => {
+        /* istanbul ignore next */
         log.info("SCHEDULER: Executing scheduled task 'deleteExportFiles()' at %s...",
             (new Date).toUTCString());
+        /* istanbul ignore next */
         downloadService.deleteExportFiles();
     });
 };
@@ -38,8 +42,10 @@ const scheduleDeleteExportFiles = () => {
  */
 const scheduleWeeklySummary = () => {
     schedule.scheduleJob(config.weeklySummary, async () => {
+        /* istanbul ignore next */
         log.info("SCHEDULER: Executing scheduled task 'scheduleWeeklySummary()' at %s...",
             (new Date).toUTCString());
+        /* istanbul ignore next */
         adminService.sendSummary();
     });
 };
