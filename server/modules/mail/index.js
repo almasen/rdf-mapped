@@ -29,6 +29,7 @@ const sendEmail = async (from, to, subject, text, html) => {
         });
         log.info("'%s': Email sent successfully to '%s'", from, to);
     } catch (error) {
+        /* istanbul ignore next */
         log.error("'%s': Failed sending email to '%s', err: " +
             error.message, from, to);
     }

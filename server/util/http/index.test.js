@@ -65,7 +65,7 @@ test("sending built in 418 response works", async () => {
 test("sending built in 200 response works", async () => {
     const send = jest.fn();
     const res = {status: jest.fn(() => ({send: send}))};
-    httpUtil.sendBuiltInError(httpResponses.getGenericSuccess(), res);
+    httpUtil.sendGenericSuccess(res);
 
     expect(res.status).toHaveBeenCalledTimes(1);
     expect(res.status).toHaveBeenCalledWith(200);

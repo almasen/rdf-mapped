@@ -47,6 +47,19 @@ test("fetching submission by id works", async () => {
     expect(fetchResult).toStrictEqual(submission1);
 });
 
+test("fetching submission throws expected error message on invalid id", async () => {
+    submissionRepo.findById.mockResolvedValue({
+        rows: [
+        ],
+    });
+    try {
+        await submission.fetchById("invalidID");
+        fail("Should not reach here.");
+    } catch (error) {
+        expect(error.message).toStrictEqual('No submission found with ID - invalidID')
+    }
+});
+
 test("fetching all submissions works", async () => {
     submissionRepo.findAll.mockResolvedValue({
         rows: [
@@ -227,6 +240,51 @@ test("publishing a valid video submission works", async () => {
     expect(submissionRepo.update).toHaveBeenCalledTimes(1);
     expect(courseService.addNewCourse).toHaveBeenCalledTimes(0);
     expect(videoService.addNewVideo).toHaveBeenCalledTimes(1);
+});
+
+test("publishing an invalid submission is rejected with appropriate error messages", async () => {
+    courseService.addNewCourse.mockResolvedValue();
+    videoService.addNewVideo.mockResolvedValue();
+    submissionRepo.update.mockResolvedValue();
+
+    // no LinkedIn Learning URN
+    submissionRepo.findById.mockResolvedValueOnce({
+        rows: [
+            {
+                status: "pending",
+                submitter: submission2.submitter,
+                data: JSON.parse(submission1.data),
+                id: "uniqueID123",
+            },
+        ],
+    });
+
+    try {
+        await submission.publishSubmission("uniqueID123");
+        fail("Should not reach here.");
+    } catch (error) {
+        expect(error.message).toStrictEqual("Mustn't publish submission without a URN!");
+    }
+
+    // partial / missing RDF mapping
+    submissionRepo.findById.mockResolvedValueOnce({
+        rows: [
+            {
+                status: "pending",
+                submitter: submission3.submitter,
+                data: JSON.parse(submission3.data),
+                id: "uniqueID123",
+            },
+        ],
+    });
+
+    try {
+        await submission.publishSubmission("uniqueID123");
+        fail("Should not reach here.");
+    } catch (error) {
+        expect(error.message).toStrictEqual("Mustn't publish submission without an RDF mapping!");
+    }
+
 });
 
 test("mapping a valid submission works", async () => {

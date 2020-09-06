@@ -96,7 +96,15 @@ const publishSubmission = async (id) => {
     if (!submission.data.urn) {
         throw new Error("Mustn't publish submission without a URN!");
     }
-    if (!submission.data.capability) {
+    if (
+        !submission.data.capability ||
+        !submission.data.category ||
+        !submission.data.competency ||
+        !submission.data.phases ||
+        !submission.data.capabilityTitle ||
+        !submission.data.categoryTitle ||
+        !submission.data.competencyTitle
+    ) {
         throw new Error("Mustn't publish submission without an RDF mapping!");
     }
     submission.data.type === "COURSE" ?
@@ -156,6 +164,7 @@ const attemptToFindURN = async (submission) => {
         submission.status = result ? "pending" : "failed";
         await updateSubmission(submission);
     } catch (error) {
+        /* istanbul ignore next */
         log.error("Finding URN for submission(%s) failed, err: " +
             error.message, submission.id);
     }

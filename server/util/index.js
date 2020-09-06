@@ -1,18 +1,3 @@
-const date = require("date-and-time");
-
-/**
- * Get date in UTC with optional offset in minutes.
- * Set offset to 0 to get Now() in UTC.
- * @param {Number} offsetMinutes offset in minutes
- * @return {String} date in UTC as string
- */
-const getNowInUTCAsString = (offsetMinutes) => {
-    return date.format(
-        date.addMinutes(new Date(), offsetMinutes),
-        "YYYY-MM-DD HH:mm:ss", true,
-    );
-};
-
 /**
  * Sleep n milliseconds.
  * @param {number} ms
@@ -57,7 +42,6 @@ const base64ToHex = (base64String) => {
 
 module.exports = {
     sleep,
-    getNowInUTCAsString,
     base64ToURLSafe,
     base64ToHex,
 };

@@ -13,12 +13,12 @@ const adminService = require("../admin");
  */
 const scheduleRecache = () => {
     if (process.env.SCHEDULE_RECACHE === '1') {
-        schedule.scheduleJob(config.recache, async () => {
+        schedule.scheduleJob(config.recache,
             /* istanbul ignore next */
-            log.info("SCHEDULER: Executing scheduled task 'recacheAll()' at %s...", (new Date).toUTCString());
-            /* istanbul ignore next */
-            await recache.recacheAll();
-        });
+            async () => {
+                log.info("SCHEDULER: Executing scheduled task 'recacheAll()' at %s...", (new Date).toUTCString());
+                await recache.recacheAll();
+            });
     } else {
         log.info("SCHEDULER: SKIPPING scheduling of task 'recacheAll()' due to environment config");
     }
@@ -28,26 +28,26 @@ const scheduleRecache = () => {
  * Schedule the 'deleteExportFiles()' task according to the configuration module.
  */
 const scheduleDeleteExportFiles = () => {
-    schedule.scheduleJob(config.deleteExports, async () => {
+    schedule.scheduleJob(config.deleteExports,
         /* istanbul ignore next */
-        log.info("SCHEDULER: Executing scheduled task 'deleteExportFiles()' at %s...",
-            (new Date).toUTCString());
-        /* istanbul ignore next */
-        downloadService.deleteExportFiles();
-    });
+        async () => {
+            log.info("SCHEDULER: Executing scheduled task 'deleteExportFiles()' at %s...",
+                (new Date).toUTCString());
+            downloadService.deleteExportFiles();
+        });
 };
 
 /**
  * Schedule the 'sendSummary()' task according to the configuration module.
  */
 const scheduleWeeklySummary = () => {
-    schedule.scheduleJob(config.weeklySummary, async () => {
+    schedule.scheduleJob(config.weeklySummary,
         /* istanbul ignore next */
-        log.info("SCHEDULER: Executing scheduled task 'scheduleWeeklySummary()' at %s...",
-            (new Date).toUTCString());
-        /* istanbul ignore next */
-        adminService.sendSummary();
-    });
+        async () => {
+            log.info("SCHEDULER: Executing scheduled task 'scheduleWeeklySummary()' at %s...",
+                (new Date).toUTCString());
+            adminService.sendSummary();
+        });
 };
 
 /**

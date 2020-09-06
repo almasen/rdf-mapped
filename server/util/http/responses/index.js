@@ -23,21 +23,6 @@ const iAmATeapot = {
     message: "I am a teapot.",
 };
 
-const alreadyAuth = {
-    status: 200,
-    message: "Request is already authenticated.",
-    data: {
-        alreadyAuthenticated: true,
-    },
-};
-
-const getMissingVarInRequest = (varName) => {
-    return {
-        status: 400,
-        message: "No " + varName + " specified in incoming request.",
-    };
-};
-
 const getGenericSuccess = () => ({...genericSuccess});
 
 const getUnauthorised = () => ({...unauthorised});
@@ -48,14 +33,10 @@ const getNotFound = () => ({...notFound});
 
 const getIAmATeapot = () => ({...iAmATeapot});
 
-const getAlreadyAuth = () => ({...alreadyAuth});
-
 module.exports = {
     getGenericSuccess,
     getUnauthorised,
     getForbidden,
     getNotFound,
     getIAmATeapot,
-    getAlreadyAuth,
-    getMissingVarInRequest,
 };
