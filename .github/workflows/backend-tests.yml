@@ -111,38 +111,37 @@ jobs:
           name: coverage
           path: server/coverage
 
-  # publish:
-  #   if: github.ref == 'refs/heads/dev'
-  #   needs: [build, test]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Download docs artifact
-  #     uses: actions/download-artifact@v1
-  #     with:
-  #       name: docs
-  #   - name: Deploy docs
-  #     uses: appleboy/scp-action@master
-  #     with:
-  #       host: ${{ secrets.SSH_HOST }}
-  #       username: ${{ secrets.SSH_USER }}
-  #       key: ${{ secrets.SSH_KEY }}
-  #       port: ${{ secrets.SSH_PORT }}
-  #       source: "docs/**"
-  #       target: "web-data"
-  #   - name: Download coverage artifact
-  #     uses: actions/download-artifact@v1
-  #     with:
-  #       name: coverage
-  #   - name: Deploy coverage
-  #     uses: appleboy/scp-action@master
-  #     with:
-  #       host: ${{ secrets.SSH_HOST }}
-  #       username: ${{ secrets.SSH_USER }}
-  #       key: ${{ secrets.SSH_KEY }}
-  #       port: ${{ secrets.SSH_PORT }}
-  #       source: "coverage/**"
-  #       target: "web-data"
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub repository
+        uses: actions/checkout@master
 
-# For help, see:
-# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#on
-# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: coverage
+
+      - name: Publish test coverage
+        uses: easingthemes/ssh-deploy@v2.1.4
+        env:
+          SOURCE: "coverage"
+          TARGET: ${{ secrets.COVERAGE_DIR }}
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY_DEP }}
+
+      - name: Download docs artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: docs
+
+      - name: Publish module documentation
+        uses: easingthemes/ssh-deploy@v2.1.4
+        env:
+          SOURCE: "docs"
+          TARGET: ${{ secrets.DOCS_DIR }}
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY_DEP }}
