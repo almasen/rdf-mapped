@@ -1,0 +1,45 @@
+# Security Policy
+
+## Reporting a Vulnerability
+
+For reporting security-related vulnerabilities that may expose sensitive information, such as PII, please contact me privately at: [almd@pm.me](mailto:almd@pm.me?subject=%5Brdf-mapped%5D%20Security%20Vulnerability)
+
+<details>
+<summary>PGP Key</summary>
+
+``` Markdown
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: OpenPGP.js v4.10.7
+Comment: https://openpgpjs.org
+
+xsBNBFrGLqcBCADIlxwyFMOnD1db6794Yijn/pNKazZRCwB/JMxf3HqhfIrd
+RaDTlSv4ejKp16LXF0Kv/NBZ+SxRPf3UfW0NNXuZzYWtm1TXSW0IWnB009ID
+FbkkRoXMmjmHLBPglgN854Wm5G6JmBhc7hxVBtkrGpcKqMNcL0hMDWtobSUG
+7x435fQCaU8+QpWRH9S+WX1IWYXTpv7A7hoJwH6FfAag/HyeOP3LO/kx+Fdj
+OCdV9ooIzG6MFRCFUATDfCh2GiHJ59fDIHcElaAJj2pdnHQEUc55hd7Ji+zJ
+pxzRf2unzHOkata9szARSe8RfN830sPRMWHYj/VxxrZMtdemq8Htg5ElABEB
+AAHNF2FsbWRAcG0ubWUgPGFsbWRAcG0ubWU+wsB/BBABCAApBQJaxi6oBgsJ
+BwgDAgkQYDiILArY2JwEFQgKAgMWAgECGQECGwMCHgEACgkQYDiILArY2Jzj
+Qwf/SB2XqqH1oiHZHquxZTrYsIaCISPErZXy3Ty1BrgXXBPCLf2LyZded9CZ
+PJB3QgJdO8bPy94zK7P/x/QDmSNdxBCnXc2Jw8V6t6uENFzPrbjwUGT2zfho
+ymNA2b0ku+GVd/COV9M3cEMILMjNYyrsJIWQdgnSqCRvCwkLM+OTHKuEPIde
+zV0gIgVmed6XUJHh2B+9X+DYbw8nDLq8pjvsIIl3bU7v+HEV7KRaDK9A76Q0
++I0WMz89ZME/dfKVTx3dHFYETFfTjOflOMW6L5BfmYkBEPkKnZNCJrdHVtEI
+VBStL9npp/KcPvmlsw9rD1D+68ViREe0sSUtmcDdvvc/Lc7ATQRaxi6nAQgA
+sWC8LLQKFQPiSnP+0srnZ0P9owBgLVn8VjTSwdcymbuaSXW7rhnAIQeQfynQ
+k80/rtOcJd3ZeMkdUQtHmOZ5I4NoebLiNIFNdImEYUlwl9vAN8S+qq31kA/U
+Dx0l72wn+F8Y1hzqXKLtyEeU7yVM8M+onC7rf9GEBp/cPlPCMZD0YZ5vwX+c
+6KkMEZFvrNlBwz+TNWX76NNgJjrl+voakjbW7jXoPXPrCZT0ahwINdcHcDhH
+XZVKwcBy1DDvn4fK3kDm2/MtWuZNkb9M17B3laLAbOtM6ao1nI44Nb3sowOM
+YP47gEzEngVjMu5ulG5rzmjFapB2+rvEOjSGjDxreQARAQABwsBpBBgBCAAT
+BQJaxi6oCRBgOIgsCtjYnAIbDAAKCRBgOIgsCtjYnPOHCACT3Rw9u74dQkAZ
+EaHkcrscZ4XvcdYQw3gKK3F1AXQMSp4vLEvxP5fyiEHgrXbBZZnVxe/5wCtu
+lgNNcB2/0oT2QALgXtGFB2z4iGHYWis7nYP0TB4NGnEae4NJOaxh0B+cFhKM
+zWJe/KEARxt8sDjo2BWDbXYLsoyYB7RA4VSbdthMgLCtPXFe7Q2WFWWO62BW
+VXOtDAO08x9oIta69Sq2c4Wt5ukWQREtxGuqxbNhI4f3eqEhPY6a3xZmrOht
+7D/jDfu9GwN60uqYS0OlOXtiF00qTjxYHFsv5uFj5Mx2ljjx2uQHGgs8nGan
+45Jo49SBHChtv047ORAH+NG7QZeC
+=aJgU
+-----END PGP PUBLIC KEY BLOCK-----
+```
+</details>
