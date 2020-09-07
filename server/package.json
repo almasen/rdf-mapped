@@ -73,7 +73,8 @@
     "collectCoverage": true,
     "coverageReporters": [
       "json",
-      "html"
+      "html",
+      "json-summary"
     ],
     "setupFilesAfterEnv": [
       "./test/setup"

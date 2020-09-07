@@ -8,12 +8,12 @@ on:
       - dev
     paths:
       - "server/**" # limit workflow tests only to changes in backend folder
-  pull_request:
-    branches:
-      - master
-      - dev
-    paths:
-      - "server/**"
+  # pull_request:
+  #   branches:
+  #     - master
+  #     - dev
+  #   paths:
+  #     - "server/**"
 
 jobs:
   # build and run tests
