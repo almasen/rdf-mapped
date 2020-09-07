@@ -139,6 +139,36 @@ test("updating single cached object from API with no params available works", as
             urls: {
                 webLaunch: "hyperlink",
             },
+            images: {
+            },
+        },
+    };
+    apiService.fetchLearningObject.mockResolvedValue(learningObject);
+
+    course1.urn = "urn:li:123";
+    video1.urn = "urn:li:345";
+
+    const beforeLength = cache.get("videos").length;
+
+    cache.set("course-1", course1);
+    cache.set("video-1", video1);
+
+    await cache.updateFromAPI("video-1");
+
+    expect(apiService.fetchLearningObject).toHaveBeenCalledTimes(1);
+    expect(cache.get("video-1").title).toStrictEqual("fetchedTitle");
+    expect(cache.get("videos").length).toStrictEqual(beforeLength + 1);
+});
+
+test("updating single cached object with invalid cache key is skipped as expected", async () => {
+    learningObject = {
+        title: {
+            value: "fetchedTitle",
+        },
+        details: {
+            urls: {
+                webLaunch: "hyperlink",
+            },
             descriptionIncludingHtml: "a",
             shortDescriptionIncludingHtml: "b",
             images: {
@@ -150,13 +180,31 @@ test("updating single cached object from API with no params available works", as
     apiService.fetchLearningObject.mockResolvedValue(learningObject);
 
     course1.urn = "urn:li:123";
+
+    cache.set("invalid-1", course1);
+
+    const beforeLength = cache.get("courses").length;
+
+    await cache.updateFromAPI("invalid-1");
+
+    expect(apiService.fetchLearningObject).toHaveBeenCalledTimes(1);
+    expect(cache.get("courses").length).toStrictEqual(beforeLength);
+});
+
+test("updating single cached object from API logs errors on failure as expected", async () => {
+    apiService.fetchLearningObject.mockResolvedValue(undefined);
+
+    course1.urn = "urn:li:123";
     video1.urn = "urn:li:345";
 
     cache.set("course-1", course1);
     cache.set("video-1", video1);
 
+    const beforeLength = cache.get("courses").length;
+
     await cache.updateFromAPI("video-1");
 
     expect(apiService.fetchLearningObject).toHaveBeenCalledTimes(1);
-    expect(cache.get("video-1").title).toStrictEqual("fetchedTitle");
+    expect(cache.get("video-1").title).toStrictEqual(video1.title);
+    expect(cache.get("courses").length).toStrictEqual(beforeLength);
 });
