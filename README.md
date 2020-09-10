@@ -20,9 +20,9 @@ Some tech specs of rdfmapped.com project
 - HTTP Strict Transport Security (HSTS) preloaded
 - Lightouse 90+ for all tests
 - automatically deployed module documentation
+- user authentication via Encrypted JWTs
 - automatic updating of LinkedIn Learning API content
 - eslint & Codacy metrics
-- content served through HTTP/2 via brotli
 
 ## Contribute
 
@@ -30,7 +30,7 @@ We warmly welcome all kinds of contributions from the tiniest UI tweaks through 
 
 ### Contributing code
 
-If you are interested in contributing code, first, please have look at the [open issues](https://github.com/almasen/rdf-mapped/issues) (if there are any) and the [planned features](#planned%20features) below. That said, if you would prefer to work on your own idea that's different from the planned upgrades, feel free to [create your own feature request issue](https://github.com/almasen/rdf-mapped/issues/new?assignees=&labels=&template=feature_request.md&title=).
+If you are interested in contributing code, first, please have look at the [open issues](https://github.com/almasen/rdf-mapped/issues) (if there are any) and the [planned features](#planned-features) below. That said, if you would prefer to work on your own idea that's different from the planned upgrades, feel free to [create your own feature request issue](https://github.com/almasen/rdf-mapped/issues/new?assignees=&labels=&template=feature_request.md&title=).
 
 Seriously, if you want to just change the padding of a div on a page, that's also fine! It will make me happy...especially since I'm not a frontend dev. But, if you would be kind enough to work on some of the planned extensions, that would be straight up amazing.
 
@@ -83,7 +83,7 @@ For submitting a single LinkedIn Learning course or video, please use the [Learn
 
 If you would like to submit more than one, please submit the above form once for each course/video.
 
-We plan to expand this feature soon so that you can submit multiple courses & videos via the form.
+[We plan to expand this feature soon](#planned-features) so that you can submit multiple courses & videos via the form.
 
 ### Report a vulnerability
 
