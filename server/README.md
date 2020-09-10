@@ -21,7 +21,7 @@ _Please note that in order to use the 3rd party APIs integrated into the RDF ser
 
 ### Setting up local database for testing
 1.  Download and install [PostgreSQL Core Distribution](https://www.postgresql.org/download "PSQL Download") version 12.x
-2.  Configure Postgres root user's password to match 'DB_PASS' in .env and default port to be 5432
+2.  Configure Postgres root user's password to match 'DB_PASS' in .env and default port to be 5432 
 3.  Add Postgres to your PATH
 4.  Create local database for application using `createdb -U postgres rdfdatabase`
 5.  Run database migrations using `npm run db-migrate up`

@@ -6,8 +6,6 @@ on:
     branches:
       - master # master (rerun tests after merging a PR)
       - dev
-    paths:
-      - "server/**" # limit workflow tests only to changes in server/
 
 jobs:
   # build and run tests
