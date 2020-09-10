@@ -19,8 +19,7 @@
     "prod-start": "env NODE_ENV=production node ./server",
     "check-all": "db-migrate reset; db-migrate up; npm i; jest -i; jsdoc -r -c ./jsdoc/.jsdocrc.json ./modules; eslint ./ --fix",
     "rem-logs": "del-cli ./log/*.log",
-    "rem-exports": "del-cli ./exports/*",
-    "insert-samples": "jest -i /test/helpers/sample"
+    "rem-exports": "del-cli ./exports/*"
   },
   "dependencies": {
     "@octokit/request": "^5.4.7",
