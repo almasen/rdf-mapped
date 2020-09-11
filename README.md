@@ -26,6 +26,30 @@ Some tech specs of rdfmapped.com project
 - content served through HTTP/2 via brotli
 - automatic GitHub issue creation via @rdfbot
 
+## Supporting RDFmapped
+
+RDFmapped is a free, open source project and therefore donations are greatly appreciated.
+
+### Sponsors
+
+[![KCL Logo](https://rdfmapped.com/img/kcl/KCL_box_red_485_rgb_comp.webp)](https://kcl.ac.uk "King's College London")
+
+Huge thanks to King's College London for sponsoring the initial development of the project.
+
+### Support our development
+
+#### Donations are welcome
+
+Consider supporting us by a one-time or recurring donation via [Github Sponsors](https://paypal.me/almasen).
+
+Your name will be featured in the list of our sponsors as per the GitHub sponsors description.
+
+#### Sponsor the RDFmapped project
+
+If you are interested in becoming on official sponsor of the RDFmapped project, please [contact us](https://rdfmapped.com/contact).
+
+Your organisation/company name & logo will be featured on the rdfmapped.com website as well as the project readme based on your chosen support tier.
+
 ## Contribute
 
 We warmly welcome all kinds of contributions from the tiniest UI tweaks through creating and/or fixing bug reports to expanding our collection of featured LinkedIn Learning courses & videos.
@@ -91,30 +115,22 @@ If you would like to submit more than one, please submit the above form once for
 
 For security related issues, such as reporting a vulnerability, please consult the [security policy](https://github.com/almasen/rdf-mapped/security/policy).
 
-## Supporting RDFmapped
-
-RDFmapped is a free, open source project and therefore donations are greatly appreciated.
-
-### Sponsors
-
-[![KCL Logo](https://rdfmapped.com/img/kcl/KCL_box_red_485_rgb_comp.webp)](https://kcl.ac.uk "King's College London")
-
-Huge thanks to King's College London for sponsoring the initial development of the project.
-
-### Support our development
-
-#### Donations are welcome
-
-Consider supporting us by a one-time or recurring donation via [Github Sponsors](./.github/FUNDING.yml).
-
-Your name will be featured in the list of our sponsors as per the GitHub sponsors description.
-
-#### Sponsor the RDFmapped project
-
-If you are interested in becoming on official sponsor of the RDFmapped project, please [contact us](https://rdfmapped.com/contact).
-
-Your organisation/company name & logo will be featured on the rdfmapped.com website as well as the project readme based on your chosen support tier.
-
 ## Credits
 
-Kudos to 
+### Centre for Doctoral Studies
+
+Huge thanks to the [Centre for Doctoral Studies, King's College London](https://www.kcl.ac.uk/doctoralstudies "KCL Doctoral Studies") for open sourcing RDFmapped and for the awesome opportunity to work on this project.
+
+### Vitae dataset
+
+Vitae credit TODO: TBD
+
+### KCL UG project team
+
+Kudos to [@StenAL](https://github.com/StenAL), [@paumue](https://github.com/paumue), [@finwarman](https://github.com/finwarman) & [@houssam966](https://github.com/houssam966) for allowing me to use part of the backend code we have had written for our second year undergraduate project at KCL.
+
+## Contact
+
+For development related queries, issue creation is our preferred way of being contacted. If your query contains PII or any other sensitive information, please email us at the address on our profiles.
+
+With any other questions, please refer to the [contact form](https://rdfmapped.com/contact) on the rdfmapped.com website.
