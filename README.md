@@ -4,7 +4,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/8f122bbf86794463b3b10f85bcf28249)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=almasen/rdf-mapped&amp;utm_campaign=Badge_Grade)
 [![Module Docs](https://img.shields.io/badge/module-docs-informational?logo=node.js)](https://dev.rdfmapped.com/docs)
 [![Submit Content](https://img.shields.io/badge/learning-submit%20content-informational?logo=linkedin)](https://rdfmapped.com/submit)
-[![Lighthouse](https://img.shields.io/badge/Lighthouse-98.25%25-success?logo=Lighthouse)](https://googlechrome.github.io/lighthouse/viewer/?psiurl=https%3A%2F%2Frdfmapped.com%2F&strategy=desktop&category=performance&category=accessibility&category=best-practices&category=seo&category=pwa&utm_source=lh-chrome-ext#accessibility)
+[![Lighthouse](https://img.shields.io/badge/Lighthouse-98.25%25-success?logo=Lighthouse)](https://googlechrome.github.io/lighthouse/viewer/?psiurl=https%3A%2F%2Frdfmapped.com%2F&strategy=desktop&category=performance&category=accessibility&category=best-practices&category=seo&category=pwa&utm_source=lh-chrome-ext)
 
 ## About RDFmapped
 
@@ -16,15 +16,16 @@ RDFmapped is based on a dataset which mapped [Vitae’s Researcher Development F
 
 Some tech specs of rdfmapped.com project
 
-- CI with Jest & 99%+ module coverage
-- HTTP Strict Transport Security (HSTS) preloaded
-- Lightouse 90+ for all tests
-- automatically deployed module documentation
+- CI with Jest & [99%+ module coverage](https://dev.rdfmapped.com/coverage)
+- HTTP Strict Transport Security [HSTS preloaded](https://hstspreload.org/?domain=rdfmapped.com "HSTS Preloaded")
+- [Lightouse 90+](https://googlechrome.github.io/lighthouse/viewer/?psiurl=https%3A%2F%2Frdfmapped.com%2F&strategy=desktop&category=performance&category=accessibility&category=best-practices&category=seo&category=pwa&utm_source=lh-chrome-ext) for all tests
+- automatically deployed [module documentation](https://dev.rdfmapped.com/docs)
 - user authentication via Encrypted JWTs
 - automatic updating of LinkedIn Learning API content
 - eslint & Codacy metrics
+- TLS v1.3, [A+ SSL Labs rating](https://www.ssllabs.com/ssltest/analyze.html?d=rdfmapped.com "Qualys SSL Labs Report")
 - content served through HTTP/2 via brotli
-- automatic GitHub issue creation via @rdfbot
+- automatic issue creation by [@rdfbot](https://github.com/rdfbot) via GitHub API
 
 ## Supporting RDFmapped
 
@@ -64,15 +65,19 @@ Seriously, if you want to just change the padding of a div on a page, that's als
 
 Here are some of the main planned upgrades:
 
-- public API with OAuth 2.0
-- submission of multiple courses/videos
-- improve "similar courses/videos" algorithm
-- bulk upload of CSV & JSON datasets (admin)
-- refactor auth & logic of admin routes
-- a pretty page for supporters
-- a page about elephants
+- [x] automatic GitHub issue creation
+- [ ] public API with OAuth 2.0
+- [x] dev subdomain & subpages
+- [ ] submission of multiple courses/videos
+- [ ] improve "similar courses/videos" algorithm
+- [ ] bulk upload of CSV & JSON datasets (admin)
+- [ ] refactor auth & logic of admin routes
+- [ ] a pretty page for supporters
+- [ ] a page about elephants
 
 These are in no particular order (elephant page first plz) and again, any contributions are welcome!
+
+If you are interested in working on one of the above mentioned planned features, please refer to the [kanban board](https://github.com/almasen/rdf-mapped/projects/1).
 
 #### Building
 
