@@ -23,6 +23,7 @@ Some tech specs of rdfmapped.com project
 - automatic updating of LinkedIn Learning API content
 - eslint & Codacy metrics
 - content served through HTTP/2 via brotli
+- automatic GitHub issue creation via @rdfbot
 
 ## Contribute
 
