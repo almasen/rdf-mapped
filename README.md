@@ -20,9 +20,11 @@ Some tech specs of rdfmapped.com project
 - HTTP Strict Transport Security (HSTS) preloaded
 - Lightouse 90+ for all tests
 - automatically deployed module documentation
+- user authentication via Encrypted JWTs
 - automatic updating of LinkedIn Learning API content
 - eslint & Codacy metrics
 - content served through HTTP/2 via brotli
+- automatic GitHub issue creation via @rdfbot
 
 ## Contribute
 
@@ -30,7 +32,7 @@ We warmly welcome all kinds of contributions from the tiniest UI tweaks through 
 
 ### Contributing code
 
-If you are interested in contributing code, first, please have look at the [open issues](https://github.com/almasen/rdf-mapped/issues) (if there are any) and the [planned features](#planned%20features) below. That said, if you would prefer to work on your own idea that's different from the planned upgrades, feel free to [create your own feature request issue](https://github.com/almasen/rdf-mapped/issues/new?assignees=&labels=&template=feature_request.md&title=).
+If you are interested in contributing code, first, please have look at the [open issues](https://github.com/almasen/rdf-mapped/issues) (if there are any) and the [planned features](#planned-features) below. That said, if you would prefer to work on your own idea that's different from the planned upgrades, feel free to [create your own feature request issue](https://github.com/almasen/rdf-mapped/issues/new?assignees=&labels=&template=feature_request.md&title=).
 
 Seriously, if you want to just change the padding of a div on a page, that's also fine! It will make me happy...especially since I'm not a frontend dev. But, if you would be kind enough to work on some of the planned extensions, that would be straight up amazing.
 
@@ -83,8 +85,36 @@ For submitting a single LinkedIn Learning course or video, please use the [Learn
 
 If you would like to submit more than one, please submit the above form once for each course/video.
 
-We plan to expand this feature soon so that you can submit multiple courses & videos via the form.
+[We plan to expand this feature soon](#planned-features) so that you can submit multiple courses & videos via the form.
 
-### Report a vulnerability
+### Reporting a vulnerability
 
 For security related issues, such as reporting a vulnerability, please consult the [security policy](https://github.com/almasen/rdf-mapped/security/policy).
+
+## Supporting RDFmapped
+
+RDFmapped is a free, open source project and therefore donations are greatly appreciated.
+
+### Sponsors
+
+[![KCL Logo](https://rdfmapped.com/img/kcl/KCL_box_red_485_rgb_comp.webp)](https://kcl.ac.uk "King's College London")
+
+Huge thanks to King's College London for sponsoring the initial development of the project.
+
+### Support our development
+
+#### Donations are welcome
+
+Consider supporting us by a one-time or recurring donation via [Github Sponsors](./.github/FUNDING.yml).
+
+Your name will be featured in the list of our sponsors as per the GitHub sponsors description.
+
+#### Sponsor the RDFmapped project
+
+If you are interested in becoming on official sponsor of the RDFmapped project, please [contact us](https://rdfmapped.com/contact).
+
+Your organisation/company name & logo will be featured on the rdfmapped.com website as well as the project readme based on your chosen support tier.
+
+## Credits
+
+Kudos to 
