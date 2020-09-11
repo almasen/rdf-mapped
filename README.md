@@ -65,15 +65,19 @@ Seriously, if you want to just change the padding of a div on a page, that's als
 
 Here are some of the main planned upgrades:
 
-- public API with OAuth 2.0
-- submission of multiple courses/videos
-- improve "similar courses/videos" algorithm
-- bulk upload of CSV & JSON datasets (admin)
-- refactor auth & logic of admin routes
-- a pretty page for supporters
-- a page about elephants
+- [x] automatic GitHub issue creation
+- [ ] public API with OAuth 2.0
+- [x] dev subdomain & subpages
+- [ ] submission of multiple courses/videos
+- [ ] improve "similar courses/videos" algorithm
+- [ ] bulk upload of CSV & JSON datasets (admin)
+- [ ] refactor auth & logic of admin routes
+- [ ] a pretty page for supporters
+- [ ] a page about elephants
 
 These are in no particular order (elephant page first plz) and again, any contributions are welcome!
+
+If you are interested in working on one of the above mentioned planned features, please refer to the [kanban board](https://github.com/almasen/rdf-mapped/projects/1).
 
 #### Building
 
