@@ -85,6 +85,34 @@ If you would like to submit more than one, please submit the above form once for
 
 [We plan to expand this feature soon](#planned-features) so that you can submit multiple courses & videos via the form.
 
-### Report a vulnerability
+### Reporting a vulnerability
 
 For security related issues, such as reporting a vulnerability, please consult the [security policy](https://github.com/almasen/rdf-mapped/security/policy).
+
+## Supporting RDFmapped
+
+RDFmapped is a free, open source project and therefore donations are greatly appreciated.
+
+### Sponsors
+
+[![KCL Logo](https://rdfmapped.com/img/kcl/KCL_box_red_485_rgb_comp.webp)](https://kcl.ac.uk "King's College London")
+
+Huge thanks to King's College London for sponsoring the initial development of the project.
+
+### Support our development
+
+#### Donations are welcome
+
+Consider supporting us by a one-time or recurring donation via [Github Sponsors](./.github/FUNDING.yml).
+
+Your name will be featured in the list of our sponsors as per the GitHub sponsors description.
+
+#### Sponsor the RDFmapped project
+
+If you are interested in becoming on official sponsor of the RDFmapped project, please [contact us](https://rdfmapped.com/contact).
+
+Your organisation/company name & logo will be featured on the rdfmapped.com website as well as the project readme based on your chosen support tier.
+
+## Credits
+
+Kudos to 
