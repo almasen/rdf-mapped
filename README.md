@@ -105,7 +105,7 @@ Huge thanks to King's College London for sponsoring the initial development of t
 
 #### Donations are welcome
 
-Consider supporting us by a one-time or recurring donation via [Github Sponsors](./.github/FUNDING.yml).
+Consider supporting us by a one-time or recurring donation via [Github Sponsors](https://paypal.me/almasen).
 
 Your name will be featured in the list of our sponsors as per the GitHub sponsors description.
 
@@ -117,4 +117,20 @@ Your organisation/company name & logo will be featured on the rdfmapped.com webs
 
 ## Credits
 
-Kudos to 
+__Centre for Doctoral Studies__
+
+Huge thanks to the [Centre for Doctoral Studies, King's College London](https://www.kcl.ac.uk/doctoralstudies "KCL Doctoral Studies") for open sourcing RDFmapped and for the awesome opportunity to have worked on this project.
+
+__Vitae dataset__
+
+Vitae credit TODO: TBD
+
+__KCL UG project team__
+
+Kudos to [@StenAL](https://github.com/StenAL), [@paumue](https://github.com/paumue), [@finwarman](https://github.com/finwarman) & [@houssam966](https://github.com/houssam966) for allowing me to use part of the backend code we have had written for our second year undergraduate project at KCL.
+
+## Contact
+
+For development related queries, issue creation is our preferred way of being contacted. If your query contains PII or any other sensitive information, please email us at the address on our profiles.
+
+With any other questions, please refer to the [contact form](https://rdfmapped.com/contact) on the rdfmapped.com website.
