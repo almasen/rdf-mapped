@@ -122,15 +122,9 @@ For security related issues, such as reporting a vulnerability, please consult t
 
 ## Credits
 
-### Centre for Doctoral Studies
-
 Huge thanks to the [Centre for Doctoral Studies, King's College London](https://www.kcl.ac.uk/doctoralstudies "KCL Doctoral Studies") for open sourcing RDFmapped and for the awesome opportunity to work on this project.
 
-### Vitae dataset
-
-Vitae credit TODO: TBD
-
-### KCL UG project team
+Credits to Vitae for the initial dataset of mapped LinkedIn Learning learning material. TODO: specific team/group of people pending
 
 Kudos to [@StenAL](https://github.com/StenAL), [@paumue](https://github.com/paumue), [@finwarman](https://github.com/finwarman) & [@houssam966](https://github.com/houssam966) for allowing me to use part of the backend code we have had written for our second year undergraduate project at KCL.
 
