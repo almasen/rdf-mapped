@@ -113,6 +113,7 @@ const createIssue = async (title, body, label) => {
             body,
             labels: [label],
         });
+        log.info("Successfully created Github Issue - %s", title);
     } catch (error) {
         log.error("Github Issue creation FAILED, err: " + error.message);
     };
