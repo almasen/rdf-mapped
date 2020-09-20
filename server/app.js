@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const rateLimit = require("express-rate-limit");
+const csrf = require("csurf");
 
 // Initialise application
 const app = express();
@@ -18,11 +19,12 @@ const redisClient = redis.createClient();
 // -- App config -- //
 app.set('view-engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'assets')));
-app.use(express.static(path.join(__dirname, 'node_modules')));
+// app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(helmet({
     hsts: false, // enabled in higher level server conf
 }));
 app.use(cookieParser()); // if secret is specified, it should match session secret
+app.use(csrf({cookie: true}));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use('/favicon.ico', express.static(path.join(__dirname, 'assets/favicon/favicon_new.ico')));

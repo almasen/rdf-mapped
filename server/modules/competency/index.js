@@ -3,6 +3,7 @@
  */
 const competencyRepo = require("../../repositories/competency");
 const cache = require("../cache");
+const _ = require('lodash');
 
 /**
  * Fetch all competencies. If cached,
@@ -30,7 +31,8 @@ const fetchAll = async () => {
 const fetchByKeyword = async (keyword) => {
     if (cache.has("competencies")) {
         const cachedVal = cache.get("competencies");
-        const regex = RegExp(keyword ? keyword : '', 'i');
+        const safeKey = _.escapeRegExp(keyword);
+        const regex = RegExp(safeKey ? safeKey : '', 'i');
         const matching = [];
         cachedVal.forEach(e => {
             if (regex.test(e.title)) {

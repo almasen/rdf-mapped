@@ -3,6 +3,7 @@
  */
 const categoryRepo = require("../../repositories/category");
 const cache = require("../cache");
+const _ = require('lodash');
 
 /**
  * Fetch all categories. If cached,
@@ -30,7 +31,8 @@ const fetchAll = async () => {
 const fetchByKeyword = async (keyword) => {
     if (cache.has("categories")) {
         const cachedVal = cache.get("categories");
-        const regex = RegExp(keyword ? keyword : '', 'i');
+        const safeKey = _.escapeRegExp(keyword);
+        const regex = RegExp(safeKey ? safeKey : '', 'i');
         const matching = [];
         cachedVal.forEach(e => {
             if (regex.test(e.title)) {

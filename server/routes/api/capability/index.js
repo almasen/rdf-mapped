@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
         });
     } catch (error) {
         log.error("API: Failed fetching capabilities, err: " + error.message);
-        res.status(404).send(error.message);
+        res.status(404).send({message: error.message});
     }
 });
 

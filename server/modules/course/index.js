@@ -6,6 +6,7 @@ const coursePhaseRepo = require("../../repositories/course/phase");
 const log = require("../../util/log");
 const filtering = require("../filtering");
 const cache = require("../cache");
+const _ = require('lodash');
 
 /**
  * Fetch similar course records by provided course and course-phase
@@ -84,7 +85,8 @@ const fetchByFilters = async (filters) => {
     if (cache.has("courses")) {
         const cachedVal = cache.get("courses");
         const matching = [];
-        const regex = RegExp(filters.keyword ? filters.keyword : '', 'i');
+        const safeKey = _.escapeRegExp(filters.keyword);
+        const regex = RegExp(safeKey ? safeKey : '', 'i');
         cachedVal.forEach(e => {
             if (
                 (
