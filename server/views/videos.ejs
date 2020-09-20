@@ -15,38 +15,51 @@
 
     <%- include('./components/stylesheets'); -%>
     <%- include('./components/scripts'); -%>
-    <script src="/infinite-scroll/dist/infinite-scroll.pkgd.min.js"></script>
-</head>
+    <script src="/js/infinite-scroll.pkgd.min.js"></script>
+    <style>
+        @media (min-width: 800px) {
+            #infiniteCards {
+                min-width: 438px;
+            }
+        }
 
-<body>
-    <%- include('./components/header'); -%>
+        @media (max-width: 800px) {
+            #infiniteCards {
+                min-width: 400px;
+            }
+        }
+    </style>
+    </head>
 
-    <main class="page faq-page">
-        <section class="clean-block clean-faq dark">
-            <div class="container">
-                <%- include('./components/floating-back-button'); -%>
-                <div class="block-heading">
-                    <h2 class="text-info">Videos</h2>
-                    <% if (pageData.data.length > 0) { %>
-                    <p>Simply click on a card to open up a video's page.</p>
-                    <% } else { %>
-                    <p>We couldn't find any videos with these search parameters. <i
-                            class="material-icons icon">sentiment_dissatisfied</i><br>Please consider adjusting the
-                        filters.</p>
-                    <% } %>
-                </div>
-                <div class="row">
-                    <div class="col" style="max-width: 25%;"></div>
-                    <div class="col" style="min-width: 438px;">
-                        <%- include('./components/results-list'); -%>
+    <body>
+        <%- include('./components/header'); -%>
+
+        <main class="page faq-page">
+            <section class="clean-block clean-faq dark">
+                <div class="container">
+                    <%- include('./components/floating-back-button'); -%>
+                    <div class="block-heading" style="padding-top: 25px;">
+                        <h2 class="text-info">Videos</h2>
+                        <% if (pageData.data.length > 0) { %>
+                        <p>Simply click on a card to open up a video's page.</p>
+                        <% } else { %>
+                        <p>We couldn't find any videos with these search parameters. <i
+                                class="material-icons icon">sentiment_dissatisfied</i><br>Please consider adjusting the
+                            filters.</p>
+                        <% } %>
                     </div>
-                    <div class="col" style="max-width: 25%;"></div>
+                    <div class="row">
+                        <div class="col" style="max-width: 25%;"></div>
+                        <div class="col" id="infiniteCards">
+                            <%- include('./components/results-list'); -%>
+                        </div>
+                        <div class="col" style="max-width: 25%;"></div>
+                    </div>
                 </div>
-            </div>
-        </section>
-    </main>
+            </section>
+        </main>
 
-    <%- include('./components/footer'); -%>
-</body>
+        <%- include('./components/footer'); -%>
+    </body>
 
-</html>
+    </html>

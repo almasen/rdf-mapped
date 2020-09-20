@@ -19,7 +19,7 @@ const redisClient = redis.createClient();
 // -- App config -- //
 app.set('view-engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'assets')));
-app.use(express.static(path.join(__dirname, 'node_modules')));
+// app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(helmet({
     hsts: false, // enabled in higher level server conf
 }));

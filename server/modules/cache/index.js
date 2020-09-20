@@ -82,7 +82,7 @@ const updateAllFromAPI = async () => {
     for await (const key of modulesCache.keys()) {
         // check if object has an LinkedIn Learning API ID
         const val = modulesCache.get(key);
-        if (/^urn:li:/.test(val.urn)) {
+        if (/^urn:li:/.test(val.urn) && successCount < 30) {
             const learningObj = await linkedinApi.fetchLearningObject(val.urn);
             if (learningObj) {
                 ++successCount;
