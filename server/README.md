@@ -92,3 +92,6 @@ Note sure why you would want this for local testing
 GOOGLE_RECAPTCHA_KEY
 ```
 
+## Sample data
+
+There are sample datasets available for testing at the [rdf-mapped-data repository](https://github.com/almasen/rdf-mapped-data).
