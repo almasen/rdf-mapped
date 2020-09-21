@@ -41,7 +41,7 @@ Huge thanks to King's College London for sponsoring the initial development of t
 
 #### Donations are welcome
 
-Consider supporting us by a one-time or recurring donation via [Github Sponsors](https://paypal.me/almasen).
+Consider supporting us by a [one-time](https://paypal.me/almasen) or recurring donation via [Github Sponsors](https://github.com/sponsors/almasen).
 
 Your name will be featured in the list of our sponsors as per the GitHub sponsors description.
 
