@@ -177,6 +177,7 @@
                             </div>
                             <div class="card" style="padding-top: 20px;">
                             <form style="margin: 20px 20px 20px 20px;" action="/submission/<%= id %>/map" method="POST">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <div class="row" style="padding-bottom: 16px; padding-left: 15px; padding-right: 15px;">
                                     <h5 style="padding-bottom: 6px;">RDF Parameters</h5>
                                     <select class="custom-select" name="capability" id="stepByStepSelectCapability" onchange="capabilityChange(this)"

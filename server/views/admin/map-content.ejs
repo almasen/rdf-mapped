@@ -164,6 +164,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <form style="margin: 20px 20px 20px 20px;" action="/admin/content/edit?action=<%= action %>&type=<%= type %>&id=<%= content.id %>" method="POST">
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                         <input type="text" name="title" hidden readonly value="<%= content.title %>">
                                         <input type="text" name="hyperlink" hidden readonly value="<%= content.hyperlink %>">
                                         <input type="text" name="urn" hidden readonly value="<%= content.urn %>">

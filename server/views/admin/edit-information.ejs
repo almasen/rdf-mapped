@@ -37,6 +37,7 @@
                         <form action="/admin/information" method="POST" id="updateInfoForm" target="dummyframe">
                             <button onclick="getEditorValue()" type="submit" class="btn btn-primary" name="updatedInformation" id="updatedInformationButton" value="cheese">Save & submit</button>
                             <input type="text" name="type" hidden readonly value="<%= informationType %>">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         </form>
                     </div>
 

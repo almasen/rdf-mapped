@@ -49,6 +49,7 @@
                     <p>Here you can submit a new course or video that will be featured on the RDFmapped website.</p>
                 </div>
                 <form action="/submit" method="POST" target="dummyIFrame" id="submitForm">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <div id="form-inner">
                         <fieldset class="form-group">
                             <h5 style="padding-bottom: 6px;">Type of content</h5>

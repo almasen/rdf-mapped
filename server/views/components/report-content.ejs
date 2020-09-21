@@ -11,6 +11,7 @@
             </div>
             <div class="modal-body">
                 <form action="/bugreport" method="POST" id="reportContentForm" target="dummyframe2">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <div class="form-group">
                         <label for="email">Optionally provide a follow-up email address:</label>
                         <input class="form-control" id="email" name="email" type="email" aria-describedby="emailHelp">
