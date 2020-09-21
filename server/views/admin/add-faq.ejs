@@ -42,6 +42,7 @@
                             submit</button>
                         <p style="padding-top: 15px;">Add the FAQ question here (plain text only):</p>
                         <input class="form-control" type="text" name="question" required placeholder="Replace this text with FAQ question">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     </form>
 
                     <p style="padding-top: 15px;">Rich text editor for FAQ answer:</p>

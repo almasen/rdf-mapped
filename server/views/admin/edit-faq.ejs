@@ -44,6 +44,7 @@
                         <input type="text" name="id" hidden readonly value="<%= faq.id %>">
                         <p style="padding-top: 15px;">Edit the FAQ question here (plain text only):</p>
                         <input class="form-control" type="text" name="question" value="<%= faq.question %>">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     </form>
 
                     <p style="padding-top: 15px;">Rich text editor for FAQ answer:</p>

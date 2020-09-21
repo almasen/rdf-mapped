@@ -46,6 +46,7 @@
                                 form</b></a> if you would like to suggest learning material.</p>
                 </div>
                 <form action="/contact" method="POST" target="dummyIFrame" id="contactUsForm">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <div id="form-inner">
                         <div class="form-group"><label>Reason</label>
                             <select class="form-control" id="reason" name="reason" required>

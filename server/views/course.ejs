@@ -137,6 +137,7 @@
                                                 class="material-icons"> sentiment_very_dissatisfied </i> Please consider
                                             flagging this simply by clicking on this field. </span>
                                         <input id="email" name="email" value="missing-recommendations" hidden>
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                         <input id="report" name="report"
                                             value="Missing recommendations for course 'id:<%= course.id %>'" hidden>
                                     </form>
