@@ -44,6 +44,13 @@ const anonymiseData = (data) => {
         );
         data['g-recaptcha-response'] = anonRes;
     }
+    if (data['_csrf']) {
+        const anonRes = digest.hashPassWithSaltInHex(
+            data['_csrf'],
+            process.env.SERVER_SECRET,
+        );
+        data['_csrf'] = anonRes;
+    }
     return data;
 };
 
