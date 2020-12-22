@@ -4,7 +4,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/8f122bbf86794463b3b10f85bcf28249)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=almasen/rdf-mapped&amp;utm_campaign=Badge_Grade)
 [![Module Docs](https://img.shields.io/badge/module-docs-informational?logo=node.js)](https://dev.rdfmapped.com/docs)
 [![Submit Content](https://img.shields.io/badge/learning-submit%20content-informational?logo=linkedin)](https://rdfmapped.com/submit)
-[![Lighthouse](https://img.shields.io/badge/Lighthouse-98.25%25-success?logo=Lighthouse)](https://googlechrome.github.io/lighthouse/viewer/?psiurl=https%3A%2F%2Frdfmapped.com%2F&strategy=desktop&category=performance&category=accessibility&category=best-practices&category=seo&category=pwa&utm_source=lh-chrome-ext)
+[![Lighthouse](https://img.shields.io/badge/Lighthouse-98.5%25-success?logo=Lighthouse)](https://googlechrome.github.io/lighthouse/viewer/?psiurl=https%3A%2F%2Frdfmapped.com%2F&strategy=desktop&category=performance&category=accessibility&category=best-practices&category=seo&category=pwa&utm_source=lh-chrome-ext)
 
 ## About RDFmapped
 
