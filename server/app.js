@@ -38,7 +38,7 @@ app.use(session({
 app.use(csrf({cookie: true}));
 app.use((req, res, next) => {
     const token = req.csrfToken();
-    res.cookie('XSRF-TOKEN', token);
+    res.cookie('XSRF-TOKEN', token, {secure: true, httpOnly: true});
     res.locals.csrfToken = token;
     next();
 });
