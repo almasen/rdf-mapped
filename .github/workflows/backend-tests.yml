@@ -6,6 +6,10 @@ on:
     branches:
       - master # master (rerun tests after merging a PR)
       - dev
+  pull_request:
+    branches:
+      - master
+      - dev
 
 jobs:
   # build and run tests
