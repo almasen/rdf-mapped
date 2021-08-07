@@ -1,4 +1,4 @@
-[![RDfmapped](./server/assets/img/promo/rdfmapped_social_narrower.png)](https://rdfmapped.com)
+[![RDfmapped](./server/assets/img/promo/rdfmapped_social_narrower_fullcolor.png)](https://rdfmapped.com)
 [![Build & Tests](https://github.com/almasen/rdf-mapped/workflows/Build/badge.svg)](https://github.com/almasen/rdf-mapped/actions)
 [![Test Coverage](https://img.shields.io/badge/dynamic/json?color=success&label=test%20coverage&query=%24.total.statements.pct&suffix=%25&url=https%3A%2F%2Fdev.rdfmapped.com%2Fcoverage%2Fcoverage-summary.json&logo=jest)](https://dev.rdfmapped.com/coverage)
 [![Codacy Badge](https://img.shields.io/badge/code%20quality-A-success?logo=Codacy&style=flat)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=almasen/rdf-mapped&amp;utm_campaign=Badge_Grade)
