@@ -1,7 +1,7 @@
-[![RDfmapped](./server/assets/img/promo/rdfmapped_social_narrower.png)](https://rdfmapped.com)
+[![RDfmapped](./server/assets/img/promo/rdfmapped_social_narrower_fullcolor.png)](https://rdfmapped.com)
 [![Build & Tests](https://github.com/almasen/rdf-mapped/workflows/Build/badge.svg)](https://github.com/almasen/rdf-mapped/actions)
 [![Test Coverage](https://img.shields.io/badge/dynamic/json?color=success&label=test%20coverage&query=%24.total.statements.pct&suffix=%25&url=https%3A%2F%2Fdev.rdfmapped.com%2Fcoverage%2Fcoverage-summary.json&logo=jest)](https://dev.rdfmapped.com/coverage)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/8f122bbf86794463b3b10f85bcf28249)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=almasen/rdf-mapped&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://img.shields.io/badge/code%20quality-A-success?logo=Codacy&style=flat)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=almasen/rdf-mapped&amp;utm_campaign=Badge_Grade)
 [![Module Docs](https://img.shields.io/badge/module-docs-informational?logo=node.js)](https://dev.rdfmapped.com/docs)
 [![Submit Content](https://img.shields.io/badge/learning-submit%20content-informational?logo=linkedin)](https://rdfmapped.com/submit)
 [![Lighthouse](https://img.shields.io/badge/Lighthouse-98.5%25-success?logo=Lighthouse)](https://googlechrome.github.io/lighthouse/viewer/?psiurl=https%3A%2F%2Frdfmapped.com%2F&strategy=desktop&category=performance&category=accessibility&category=best-practices&category=seo&category=pwa&utm_source=lh-chrome-ext)
@@ -18,7 +18,7 @@ Some tech specs of rdfmapped.com project
 
 - CI with Jest & [99%+ module coverage](https://dev.rdfmapped.com/coverage)
 - HTTP Strict Transport Security [HSTS preloaded](https://hstspreload.org/?domain=rdfmapped.com "HSTS Preloaded")
-- [Lightouse 90+](https://googlechrome.github.io/lighthouse/viewer/?psiurl=https%3A%2F%2Frdfmapped.com%2F&strategy=desktop&category=performance&category=accessibility&category=best-practices&category=seo&category=pwa&utm_source=lh-chrome-ext) for all tests
+- [Lightouse 95+](https://googlechrome.github.io/lighthouse/viewer/?psiurl=https%3A%2F%2Frdfmapped.com%2F&strategy=desktop&category=performance&category=accessibility&category=best-practices&category=seo&category=pwa&utm_source=lh-chrome-ext) for all tests
 - automatically deployed [module documentation](https://dev.rdfmapped.com/docs)
 - user authentication via Encrypted JWTs
 - automatic updating of LinkedIn Learning API content
@@ -41,7 +41,7 @@ Huge thanks to King's College London for sponsoring the initial development of t
 
 #### Donations are welcome
 
-Consider supporting us by a [one-time](https://paypal.me/almasen) or recurring donation via [Github Sponsors](https://github.com/sponsors/almasen).
+Consider supporting us by a [one-time](https://github.com/sponsors/almasen?frequency=one-time) or recurring donation via [Github Sponsors](https://github.com/sponsors/almasen).
 
 Your name will be featured in the list of our sponsors as per the GitHub sponsors description.
 
