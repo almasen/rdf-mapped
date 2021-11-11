@@ -39,12 +39,6 @@ Huge thanks to King's College London for sponsoring the initial development of t
 
 ### Support our development
 
-#### Donations are welcome
-
-Consider supporting us by a [one-time](https://github.com/sponsors/almasen?frequency=one-time) or recurring donation via [Github Sponsors](https://github.com/sponsors/almasen).
-
-Your name will be featured in the list of our sponsors as per the GitHub sponsors description.
-
 #### Sponsor the RDFmapped project
 
 If you are interested in becoming on official sponsor of the RDFmapped project, please [contact us](https://rdfmapped.com/contact).
