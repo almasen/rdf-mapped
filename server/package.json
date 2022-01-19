@@ -19,7 +19,8 @@
     "prod-start": "env NODE_ENV=production node ./server",
     "check-all": "db-migrate reset; db-migrate up; npm i; jest -i; jsdoc -r -c ./jsdoc/.jsdocrc.json ./modules; eslint ./ --fix",
     "rem-logs": "del-cli ./log/*.log",
-    "rem-exports": "del-cli ./exports/*"
+    "rem-exports": "del-cli ./exports/*",
+    "audit": "better-npm-audit audit -p"
   },
   "dependencies": {
     "@octokit/request": "^5.4.9",
@@ -61,6 +62,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "better-npm-audit": "^3.5.1",
     "del-cli": "^3.0.1",
     "eslint": "^7.9.0",
     "eslint-config-google": "^0.14.0",
