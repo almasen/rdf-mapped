@@ -16,7 +16,7 @@ jobs:
 
       - name: Publish server components
         uses: easingthemes/ssh-deploy@v2.1.4
-        env:
+        with:
           SOURCE: "server/"
           TARGET: ${{ secrets.DEPLOY_DIR }}
           REMOTE_HOST: ${{ secrets.SSH_HOST }}

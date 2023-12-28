@@ -118,7 +118,7 @@ jobs:
 
       - name: Publish test coverage
         uses: easingthemes/ssh-deploy@v2.1.4
-        env:
+        with:
           SOURCE: "coverage"
           TARGET: ${{ secrets.COVERAGE_DIR }}
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
@@ -132,7 +132,7 @@ jobs:
 
       - name: Publish module documentation
         uses: easingthemes/ssh-deploy@v2.1.4
-        env:
+        with:
           SOURCE: "docs"
           TARGET: ${{ secrets.DOCS_DIR }}
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
