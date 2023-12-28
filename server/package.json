@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@octokit/request": "^5.4.9",
-    "@sendgrid/mail": "^7.4.1",
+    "@sendgrid/mail": "^8.1.0",
     "adm-zip": "^0.4.16",
     "connect-redis": "^5.0.0",
     "cookie-parser": "^1.4.5",
